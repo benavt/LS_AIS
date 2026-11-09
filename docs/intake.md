@@ -44,3 +44,13 @@ Native coordinate bytes, exact model IDs and available scalar observations are
 retained. Both remaining generation arrays are held; no accepted ProteinEBM
 energies exist. The private static atlas and compact dataset are review
 candidates. Public deployment and Zenodo publication remain unapproved.
+
+
+## Workflow correction and publication hold
+
+The user stopped publication and confirmed ProteinEBM, HDBSCAN, and MCMC/DISCO
+as required atlas coverage. The project-pinned skill includes these defaults;
+the older installed global copy omitted them. The previous candidate remains a
+partial historical preview. The current target specification and
+`config/workflow-coverage.json` now record the complete requirements and hold
+publication. No new science or publication was started by this correction.

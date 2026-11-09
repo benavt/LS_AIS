@@ -15,7 +15,13 @@ or their existing remote scientific runs. Commit source, settings and hash roste
 Start new source branches from fetched origin/main using codex/<task>; request
 approval for reviewed merges. Source check: python3 scripts/status.py.
 
-Use the structure-atlas-page and zenodo-model-deposition skills. Test the actual
+Use the structure-atlas-page and zenodo-model-deposition skills from the exact
+Structure_Clustering Git pin, including their referenced contracts and templates.
+The installed global atlas skill may be older; it must not narrow the pinned
+defaults. Require ProteinEBM coverage, UMAP KNN, geometry-based HDBSCAN, and the
+documented HDBSCAN-guided MCMC/DISCO workflow. Track each view in
+config/workflow-coverage.json and keep publication held while required assets
+are incomplete. Test the actual
 private atlas before publishing its exact reviewed bundle. A reserved draft DOI
 must never be reported as a published dataset.
 

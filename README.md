@@ -23,7 +23,20 @@ AFsample2 ranking confidence for 1,000 and native OpenDDE/AF3 ranking score for
 arms remain blocked pending the required kernel containment on their compute host.
 The atlas keeps missing scores empty and identifies energy separately from confidence.
 
-## Review and publication
+## Incomplete workflow and publication hold
+
+The saved atlas is a partial preview. The required full workflow also includes
+accepted ProteinEBM coverage, geometry-based HDBSCAN, its own medoids/ensembles,
+TM grid and native Bonsai, and HDBSCAN-guided structural states with MCMC/DISCO
+selection and diagnostics. None of those missing outputs is claimed complete.
+See [the coverage ledger](config/workflow-coverage.json) and
+[the completion requirements](docs/workflow-completeness.md).
+
+The user stopped publication pending these additions. The previous exact bundle
+and its accepted Primary results remain preserved. `scripts/build_site.py`
+refuses a publication build while coverage is incomplete or the hold is set.
+
+## Private preview
 
 The private atlas passed browser checks for the three projections, native model
 inspection, method/confidence colors, aligned ensembles, three Bonsai layouts,
@@ -41,8 +54,9 @@ The compact Zenodo candidate is exactly `sequence.fasta`, `README.md`,
 `scores.csv` and `models.tar.gz` (4,006 unchanged native structures; about 154 MiB).
 Its methods, score definitions and references are in
 [docs/dataset-README.md](docs/dataset-README.md). Data licensing is unresolved.
-Public GitHub Pages and Zenodo publication await review and explicit approval;
-there is no public dataset DOI or Pages deployment yet.
+Public GitHub Pages and Zenodo publication are held until the missing workflow
+is completed and its successor reviewed. There is no public dataset DOI or Pages
+deployment yet.
 
 ## Source and execution
 

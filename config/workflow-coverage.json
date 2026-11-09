@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "target": "HSPH1_12757_homodimer",
+  "status": "incomplete_private_preview",
+  "release_ready": false,
+  "publication_hold": true,
+  "hold_reason": "User stopped publication and confirmed full skill workflow requirements",
+  "cohort_models": 4006,
+  "residues": 234,
+  "model_roster_sha256": "5307df992cac7b9ae6a03382bba34fa8f8cd5cc0bcb02a2ff728abadc9606663",
+  "prior_candidate_manifest_sha256": "4daf9e1fd8cf651d716015f033602047854ea565aa41fd7498f9c063ada77da7",
+  "prior_candidate_policy": "Preserve exact saved bytes as a partial historical candidate; no publication from it",
+  "authoritative_skill": {
+    "repository": "benavt/Structure_Clustering",
+    "commit": "f3063757460303e1a4a4ba0b3629fe81776c58c4",
+    "path": ".agents/skills/structure-atlas-page/SKILL.md",
+    "sha256": "08981c88a86f90264edb60a90e7d39595b2c9177e95d09649d613607cdfafbe2"
+  },
+  "requirements": [
+    {
+      "id": "native_roster",
+      "range": "all",
+      "view": "shared",
+      "status": "verified",
+      "detail": "4006 exact native models; both117-residue chains; unchanged coordinate hashes"
+    },
+    {
+      "id": "display_projections",
+      "range": "all",
+      "view": "shared",
+      "status": "verified",
+      "detail": "Saved PCA/UMAP/t-SNE;4006 finite points each; preserve coordinates"
+    },
+    {
+      "id": "ProteinEBM",
+      "range": "all",
+      "view": "shared",
+      "status": "blocked",
+      "detail": "Zero accepted scores; approved remote containment prerequisite unresolved. All4006 current models require coverage,including six pilots currently dependent on later arm acceptance."
+    },
+    {
+      "id": "memberships",
+      "range": "all",
+      "view": "primary",
+      "status": "verified",
+      "detail": "27 accepted UMAP KNN structural clusters"
+    },
+    {
+      "id": "structures_ensembles",
+      "range": "all",
+      "view": "primary",
+      "status": "verified",
+      "detail": "27 exact medoids and27 five-member aligned ensembles"
+    },
+    {
+      "id": "medoid_TM_grid",
+      "range": "all",
+      "view": "primary",
+      "status": "verified",
+      "detail": "27-by27 fixed-chain bidirectional USalign grid"
+    },
+    {
+      "id": "native_Bonsai",
+      "range": "all",
+      "view": "primary",
+      "status": "verified",
+      "detail": "Own161-model selection;three native layouts"
+    },
+    {
+      "id": "memberships",
+      "range": "all",
+      "view": "HDBSCAN",
+      "status": "missing",
+      "detail": "No accepted geometry-based HDBSCAN assignments or strengths; retain noise"
+    },
+    {
+      "id": "structures_ensembles",
+      "range": "all",
+      "view": "HDBSCAN",
+      "status": "missing",
+      "detail": "Select exact representatives/medoids and real aligned members from accepted density assignments"
+    },
+    {
+      "id": "medoid_TM_grid",
+      "range": "all",
+      "view": "HDBSCAN",
+      "status": "missing",
+      "detail": "Separate grid ordered by verified HDBSCAN medoids"
+    },
+    {
+      "id": "native_Bonsai",
+      "range": "all",
+      "view": "HDBSCAN",
+      "status": "missing",
+      "detail": "Native tree from HDBSCAN's own verified selection and residue scope"
+    },
+    {
+      "id": "structural_states",
+      "range": "all",
+      "view": "shared",
+      "status": "missing",
+      "detail": "HDBSCAN-guided state and representative discovery; verified fixed-chain membership and uncovered/unsupported accounting"
+    },
+    {
+      "id": "MCMC",
+      "range": "all",
+      "view": "shared",
+      "status": "missing",
+      "detail": "Saved full-dimer energy/density prior;bound protocol,seeds,run length,diagnostics,exact IDs and output hashes"
+    },
+    {
+      "id": "DISCO",
+      "range": "all",
+      "view": "shared",
+      "status": "missing",
+      "detail": "Verified energy-based coverage control and actual unique selected-model cardinality"
+    },
+    {
+      "id": "successor_browser_acceptance",
+      "range": "all",
+      "view": "shared",
+      "status": "missing",
+      "detail": "Both clustering views,shared figure choices,partition-specific TM grids,native trees,sampling panels and verified energy colors"
+    }
+  ],
+  "paid_external_calls": 0
+}

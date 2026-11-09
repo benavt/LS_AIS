@@ -19,9 +19,22 @@ def main():
     assert target['copies'] == 2 and target['chains'] == ['A', 'B']
     assert hashlib.sha256(target['sequence'].encode()).hexdigest() == target['sequence_sha256']
     assert study['requested_additions'] == {'afsample3': 1000, 'bioemu2': 1000}
-    assert study['publication']['status'] == 'not_published'
+    coverage = json.loads((ROOT / 'config/workflow-coverage.json').read_text())
+    assert coverage['cohort_models'] == len(rows)
+    assert coverage['model_roster_sha256'] == study['available_snapshot']['roster_sha256']
+    assert coverage['authoritative_skill']['commit'] == study['library_commit']
+    spec = json.loads((ROOT / 'config/target-spec.json').read_text())
+    assert spec['analysis']['alternative_clusterings'] == ['HDBSCAN']
+    assert spec['analysis']['sampling']['methods'] == ['MCMC', 'DISCO']
+    incomplete = [r for r in coverage['requirements'] if r['status'] != 'verified']
+    if incomplete:
+        assert not coverage['release_ready'] and coverage['publication_hold']
+        assert study['publication']['hold']
+    assert study['publication']['status'] == 'held_incomplete_workflow'
     print(json.dumps(dict(status='source_and_roster_verified', available_models=len(rows),
-                          requested_arm_models=2000, remaining_models=study['requested_total']-len(rows), check_runs_science=False)))
+                          requested_arm_models=2000, remaining_models=study['requested_total']-len(rows),
+                          workflow_status=coverage['status'], incomplete_requirements=len(incomplete),
+                          publication_held=coverage['publication_hold'], check_runs_science=False)))
 
 if __name__ == '__main__':
     main()

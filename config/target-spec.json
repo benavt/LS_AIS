@@ -45,13 +45,25 @@
     },
     "alternate_residues": [],
     "primary_clustering": "UMAP KNN",
-    "alternative_clusterings": [],
+    "alternative_clusterings": [
+      "HDBSCAN"
+    ],
     "projections": [
       "UMAP",
       "PCA",
       "t-SNE"
     ],
-    "scores": "Verified native scalar confidence plus accepted full-dimer ProteinEBM Model 6 t=0.10; no filling missing values",
+    "scores": [
+      {
+        "method": "ProteinEBM",
+        "model_version": "Model 6 expert",
+        "time": 0.1,
+        "scoring_construct": "Complete homodimer: both 117-residue chains including supplied tag",
+        "verify_before_new_clustering": true,
+        "coverage": "Every exact model ID and native-coordinate hash in the selected cohort",
+        "status": "blocked_no_accepted_values"
+      }
+    ],
     "new_energy_calculations": true,
     "ensembles": "Common genuine confidence ranking, maximum five per cluster; unscored structural medoid",
     "supplements": [
@@ -59,7 +71,54 @@
       "representative TM grid",
       "Bonsai"
     ],
-    "chain_mapping": "AFsample2/AFcluster/SPEACH_AF native B->A, C->B; OpenDDE native A->A, B->B; fixed by producer mapping, never fit-dependent chain permutation"
+    "chain_mapping": "AFsample2/AFcluster/SPEACH_AF native B->A, C->B; OpenDDE native A->A, B->B; fixed by producer mapping, never fit-dependent chain permutation",
+    "hdbscan": {
+      "required": true,
+      "structural_features": "Same complete234-C-alpha pair-distance features and fixed chain map as saved Primary; exclude energy from geometry",
+      "fit_population": "Exact frozen4006-model cohort",
+      "inference_embedding": "Proposed native10D UMAP; final source/settings must be frozen in an executable successor plan",
+      "diagnostic_seeds": [
+        42,
+        7,
+        123
+      ],
+      "unassigned_policy": "Retain all noise points and their native model identities; do not convert noise to structural clusters",
+      "state_and_representative_selection": "Required from accepted density assignments, exact native IDs/hashes and verified fixed-chain structural membership",
+      "mcmc_protocol": "Required documented saved-energy distinct50 MCMC and DISCO control; homodimer-specific adapter and exact membership protocol must be reviewed before execution",
+      "status": "missing"
+    },
+    "sampling": {
+      "required": true,
+      "methods": [
+        "MCMC",
+        "DISCO"
+      ],
+      "inputs": [
+        "accepted full-dimer ProteinEBM Model6 t=0.10 scores",
+        "accepted HDBSCAN assignments and density prior",
+        "verified structural states and native coordinate identities"
+      ],
+      "protocol_reference": "Pinned library docs/tm-state-sampling.md and reusable ensemble_sampling/tm_state_subset modules",
+      "proposed_panel_size": 50,
+      "proposed_chains": 4,
+      "proposed_proposals_per_chain": 10000,
+      "proposed_burn_in": 1000,
+      "production_panel": "Preselected chain0 final iteration; preserve rejected steps",
+      "controls": "Exact product-weight subset controls and state-complete minimum-energy-per-fine-group DISCO50",
+      "noise_policy": "Preserve original full-cohort HDBSCAN noise stratum; no duplicate padding",
+      "diagnostics": [
+        "acceptance traces",
+        "panel energy and method/cluster/noise counts",
+        "Rhat and ESS with unavailable diagnostics explicit",
+        "comparison to exact subset controls"
+      ],
+      "execution_status": "not_prepared_for_execution",
+      "protocol_adaptation": "Existing state runner is CASP17/monomer-specific; preserve the fixed A/B chain correspondence through a validated homodimer adapter. Do not copy its target masks,11000-model constants or old approvals."
+    },
+    "bonsai": {
+      "required_per_clustering_view": true,
+      "selection_policy": "Native tree from each view's own verified model selection and full234-residue geometry; the saved Primary tree does not complete the HDBSCAN requirement"
+    }
   },
   "page": {
     "layout_reference": "AIS CASP17 shared explorer",
@@ -71,6 +130,11 @@
       "aligned ensembles",
       "supplements",
       "native-model Zenodo package"
-    ]
+    ],
+    "figures": {
+      "shared_across_clustering_views": true,
+      "tm_heatmap_basis": "Verified medoids from the active partition"
+    },
+    "publication_hold": "User stopped publication pending ProteinEBM,HDBSCAN,and MCMC/DISCO completion"
   }
 }

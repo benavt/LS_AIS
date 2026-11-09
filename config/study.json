@@ -38,13 +38,15 @@
   },
   "requested_total": 6000,
   "publication": {
-    "status": "not_published",
+    "status": "held_incomplete_workflow",
     "pages_url": null,
     "zenodo_record": null,
     "candidate_manifest_sha256": "4daf9e1fd8cf651d716015f033602047854ea565aa41fd7498f9c063ada77da7",
     "Zenodo_candidate_seal_sha256": "978918a74b93c5bec238075efe2a2a75497e2aa58c5cc4aec0fedcec4184f50e",
     "data_license": "unresolved",
-    "Zenodo_candidate_package_sha256": "fc3f562328a3fa1e5c6f97734323671fad55a6254c49f53e82553b926adebb0a"
+    "Zenodo_candidate_package_sha256": "fc3f562328a3fa1e5c6f97734323671fad55a6254c49f53e82553b926adebb0a",
+    "hold": true,
+    "hold_reason": "User stopped release pending ProteinEBM,HDBSCAN,and MCMC/DISCO"
   },
   "approved_analysis": {
     "plan_sha256": "4c643f8a64d9b56f7906b285221712542f3f445659914764b370a10f6ab9389a",
@@ -57,6 +59,7 @@
     "clusters": 27,
     "Bonsai_models": 161,
     "TM_comparisons": 702,
-    "projection_refits_during_recovery": 0
+    "projection_refits_during_recovery": 0,
+    "workflow_completeness": "partial; accepted saved Primary geometry only; energy coverage,HDBSCAN and sampling incomplete"
   }
 }
