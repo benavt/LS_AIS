@@ -20,6 +20,7 @@ import time
 
 PLAN_SHA = 'b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6'
 MONITOR_SHA = '206e0891dd533f808955c347716ac90d98f9c505d2a680f134fc94ab5a0a823a'
+STAGE_LIMITS = {'p0': (2 * 2**30, 540), 'p1': (16 * 2**30, 3540)}
 STOP = False
 
 
@@ -138,7 +139,8 @@ def worker(request_path):
     return child.returncode if child.returncode is not None and child.returncode >= 0 else 125
 
 
-def launch(output, command):
+def launch(output, command, stage='p0'):
+    memory_bytes, runtime_seconds = STAGE_LIMITS[stage]
     job = os.environ.get('SLURM_JOB_ID', '')
     if not job.isdigit():
         raise ValueError('Launch only within the approved Slurm allocation')
@@ -157,13 +159,20 @@ def launch(output, command):
     output.mkdir(exist_ok=False)
     allocation_path = output/'allocation.json'
     write_new(allocation_path, allocation)
-    command += ['--allocation-evidence',str(allocation_path),'--allocation-sha256',sha(allocation_path)]
-    request = {'approved_plan_sha256':PLAN_SHA, 'unit':'hsph1-' + job + '-p0-repair',
-               'allocation':allocation, 'memory_bytes':2*2**30, 'tasks':64,
-               'runtime_seconds':540, 'cwd':str(output.parent), 'canary':str(canary_path),
+    command = list(command)
+    if stage == 'p0':
+        command += ['--allocation-evidence',str(allocation_path),'--allocation-sha256',sha(allocation_path)]
+    source_hashes = {str(canary_path):sha(canary_path), str(Path(__file__).resolve()):sha(__file__)}
+    for argument in command:
+        candidate = Path(argument)
+        if candidate.is_absolute() and candidate.is_file():
+            source_hashes[str(candidate)] = sha(candidate)
+    request = {'approved_plan_sha256':PLAN_SHA, 'unit':'hsph1-' + job + '-' + stage + '-repair',
+               'allocation':allocation, 'memory_bytes':memory_bytes, 'tasks':64,
+               'runtime_seconds':runtime_seconds, 'cwd':str(output.parent), 'canary':str(canary_path),
                'environment':preserved_environment(os.environ),
                'monitor':'<private-monitor-path>',
-               'source_hashes':{str(canary_path):sha(canary_path),str(Path(__file__).resolve()):sha(__file__)},
+               'source_hashes':source_hashes,
                'native_log':str(output/'native-resource.log'),
                'worker_result':str(output/'worker-result.json'), 'command':command}
     monitor = Path(request['monitor'])
@@ -193,13 +202,13 @@ def launch(output, command):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='mode',required=True)
-    a=sub.add_parser('launch');a.add_argument('--output',type=Path,required=True);a.add_argument('command',nargs=argparse.REMAINDER)
+    a=sub.add_parser('launch');a.add_argument('--stage',choices=sorted(STAGE_LIMITS),default='p0');a.add_argument('--output',type=Path,required=True);a.add_argument('command',nargs=argparse.REMAINDER)
     a=sub.add_parser('worker');a.add_argument('--request',type=Path,required=True)
     a=p.parse_args()
     if a.mode=='worker':return worker(a.request)
     command=a.command[1:] if a.command[:1]==['--'] else a.command
     if not command:raise ValueError('Explicit frozen command is required')
-    return launch(a.output,command)
+    return launch(a.output,command,a.stage)
 
 
 if __name__=='__main__':raise SystemExit(main())

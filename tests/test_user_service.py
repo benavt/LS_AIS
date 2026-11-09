@@ -21,6 +21,12 @@ class UserService(unittest.TestCase):
             self.assertIn(option,argv)
         self.assertIn('--user',argv);self.assertIn('--wait',argv)
         self.assertLess(argv.index('/tmp/monitor/log_slurm_resources.py'),argv.index('/tmp/source'))
+    def test_preparation_stage_has_approved_limits(self):
+        self.assertEqual(module.STAGE_LIMITS, {'p0':(2*2**30,540),'p1':(16*2**30,3540)})
+        d=self.request();d.update(memory_bytes=16*2**30,runtime_seconds=3540,unit='hsph1-123-p1-repair')
+        argv=module.service_command(Path('/tmp/r'),d,'/usr/bin/python3',Path('/tmp/s'))
+        self.assertIn('--property=MemoryMax=17179869184',argv)
+        self.assertIn('--property=RuntimeMaxSec=3540',argv)
     def test_rejects_shared_or_unbounded_units(self):
         for key,value in [('unit','user.slice'),('memory_bytes',0),('tasks',65),('runtime_seconds',0)]:
             d=self.request();d[key]=value

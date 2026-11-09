@@ -45,6 +45,15 @@ class Containment(unittest.TestCase):
         result = canary.evaluate(rows, {1}, 1, {i:(0,i) for i in range(1,5)})
         self.assertEqual(result['status'], 'blocked')
 
+    def test_delegated_service_uses_bound_slurm_cpu_snapshot(self):
+        rows = [self.row(str(2*2**30),'64','0','0-95')]
+        topology = {7:(0,9),55:(0,9)}
+        self.assertEqual(canary.evaluate(rows,{7,55},1,topology)['status'],'blocked')
+        result = canary.evaluate(rows,{7,55},1,topology,{7,55})
+        self.assertEqual(result['status'],'passed')
+        self.assertEqual(result['allocation_cpuset'],[7,55])
+        self.assertEqual(len(result['working_cgroup_cpuset']),96)
+
     def test_parses_cpu_ranges_and_retains_missing_limits(self):
         self.assertEqual(canary.cpus('1-3,7'), {1,2,3,7})
         self.assertIsNone(canary.finite_min([self.row()], 'memory.max'))
