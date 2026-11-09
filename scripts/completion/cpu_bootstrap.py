@@ -75,7 +75,9 @@ def fixture(plan, directory):
     marginals = inclusion_probabilities(weights,k=2)
     assert np.isclose(np.asarray(marginals).sum(),2)
     native = subprocess.run([str(root/'bin/USalign'),'-h'],text=True,capture_output=True,timeout=20)
-    if '-TMscore' not in native.stdout + native.stderr:
+    write_new(directory/'USalign-help.json', {'return_code':native.returncode,
+        'stdout':native.stdout,'stderr':native.stderr})
+    if native.returncode != 0 or '-TMscore' not in native.stdout + native.stderr:
         raise ValueError('Pinned native USalign help unavailable')
     write_new(directory/'fixtures.json', {'status':'passed','scope':'synthetic only; no target models',
         'versions':versions,'python':sys.version,'python_sha256':sha(sys.executable),
@@ -97,11 +99,11 @@ def main():
     stage=Path(plan['stage_directory']);run=Path(plan['run_root'])
     prefix=Path(plan['environment_prefix']);result=Path(plan['result_directory'])
     attempt=plan.get('preparation_attempt',1)
-    assert attempt in (1,2)
+    assert attempt in (1,2,3)
     expected_prefix=run/('runtime/cpu' if attempt==1 else 'runtime/cpu_002')
     assert stage.is_relative_to(run/'01_staging') and prefix==expected_prefix and result.is_relative_to(run/'receipts')
     for name in ('PIP_CACHE_DIR','TMPDIR','NUMBA_CACHE_DIR','MPLCONFIGDIR','XDG_CACHE_HOME'):
-        os.environ[name]=str(run/('runtime/cache' if attempt==1 else 'runtime/cache_002')/name.lower())
+        os.environ[name]=str(run/('runtime/cache' if attempt==1 else ('runtime/cache_002' if attempt==2 else 'runtime/cache_003'))/name.lower())
         Path(os.environ[name]).mkdir(parents=True,exist_ok=True)
     os.environ.update(PIP_DISABLE_PIP_VERSION_CHECK='1',PIP_NO_INPUT='1',PYTHONNOUSERSITE='1',
         NUMBA_NUM_THREADS='1',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',
@@ -110,18 +112,30 @@ def main():
     if a.fixtures:
         fixture(plan,result)
         return
-    if prefix.exists() or result.exists():
-        raise ValueError('Preserve earlier attempt; prefix and result must be new')
+    validation_only = attempt == 3
+    assert plan.get('validation_only',False) == validation_only
+    if result.exists() or (prefix.exists() != validation_only):
+        raise ValueError('Preserve earlier attempts; validate only the bound installed environment')
+    if validation_only:
+        installed = plan['reused_installation']
+        assert sha(stage/'installation-plan.json') == installed['plan_sha256']
+        old = json.loads((stage/'installation-plan.json').read_text())
+        assert old['environment_prefix'] == str(prefix)
+        assert old['packages'] == plan['packages'] and old['base_python_sha256'] == plan['base_python_sha256']
+        receipt = json.loads((stage/'installation-worker.json').read_text())
+        assert receipt['return_code']==1 and receipt['service_limits_verified'] and receipt['stop_reason'] is None
     assert shutil.disk_usage(run).free>=50*2**30
     assert sha(plan['base_python'])==plan['base_python_sha256']
     previous=json.loads((stage/'P0-acceptance.json').read_text())
     assert previous['status']=='passed' and previous['job_id']=='25458'
     result.mkdir(parents=True)
-    subprocess.run([plan['base_python'],'-I','-B','-m','venv','--copies',str(prefix)],check=True,timeout=300)
     python=str(prefix/'bin/python')
-    subprocess.run([python,'-I','-B','-m','pip','install','--no-index','--no-cache-dir',
-        '--find-links',str(stage/'wheelhouse'),'--only-binary=:all:','--require-hashes',
-        '-r',str(stage/'cpu-requirements.lock')],check=True,timeout=900)
+    if not validation_only:
+        subprocess.run([plan['base_python'],'-I','-B','-m','venv','--copies',str(prefix)],check=True,timeout=300)
+        subprocess.run([python,'-I','-B','-m','pip','install','--no-index','--no-cache-dir',
+            '--find-links',str(stage/'wheelhouse'),'--only-binary=:all:','--require-hashes',
+            '-r',str(stage/'cpu-requirements.lock')],check=True,timeout=900)
+    assert sha(python) == plan['base_python_sha256']
     subprocess.run([python,'-I','-B','-m','pip','check'],check=True,timeout=30)
     subprocess.run([python,'-I','-B',str(stage/'cpu_bootstrap.py'),'--plan',str(a.plan),
         '--plan-sha256',a.plan_sha256,'--fixtures'],check=True,timeout=1800)
