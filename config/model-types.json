@@ -1,0 +1,162 @@
+{
+  "schema_version": 2,
+  "display_name": "HSPH1 AIS methods",
+  "rules": [
+    {
+      "key": "hsph1_afsample2",
+      "name": "AFsample2",
+      "enabled": true,
+      "priority": 10,
+      "match": {
+        "fields": [
+          "model",
+          "source_path"
+        ],
+        "contains_any": [
+          "afsample2_",
+          "/afsample2/"
+        ],
+        "contains_all": [],
+        "contains_none": [],
+        "regex_any": [],
+        "case_insensitive": true
+      },
+      "assign": {
+        "model_type": "AFsample2",
+        "model_version": "AF2"
+      },
+      "color": "#0072B2",
+      "notes": "HSPH1 exact canonical method prefix/native method directory; energy annotations do not change origin."
+    },
+    {
+      "key": "hsph1_afcluster",
+      "name": "AFcluster",
+      "enabled": true,
+      "priority": 11,
+      "match": {
+        "fields": [
+          "model",
+          "source_path"
+        ],
+        "contains_any": [
+          "afcluster_",
+          "/afcluster/"
+        ],
+        "contains_all": [],
+        "contains_none": [],
+        "regex_any": [],
+        "case_insensitive": true
+      },
+      "assign": {
+        "model_type": "AFcluster",
+        "model_version": "AF2"
+      },
+      "color": "#E69F00",
+      "notes": "HSPH1 exact canonical method prefix/native method directory; energy annotations do not change origin."
+    },
+    {
+      "key": "hsph1_speachaf",
+      "name": "SPEACH_AF",
+      "enabled": true,
+      "priority": 12,
+      "match": {
+        "fields": [
+          "model",
+          "source_path"
+        ],
+        "contains_any": [
+          "speachaf_",
+          "/speachaf/"
+        ],
+        "contains_all": [],
+        "contains_none": [],
+        "regex_any": [],
+        "case_insensitive": true
+      },
+      "assign": {
+        "model_type": "SPEACH_AF",
+        "model_version": "AF2"
+      },
+      "color": "#009E73",
+      "notes": "HSPH1 exact canonical method prefix/native method directory; energy annotations do not change origin."
+    },
+    {
+      "key": "hsph1_opendde",
+      "name": "OpenDDE",
+      "enabled": true,
+      "priority": 13,
+      "match": {
+        "fields": [
+          "model",
+          "source_path"
+        ],
+        "contains_any": [
+          "opendde_",
+          "/opendde/"
+        ],
+        "contains_all": [],
+        "contains_none": [],
+        "regex_any": [],
+        "case_insensitive": true
+      },
+      "assign": {
+        "model_type": "OpenDDE",
+        "model_version": null
+      },
+      "color": "#CC79A7",
+      "notes": "HSPH1 exact canonical method prefix/native method directory; energy annotations do not change origin."
+    },
+    {
+      "key": "hsph1_afsample3",
+      "name": "AFsample3",
+      "enabled": true,
+      "priority": 14,
+      "match": {
+        "fields": [
+          "model",
+          "source_path"
+        ],
+        "contains_any": [
+          "afsample3_",
+          "/afsample3/"
+        ],
+        "contains_all": [],
+        "contains_none": [],
+        "regex_any": [],
+        "case_insensitive": true
+      },
+      "assign": {
+        "model_type": "AFsample3",
+        "model_version": "AF3"
+      },
+      "color": "#D55E00",
+      "notes": "HSPH1 exact canonical method prefix/native method directory; energy annotations do not change origin."
+    },
+    {
+      "key": "hsph1_bioemu2",
+      "name": "BioEmu2",
+      "enabled": true,
+      "priority": 15,
+      "match": {
+        "fields": [
+          "model",
+          "source_path"
+        ],
+        "contains_any": [
+          "bioemu2_",
+          "/bioemu2/"
+        ],
+        "contains_all": [],
+        "contains_none": [],
+        "regex_any": [],
+        "case_insensitive": true
+      },
+      "assign": {
+        "model_type": "BioEmu2",
+        "model_version": null
+      },
+      "color": "#56B4E9",
+      "notes": "HSPH1 exact canonical method prefix/native method directory; energy annotations do not change origin."
+    }
+  ]
+}

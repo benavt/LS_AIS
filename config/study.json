@@ -19,16 +19,18 @@
     "organism": null
   },
   "available_snapshot": {
-    "models": 4000,
+    "models": 4006,
     "methods": {
       "afsample2": 1000,
       "afcluster": 1000,
       "speachaf": 1000,
-      "opendde": 1000
+      "opendde": 1000,
+      "afsample3": 5,
+      "bioemu2": 1
     },
-    "roster_sha256": "bd6c17e3cb79a5426e332764254b238bef92b2237d132416a442432bf2e43891",
-    "native_coordinate_bytes": 663762006,
-    "acceptance": "individual_native_manifests_and_hashes; joint_acceptance_pending"
+    "roster_sha256": "5307df992cac7b9ae6a03382bba34fa8f8cd5cc0bcb02a2ff728abadc9606663",
+    "native_coordinate_bytes": 664768611,
+    "acceptance": "All native coordinate hashes and complete2x117 sequences verified;271 producer logs accepted"
   },
   "requested_additions": {
     "afsample3": 1000,
@@ -38,6 +40,23 @@
   "publication": {
     "status": "not_published",
     "pages_url": null,
-    "zenodo_record": null
+    "zenodo_record": null,
+    "candidate_manifest_sha256": "4daf9e1fd8cf651d716015f033602047854ea565aa41fd7498f9c063ada77da7",
+    "Zenodo_candidate_seal_sha256": "978918a74b93c5bec238075efe2a2a75497e2aa58c5cc4aec0fedcec4184f50e",
+    "data_license": "unresolved",
+    "Zenodo_candidate_package_sha256": "fc3f562328a3fa1e5c6f97734323671fad55a6254c49f53e82553b926adebb0a"
+  },
+  "approved_analysis": {
+    "plan_sha256": "4c643f8a64d9b56f7906b285221712542f3f445659914764b370a10f6ab9389a",
+    "cohort": 4006,
+    "residues": 234,
+    "status": "accepted",
+    "projection_seed": 42,
+    "ProteinEBM_status": "blocked_pending_required_execution_containment",
+    "total_unique_scoring_model_cap": 6000,
+    "clusters": 27,
+    "Bonsai_models": 161,
+    "TM_comparisons": 702,
+    "projection_refits_during_recovery": 0
   }
 }

@@ -1,0 +1,52 @@
+--- a/app.js
++++ b/app.js
+@@ -491,13 +491,13 @@
+  notifyInspectedStructure();
+  $('modelTitle').textContent=exact?cluster.model+' · exact selected model':label+' · '+(ensemble?(data.ensemble_kind||'comparison ensemble'):(current.representative_kind||'structural representative'));
+  $('modelInfo').textContent=`${cluster.model} · ${cluster.method} · ${label} · ${cluster.count.toLocaleString()} ${cluster.count===1?'model':'models'} in cluster (${population(cluster.count)})${Number.isFinite(referenceSimilarity(cluster))?' · TM (5–95): '+referenceSimilarity(cluster).toFixed(3):''}`;
+- if(modelDownloadURL)URL.revokeObjectURL(modelDownloadURL);modelDownloadURL=URL.createObjectURL(new Blob([coordinate],{type:'text/plain'}));$('structure').hidden=false;$('structure').href=modelDownloadURL;$('structure').download=cluster.file.split('/').pop();
++ if(modelDownloadURL)URL.revokeObjectURL(modelDownloadURL);modelDownloadURL=URL.createObjectURL(new Blob([coordinate],{type:'text/plain'}));$('structure').hidden=false;$('structure').href=cluster.file;$('structure').download=cluster.file.split('/').pop();
+  if(ensembleDownloadURL)URL.revokeObjectURL(ensembleDownloadURL);$('ensemblePdb').hidden=!cluster.ensemble_file;if(cluster.ensemble_file)$('ensemblePdb').href=cluster.ensemble_file;$('ensemblePse').hidden=!cluster.ensemble_pse;
+- if(cluster.ensemble_text){ensembleDownloadURL=URL.createObjectURL(new Blob([cluster.ensemble_text],{type:'text/plain'}));$('ensemblePdb').href=ensembleDownloadURL;$('ensemblePdb').download=cluster.ensemble_file.split('/').pop()}if(cluster.ensemble_pse)$('ensemblePse').href=cluster.ensemble_pse;
++ if(cluster.ensemble_text){ensembleDownloadURL=URL.createObjectURL(new Blob([cluster.ensemble_text],{type:'text/plain'}));$('ensemblePdb').href=cluster.ensemble_file;$('ensemblePdb').download=cluster.ensemble_file.split('/').pop()}if(cluster.ensemble_pse)$('ensemblePse').href=cluster.ensemble_pse;
+  for(const method of ['pca','umap','tsne']){
+   const p=current.projections[method].xy,indices=exact?[modelIndex]:current.clusters.map((x,i)=>x===label?i:-1).filter(i=>i>=0),valid=indices.filter(i=>Number.isFinite(p[i][0]));
+   const x=valid.reduce((a,i)=>a+p[i][0],0)/valid.length,y=valid.reduce((a,i)=>a+p[i][1],0)/valid.length;
+-  Plotly.relayout($(method),{annotations:[{x,y,text:exact?cluster.model:label,showarrow:true,arrowhead:2,ax:25,ay:-30,font:{size:11,color:'#153f4d'},bgcolor:'#ffffffdd'}]});
++  AtlasResponsive.relayout($(method),{annotations:[{x,y,text:exact?cluster.model:label,showarrow:true,arrowhead:2,ax:25,ay:-30,font:{size:11,color:'#153f4d'},bgcolor:'#ffffffdd'}]});
+  }
+ }
+ function hashSelection(){const [target,query='']=decodeURIComponent(location.hash.slice(1)).split('?'),params=new URLSearchParams(query);return {target,range:params.get('range')||'all',view:params.get('view')||''}}
+@@ -615,7 +615,7 @@
+  const loaded=await Promise.all([json('atlas.json'),fetchClusteringResidues(),fetchOptionalJSON('residue-ranges.json'),fetchOptionalJSON('projection-metadata.json'),fetchOptionalJSON('supplementary-metadata.json'),fetchOptionalJSON('metric-overlays.json'),fetchOptionalJSON('selection-highlights.json'),fetchOptionalJSON('tm-states.json'),fetchOptionalJSON('figure-supplements.json')]);figureSupplementLoader=typeof AISExplorerFigures!=='undefined'?AISExplorerFigures.createLoader(loaded[8]):null;metricOverlayLoader=typeof AISExplorerMetrics!=='undefined'?AISExplorerMetrics.createLoader(loaded[5]):null;selectionLoader=typeof AISExplorerSelections!=='undefined'?AISExplorerSelections.createLoader(loaded[6]):null;tmStateLoader=typeof AISExplorerTMStates!=='undefined'?AISExplorerTMStates.createLoader(loaded[7]):null;atlas=loaded[0];clusteringResidueCatalog=loaded[1];projectionMetadataCatalog=loaded[3];supplementaryMetadataCatalog=loaded[4];const rangeCatalog=loaded[2];atlas={...atlas,targets:atlas.targets.map(target=>({...target,residue_ranges:rangeCatalog.targets?.[target.id]?.residue_ranges||target.residue_ranges}))};for(const t of atlas.targets){const a=document.createElement('a');a.href='#'+encodeURIComponent(t.id);a.textContent=t.id.replace(/_bmr\d+$/i,'');a.title=t.id;a.setAttribute('aria-label',t.id);a.dataset.target=t.id;$('targets').append(a)}
+  viewer=AtlasStructureRenderer.createViewer($('molecule'),{backgroundColor:'white',antialias:true});$('clusterSelect').onchange=()=>{if($('clusterSelect').value)choose($('clusterSelect').value).catch(fail)};
+  $('structureScope').onchange=()=>{structureScopePreference=$('structureScope').value;restyleStructureViews()};$('structureColor').onchange=restyleStructureViews;
+- $('modelMode').onchange=()=>{if(selected)choose(selected,$('modelMode').value==='ensemble'?null:selectedModelIndex).catch(fail)};$('color').onchange=()=>{updateMetricOverlayNote();scheduleDraw().catch(fail)};$('projection').onchange=showProjection;$('clear').onclick=()=>{clearStructure();for(const m of ['pca','umap','tsne'])Plotly.relayout($(m),{annotations:[],'xaxis.autorange':true,'yaxis.autorange':true})};
++ $('modelMode').onchange=()=>{if(selected)choose(selected,$('modelMode').value==='ensemble'?null:selectedModelIndex).catch(fail)};$('color').onchange=()=>{updateMetricOverlayNote();scheduleDraw().catch(fail)};$('projection').onchange=showProjection;$('clear').onclick=()=>{clearStructure();for(const m of ['pca','umap','tsne'])AtlasResponsive.relayout($(m),{annotations:[],'xaxis.autorange':true,'yaxis.autorange':true})};
+  for(const id of ['selectionMethod','selectionBalance','selectionPressure','selectionReplicate'])if($(id))$(id).onchange=changeSavedSelection;
+  for(const id of ['tmStateSelect','tmStateMethod'])if($(id))$(id).onchange=changeTMState;
+ 
+--- a/responsive.js
++++ b/responsive.js
+@@ -79,7 +79,13 @@
+   }
+   anchor.insertAdjacentElement('afterend',bar);
+  }
+- function reset(node){const saved=records.get(node);if(!saved)return;const spec=prepare(node,saved.traces,saved.layout,saved.config),update={};for(const key of ['xaxis','yaxis']){const axis=spec.layout[key]||{};if(axis.range){update[key+'.range']=[...axis.range];update[key+'.autorange']=false}else update[key+'.autorange']=axis.autorange==='reversed'?'reversed':true}return root.Plotly.relayout(node,update)}
++ function reset(node){const saved=records.get(node);if(!saved)return;const spec=prepare(node,saved.traces,saved.layout,saved.config),update={};for(const key of ['xaxis','yaxis']){const axis=spec.layout[key]||{};if(axis.range){update[key+'.range']=[...axis.range];update[key+'.autorange']=false}else update[key+'.autorange']=axis.autorange==='reversed'?'reversed':true}return relayout(node,update)}
++ function relayout(node,update){
++  if(typeof node==='string')node=document.getElementById(node);
++  const previous=queues.get(node)||Promise.resolve();
++  const task=previous.catch(()=>{}).then(()=>root.Plotly.relayout(node,update));
++  queues.set(node,task);return task;
++ }
+  async function react(node,traces,layout,config){
+   if(typeof node==='string')node=document.getElementById(node);
+   records.set(node,{traces,layout,config});
+@@ -96,5 +102,5 @@
+  const widths=new WeakMap(),observer=typeof ResizeObserver==='function'?new ResizeObserver(entries=>{for(const entry of entries){const width=Math.round(entry.contentRect.width);if(width>0&&widths.get(entry.target)!==width){widths.set(entry.target,width);schedule()}}}):null;
+  root.addEventListener('resize',schedule);root.visualViewport?.addEventListener('resize',schedule);
+  document.addEventListener('toggle',event=>{if(event.target.open)schedule()},true);
+- root.AtlasResponsive={react,resizeAll,schedule,prepare,reset};
++ root.AtlasResponsive={react,relayout,resizeAll,schedule,prepare,reset};
+ })(window);

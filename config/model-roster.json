@@ -28001,6 +28001,48 @@
       "sha256": "ffaad020733ad2783cb49885a62b7be1a2debf07a7b5c87f0606eb0e85f7358a",
       "bytes": 193247,
       "source_run": "2026-10-24_hsph1-12757-dimer-seven-dimer-1000_003"
+    },
+    {
+      "model_id": "afsample3_0000",
+      "method": "afsample3",
+      "sha256": "8e4ef013b24d5ff9ec3ddc9f4e6723aedc80dba69d9592bbf56146c80d300be4",
+      "bytes": 170011,
+      "source_run": "2026-11-09_afs3-bioemu2-1000_001"
+    },
+    {
+      "model_id": "afsample3_0001",
+      "method": "afsample3",
+      "sha256": "83dfb870fe4546425d6f77dc6f59366f124a8ad0a0a8754f4e9975022779652e",
+      "bytes": 170011,
+      "source_run": "2026-11-09_afs3-bioemu2-1000_001"
+    },
+    {
+      "model_id": "afsample3_0002",
+      "method": "afsample3",
+      "sha256": "806a5247bc8307564666d96de5db8f0264c2df0caa7f0148a01051c507f507c8",
+      "bytes": 170011,
+      "source_run": "2026-11-09_afs3-bioemu2-1000_001"
+    },
+    {
+      "model_id": "afsample3_0003",
+      "method": "afsample3",
+      "sha256": "380a381fcf18fc0863f8242a61c0b63da82111e5b143d84a2ab36d44d5167cf1",
+      "bytes": 170011,
+      "source_run": "2026-11-09_afs3-bioemu2-1000_001"
+    },
+    {
+      "model_id": "afsample3_0004",
+      "method": "afsample3",
+      "sha256": "1b6bb07e8139222f9228cbdcf794c394da4cb1e73c77341350cc3708ccc64312",
+      "bytes": 170011,
+      "source_run": "2026-11-09_afs3-bioemu2-1000_001"
+    },
+    {
+      "model_id": "bioemu2_0000",
+      "method": "bioemu2",
+      "sha256": "6572ca13fa79e6e3f54ee911d5e1308b9f177e2c0b0f92e4ab72458a73bf559e",
+      "bytes": 156550,
+      "source_run": "2026-11-09_afs3-bioemu2-1000_001"
     }
   ]
 }

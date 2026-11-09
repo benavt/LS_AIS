@@ -1,0 +1,27 @@
+{
+  "status": "verified_private_candidate",
+  "models": 4006,
+  "residues": 234,
+  "clusters": 27,
+  "Bonsai_models": 161,
+  "projection_point_counts": {
+    "pca": 4006,
+    "umap": 4006,
+    "tsne": 4006
+  },
+  "PCA_axes_variance": [
+    0.4032301732663094,
+    0.2504203949128493
+  ],
+  "CPU_ensemble_CA_segments": 1160,
+  "source_delivery_manifest_sha256": "4c8fc6104868dd66f47be308a6a65e395efb8867f2d479dccb286fed79c4606c",
+  "review_candidate_manifest_sha256": "4daf9e1fd8cf651d716015f033602047854ea565aa41fd7498f9c063ada77da7",
+  "review_candidate_files": 4230,
+  "payload_bytes": 720247309,
+  "publications": 0,
+  "ProteinEBM_values": 0,
+  "library_commit": "f3063757460303e1a4a4ba0b3629fe81776c58c4",
+  "research_workflows_commit": "fc0e961f1581e93c8dd854ac890f9d300d00f6d5",
+  "Bonsai_commit": "b16ef6f0a164610327022c7d0b92de82b3596aad",
+  "ProteinEBM_status": "blocked_pending_required_execution_containment"
+}

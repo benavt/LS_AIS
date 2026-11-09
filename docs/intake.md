@@ -27,3 +27,20 @@ The atlas should keep the full construct as its primary residue scope and use
 the shared explorer. Preserve all chains and interchain distances. Alternate
 trimming, new scoring and additional prediction methods require separate scope.
 No public Pages deployment or Zenodo DOI exists for this project yet.
+
+
+## Accepted current snapshot
+
+The approved current-snapshot run accepted five AFsample3 pilots and one BioEmu2
+pilot, bringing the unique native cohort to 4,006. All models passed complete
+2-by-117 sequence/assembly checks, and 271 selected producer logs passed their
+pinned whole-job checks. The full-construct analysis accepted 27 clusters,
+27 structural medoids, 27 five-member aligned ensembles, 702 directional
+US-align comparisons and a native 161-model Bonsai tree. Original failed attempts
+and the diagnosed adapter continuations remain with the ignored run receipts.
+No projection was refit during label-export recovery.
+
+Native coordinate bytes, exact model IDs and available scalar observations are
+retained. Both remaining generation arrays are held; no accepted ProteinEBM
+energies exist. The private static atlas and compact dataset are review
+candidates. Public deployment and Zenodo publication remain unapproved.
