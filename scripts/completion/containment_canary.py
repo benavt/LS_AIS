@@ -47,12 +47,15 @@ def core_count(cpu_set, core_ids):
     return len(cpu_set)
 
 
-def evaluate(rows, affinity, requested_cpus, core_ids=None):
+def evaluate(rows, affinity, requested_cpus, core_ids=None, allocated_cpus=None):
     memory = finite_min(rows, 'memory.max')
     pids = finite_min(rows, 'pids.max')
     swap = finite_min(rows, 'memory.swap.max')
     allocation_cpus = next((cpus(row['cpuset.cpus.effective']) for row in rows
                             if row.get('cpuset.cpus.effective')), set())
+    working_cpuset = set(allocation_cpus)
+    if allocated_cpus is not None:
+        allocation_cpus = set(allocated_cpus)
     checks = {
         'memory_within_2GiB': memory is not None and 0 < memory <= P0_MEMORY_BYTES,
         'descendants_at_most64': pids is not None and 0 < pids <= P0_PIDS,
@@ -66,6 +69,7 @@ def evaluate(rows, affinity, requested_cpus, core_ids=None):
                 effective_memory_max=memory, effective_pids_max=pids,
                 effective_swap_max=swap, affinity=sorted(affinity),
                 allocation_cpuset=sorted(allocation_cpus),
+                working_cgroup_cpuset=sorted(working_cpuset),
                 affinity_physical_cores=core_count(affinity, core_ids),
                 CPU_topology_available=core_ids is not None,
                 proceed_to_P1=all(checks.values()), ready_for_scientific_work=False)
@@ -100,6 +104,8 @@ def collect_rows():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--allocation-evidence', type=Path)
+    parser.add_argument('--allocation-sha256')
     args = parser.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Run only inside the approved monitored P0 allocation')
@@ -115,7 +121,28 @@ def main():
                              for name in ['physical_package_id', 'core_id']]
     except (OSError, ValueError):
         core_ids = None
-    result = evaluate(rows, affinity, int(os.environ.get('SLURM_CPUS_PER_TASK', '0')), core_ids)
+    allocation = None
+    if args.allocation_evidence:
+        import hashlib
+        data = args.allocation_evidence.read_bytes()
+        if hashlib.sha256(data).hexdigest() != args.allocation_sha256:
+            raise ValueError('Slurm allocation evidence hash differs')
+        allocation = json.loads(data)
+        if allocation['job_id'] != os.environ['SLURM_JOB_ID']:
+            raise ValueError('Foreign Slurm allocation evidence')
+        if ('job_' + allocation['job_id'] + '/') not in allocation['cgroup'] + '/':
+            raise ValueError('Evidence was not collected in the current Slurm job')
+        proc = Path('/proc') / str(allocation['launcher_pid'])
+        start = proc.joinpath('stat').read_text().rsplit(')',1)[1].split()[19]
+        if start != allocation['launcher_start_ticks'] or proc.stat().st_uid != os.getuid():
+            raise ValueError('Slurm launcher identity changed')
+        if set(allocation['affinity']) != affinity:
+            raise ValueError('User service changed Slurm CPU affinity')
+    result = evaluate(rows, affinity, int(os.environ.get('SLURM_CPUS_PER_TASK', '0')), core_ids,
+                      set(allocation['allocated_cpus']) if allocation else None)
+    if allocation:
+        result['CPU_binding_method'] = 'Verified Slurm allocation snapshot plus kernel service CPUAffinity'
+        result['Slurm_allocation_cgroup'] = allocation['cgroup']
     result.update(stage='P0', approved_plan_sha256=PLAN_SHA256,
                   recorded_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                   job_id=os.environ['SLURM_JOB_ID'], node=os.uname().nodename,
