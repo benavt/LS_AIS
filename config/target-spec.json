@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "target": {
+    "id": "HSPH1_12757_homodimer",
+    "sequence": "MGHHHHHHSHMKIGTPVKVRFQEAEERPKMFEELGQRLQHYAKIAADFRNKDEKYNHIDESEMKKVEKSVNEVMEWMNNVMNAQAKKSLDQDPVVRAQEIKTKIKELNNTCEPVVTQ",
+    "sequence_sha256": "395f1ee96750b40c96f7de2f655416a768ab8b8a09ccbb9813900351119e86a2",
+    "chains": [
+      "A",
+      "B"
+    ],
+    "copies": 2,
+    "title": "HSPH1 construct 12757",
+    "residues_per_chain": 117,
+    "total_residues": 234,
+    "accession": null,
+    "organism": null
+  },
+  "cohort": {
+    "available_methods": {
+      "afsample2": 1000,
+      "afcluster": 1000,
+      "speachaf": 1000,
+      "opendde": 1000
+    },
+    "requested_additions": {
+      "afsample3": 1000,
+      "bioemu2": 1000
+    },
+    "fit_population": "All scientifically accepted models in the exact selected six-method cohort",
+    "display_population": "Same as fit",
+    "experimental_references": "Unresolved accession; no experimental structure selected"
+  },
+  "analysis": {
+    "primary_residues": {
+      "A": [
+        1,
+        117
+      ],
+      "B": [
+        1,
+        117
+      ]
+    },
+    "alternate_residues": [],
+    "primary_clustering": "UMAP KNN",
+    "alternative_clusterings": [],
+    "projections": [
+      "UMAP",
+      "PCA",
+      "t-SNE"
+    ],
+    "scores": "Existing verified scalar confidence and energies only; missing stays missing",
+    "new_energy_calculations": false,
+    "ensembles": "Common genuine confidence ranking, maximum five per cluster; unscored structural medoid",
+    "supplements": [
+      "distogram variance",
+      "representative TM grid",
+      "Bonsai"
+    ]
+  },
+  "page": {
+    "layout_reference": "AIS CASP17 shared explorer",
+    "destination": "GitHub Pages after exact bundle review",
+    "preview": "private",
+    "downloads": [
+      "memberships",
+      "representatives",
+      "aligned ensembles",
+      "supplements",
+      "native-model Zenodo package"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+local/
+outputs/
+site/build/
+.venv/
+__pycache__/
+*.pyc
+.env*
+

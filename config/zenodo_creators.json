@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "creators": [
+    {
+      "id": "TL",
+      "name": "Benavides, Tiburon L.",
+      "placeholder": false,
+      "orcid": "0000-0002-5795-4273"
+    },
+    {
+      "id": "GTM",
+      "name": "Montelione, Gaetano T",
+      "placeholder": false,
+      "orcid": "0000-0002-9440-3059"
+    }
+  ]
+}

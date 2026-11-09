@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "project": "hsph1-structure-atlas",
+  "library_commit": "f3063757460303e1a4a4ba0b3629fe81776c58c4",
+  "shared_workflow_commit": "fc0e961f1581e93c8dd854ac890f9d300d00f6d5",
+  "target": {
+    "id": "HSPH1_12757_homodimer",
+    "sequence": "MGHHHHHHSHMKIGTPVKVRFQEAEERPKMFEELGQRLQHYAKIAADFRNKDEKYNHIDESEMKKVEKSVNEVMEWMNNVMNAQAKKSLDQDPVVRAQEIKTKIKELNNTCEPVVTQ",
+    "sequence_sha256": "395f1ee96750b40c96f7de2f655416a768ab8b8a09ccbb9813900351119e86a2",
+    "chains": [
+      "A",
+      "B"
+    ],
+    "copies": 2,
+    "title": "HSPH1 construct 12757",
+    "residues_per_chain": 117,
+    "total_residues": 234,
+    "accession": null,
+    "organism": null
+  },
+  "available_snapshot": {
+    "models": 4000,
+    "methods": {
+      "afsample2": 1000,
+      "afcluster": 1000,
+      "speachaf": 1000,
+      "opendde": 1000
+    },
+    "roster_sha256": "bd6c17e3cb79a5426e332764254b238bef92b2237d132416a442432bf2e43891",
+    "native_coordinate_bytes": 663762006,
+    "acceptance": "individual_native_manifests_and_hashes; joint_acceptance_pending"
+  },
+  "requested_additions": {
+    "afsample3": 1000,
+    "bioemu2": 1000
+  },
+  "requested_total": 6000,
+  "publication": {
+    "status": "not_published",
+    "pages_url": null,
+    "zenodo_record": null
+  }
+}
