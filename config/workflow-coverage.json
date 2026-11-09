@@ -35,8 +35,8 @@
       "id": "ProteinEBM",
       "range": "all",
       "view": "shared",
-      "status": "blocked",
-      "detail": "Zero accepted scores; approved remote containment prerequisite unresolved. All4006 current models require coverage,including six pilots currently dependent on later arm acceptance."
+      "status": "missing",
+      "detail": "Zero accepted target scores. Current4006 completion preparation admitted:repaired P0 and locked CPU P1 accepted. All4006 include the exact six accepted pilots,independent of future production arms. Scoring jobs remain unsubmitted."
     },
     {
       "id": "memberships",

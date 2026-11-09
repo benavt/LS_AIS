@@ -1,16 +1,74 @@
 {
   "schema_version": 1,
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
-  "status": "blocked_at_P0_compute_containment",
-  "readiness_job": "25455",
+  "status": "readiness_and_CPU_environment_verified",
+  "readiness_job": "25458",
+  "environment_job": "25462",
+  "history": [
+    {
+      "job": "25455",
+      "phase": "P0",
+      "result": "failed original Slurm memory/pids/swap gate"
+    },
+    {
+      "job": "25458",
+      "phase": "P0",
+      "result": "passed job-private delegated service and Slurm CPU-affinity checks"
+    },
+    {
+      "job": "25460",
+      "phase": "P1",
+      "result": "locked installation passed;Bonsai source closure failed"
+    },
+    {
+      "job": "25461",
+      "phase": "P1",
+      "result": "Python/Bonsai/synthetic checks passed;USalign C++ runtime failed"
+    },
+    {
+      "job": "25462",
+      "phase": "P1",
+      "result": "validation-only native-runtime repair passed;reused exact locked installation"
+    }
+  ],
+  "resource_model": "Slurm placement plus a private transient delegated user service for each job",
+  "limits_verified": {
+    "P0": {
+      "cpus": 1,
+      "memory_bytes": 2147483648,
+      "pids_max": 64,
+      "swap_bytes": 0
+    },
+    "P1": {
+      "cpus": 2,
+      "memory_bytes": 17179869184,
+      "pids_max": 64,
+      "swap_bytes": 0
+    }
+  },
+  "monitoring": "Both accepted stages passed separate finished inner and outer monitor checks and native return-code checks",
+  "cleanup": "Both accepted transient services inactive and absent after completion",
+  "environment": {
+    "packages": 31,
+    "binary_hash_lock": "config/runtime/cpu-linux-cp311.lock",
+    "artifacts": "config/runtime/cpu-linux-cp311-artifacts.json",
+    "native_runtime": "config/runtime/native-usalign-runtime.json",
+    "execution_plan_sha256": "3b1490c818fdce519b8f0287383fea4df4d31d697176e46dc4aa723cfae4ea7d",
+    "fixture_scope": "Synthetic only;no target models"
+  },
+  "acceptance_sha256": {
+    "P0": "2ee6ccd0866a883289ec4d972797c9f3e87a945c84e92e1e51fc52d2242a0533",
+    "P1": "d14173fd5f44ea0328680b6ed85d1004f562c6091ebba7eb4051dc2e7e4420fd"
+  },
   "scientific_jobs_submitted": 0,
   "GPU_allocations": 0,
-  "monitoring": "Finished whole-job checker passed;readiness guard exited42",
-  "required_remediation": [
-    "Per-allocation memory hard cap within each stage request",
-    "Finite per-allocation descendant-process cap at most64",
-    "Effective zero swap"
+  "paid_external_calls": 0,
+  "administrator_action_required": false,
+  "global_configuration_changed": false,
+  "remaining": [
+    "P2 exact native-input/saved-artifact binding",
+    "Variable-size ProteinEBM and project density/complex-state worker preparation and exact execution manifests",
+    "E0 through X0 scientific and delivery stages"
   ],
-  "source_preparation": "Guard and synthetic fixtures;31 CPU dependency-version constraints;artifact lock remains pending",
   "publication_held": true
 }

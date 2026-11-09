@@ -54,7 +54,7 @@
     "residues": 234,
     "status": "accepted",
     "projection_seed": 42,
-    "ProteinEBM_status": "blocked_pending_required_execution_containment",
+    "ProteinEBM_status": "pending_current4006_completion_scores",
     "total_unique_scoring_model_cap": 6000,
     "clusters": 27,
     "Bonsai_models": 161,

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "purpose": "Exact native USalign and matching C++ libraries staged for P1",
+  "scientific_library_commit": "f3063757460303e1a4a4ba0b3629fe81776c58c4",
+  "files": {
+    "bin/USalign": {
+      "sha256": "cdb4ec43f97f220204425bf9c9a253f63ef40986f69767b0540baeeaa7b12990",
+      "bytes": 899856
+    },
+    "lib/libgcc_s.so.1": {
+      "sha256": "5444fbe71e8cfe3bd05cdf2b44bd8c2e553e6e7e276977089b5e4e1a1ceed531",
+      "bytes": 922624
+    },
+    "lib/libstdc++.so.6": {
+      "sha256": "10f0d3c46c070acd4abea2ccf2500ff0ec77e9b90154b82ea2720dba05510cb9",
+      "bytes": 23874544
+    }
+  },
+  "loader_policy": "Unmodified relative executable RPATH; no system-library modification"
+}

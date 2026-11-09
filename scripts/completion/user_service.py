@@ -139,7 +139,9 @@ def worker(request_path):
     return child.returncode if child.returncode is not None and child.returncode >= 0 else 125
 
 
-def launch(output, command, stage='p0'):
+def launch(output, command, stage='p0', monitor=None):
+    if monitor is None or not monitor.is_absolute():
+        raise ValueError('Explicit private absolute monitor binding is required')
     memory_bytes, runtime_seconds = STAGE_LIMITS[stage]
     job = os.environ.get('SLURM_JOB_ID', '')
     if not job.isdigit():
@@ -171,7 +173,7 @@ def launch(output, command, stage='p0'):
                'allocation':allocation, 'memory_bytes':memory_bytes, 'tasks':64,
                'runtime_seconds':runtime_seconds, 'cwd':str(output.parent), 'canary':str(canary_path),
                'environment':preserved_environment(os.environ),
-               'monitor':'<private-monitor-path>',
+               'monitor':str(monitor.resolve()),
                'source_hashes':source_hashes,
                'native_log':str(output/'native-resource.log'),
                'worker_result':str(output/'worker-result.json'), 'command':command}
@@ -202,13 +204,13 @@ def launch(output, command, stage='p0'):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='mode',required=True)
-    a=sub.add_parser('launch');a.add_argument('--stage',choices=sorted(STAGE_LIMITS),default='p0');a.add_argument('--output',type=Path,required=True);a.add_argument('command',nargs=argparse.REMAINDER)
+    a=sub.add_parser('launch');a.add_argument('--stage',choices=sorted(STAGE_LIMITS),default='p0');a.add_argument('--monitor',type=Path,required=True);a.add_argument('--output',type=Path,required=True);a.add_argument('command',nargs=argparse.REMAINDER)
     a=sub.add_parser('worker');a.add_argument('--request',type=Path,required=True)
     a=p.parse_args()
     if a.mode=='worker':return worker(a.request)
     command=a.command[1:] if a.command[:1]==['--'] else a.command
     if not command:raise ValueError('Explicit frozen command is required')
-    return launch(a.output,command,a.stage)
+    return launch(a.output,command,a.stage,a.monitor)
 
 
 if __name__=='__main__':raise SystemExit(main())

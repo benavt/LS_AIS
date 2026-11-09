@@ -19,8 +19,9 @@ Cluster sizes describe this generated library, not equilibrium populations.
 
 Native pTM/ipTM are available for 4,005 models, mean pLDDT for 3,000, native
 AFsample2 ranking confidence for 1,000 and native OpenDDE/AF3 ranking score for
-1,005. ProteinEBM energies are unavailable. Scoring and both missing production
-arms remain blocked pending the required kernel containment on their compute host.
+1,005. ProteinEBM energies are unavailable. The completion plan's CPU readiness and environment stages now pass under
+existing user-delegated resource controls. Target scoring remains pending.
+The two future production arms remain held outside this completion cohort.
 The atlas keeps missing scores empty and identifies energy separately from confidence.
 
 ## Incomplete workflow and publication hold
@@ -63,17 +64,23 @@ deployment yet.
 The publication cohort remains the current 4,006 models. The
 [submission plan](docs/mimas-completion-plan.md) specifies the missing energy,
 density and MCMC/DISCO stages, their dependencies and finite resource ceilings.
-The [machine-readable plan](config/mimas-completion-plan.json) is planning-only;
-containment, executable adapter and runtime-lock prerequisites remain. It does
-not submit jobs or release either held generation array.
+The [machine-readable plan](config/mimas-completion-plan.json) is the approved
+planning snapshot. Its original administrator prerequisite is superseded by the
+[verified delegated repair](docs/completion-readiness.md). Readiness and CPU
+runtime preparation passed; later-stage adapters and exact execution manifests
+remain to be completed. Neither held generation array was released.
 
 ## Approved execution readiness
 
-The user approved the completion plan. Its CPU readiness job **25455** ran and
-stopped before science because actual job memory, process and swap limits did
-not meet the plan. The [readiness result](docs/completion-readiness.md) and
-[machine-readable status](config/completion-execution-status.json) record the
-blocker. No GPU, scoring, density or sampling job followed; publication is held.
+The repaired readiness job **25458** and locked CPU environment validation job
+**25462** passed. The original administrator-dependency conclusion was incorrect:
+an existing private user-service delegation enforces memory, process and swap
+limits while preserving the Slurm CPU affinity. Global settings and other jobs
+were unchanged. The [readiness result](docs/completion-readiness.md) and
+[machine-readable status](config/completion-execution-status.json) retain the
+successful evidence and diagnosed failed attempts. Both final monitoring logs
+passed and both private services were cleaned up. No target scoring, density,
+sampling or GPU job has been submitted; publication remains held.
 
 ## Source and execution
 
