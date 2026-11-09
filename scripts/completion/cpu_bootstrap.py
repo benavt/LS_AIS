@@ -96,9 +96,12 @@ def main():
     assert plan['approved_plan_sha256']==PLAN_SHA and plan['stage']=='P1'
     stage=Path(plan['stage_directory']);run=Path(plan['run_root'])
     prefix=Path(plan['environment_prefix']);result=Path(plan['result_directory'])
-    assert stage.is_relative_to(run/'01_staging') and prefix==run/'runtime/cpu' and result.is_relative_to(run/'receipts')
+    attempt=plan.get('preparation_attempt',1)
+    assert attempt in (1,2)
+    expected_prefix=run/('runtime/cpu' if attempt==1 else 'runtime/cpu_002')
+    assert stage.is_relative_to(run/'01_staging') and prefix==expected_prefix and result.is_relative_to(run/'receipts')
     for name in ('PIP_CACHE_DIR','TMPDIR','NUMBA_CACHE_DIR','MPLCONFIGDIR','XDG_CACHE_HOME'):
-        os.environ[name]=str(run/'runtime/cache'/name.lower())
+        os.environ[name]=str(run/('runtime/cache' if attempt==1 else 'runtime/cache_002')/name.lower())
         Path(os.environ[name]).mkdir(parents=True,exist_ok=True)
     os.environ.update(PIP_DISABLE_PIP_VERSION_CHECK='1',PIP_NO_INPUT='1',PYTHONNOUSERSITE='1',
         NUMBA_NUM_THREADS='1',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',
