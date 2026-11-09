@@ -34,6 +34,17 @@ class Containment(unittest.TestCase):
         self.assertEqual(canary.evaluate([self.row(str(2*2**30),'64','0')],{4},1)['status'],'blocked')
         self.assertEqual(canary.evaluate([self.row(str(2*2**30),'64','0','3-4')],{3,4},1)['status'],'blocked')
 
+    def test_one_allocated_core_may_include_two_smt_siblings(self):
+        rows = [self.row(str(2*2**30),'64','0','7,55')]
+        result = canary.evaluate(rows, {7,55}, 1, {7:(0,9),55:(0,9)})
+        self.assertEqual(result['status'], 'passed')
+        self.assertEqual(result['affinity_physical_cores'], 1)
+
+    def test_rejects_cpuset_escape_even_when_affinity_is_small(self):
+        rows = [self.row(str(2*2**30),'64','0','1-4')]
+        result = canary.evaluate(rows, {1}, 1, {i:(0,i) for i in range(1,5)})
+        self.assertEqual(result['status'], 'blocked')
+
     def test_parses_cpu_ranges_and_retains_missing_limits(self):
         self.assertEqual(canary.cpus('1-3,7'), {1,2,3,7})
         self.assertIsNone(canary.finite_min([self.row()], 'memory.max'))

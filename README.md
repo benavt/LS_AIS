@@ -67,6 +67,14 @@ The [machine-readable plan](config/mimas-completion-plan.json) is planning-only;
 containment, executable adapter and runtime-lock prerequisites remain. It does
 not submit jobs or release either held generation array.
 
+## Approved execution readiness
+
+The user approved the completion plan. Its CPU readiness job **25455** ran and
+stopped before science because actual job memory, process and swap limits did
+not meet the plan. The [readiness result](docs/completion-readiness.md) and
+[machine-readable status](config/completion-execution-status.json) record the
+blocker. No GPU, scoring, density or sampling job followed; publication is held.
+
 ## Source and execution
 
 Run `python3 scripts/status.py` for a source-only integrity check. The project

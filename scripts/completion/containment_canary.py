@@ -41,7 +41,13 @@ def finite_min(rows, key):
     return min(values) if values else None
 
 
-def evaluate(rows, affinity, requested_cpus):
+def core_count(cpu_set, core_ids):
+    if core_ids is not None and cpu_set <= set(core_ids):
+        return len({tuple(core_ids[cpu]) for cpu in cpu_set})
+    return len(cpu_set)
+
+
+def evaluate(rows, affinity, requested_cpus, core_ids=None):
     memory = finite_min(rows, 'memory.max')
     pids = finite_min(rows, 'pids.max')
     swap = finite_min(rows, 'memory.swap.max')
@@ -52,13 +58,16 @@ def evaluate(rows, affinity, requested_cpus):
         'descendants_at_most64': pids is not None and 0 < pids <= P0_PIDS,
         'swap_zero': swap == 0,
         'one_CPU_requested': requested_cpus == 1,
-        'CPU_affinity_bounded': bool(affinity) and len(affinity) <= requested_cpus,
+        'CPU_affinity_bounded': bool(affinity) and core_count(affinity, core_ids) <= requested_cpus,
+        'allocated_cores_bounded': bool(allocation_cpus) and core_count(allocation_cpus, core_ids) <= requested_cpus,
         'CPU_affinity_in_effective_cpuset': bool(allocation_cpus) and affinity <= allocation_cpus,
     }
     return dict(status='passed' if all(checks.values()) else 'blocked', checks=checks,
                 effective_memory_max=memory, effective_pids_max=pids,
                 effective_swap_max=swap, affinity=sorted(affinity),
                 allocation_cpuset=sorted(allocation_cpus),
+                affinity_physical_cores=core_count(affinity, core_ids),
+                CPU_topology_available=core_ids is not None,
                 proceed_to_P1=all(checks.values()), ready_for_scientific_work=False)
 
 
@@ -95,7 +104,18 @@ def main():
     if not os.environ.get('SLURM_JOB_ID'):
         parser.error('Run only inside the approved monitored P0 allocation')
     rows = collect_rows()
-    result = evaluate(rows, os.sched_getaffinity(0), int(os.environ.get('SLURM_CPUS_PER_TASK', '0')))
+    affinity = os.sched_getaffinity(0)
+    allocated = next((cpus(row['cpuset.cpus.effective']) for row in rows
+                      if row.get('cpuset.cpus.effective')), set())
+    core_ids = {}
+    try:
+        for cpu in affinity | allocated:
+            topology = Path('/sys/devices/system/cpu') / ('cpu' + str(cpu)) / 'topology'
+            core_ids[cpu] = [int((topology / name).read_text())
+                             for name in ['physical_package_id', 'core_id']]
+    except (OSError, ValueError):
+        core_ids = None
+    result = evaluate(rows, affinity, int(os.environ.get('SLURM_CPUS_PER_TASK', '0')), core_ids)
     result.update(stage='P0', approved_plan_sha256=PLAN_SHA256,
                   recorded_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                   job_id=os.environ['SLURM_JOB_ID'], node=os.uname().nodename,
