@@ -58,6 +58,15 @@ Public GitHub Pages and Zenodo publication are held until the missing workflow
 is completed and its successor reviewed. There is no public dataset DOI or Pages
 deployment yet.
 
+## Mimas completion plan
+
+The publication cohort remains the current 4,006 models. The
+[submission plan](docs/mimas-completion-plan.md) specifies the missing energy,
+density and MCMC/DISCO stages, their dependencies and finite resource ceilings.
+The [machine-readable plan](config/mimas-completion-plan.json) is planning-only;
+containment, executable adapter and runtime-lock prerequisites remain. It does
+not submit jobs or release either held generation array.
+
 ## Source and execution
 
 Run `python3 scripts/status.py` for a source-only integrity check. The project

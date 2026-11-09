@@ -1,0 +1,556 @@
+{
+  "schema_version": 1,
+  "id": "2026-11-09_mimas-current4006-complete_001",
+  "status": "reviewable_submission_plan_not_executable",
+  "target": "HSPH1_12757_homodimer",
+  "cohort": {
+    "models": 4006,
+    "methods": {
+      "afsample2": 1000,
+      "afcluster": 1000,
+      "speachaf": 1000,
+      "opendde": 1000,
+      "afsample3": 5,
+      "bioemu2": 1
+    },
+    "scope": "A1-117 and B1-117 including supplied tag;234 C-alpha positions;27261 pair distances",
+    "selection": "User selected current4006-model publication cohort on2026-11-09",
+    "roster_sha256": "5307df992cac7b9ae6a03382bba34fa8f8cd5cc0bcb02a2ff728abadc9606663"
+  },
+  "baseline": {
+    "project_commit": "b38ec0ce3f626e9bed063d253f25ff29e52e0689",
+    "library_commit": "f3063757460303e1a4a4ba0b3629fe81776c58c4",
+    "research_workflows_commit": "fc0e961f1581e93c8dd854ac890f9d300d00f6d5",
+    "Bonsai_commit": "b16ef6f0a164610327022c7d0b92de82b3596aad",
+    "density_native_commit": "61116fafb0c2c527846c2a9580d7106336f342ad"
+  },
+  "admission": {
+    "global_project_concurrency": 1,
+    "max_cpus": 8,
+    "max_host_memory_gib": 64,
+    "max_GPUs": 1,
+    "max_processes_per_task": 64,
+    "numeric_threads_per_worker": 1,
+    "local_native_TM_workers": 4,
+    "task_swap_bytes": 0,
+    "enforcement": "Observed finite actual job/step cgroup memory and descendant-process caps within each stage allocation;Slurm CPU/GPU placement;whole-job telemetry;bounded timeout and output controller",
+    "kernel_configuration_changes_by_agent": false
+  },
+  "storage": {
+    "new_run_gib_cap": 30,
+    "environment_gib_cap": 8,
+    "input_staging_gib_cap": 2,
+    "scientific_and_delivery_output_gib_cap": 20,
+    "free_reserve_gib": 50,
+    "quota_and_storage_preflight_required": true,
+    "retirement": false
+  },
+  "scoring": {
+    "checkpoint_sha256": "2d3045666c89766f94bf8a6265d64b7086cea9540c8dd5f51230a9ed806abb91",
+    "config_sha256": "de1d1119ff1b793d14a1e235eeeb4f5f74dedbac052a08b937f99b4cbb8584ca",
+    "native_source_commit": "2abfc58571e6528edf0919daf37a6c74bcf77f67",
+    "n_samples": 16,
+    "t_min": 0,
+    "t_max": 0.15,
+    "primary_time_index": 10,
+    "primary_t": 0.1,
+    "batch_size": 16,
+    "chunk_size": 100,
+    "seed": 215600,
+    "template_self_condition": true,
+    "inference_self_condition": false,
+    "mask_sequence": false,
+    "ensemble_size": 0,
+    "score_norm_energy": false,
+    "CPU_inference_fallback": false,
+    "cache_groups": [
+      1000,
+      1000,
+      1000,
+      1000,
+      6
+    ],
+    "join": "Exact model ID plus native-coordinate hash plus scoring identity",
+    "units": "Arbitrary learned units;lower within this unchanged full construct",
+    "future_cohort_reuse": "Reuse accepted exact current pilot scores in future arms;no duplicate evaluation"
+  },
+  "density": {
+    "dimensions": 10,
+    "seeds": [
+      42,
+      7,
+      123
+    ],
+    "n_neighbors": 30,
+    "min_dist": 0,
+    "min_cluster_size": 15,
+    "min_samples": 11,
+    "extraction": [
+      "leaf",
+      "eom"
+    ],
+    "primary": "seed42 leaf",
+    "energy_feature": false,
+    "feature_mask": "All27261 saved complete-dimer pair distances",
+    "noise": "Retain raw-1 and membership strengths;preserve explicit unassigned labels",
+    "density_Bonsai_selection": "Union of exact assigned-cluster medoids and up tofive confidence-selected ensemble members per cluster;also up tofive lowest-energy noise examples with explicit unassigned labels;deduplicate exact IDs/hashes",
+    "medoid_metric": "Full-cluster sum of fixed-chain rigid-fit234-C-alpha RMSD;deterministic model-ID tie break",
+    "medoid_grid_protocol": "Reuse accepted nonfast USalign -mol prot -ter1 -a T -mm1 with fixed A->A B->B chain map;separate cache from positional state membership",
+    "HDBSCAN_workers": 8
+  },
+  "states": {
+    "structural_TM_protocol": "Canonical A/B full-dimer C-alpha mmCIF;USalign -mol prot -ter1 -TMscore2 -a T;same chain ID and residue number correspond;one whole-complex superposition;bidirectional average-length mean",
+    "TM_binary_sha256": "cdb4ec43f97f220204425bf9c9a253f63ef40986f69767b0540baeeaa7b12990",
+    "reuse_saved_primary_TM_cells": false,
+    "cutoff": 0.7,
+    "fixed_anchor_sensitivity_cutoffs": [
+      0.6,
+      0.8
+    ],
+    "max_anchors": 3,
+    "proxy_coverage_goal": 0.9,
+    "min_members": 50,
+    "anchor_pool": "Exact union of Primary and accepted HDBSCAN medoids;no energy in geometry discovery",
+    "proxy": "Original Primary cluster populations;HDBSCAN-only candidates have zero own proxy mass",
+    "membership": "Highest qualifying TM;self-anchor wins selfscore ties,then lexicographic model-ID;disjoint;uncovered retained;no forced merges or padding"
+  },
+  "sampling": {
+    "priors": [
+      "Primary",
+      "HDBSCAN"
+    ],
+    "energy_scope": "Full234-residue dimer,Model6 t=0.10",
+    "alpha": 0.5,
+    "tau": "One full4006-model energy IQR with linear quantiles;stop on zero IQR or unrepresentable probabilities",
+    "noise": "Original full-cohort energy-only aggregate noise mass;condition full-cohort weights on state without recomputing group sizes",
+    "law": "Product-weight unordered subset of50 distinct model IDs",
+    "proposal": "Remove uniform selected member;propose incoming q=.1/N+.9*p on original complement;complete Hastings ratio including complement normalizers",
+    "chains": 4,
+    "proposals_per_chain": 10000,
+    "burn_in": 1000,
+    "production": "Chain0 final iteration10000 chosen before outcomes",
+    "seed": 202611090,
+    "seed_rule": "PCG64;sorted state ID then Primary/HDBSCAN condition ordinal and fixed stream offsets;freeze all derived seeds in execution plan before RNG",
+    "exact_control_panels_per_condition": 20,
+    "DISCO": "Minimum-energy representative per assigned fine group;conditional group-mass WOR if over50;otherwise fill from all remaining eligible models including original noise",
+    "diagnostics": [
+      "replayable swaps/rejections",
+      "acceptance rate",
+      "energy,cluster,method and noise count traces",
+      "rank/folded split Rhat and bulk/tail ESS where defined",
+      "exact inclusion marginals and independent subset controls"
+    ],
+    "poor_mixing": "Report honestly;no automatic extension",
+    "exports": "At mostsix MCMC50 andsix DISCO50 full-atom full-dimer panels;derive comparison poses without modifying native originals"
+  },
+  "jobs": [
+    {
+      "id": "P0",
+      "afterok": [],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 1,
+      "memory_gib": 2,
+      "wall_minutes_per_task": 10,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Monitored allocation canary:verify actual memory,pids,swap and cpuset;require administrative containment prerequisite first"
+    },
+    {
+      "id": "P1",
+      "afterok": [
+        "P0"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 16,
+      "wall_minutes_per_task": 60,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Create separate locked CPU analysis environment;stage pinned library,native density code,Bonsai and USalign;run source/fixture checks"
+    },
+    {
+      "id": "P2",
+      "afterok": [
+        "P1"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 16,
+      "wall_minutes_per_task": 45,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Bind all4006 native hashes and producer acceptance;stage only verified saved features/projections/Primary artifacts;freeze portable input manifest"
+    },
+    {
+      "id": "E0",
+      "afterok": [
+        "P2"
+      ],
+      "tasks": 5,
+      "array": "0-4%1",
+      "cpus_per_task": 2,
+      "memory_gib": 16,
+      "wall_minutes_per_task": 45,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "CPU preparation per scoring group;strict native checkpoint load;complete chain-aware cache and lossless roundtrip"
+    },
+    {
+      "id": "E1",
+      "afterok": [
+        "E0"
+      ],
+      "tasks": 5,
+      "array": "0-4%1",
+      "cpus_per_task": 4,
+      "memory_gib": 64,
+      "wall_minutes_per_task": 10,
+      "gpus_per_task": 1,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Counted GPU pilot per group:100 each original arm and exact six current pilots"
+    },
+    {
+      "id": "E2",
+      "afterok": [
+        "E1"
+      ],
+      "tasks": 5,
+      "array": "0-4%1",
+      "cpus_per_task": 1,
+      "memory_gib": 4,
+      "wall_minutes_per_task": 10,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Accept each counted pilot,finite total/per-residue energies,two-chain invariance and finished producer telemetry"
+    },
+    {
+      "id": "E3",
+      "afterok": [
+        "E2"
+      ],
+      "tasks": 36,
+      "array": "0-35%1",
+      "cpus_per_task": 4,
+      "memory_gib": 64,
+      "wall_minutes_per_task": 10,
+      "gpus_per_task": 1,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Fresh native GPU process for each remaining100-model chunk;four original methods times nine chunks"
+    },
+    {
+      "id": "E4",
+      "afterok": [
+        "E3"
+      ],
+      "tasks": 5,
+      "array": "0-4%1",
+      "cpus_per_task": 2,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 20,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Accept complete group grids and exact identities,CPU/GPU/native receipts;final six-pilot group reuses its accepted E1 result"
+    },
+    {
+      "id": "E5",
+      "afterok": [
+        "E4"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 20,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Join exact4006x16 energy grid;verify E4 finalizer logs;rank full construct;issue score-coverage acceptance"
+    },
+    {
+      "id": "D0",
+      "afterok": [
+        "E5"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 8,
+      "memory_gib": 32,
+      "wall_minutes_per_task": 240,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Three fresh10D geometry UMAP fits and six HDBSCAN extractions;seed42 leaf partition;save strengths/noise and diagnostics"
+    },
+    {
+      "id": "D1",
+      "afterok": [
+        "D0"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 8,
+      "memory_gib": 32,
+      "wall_minutes_per_task": 720,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Exact fixed-chain full-cluster density medoids;up-to-five confidence-ranked aligned ensembles;freeze own tree selection and partition hashes"
+    },
+    {
+      "id": "D2",
+      "afterok": [
+        "D1"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 4,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 480,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Density medoid TM heatmap and CSV with existing validated fixed-chain multimer protocol;no remote helper or offload"
+    },
+    {
+      "id": "D3",
+      "afterok": [
+        "D2"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 8,
+      "memory_gib": 32,
+      "wall_minutes_per_task": 240,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "One native density-selection Bonsai tree,all nonzero centered PCA axes,no whitening,kNN10,seed42,three layouts"
+    },
+    {
+      "id": "S0",
+      "afterok": [
+        "D3"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 10,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Counted full-dimer positional-TM protocol verification;at most12 directional native calls;both chains234 positions required"
+    },
+    {
+      "id": "S1",
+      "afterok": [
+        "S0"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 4,
+      "memory_gib": 16,
+      "wall_minutes_per_task": 720,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "New positional complex candidate grid,geometry-only state discovery and all4006-member state scores;maximum three states"
+    },
+    {
+      "id": "S2",
+      "afterok": [
+        "S1"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 60,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Saved-energy MCMC50 and DISCO50 for Primary and HDBSCAN priors;exact controls,diagnostics and selected aligned native-coordinate exports"
+    },
+    {
+      "id": "S3",
+      "afterok": [
+        "S2"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 30,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Scientific/hash acceptance for all required views and sampling;verify finalizer finished telemetry separately in X0"
+    },
+    {
+      "id": "X0",
+      "afterok": [
+        "S3"
+      ],
+      "tasks": 1,
+      "array": null,
+      "cpus_per_task": 2,
+      "memory_gib": 8,
+      "wall_minutes_per_task": 30,
+      "gpus_per_task": 0,
+      "maximum_active_tasks": 1,
+      "process_limit": 64,
+      "swap_bytes": 0,
+      "operation": "Delivery-manifest and privacy/capacity audit;allowlist selected accepted results for verified collection to Pax"
+    }
+  ],
+  "bounds": {
+    "models": 4006,
+    "time_levels": 16,
+    "energy_values": 64096,
+    "scoring_groups": 5,
+    "GPU_native_batch_calls": 4496,
+    "GPU_tasks": 41,
+    "GPU_requested_minutes": 410,
+    "CPU_tasks": 28,
+    "Slurm_submissions": 18,
+    "Slurm_tasks": 69,
+    "density_UMAP_fits": 3,
+    "HDBSCAN_extractions": 6,
+    "HDBSCAN_clusters_upper": 267,
+    "HDBSCAN_medoid_RMSD_unordered_pairs_upper": 8022015,
+    "HDBSCAN_medoid_TM_directional_calls_upper": 71022,
+    "state_candidates_upper": 294,
+    "state_candidate_TM_directional_calls_upper": 86142,
+    "state_member_TM_directional_calls_upper": 24036,
+    "TM_protocol_directional_calls_upper": 12,
+    "total_new_USalign_directional_calls_upper": 181212,
+    "native_Bonsai_fits": 1,
+    "Bonsai_selected_model_upper": 1607,
+    "supported_states_upper": 3,
+    "sampling_conditions_upper": 6,
+    "MH_chains_per_condition": 4,
+    "MH_proposals_per_chain": 10000,
+    "MH_proposals_upper": 240000,
+    "exact50_control_panels_upper": 120,
+    "MCMC50_production_panels_upper": 6,
+    "DISCO50_panels_upper": 6,
+    "sampling_multi_MODEL_ensembles_upper": 12,
+    "sampling_exported_coordinate_instances_upper": 600,
+    "display_projection_refits": 0,
+    "new_folding_calls": 0,
+    "automatic_retries": 0,
+    "paid_external_calls": 0,
+    "per_residue_energy_values": 14998464,
+    "HDBSCAN_medoid_RMSD_ordered_workspace_evaluations_upper": 16048036
+  },
+  "not_touched": {
+    "existing_generation_jobs": [
+      25423,
+      25426,
+      25427
+    ],
+    "future1994_models": "Outside this completion cohort;no release,regeneration or new dependencies",
+    "existing_source_worktrees": "Preserve dirty Clustering checkout and existing frozen scientific runs",
+    "published_release": false
+  },
+  "submission": {
+    "front_door": "Pinned project adapter using Fleet monitored submit --device cpu or --device gpu --workload-kind analysis;no raw sbatch",
+    "preview": "bash-n plus actual Fleet preview and stored scheduler-script verification for every concrete body",
+    "apply": false,
+    "retry": "One immutable submission intent;reconcile receipts and queue on uncertainty;no blind retries",
+    "dependencies": "afterok plus kill-on-invalid-dep;entire-array barriers;scientific gates also recheck finished producer telemetry",
+    "new_source_required": [
+      "Variable-size chain-aware scoring worker for exact6-pilot group without padding",
+      "Portable4006-row density adapter",
+      "Homodimer state canonicalizer with native TMscore2 protocol and fixed chain/residue proof",
+      "Hash-bound monitoring/resource and saved-result acceptance wrappers"
+    ]
+  },
+  "remaining_before_submission": [
+    "Administrator-supported enforceable task memory/pids/swap containment verified on actual compute allocation",
+    "Committed and fixture-tested project adapters;exact source inventory and scientific batch bodies",
+    "Resolved hash-locked CPU environment and supported network/bootstrap receipt",
+    "Exact environment,executable and all stage-plan hashes;Bash/Fleet previews",
+    "Explicit approval of the resulting exact executable plan;current request authorizes planning only"
+  ],
+  "publication": {
+    "private_successor": "After accepted scientific outputs,collect selected files with hashes and build fresh private atlas on Pax",
+    "checks": [
+      "4006 finite points and native energies in both views",
+      "own partition structures,ensembles,TM grids and native Bonsai",
+      "MCMC/DISCO actual panels,weights,states and diagnostics",
+      "desktop/mobile/CPU rendering and native/gzip download identity",
+      "blocking privacy scan and final allowlisted file manifest"
+    ],
+    "site_target_mib": 900,
+    "gzip": "Use supported shared transport for new derived ensemble assets;link medoids to existing native models;never omit cohort points to meet size budget",
+    "zenodo": "Fresh four-file package;reuse exact native models.tar.gz;update scores and scholarly README,resolve license,verify exact final files and metadata",
+    "gate": "Review exact complete successor before public deployment/Zenodo publication;current publication hold stays set",
+    "Pax_delivery_resources": {
+      "cpus": 2,
+      "memory_gib": 4,
+      "wall_hours_cap": 2,
+      "additional_disk_gib_cap": 2,
+      "free_reserve_gib": 50,
+      "preview_duration_hours": 2,
+      "scientific_refits": 0
+    }
+  },
+  "cost": {
+    "paid_external_APIs_usd": 0,
+    "Mimas_allocation_charge": "Not priced;quote bounded core/GPU requests,not a claim of free compute",
+    "calendar_ETA": "Estimate after canary/pilots and live queue;no calendar promise from wall limits"
+  },
+  "environment": {
+    "policy": "Dedicated project-local CPU analysis environment;existing ProteinEBM environment unchanged",
+    "proposed_CPU_package_versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.1",
+      "scikit-learn": "1.7.1",
+      "umap-learn": "0.5.11",
+      "numba": "0.63.1",
+      "biopython": "1.85",
+      "pandas": "2.3.1",
+      "networkx": "3.4.2",
+      "matplotlib": "3.10.5",
+      "h5py": "3.14.0",
+      "plotly": "6.3.0",
+      "ruamel.yaml": "0.18.15",
+      "psutil": "7.0.0"
+    },
+    "version_source": "Read-only metadata of the accepted Pax runtime;proposed for Mimas compatibility validation",
+    "lock_status": "Not yet resolved to a platform-specific artifact/build hash lock",
+    "bootstrap": "Pinned binary packages only,no unreviewed source builds or automatic dependency fallbacks",
+    "Bonsai_dependency_installer": false,
+    "provisioning_approval": "P1 must be covered by exact execution approval;no environment installation performed in this planning task",
+    "cache_policy": "Installer caches and TMPDIR remain under the bounded new run;no writes to shared environment or global package caches"
+  }
+}
