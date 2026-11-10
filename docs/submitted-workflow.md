@@ -1,38 +1,32 @@
-# Submitted current4,006 completion workflow
+# Submitted current 4,006 completion workflow
 
 All remaining Mimas stages were submitted on November10,2026 after the user's
 explicit instruction to submit. Every stored scheduler script was verified by
 the frozen Fleet front door. Exact script, batch and executable-plan hashes are
 in [the submission ledger](../config/mimas-submissions.json). Scientific inputs,
-methods and numeric settings remain within the approved current4,006 plan.
+methods and numeric settings remain within the approved current 4,006 plan.
 
 | Stage | Job | Status at verified check |
 | --- | --- | --- |
-|P2 native cohort and saved inputs|25683|Passed all4,006 hashes,sequences,full chains and frozen features|
-|E0 native CPU caches|25685|Allfive groups passed strict native checkpoint load and lossless cache checks|
-|E1 counted GPU pilots|25687|All406 models scored,including exact six accepted pilots|
-|E2 pilot acceptance|25688|Allfive gates passed native and both finished resource-log checks|
-|E3 remaining3,600 models|25689|Running;36 serialized tasks,one GPU at a time|
-|E4 group acceptance|25690|Queued after E3|
-|E5 full score join|25691|Queued after E4|
-|R0 native export runtime completion|25722|Queued after E5;offline,new isolated prefix|
-|D0 geometry-only HDBSCAN|25724|Queued after R0|
-|D1 exact density medoids/ensembles|25725|Queued after D0|
-|D2 own medoid TM grid|25726|Queued after D1|
-|D3 own native Bonsai|25727|Queued after D2|
-|S0 full-dimer positional protocol tests|25728|Queued after D3|
-|S1 geometry-guided structural states|25729|Queued after S0|
-|S2 MCMC50 and DISCO50|25730|Queued after S1|
-|S3 scientific acceptance|25731|Queued after S2|
-|X0 selected delivery/privacy audit|25732|Queued after S3|
+|P2_002|25683|Passed|
+|E0|25685|Passed|
+|E1|25687|Passed|
+|E2|25688|Passed|
+|E3|25689|Passed|
+|E4|25690|Passed|
+|E5|25691|Passed|
+|R0 Native export runtime repair|25885|passed|
+|D0 Geometry-only HDBSCAN|25888|running|
+|D1 Density medoids/ensembles|25889|pending_dependency|
+|D2 Own medoid TM grid|25890|pending_dependency|
+|D3 Own native Bonsai|25892|pending_dependency|
+|S0 Full-dimer protocol fixtures|25893|pending_dependency|
+|S1 Geometry-guided structural states|25894|pending_dependency|
+|S2 MCMC50 and DISCO50|25895|pending_dependency|
+|S3 Scientific acceptance|25896|pending_dependency|
+|X0 Selected delivery/privacy audit|25897|pending_dependency|
 
-The pilot check verified406 models,6,496 total energies and464 native GPU batch
-calls. Production subsequently started;at09:21 Eastern on November10,the native
-chunk markers recorded1,006 completed models. Full-cohort acceptance is pending E5. Production evaluates the remaining
-3,600 models once;all accepted pilot results are reused. GPU arrays have1-task
-concurrency and success dependencies serialize stages. The approved GPU ceiling
-remains41 tasks and410 requested GPU-minutes,with at most one GPU active.
-These are request ceilings,not an ETA.
+Checked 2026-11-10T15:38:33.161475-05:00. ProteinEBM accepted all 4,006 models,64,096 energies,14,998,464 per-residue values and4,496 native GPU batch calls. The full grid hash and E5 own finished inner/outer resource logs passed. All 41 GPU tasks completed;the CPU repair requests zero additional GPU work.
 
 The first P2 attempt25679 stopped before reading target models because the new
 adapter used Fleet's initial intent record. The diagnosed repair reads its
@@ -40,13 +34,9 @@ final submission receipt;25683 passed with unchanged inputs. Both attempts are
 preserved. The final producer gate also binds array resource logs to their
 submitted scheduler identity.
 
-R0 completes the native Bonsai export environment:the31 prepared packages plus
-PyYAML,tables,natsort,numexpr,py-cpuinfo and typing-extensions at the versions
-already used by the accepted Pax workflow. Wheel hashes,complete native source
-and compatibility patches are frozen. It reuses verified existing wheels and
-installs offline into a fresh prefix;the accepted P1 and ProteinEBM environments
-remain intact. This CPU preparation repair runs after E5 and adds no GPU or
-scientific fitting calls. No paid external API is used.
+R0 job 25722 failed because the offline PyTables wheel required blosc2, which was absent from the 37-package lock. The repair retains all 37 versions and adds 20 hash-verified binary dependency pins. The failed dependency check was reproduced before the repaired 57-package bundle resolved and installed offline. Fresh local native Bonsai imports and a two-row HDF roundtrip passed.
+
+The first repair attempt25874 omitted the existing containment helper and stopped before worker execution. Its exact launcher import was reproduced, then passed with the helper restored. The final fresh runtime job 25885 passed the same native fixtures and both own finished monitoring checks. Failed attempts, original environments and all accepted scoring results remain intact. The nine unstarted CPU stages were resubmitted with success dependencies and unchanged scientific workers, inputs, seeds, settings and resource ceilings.
 
 HDBSCAN uses the same27261 saved distance features,three10D seeded UMAP fits
 and six leaf/EOM extractions. Scores are verified before this work and excluded
@@ -59,12 +49,13 @@ final panel,20 exact controls,and a real DISCO50 panel. Noise,unsupported states
 uncovered models and diagnostic limitations remain explicit. There is no
 automatic extension,retry,tuning or forced biological state count.
 
-23 source tests passed before submission. Native tests on the real406 pilot
-models and all CPU/GPU/final pilot-gate monitoring passed. Later native results
-are pending their queued stages;successful submission is not scientific
-acceptance. X0's own finished log must be checked externally before collection.
+23 source tests passed before submission. Native scoring and acceptance checks now cover all 4,006
+models and all 41 GPU allocations. The repaired runtime also passed its native
+fixtures and both finished monitor checks. Later analysis results remain pending;
+successful submission is not scientific acceptance. X0's own finished log must be checked externally before collection.
 
 The original partial atlas and native archive remain preserved. The future
-AFsample3/BioEmu2 generation arrays remain held outside this cohort. Public
+AFsample3/BioEmu2 production arms remain outside this frozen cohort. BioEmu2
+production was observed running separately;this repair did not change generation jobs. Public
 GitHub Pages and Zenodo publication remain held for a complete private successor,
 browser review,final metadata/file checks and data-license resolution.

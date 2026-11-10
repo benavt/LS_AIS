@@ -19,10 +19,11 @@ Cluster sizes describe this generated library, not equilibrium populations.
 
 Native pTM/ipTM are available for 4,005 models, mean pLDDT for 3,000, native
 AFsample2 ranking confidence for 1,000 and native OpenDDE/AF3 ranking score for
-1,005. ProteinEBM energies are unavailable. The completion plan's CPU readiness and environment stages now pass under
-existing user-delegated resource controls. All 406 counted pilot models now have
-validated energies; production and final acceptance for the full cohort are queued.
-The two future production arms remain held outside this completion cohort.
+1,005. ProteinEBM now has verified coverage for all 4,006 models at 16 noise levels
+(64,096 energies). The saved partial site still needs these scores wired into its
+reviewed successor. The repaired native export runtime passed; the remaining
+HDBSCAN, supplement and MCMC/DISCO stages are submitted with success dependencies.
+The two future production arms remain outside the frozen completion cohort.
 The atlas keeps missing scores empty and identifies energy separately from confidence.
 
 ## Incomplete workflow and publication hold
@@ -70,7 +71,8 @@ planning snapshot. Its original administrator prerequisite is superseded by the
 [verified delegated repair](docs/completion-readiness.md). Readiness and CPU
 runtime preparation passed. The complete calculation graph is now submitted,
 with exact executable manifests in the [submission ledger](config/mimas-submissions.json).
-Neither held generation array was released.
+This repair did not change generation jobs; BioEmu2 production was observed
+running separately and remains outside the frozen 4,006-model cohort.
 
 ## Approved execution readiness
 
@@ -81,10 +83,11 @@ limits while preserving the Slurm CPU affinity. Global settings and other jobs
 were unchanged. The [readiness result](docs/completion-readiness.md) and
 [machine-readable status](config/completion-execution-status.json) retain the
 successful evidence and diagnosed failed attempts. Both final monitoring logs
-passed and both private services were cleaned up. The current4,006 completion
-workflow is now submitted: all406 pilots passed, and production has started. The latest saved progress
-is in the execution status ledger. Density, native supplements, MCMC/DISCO and final acceptance are queued
-with success dependencies. See [the submitted workflow](docs/submitted-workflow.md).
+passed and both private services were cleaned up. The current 4,006 completion
+workflow has accepted all 4,006 ProteinEBM score grids. The latest saved progress
+is in the execution status ledger. Density, native supplements, MCMC/DISCO and final
+acceptance are resubmitted after the repaired native runtime. See
+[the submitted workflow](docs/submitted-workflow.md).
 Publication remains held.
 
 ## Source and execution

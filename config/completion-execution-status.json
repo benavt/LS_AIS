@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
-  "status": "complete_current4006_calculation_graph_submitted",
+  "status": "current4006_energies_accepted_remaining_CPU_chain_resubmitted",
   "readiness_job": "25458",
   "environment_job": "25462",
   "history": [
@@ -54,6 +54,36 @@
       "job": "25688",
       "phase": "E2",
       "result": "allfive pilot gates and finished native resource checks passed"
+    },
+    {
+      "job": "25689",
+      "phase": "E3",
+      "result": "All36 production tasks passed;3600 models scored once"
+    },
+    {
+      "job": "25690",
+      "phase": "E4",
+      "result": "Allfive complete group acceptances passed"
+    },
+    {
+      "job": "25691",
+      "phase": "E5",
+      "result": "4006 models,64096 energies,14998464 residue values accepted;grid hash and own finished resource logs verified"
+    },
+    {
+      "job": "25722",
+      "phase": "R0",
+      "result": "Offline bundle omitted required blosc2 dependency;no target calculations"
+    },
+    {
+      "job": "25874",
+      "phase": "R0",
+      "result": "Repair staging omitted containment helper;stopped before worker launch"
+    },
+    {
+      "job": "25885",
+      "phase": "R0",
+      "result": "Complete57-package isolated offline runtime,native imports,HDF fixture and finished inner/outer checks passed"
     }
   ],
   "resource_model": "Slurm placement plus a private transient delegated user service for each job",
@@ -90,20 +120,34 @@
   "administrator_action_required": false,
   "global_configuration_changed": false,
   "remaining": [
-    "Wait for the submitted production,acceptance,density and sampling chain",
-    "Verify X0 own final resource logs externally before collecting its allowlisted outputs",
+    "Wait for resubmitted density,supplement,state,sampling and acceptance chain",
+    "Verify X0 own final resource logs before collecting allowlisted outputs",
     "Assemble and browser-test a fresh private complete atlas successor;review dataset license and package before publication"
   ],
   "publication_held": true,
-  "checked_at_UTC": "2026-11-10T14:21:15.830025+00:00",
+  "checked_at_UTC": "2026-11-10T20:38:33.161475+00:00",
   "submissions": "config/mimas-submissions.json",
-  "current_stage": "E3 ProteinEBM production running,one GPU task at a time",
+  "current_stage": "D0 geometry HDBSCAN running",
   "GPU_tasks_submitted": 41,
-  "GPU_task_allocations_completed": 5,
+  "GPU_task_allocations_completed": 41,
   "accepted_pilot_models": 406,
   "accepted_pilot_energies": 6496,
-  "full4006_score_join_accepted": false,
+  "full4006_score_join_accepted": true,
   "all_remaining_scientific_stages_submitted": true,
-  "tests": "23 source tests passed;P2 and all15 E0/E1/E2 tasks passed native and separate inner/outer finished monitoring checks",
-  "models_with_completed_score_chunks": 1006
+  "tests": "Existing23 source tests;offline resolver reproduced original failure and accepted repaired57-package closure;fresh local native imports and HDF fixture passed;Mimas R0 native fixtures and own finished inner/outer resource checks passed",
+  "models_with_completed_score_chunks": 4006,
+  "accepted_models": 4006,
+  "accepted_energies": 64096,
+  "accepted_per_residue_values": 14998464,
+  "new_GPU_jobs_for_repair": 0,
+  "analysis_runtime": {
+    "packages": 57,
+    "prior_package_pins_retained": 37,
+    "native_imports_and_HDF_fixture": "passed",
+    "finished_resource_checks": "passed",
+    "job_id": "25885",
+    "plan_sha256": "80b50239634035361443ba57398de8de699a7ec72f959ebea921cd4173044e1b",
+    "lock": "config/runtime/analysis-complete-repaired-linux-cp311.lock",
+    "added_artifacts": "config/runtime/analysis-dependency-closure-artifacts.json"
+  }
 }

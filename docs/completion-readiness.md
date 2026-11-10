@@ -53,8 +53,9 @@ Pax C++ libraries; system libraries were unchanged. These checks establish
 preparation readiness and do not constitute target scientific acceptance.
 
 P2 subsequently passed as job25683,and the complete remaining calculation graph
-is now submitted. All406 counted pilot models and their resource gates passed.
+is now submitted. All4,006 models now have accepted ProteinEBM grids and finished resource gates.
 See [the submitted workflow](submitted-workflow.md) for the actual scheduler IDs,
 diagnosed P2 repair,native export-runtime completion and current queue state.
-The two generation arrays remain held outside this cohort. The accepted native
+The future generation arms remain outside this frozen cohort;BioEmu2 was observed
+running separately,and this repair did not change generation jobs. The accepted native
 dataset and original partial atlas are unchanged;publication remains held.

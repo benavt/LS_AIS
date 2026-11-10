@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "target": "HSPH1_12757_homodimer",
-  "status": "current4006_completion_submitted",
+  "status": "current4006_energies_verified_remaining_CPU_resubmitted",
   "release_ready": false,
   "publication_hold": true,
   "hold_reason": "User stopped publication and confirmed full skill workflow requirements",
@@ -35,8 +35,9 @@
       "id": "ProteinEBM",
       "range": "all",
       "view": "shared",
-      "status": "in_flight",
-      "detail": "406 counted pilot models accepted at all16 time levels;remaining3600 production and full4006 acceptance queued.E0-E5 jobs25685,25687,25688,25689,25690,25691."
+      "status": "verified",
+      "detail": "All 4006 models accepted at 16 time levels:64096 energies and14998464 residue values; E5 job 25691, output hash and both own finished resource logs verified. Scientific scores are ready; successor page wiring remains pending.",
+      "grid_sha256": "31f06b1e2f391ec76452a47167846bc7c8e105214ebb029cd964592400f827b2"
     },
     {
       "id": "memberships",
@@ -64,64 +65,65 @@
       "range": "all",
       "view": "primary",
       "status": "verified",
-      "detail": "Own161-model selection;three native layouts"
+      "detail": "Own161-model selection; three native layouts"
     },
     {
       "id": "memberships",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "queued",
-      "detail": "No accepted geometry-based HDBSCAN assignments or strengths; retain noise Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
+      "status": "in_flight",
+      "detail": "No accepted geometry-based HDBSCAN assignments or strengths; retain noise Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
     },
     {
       "id": "structures_ensembles",
       "range": "all",
       "view": "HDBSCAN",
       "status": "queued",
-      "detail": "Select exact representatives/medoids and real aligned members from accepted density assignments Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
+      "detail": "Select exact representatives/medoids and real aligned members from accepted density assignments Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
     },
     {
       "id": "medoid_TM_grid",
       "range": "all",
       "view": "HDBSCAN",
       "status": "queued",
-      "detail": "Separate grid ordered by verified HDBSCAN medoids Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
+      "detail": "Separate grid ordered by verified HDBSCAN medoids Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
     },
     {
       "id": "native_Bonsai",
       "range": "all",
       "view": "HDBSCAN",
       "status": "queued",
-      "detail": "Native tree from HDBSCAN's own verified selection and residue scope Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
+      "detail": "Native tree from HDBSCAN's own verified selection and residue scope Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
     },
     {
       "id": "structural_states",
       "range": "all",
       "view": "shared",
       "status": "queued",
-      "detail": "Submitted full-dimer positional-TM protocol and state discovery jobs25728-25729;maximum three supported states,uncovered and unsupported retained."
+      "detail": "Full-dimer positional-TM protocol and geometry-guided states jobs 25893,25894; maximum three supported states, uncovered and unsupported retained."
     },
     {
       "id": "MCMC",
       "range": "all",
       "view": "shared",
       "status": "queued",
-      "detail": "Saved full-dimer energy/density prior;bound protocol,seeds,run length,diagnostics,exact IDs and output hashes Submitted S2 job25730 with frozen PCG64 streams;dependent scientific/delivery acceptance25731-25732."
+      "detail": "Resubmitted S2 job 25895 with unchanged frozen PCG64 streams and approved protocol; scientific/delivery gates 25896,25897."
     },
     {
       "id": "DISCO",
       "range": "all",
       "view": "shared",
       "status": "queued",
-      "detail": "Verified energy-based coverage control and actual unique selected-model cardinality Submitted S2 job25730 with frozen PCG64 streams;dependent scientific/delivery acceptance25731-25732."
+      "detail": "Resubmitted S2 job 25895 with unchanged frozen PCG64 streams and approved protocol; scientific/delivery gates 25896,25897."
     },
     {
       "id": "successor_browser_acceptance",
       "range": "all",
       "view": "shared",
       "status": "missing",
-      "detail": "Both clustering views,shared figure choices,partition-specific TM grids,native trees,sampling panels and verified energy colors"
+      "detail": "Both clustering views, shared figure choices, partition-specific TM grids, native trees, sampling panels and verified energy colors"
     }
   ],
-  "paid_external_calls": 0
+  "paid_external_calls": 0,
+  "checked_at_UTC": "2026-11-10T20:38:33.161475+00:00"
 }

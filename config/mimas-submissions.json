@@ -3,8 +3,8 @@
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
   "authorization": "submit these jobs!",
   "cohort": 4006,
-  "checked_at_UTC": "2026-11-10T14:21:15.830025+00:00",
-  "checked_at_Eastern": "2026-11-10T09:21:15.830025-05:00",
+  "checked_at_UTC": "2026-11-10T20:38:33.161475+00:00",
+  "checked_at_Eastern": "2026-11-10T15:38:33.161475-05:00",
   "jobs": {
     "P2_002": {
       "job_id": "25683",
@@ -53,7 +53,7 @@
       "source_script_sha256": "1e34d670f2cd52e56c8af00e54ae83ce43f83a47be14afd9d3e043c779d4eae6",
       "monitored_batch_sha256": "c48e40b933b68cfea3742a3e06117b3df68d49d8a02033da941e9226bcd5558c",
       "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
-      "status_at_check": "running",
+      "status_at_check": "passed",
       "afterok": "25688"
     },
     "E4": {
@@ -63,7 +63,7 @@
       "source_script_sha256": "0352cddc3bd040264a428898c2f64012e02ce3428a999eb7627e58414a65c824",
       "monitored_batch_sha256": "b3a09af40b4007c24cdad48b57990feeece40db11979dcbf32b18a223a3c733e",
       "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25689"
     },
     "E5": {
@@ -73,108 +73,108 @@
       "source_script_sha256": "5037549a76d0d23f49e7de3eea1cb6cae80253be0ca9aac0a60609f0ae4303c6",
       "monitored_batch_sha256": "5420d4e7f8fa42a641125574b838d703ed1b1b13e0ae40944cefc99fe38cff4e",
       "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25690"
     },
     "R0": {
-      "job_id": "25722",
+      "job_id": "25885",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "82a23cd35804c951f8d29014c0006aff4f2814313be8d12de6f2897222aeb27b",
-      "monitored_batch_sha256": "f68e69492f42098e6870200c0a04d79897fa85beb19d2285223d8e71c2826b60",
-      "execution_plan_sha256": "2eedcc77028e515d445203e427cc68c3d5b348e4b01c4132668ac8ccd1d03cd5",
-      "status_at_check": "pending_dependency",
-      "afterok": "25691"
+      "source_script_sha256": "3d406b9e307f3e52ebb93e083b5ebf26bd2e3ea65a6915288766e1ac399fc23c",
+      "monitored_batch_sha256": "569171c5ee5c58c12e3d64edafbc61aa29b4260c14e1f22a315962c52cecf3bb",
+      "execution_plan_sha256": "80b50239634035361443ba57398de8de699a7ec72f959ebea921cd4173044e1b",
+      "status_at_check": "passed",
+      "afterok": "Accepted historical E5 25691 verified by output hash and finished inner/outer logs;expired Slurm dependency omitted"
     },
     "D0": {
-      "job_id": "25724",
+      "job_id": "25888",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "ad848b5bfa1b3f2db94bd97174c16bb9e179fc5ec20b3c29c24c689ada6dc4ff",
-      "monitored_batch_sha256": "6d597460cb3d32947eb97ee951b3a9b6159d5a5558327de71ef2ee5f0a0fdb47",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
-      "status_at_check": "pending_dependency",
-      "afterok": "25722"
+      "source_script_sha256": "7d5a17099981524945e6fbfde98e5c123ca24883d87855bc84895909c9492020",
+      "monitored_batch_sha256": "c7430fbbb3370771134951619af4081982c088f7600acdd7a19f49f282cc8936",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
+      "status_at_check": "running",
+      "afterok": "25885"
     },
     "D1": {
-      "job_id": "25725",
+      "job_id": "25889",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "f7c2870ec55887f5e50e8b81684e96940b2899a28be567a22572686d860073d9",
-      "monitored_batch_sha256": "f3d42f877c5adcd9712ce06b88fb8d103bac8d2504727cf937657b2c4e53c3c2",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "0c1f50c0d18353a6f5c6aa1bd9b169d292b598614c727c873b22c6970203d543",
+      "monitored_batch_sha256": "71508b8fb736cbad87385944583232cd45df687eaa7faf7f2b05a7891efe571b",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25724"
+      "afterok": "25888"
     },
     "D2": {
-      "job_id": "25726",
+      "job_id": "25890",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "859770428e17b8a9ffe3ee9f1df56c3d191a38102c589583177640ae9406b9fa",
-      "monitored_batch_sha256": "f4b224084025f7fa2434a3315cac3233fc21ec5b28ab07ba85b554c9af44ae42",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "c6374463c0b8d073abeea32a4e0e8010eae97d3f401852750130bef727c99ec2",
+      "monitored_batch_sha256": "70ca7426a646924789090afabff0c7589603bdd5a9892926bfe2bdf022fe6839",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25725"
+      "afterok": "25889"
     },
     "D3": {
-      "job_id": "25727",
+      "job_id": "25892",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "faedd1ab0cf738348a3250299022f079dc5bfbcee9d105e3b93a6a163572643d",
-      "monitored_batch_sha256": "77d300fa19bafeeda12bc0ce2a6cd2497973c45263b0a7f0ae9088dba74e54e0",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "c0850cb1f0aca930719bae56adef4dbdc4d108563dc0bdfff1569bb0b922da81",
+      "monitored_batch_sha256": "07ba8a2e3b55f776982b3cce8ebcc8c0b34d5aace3e4bf8cb4cd5c8ffb6a713f",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25726"
+      "afterok": "25890"
     },
     "S0": {
-      "job_id": "25728",
+      "job_id": "25893",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "7f4895bf7fd18b9df972030466e483b60c1793838cff7d3dd42bdde1e8ddb159",
-      "monitored_batch_sha256": "18531cac81054f9b4680791857ca666dd2dbf17f325f950de5505c43335adc4f",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "f9eaa55122580850493fa0a2e13f42cad3545b64992f163f214ba1808bc580ba",
+      "monitored_batch_sha256": "f9ae2fc586e1f77b35140bfc65446224b31592d9fcaa1f139034df31b38940f8",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25727"
+      "afterok": "25892"
     },
     "S1": {
-      "job_id": "25729",
+      "job_id": "25894",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "dad4c347f4aeb5a6c6a6ae5709c78f879f011a572308b63304c093df187f8491",
-      "monitored_batch_sha256": "91d1c3c7a13d630fb4cb69d2a58e67b062dec9953a0cd6190e03536b602d0bd3",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "372edcf6002666c704379d04f1b68bd862fbb748761163d755ca68f89b6620bf",
+      "monitored_batch_sha256": "a0eccfb489ec5c866f7d4268128a1bec5a563224ac89436448f53934eead5031",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25728"
+      "afterok": "25893"
     },
     "S2": {
-      "job_id": "25730",
+      "job_id": "25895",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "e1ef84e42586df9a48c88337d1f1cd32163da33ab7b02aba7397d841ebb9b808",
-      "monitored_batch_sha256": "7bbb0861622d0ac04a8302f93f9332e29d625d1bcc6cd68e93295f808100e5a2",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "45d90a631e2876ff2377caa947c64593c2bb3086a018887830c5631e458a6335",
+      "monitored_batch_sha256": "0fabe71843f7dcbb8a6cab0b2d96d50a2b8d0c6cc820086d0a12b5d310b1478a",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25729"
+      "afterok": "25894"
     },
     "S3": {
-      "job_id": "25731",
+      "job_id": "25896",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "be2df6fb152f238da585fb57dcda656e4f1d859b70d03e8e607baaa8a49b348c",
-      "monitored_batch_sha256": "eb516caf15252ecf93d2ccdba05093b977fe3d29135077ad16db1b5085c05d60",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "699ffb98f631cbdada8b9069f457be73ad4f51b3443f71f805b9ec82b0174284",
+      "monitored_batch_sha256": "6cb610c9691ad46ed95be7f4cae578ab361961c1d5435adbf747c33612d6f84f",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25730"
+      "afterok": "25895"
     },
     "X0": {
-      "job_id": "25732",
+      "job_id": "25897",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "c9b5155009dc548d1ac2f46b792ed6b31add9f623a9a1080ca427331c3005847",
-      "monitored_batch_sha256": "bb665ba865ca3441b27d74f55d9fdbe4e874b2a89d8268ae787bc25e103e8f74",
-      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "source_script_sha256": "01bc7e5c99e93e20819b56bcbd21b567c086edfc1c2507a9d2029b400bcd8b05",
+      "monitored_batch_sha256": "415a35fca791f8f240515d41167baa64782b2cf861b8e584281d5c888a4dfa39",
+      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
       "status_at_check": "pending_dependency",
-      "afterok": "25731"
+      "afterok": "25896"
     }
   },
   "accepted_pilot_models": 406,
@@ -188,13 +188,201 @@
   "publication_held": true,
   "CPU_repairs": [
     "P2 job25679 stopped on an initial-versus-final receipt bug;job25683 reused frozen inputs and passed",
-    "R0 completes missing native Bonsai HDF/export dependencies offline at the accepted Pax versions,in a new runtime after E5"
+    "R0 completes missing native Bonsai HDF/export dependencies offline at the accepted Pax versions,in a new runtime after E5",
+    "R0 dependency closure repaired and launcher helper restored;fresh 57-package runtime passed native fixtures and both finished resource checks as job25885;all scientific settings and 37 prior package pins retained"
   ],
   "generation_jobs_unchanged": [
     25423,
     25426,
     25427
   ],
-  "models_with_completed_score_chunks": 1006,
-  "full_energy_join_accepted": false
+  "models_with_completed_score_chunks": 4006,
+  "full_energy_join_accepted": true,
+  "prior_CPU_submission_graphs": [
+    {
+      "checked_at_UTC": "2026-11-10T20:27:57.056615+00:00",
+      "jobs": {
+        "R0": {
+          "job_id": "25722",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "82a23cd35804c951f8d29014c0006aff4f2814313be8d12de6f2897222aeb27b",
+          "monitored_batch_sha256": "f68e69492f42098e6870200c0a04d79897fa85beb19d2285223d8e71c2826b60",
+          "execution_plan_sha256": "2eedcc77028e515d445203e427cc68c3d5b348e4b01c4132668ac8ccd1d03cd5",
+          "status_at_check": "pending_dependency",
+          "afterok": "25691"
+        },
+        "D0": {
+          "job_id": "25724",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "ad848b5bfa1b3f2db94bd97174c16bb9e179fc5ec20b3c29c24c689ada6dc4ff",
+          "monitored_batch_sha256": "6d597460cb3d32947eb97ee951b3a9b6159d5a5558327de71ef2ee5f0a0fdb47",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25722"
+        },
+        "D1": {
+          "job_id": "25725",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "f7c2870ec55887f5e50e8b81684e96940b2899a28be567a22572686d860073d9",
+          "monitored_batch_sha256": "f3d42f877c5adcd9712ce06b88fb8d103bac8d2504727cf937657b2c4e53c3c2",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25724"
+        },
+        "D2": {
+          "job_id": "25726",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "859770428e17b8a9ffe3ee9f1df56c3d191a38102c589583177640ae9406b9fa",
+          "monitored_batch_sha256": "f4b224084025f7fa2434a3315cac3233fc21ec5b28ab07ba85b554c9af44ae42",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25725"
+        },
+        "D3": {
+          "job_id": "25727",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "faedd1ab0cf738348a3250299022f079dc5bfbcee9d105e3b93a6a163572643d",
+          "monitored_batch_sha256": "77d300fa19bafeeda12bc0ce2a6cd2497973c45263b0a7f0ae9088dba74e54e0",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25726"
+        },
+        "S0": {
+          "job_id": "25728",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "7f4895bf7fd18b9df972030466e483b60c1793838cff7d3dd42bdde1e8ddb159",
+          "monitored_batch_sha256": "18531cac81054f9b4680791857ca666dd2dbf17f325f950de5505c43335adc4f",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25727"
+        },
+        "S1": {
+          "job_id": "25729",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "dad4c347f4aeb5a6c6a6ae5709c78f879f011a572308b63304c093df187f8491",
+          "monitored_batch_sha256": "91d1c3c7a13d630fb4cb69d2a58e67b062dec9953a0cd6190e03536b602d0bd3",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25728"
+        },
+        "S2": {
+          "job_id": "25730",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "e1ef84e42586df9a48c88337d1f1cd32163da33ab7b02aba7397d841ebb9b808",
+          "monitored_batch_sha256": "7bbb0861622d0ac04a8302f93f9332e29d625d1bcc6cd68e93295f808100e5a2",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25729"
+        },
+        "S3": {
+          "job_id": "25731",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "be2df6fb152f238da585fb57dcda656e4f1d859b70d03e8e607baaa8a49b348c",
+          "monitored_batch_sha256": "eb516caf15252ecf93d2ccdba05093b977fe3d29135077ad16db1b5085c05d60",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25730"
+        },
+        "X0": {
+          "job_id": "25732",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "c9b5155009dc548d1ac2f46b792ed6b31add9f623a9a1080ca427331c3005847",
+          "monitored_batch_sha256": "bb665ba865ca3441b27d74f55d9fdbe4e874b2a89d8268ae787bc25e103e8f74",
+          "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+          "status_at_check": "pending_dependency",
+          "afterok": "25731"
+        }
+      },
+      "result": "R0 25722 failed on missing mandatory offline blosc2 dependency;downstream workers never started and left queue"
+    },
+    {
+      "jobs": {
+        "R0": {
+          "source_sha256": "1a2793971ad7c3cd9c9ac9206d82b7987ff9070e3eaadfac3536e74245ec5438",
+          "batch_sha256": "3f799ca595203ed2580db43e5a42a88fb2ab2f7b3488b21dc663a3a9fe6189b4",
+          "job_id": "25874",
+          "scheduler_script_verified": true
+        },
+        "D0": {
+          "source_sha256": "81582c4c52acd54dd7856b32be8e82d287313110375e9615eb7e4e7a1638a825",
+          "batch_sha256": "cbf0d3d68564049ea2a3f809a2da9267dd774ba1d65800a0ff63f30a3158c2d9",
+          "job_id": "25875",
+          "scheduler_script_verified": true
+        },
+        "D1": {
+          "source_sha256": "2e44970cca459139c362ff222697157ceb2214062eda116b0ab0d62803f30dd1",
+          "batch_sha256": "c04111cfef97135f3faaa4667139b25f0446160261b18effbab0a3fb05dd9c1a",
+          "job_id": "25876",
+          "scheduler_script_verified": true
+        },
+        "D2": {
+          "source_sha256": "97147883f55224e1f373d2e3be285ae33e91a09d9ee21eb23f3975c9a369bef8",
+          "batch_sha256": "daeb573597f4aec54f4d7d14c76c794cd3735ec26aa8aa4dc2da063048adbbb4",
+          "job_id": "25877",
+          "scheduler_script_verified": true
+        },
+        "D3": {
+          "source_sha256": "aeeb38f535727a71d7fed22b4b44a93de0e48b0f7f891a7d1c14536644ba7e54",
+          "batch_sha256": "1285c4da6a49d5940bdd180fccd11802ad42ddb4fe7046590d0cde95fc901504",
+          "job_id": "25878",
+          "scheduler_script_verified": true
+        },
+        "S0": {
+          "source_sha256": "f3aa8ddc9f6da02485ad9c8c49fef8e674959daf92557aa0e50485d7cb91449f",
+          "batch_sha256": "cb5c33f5d0cd1c1268195eb984cafdbb887410f0dae157d63a1e8ca22de1aecc",
+          "job_id": "25879",
+          "scheduler_script_verified": true
+        },
+        "S1": {
+          "source_sha256": "1699a080ab4b4d88693ac9f28d52c1e2ffd991978040506ec2f8b6a18ab1802c",
+          "batch_sha256": "1630a97d66ecc651a0031c904d15ae05d3da7b3d79bf902ceb36fd9cd2e0b714",
+          "job_id": "25880",
+          "scheduler_script_verified": true
+        },
+        "S2": {
+          "source_sha256": "516a585927cc741d079ec39faed4c563bd54e83ca7ad306d675796d55576bc1e",
+          "batch_sha256": "7de8a145cb86e3ccadd5f9fcaebab99ff8fa4ecb0d2ec2382aec6bf14084a7ee",
+          "job_id": "25881",
+          "scheduler_script_verified": true
+        },
+        "S3": {
+          "source_sha256": "ae7ceecb59d52ac815d501676c436cc746b7c51a7a92f1a39283fcb527640cc0",
+          "batch_sha256": "a1051376554d8da773de187774040fd2c0e1119d3b1604635f6e17aa4fb97f93",
+          "job_id": "25882",
+          "scheduler_script_verified": true
+        },
+        "X0": {
+          "source_sha256": "326786b1b6f34eb8354f7db04e896315be58c9e435278ff5dd806e47981cbb09",
+          "batch_sha256": "316490467e2851035250b045edf9d6e88c86c6b77750427f6628437cc8e1fd4a",
+          "job_id": "25883",
+          "scheduler_script_verified": true
+        }
+      },
+      "result": "R0 25874 failed before worker launch because staged containment_canary.py was missing;downstream workers never started;all attempts preserved"
+    }
+  ],
+  "accepted_models": 4006,
+  "accepted_energies": 64096,
+  "accepted_per_residue_values": 14998464,
+  "GPU_native_batch_calls": 4496,
+  "GPU_tasks_completed": 41,
+  "accepted_energy_hashes": {
+    "csv_sha256": "6899b631d3a40bb4257122addbb9dd7660c4aa2d6d22fc5505b5a64bf86802ea",
+    "grid_sha256": "31f06b1e2f391ec76452a47167846bc7c8e105214ebb029cd964592400f827b2",
+    "input_manifest_sha256": "fc67df5f603a80290c587758399febbd2ea5716dbd70e3c908ebc672dbb37392"
+  },
+  "generation_observation_at_check": {
+    "BioEmu2_production": "Running separately;outside frozen current4006 cohort",
+    "changed_by_this_repair": false
+  }
 }
