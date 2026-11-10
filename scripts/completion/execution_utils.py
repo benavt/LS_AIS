@@ -37,7 +37,7 @@ def service_dir(plan,phase,index=None):
     if phase in plan.get('service_roots',{}):return Path(plan['service_roots'][phase])
     return Path(plan['run_root'])/'receipts'/(phase+'-user-service'+('' if index is None else '-'+str(index)))
 def finished(plan,phase,index=None):
-    attempt=Path(plan['attempts'][phase]);receipt=read(attempt/'submission.json')
+    attempt=Path(plan['attempts'][phase]);receipt=read(attempt/'submission-result.json')
     require(receipt['status']=='accepted' and receipt['scheduler_script_verified'],'Unverified producer submission')
     checked(attempt/'workload.sh',receipt['workload_sha256'])
     logs=[]
