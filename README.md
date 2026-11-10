@@ -1,6 +1,6 @@
 # LS AIS structure atlas
 
-Private, extensible structure atlas for LS AIS targets. HSPH1 construct 12757 is the first target: 4,006 native homodimers with complete 117-residue chains, ProteinEBM energies, UMAP KNN and HDBSCAN clustering, native comparison ensembles, medoid TM grids, Bonsai, and saved MCMC50/DISCO50 panels.
+Public, extensible structure atlas for LS AIS targets: [open the atlas](https://benavt.github.io/LS_AIS/). HSPH1 construct 12757 is the first target: 4,006 native homodimers with complete 117-residue chains, ProteinEBM energies, UMAP KNN and HDBSCAN clustering, native comparison ensembles, medoid TM grids, Bonsai, and saved MCMC50/DISCO50 panels.
 
 The single explorer page uses the established CASP17 target navigation. Each target has independent residue-range and clustering menus. HDBSCAN opens by default. The cohort retains 1,386 HDBSCAN unassigned models and 1,822 models outside the three supported structural states. Library counts are not biological populations; fixed-budget sampling diagnostics do not establish convergence.
 
@@ -14,9 +14,9 @@ The single explorer page uses the established CASP17 target navigation. Each tar
 - `site/`: small presentation adapters; generated atlases remain in ignored `local/`.
 - Existing HSPH1 `config/`, `scripts/completion/`, and historical docs preserve the source paths of frozen plans.
 
-Native coordinates, arrays, run outputs and private host bindings stay out of Git. The original HSPH1 repository and scientific runs remain intact. Its source history is preserved here through commit `d78a1d2f1862e9f243ab16ef3e524c459d7d4212`.
+Native coordinates, arrays, run outputs and private host bindings stay out of the source branch. The public atlas is deployed from the `gh-pages` branch. The original HSPH1 repository and scientific runs remain intact; a private backup preserves the pre-publication LS AIS history. The public source history redacts one old cluster filesystem path.
 
-## Build a private atlas
+## Build and review a saved atlas
 
 Use the exact dependency in `pyproject.toml` and the configured Fleet local resource front door. Prepare each target's accepted saved delivery, then run:
 
@@ -26,6 +26,6 @@ python scripts/build_private_atlas.py \
   --output local/atlas/NEW_RUN/site
 ```
 
-The builder verifies every size and SHA256, rejects colliding target artifacts and incompatible shared renderer bytes, merges target catalogs, and calls the shared saved-file exporter. It never starts science or deploys a public site. See [adding targets](docs/adding-targets.md) and [private delivery](docs/private-atlas.md).
+The builder verifies every size and SHA256, rejects colliding target artifacts and incompatible shared renderer bytes, merges target catalogs, and calls the shared saved-file exporter. It never starts science or deploys a public site. See [adding targets](docs/adding-targets.md) and [private preview workflow](docs/private-atlas.md).
 
-Public GitHub Pages and Zenodo publication remain separate. A private GitHub repository alone does not establish private website hosting. This atlas uses the existing Tailscale access boundary; the host must remain online and the preview has a recorded expiry.
+GitHub Pages publishes the reviewed 4,006-model atlas. The Pages branch contains the verified static export, including model downloads; new targets require a fresh review and publication. Zenodo has no published record or DOI for this project, and the data license remains unresolved. The private Tailscale server remains available for bounded prepublication reviews.

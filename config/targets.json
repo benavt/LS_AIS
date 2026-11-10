@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project": "LS_AIS",
-  "visibility": "private",
+  "visibility": "public",
   "targets": [
     {
       "id": "HSPH1_12757_homodimer",
