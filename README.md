@@ -20,7 +20,8 @@ Cluster sizes describe this generated library, not equilibrium populations.
 Native pTM/ipTM are available for 4,005 models, mean pLDDT for 3,000, native
 AFsample2 ranking confidence for 1,000 and native OpenDDE/AF3 ranking score for
 1,005. ProteinEBM energies are unavailable. The completion plan's CPU readiness and environment stages now pass under
-existing user-delegated resource controls. Target scoring remains pending.
+existing user-delegated resource controls. All 406 counted pilot models now have
+validated energies; production and final acceptance for the full cohort are queued.
 The two future production arms remain held outside this completion cohort.
 The atlas keeps missing scores empty and identifies energy separately from confidence.
 
@@ -67,8 +68,9 @@ density and MCMC/DISCO stages, their dependencies and finite resource ceilings.
 The [machine-readable plan](config/mimas-completion-plan.json) is the approved
 planning snapshot. Its original administrator prerequisite is superseded by the
 [verified delegated repair](docs/completion-readiness.md). Readiness and CPU
-runtime preparation passed; later-stage adapters and exact execution manifests
-remain to be completed. Neither held generation array was released.
+runtime preparation passed. The complete calculation graph is now submitted,
+with exact executable manifests in the [submission ledger](config/mimas-submissions.json).
+Neither held generation array was released.
 
 ## Approved execution readiness
 
@@ -79,8 +81,11 @@ limits while preserving the Slurm CPU affinity. Global settings and other jobs
 were unchanged. The [readiness result](docs/completion-readiness.md) and
 [machine-readable status](config/completion-execution-status.json) retain the
 successful evidence and diagnosed failed attempts. Both final monitoring logs
-passed and both private services were cleaned up. No target scoring, density,
-sampling or GPU job has been submitted; publication remains held.
+passed and both private services were cleaned up. The current4,006 completion
+workflow is now submitted: all406 pilots passed, and production is waiting for GPU
+resources. Density, native supplements, MCMC/DISCO and final acceptance are queued
+with success dependencies. See [the submitted workflow](docs/submitted-workflow.md).
+Publication remains held.
 
 ## Source and execution
 

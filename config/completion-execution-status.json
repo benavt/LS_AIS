@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
-  "status": "readiness_and_CPU_environment_verified",
+  "status": "complete_current4006_calculation_graph_submitted",
   "readiness_job": "25458",
   "environment_job": "25462",
   "history": [
@@ -29,6 +29,31 @@
       "job": "25462",
       "phase": "P1",
       "result": "validation-only native-runtime repair passed;reused exact locked installation"
+    },
+    {
+      "job": "25679",
+      "phase": "P2",
+      "result": "stopped before model validation on final-receipt adapter bug"
+    },
+    {
+      "job": "25683",
+      "phase": "P2",
+      "result": "same frozen cohort accepted after diagnosed receipt repair"
+    },
+    {
+      "job": "25685",
+      "phase": "E0",
+      "result": "allfive native CPU caches and strict checkpoint loads passed"
+    },
+    {
+      "job": "25687",
+      "phase": "E1",
+      "result": "406 counted pilot models scored without padding;464 native GPU batch calls"
+    },
+    {
+      "job": "25688",
+      "phase": "E2",
+      "result": "allfive pilot gates and finished native resource checks passed"
     }
   ],
   "resource_model": "Slurm placement plus a private transient delegated user service for each job",
@@ -60,15 +85,24 @@
     "P0": "2ee6ccd0866a883289ec4d972797c9f3e87a945c84e92e1e51fc52d2242a0533",
     "P1": "d14173fd5f44ea0328680b6ed85d1004f562c6091ebba7eb4051dc2e7e4420fd"
   },
-  "scientific_jobs_submitted": 0,
-  "GPU_allocations": 0,
+  "scientific_jobs_submitted": 15,
   "paid_external_calls": 0,
   "administrator_action_required": false,
   "global_configuration_changed": false,
   "remaining": [
-    "P2 exact native-input/saved-artifact binding",
-    "Variable-size ProteinEBM and project density/complex-state worker preparation and exact execution manifests",
-    "E0 through X0 scientific and delivery stages"
+    "Wait for the submitted production,acceptance,density and sampling chain",
+    "Verify X0 own final resource logs externally before collecting its allowlisted outputs",
+    "Assemble and browser-test a fresh private complete atlas successor;review dataset license and package before publication"
   ],
-  "publication_held": true
+  "publication_held": true,
+  "checked_at_UTC": "2026-11-10T14:05:33.865717+00:00",
+  "submissions": "config/mimas-submissions.json",
+  "current_stage": "E3 ProteinEBM production waiting for GPU resources",
+  "GPU_tasks_submitted": 41,
+  "GPU_task_allocations_completed": 5,
+  "accepted_pilot_models": 406,
+  "accepted_pilot_energies": 6496,
+  "full4006_score_join_accepted": false,
+  "all_remaining_scientific_stages_submitted": true,
+  "tests": "23 source tests passed;P2 and all15 E0/E1/E2 tasks passed native and separate inner/outer finished monitoring checks"
 }

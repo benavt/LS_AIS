@@ -52,9 +52,9 @@ retains its original relative RPATH and uses hash-bound copies of its matching
 Pax C++ libraries; system libraries were unchanged. These checks establish
 preparation readiness and do not constitute target scientific acceptance.
 
-Next come P2 native-input and saved-artifact binding, the remaining project
-worker adapters and exact execution manifests, then E0 through X0. Target
-ProteinEBM coverage, density and MCMC/DISCO remain incomplete. The two held
-generation arrays remain held, their finalizer remains dependency-blocked,
-and the accepted native dataset and partial atlas are unchanged. Publication
-remains held until the complete successor is reviewed.
+P2 subsequently passed as job25683,and the complete remaining calculation graph
+is now submitted. All406 counted pilot models and their resource gates passed.
+See [the submitted workflow](submitted-workflow.md) for the actual scheduler IDs,
+diagnosed P2 repair,native export-runtime completion and current queue state.
+The two generation arrays remain held outside this cohort. The accepted native
+dataset and original partial atlas are unchanged;publication remains held.

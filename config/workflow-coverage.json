@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "target": "HSPH1_12757_homodimer",
-  "status": "incomplete_private_preview",
+  "status": "current4006_completion_submitted",
   "release_ready": false,
   "publication_hold": true,
   "hold_reason": "User stopped publication and confirmed full skill workflow requirements",
@@ -35,8 +35,8 @@
       "id": "ProteinEBM",
       "range": "all",
       "view": "shared",
-      "status": "missing",
-      "detail": "Zero accepted target scores. Current4006 completion preparation admitted:repaired P0 and locked CPU P1 accepted. All4006 include the exact six accepted pilots,independent of future production arms. Scoring jobs remain unsubmitted."
+      "status": "in_flight",
+      "detail": "406 counted pilot models accepted at all16 time levels;remaining3600 production and full4006 acceptance queued.E0-E5 jobs25685,25687,25688,25689,25690,25691."
     },
     {
       "id": "memberships",
@@ -70,50 +70,50 @@
       "id": "memberships",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "missing",
-      "detail": "No accepted geometry-based HDBSCAN assignments or strengths; retain noise"
+      "status": "queued",
+      "detail": "No accepted geometry-based HDBSCAN assignments or strengths; retain noise Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
     },
     {
       "id": "structures_ensembles",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "missing",
-      "detail": "Select exact representatives/medoids and real aligned members from accepted density assignments"
+      "status": "queued",
+      "detail": "Select exact representatives/medoids and real aligned members from accepted density assignments Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
     },
     {
       "id": "medoid_TM_grid",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "missing",
-      "detail": "Separate grid ordered by verified HDBSCAN medoids"
+      "status": "queued",
+      "detail": "Separate grid ordered by verified HDBSCAN medoids Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
     },
     {
       "id": "native_Bonsai",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "missing",
-      "detail": "Native tree from HDBSCAN's own verified selection and residue scope"
+      "status": "queued",
+      "detail": "Native tree from HDBSCAN's own verified selection and residue scope Submitted D0-D3 jobs25724-25727;requires accepted full4006 energies and complete native runtime."
     },
     {
       "id": "structural_states",
       "range": "all",
       "view": "shared",
-      "status": "missing",
-      "detail": "HDBSCAN-guided state and representative discovery; verified fixed-chain membership and uncovered/unsupported accounting"
+      "status": "queued",
+      "detail": "Submitted full-dimer positional-TM protocol and state discovery jobs25728-25729;maximum three supported states,uncovered and unsupported retained."
     },
     {
       "id": "MCMC",
       "range": "all",
       "view": "shared",
-      "status": "missing",
-      "detail": "Saved full-dimer energy/density prior;bound protocol,seeds,run length,diagnostics,exact IDs and output hashes"
+      "status": "queued",
+      "detail": "Saved full-dimer energy/density prior;bound protocol,seeds,run length,diagnostics,exact IDs and output hashes Submitted S2 job25730 with frozen PCG64 streams;dependent scientific/delivery acceptance25731-25732."
     },
     {
       "id": "DISCO",
       "range": "all",
       "view": "shared",
-      "status": "missing",
-      "detail": "Verified energy-based coverage control and actual unique selected-model cardinality"
+      "status": "queued",
+      "detail": "Verified energy-based coverage control and actual unique selected-model cardinality Submitted S2 job25730 with frozen PCG64 streams;dependent scientific/delivery acceptance25731-25732."
     },
     {
       "id": "successor_browser_acceptance",

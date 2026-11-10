@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
+  "authorization": "submit these jobs!",
+  "cohort": 4006,
+  "checked_at_UTC": "2026-11-10T14:05:33.865717+00:00",
+  "checked_at_Eastern": "2026-11-10T09:05:33.865717-05:00",
+  "jobs": {
+    "P2_002": {
+      "job_id": "25683",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "2ab62ff4656a72d684ea3d0d0f29f062c77915ca62cb3076855357574855c4bd",
+      "monitored_batch_sha256": "6ed8b4f181e137e3eca0b585405ecbff31809ae844fc7261887d04456eeddf1c",
+      "execution_plan_sha256": "cfb7037bd301c9022f2f33b781d1ac028313c41abd5f8db083203d7df4569118",
+      "status_at_check": "passed",
+      "afterok": "historical accepted P1 job25462 verified by both finished logs;Slurm record expired"
+    },
+    "E0": {
+      "job_id": "25685",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "7df6cd0b152f83063d1950c441b215928089a729ba3eb7db3e1e14ce44a79d29",
+      "monitored_batch_sha256": "8eb3f457f568bf5c17960f2693db5f1064910ea1d6712151bb5bee094db9ca9b",
+      "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
+      "status_at_check": "passed",
+      "afterok": "25683"
+    },
+    "E1": {
+      "job_id": "25687",
+      "device": "gpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "2a5a87ee0b3381667ae6d2f419e481c8f7ada9a0ce646dbdd8f29ce12fda7c60",
+      "monitored_batch_sha256": "0373a5f88f890e7994d106edb5b351352d6f5510e7f45f6737bb5f5c82daf2c1",
+      "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
+      "status_at_check": "passed",
+      "afterok": "25685"
+    },
+    "E2": {
+      "job_id": "25688",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "7de46b299168fbe17e409d84e2c72fb4c9a5116f93c3da601590912f2dfff20f",
+      "monitored_batch_sha256": "f288ff979ad14d3abe335a4b8ff73089ebb5e89f0e7414b41699656fc1673780",
+      "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
+      "status_at_check": "passed",
+      "afterok": "25687"
+    },
+    "E3": {
+      "job_id": "25689",
+      "device": "gpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "1e34d670f2cd52e56c8af00e54ae83ce43f83a47be14afd9d3e043c779d4eae6",
+      "monitored_batch_sha256": "c48e40b933b68cfea3742a3e06117b3df68d49d8a02033da941e9226bcd5558c",
+      "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
+      "status_at_check": "pending_resources",
+      "afterok": "25688"
+    },
+    "E4": {
+      "job_id": "25690",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "0352cddc3bd040264a428898c2f64012e02ce3428a999eb7627e58414a65c824",
+      "monitored_batch_sha256": "b3a09af40b4007c24cdad48b57990feeece40db11979dcbf32b18a223a3c733e",
+      "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
+      "status_at_check": "pending_dependency",
+      "afterok": "25689"
+    },
+    "E5": {
+      "job_id": "25691",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "5037549a76d0d23f49e7de3eea1cb6cae80253be0ca9aac0a60609f0ae4303c6",
+      "monitored_batch_sha256": "5420d4e7f8fa42a641125574b838d703ed1b1b13e0ae40944cefc99fe38cff4e",
+      "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
+      "status_at_check": "pending_dependency",
+      "afterok": "25690"
+    },
+    "R0": {
+      "job_id": "25722",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "82a23cd35804c951f8d29014c0006aff4f2814313be8d12de6f2897222aeb27b",
+      "monitored_batch_sha256": "f68e69492f42098e6870200c0a04d79897fa85beb19d2285223d8e71c2826b60",
+      "execution_plan_sha256": "2eedcc77028e515d445203e427cc68c3d5b348e4b01c4132668ac8ccd1d03cd5",
+      "status_at_check": "pending_dependency",
+      "afterok": "25691"
+    },
+    "D0": {
+      "job_id": "25724",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "ad848b5bfa1b3f2db94bd97174c16bb9e179fc5ec20b3c29c24c689ada6dc4ff",
+      "monitored_batch_sha256": "6d597460cb3d32947eb97ee951b3a9b6159d5a5558327de71ef2ee5f0a0fdb47",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25722"
+    },
+    "D1": {
+      "job_id": "25725",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "f7c2870ec55887f5e50e8b81684e96940b2899a28be567a22572686d860073d9",
+      "monitored_batch_sha256": "f3d42f877c5adcd9712ce06b88fb8d103bac8d2504727cf937657b2c4e53c3c2",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25724"
+    },
+    "D2": {
+      "job_id": "25726",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "859770428e17b8a9ffe3ee9f1df56c3d191a38102c589583177640ae9406b9fa",
+      "monitored_batch_sha256": "f4b224084025f7fa2434a3315cac3233fc21ec5b28ab07ba85b554c9af44ae42",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25725"
+    },
+    "D3": {
+      "job_id": "25727",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "faedd1ab0cf738348a3250299022f079dc5bfbcee9d105e3b93a6a163572643d",
+      "monitored_batch_sha256": "77d300fa19bafeeda12bc0ce2a6cd2497973c45263b0a7f0ae9088dba74e54e0",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25726"
+    },
+    "S0": {
+      "job_id": "25728",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "7f4895bf7fd18b9df972030466e483b60c1793838cff7d3dd42bdde1e8ddb159",
+      "monitored_batch_sha256": "18531cac81054f9b4680791857ca666dd2dbf17f325f950de5505c43335adc4f",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25727"
+    },
+    "S1": {
+      "job_id": "25729",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "dad4c347f4aeb5a6c6a6ae5709c78f879f011a572308b63304c093df187f8491",
+      "monitored_batch_sha256": "91d1c3c7a13d630fb4cb69d2a58e67b062dec9953a0cd6190e03536b602d0bd3",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25728"
+    },
+    "S2": {
+      "job_id": "25730",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "e1ef84e42586df9a48c88337d1f1cd32163da33ab7b02aba7397d841ebb9b808",
+      "monitored_batch_sha256": "7bbb0861622d0ac04a8302f93f9332e29d625d1bcc6cd68e93295f808100e5a2",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25729"
+    },
+    "S3": {
+      "job_id": "25731",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "be2df6fb152f238da585fb57dcda656e4f1d859b70d03e8e607baaa8a49b348c",
+      "monitored_batch_sha256": "eb516caf15252ecf93d2ccdba05093b977fe3d29135077ad16db1b5085c05d60",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25730"
+    },
+    "X0": {
+      "job_id": "25732",
+      "device": "cpu",
+      "scheduler_script_verified": true,
+      "source_script_sha256": "c9b5155009dc548d1ac2f46b792ed6b31add9f623a9a1080ca427331c3005847",
+      "monitored_batch_sha256": "bb665ba865ca3441b27d74f55d9fdbe4e874b2a89d8268ae787bc25e103e8f74",
+      "execution_plan_sha256": "28818a487827e783652b5db7e2ba3bab2b29e94bea66eb4062bd993b3376dbb3",
+      "status_at_check": "pending_dependency",
+      "afterok": "25731"
+    }
+  },
+  "accepted_pilot_models": 406,
+  "accepted_pilot_energies": 6496,
+  "production_models": 3600,
+  "GPU_tasks_submitted": 41,
+  "GPU_requested_minutes_max": 410,
+  "maximum_simultaneous_GPUs": 1,
+  "scientific_parameters_changed": false,
+  "paid_external_calls": 0,
+  "publication_held": true,
+  "CPU_repairs": [
+    "P2 job25679 stopped on an initial-versus-final receipt bug;job25683 reused frozen inputs and passed",
+    "R0 completes missing native Bonsai HDF/export dependencies offline at the accepted Pax versions,in a new runtime after E5"
+  ],
+  "generation_jobs_unchanged": [
+    25423,
+    25426,
+    25427
+  ]
+}
