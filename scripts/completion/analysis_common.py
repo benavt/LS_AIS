@@ -16,6 +16,7 @@ def initialize(plan,phase):
     runtime=read(root/'runtime/analysis-environment.json')
     require(runtime['status']=='validated' and runtime['plan_sha256']==plan['runtime_plan_sha256'],'Analysis runtime not accepted')
     require(sys.prefix==plan['analysis_prefix'],'Wrong analysis interpreter')
+    checked(sys.executable,runtime['python_sha256'])
     for name,digest in runtime['runtime_sha256'].items():checked(name,digest)
     rows=read(Path(plan['data_root'])/'inputs.json')
     require(len(rows)==4006 and len({r['model_id'] for r in rows})==4006,'Changed analysis cohort')

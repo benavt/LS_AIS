@@ -1,0 +1,92 @@
+{
+  "status": "resolved_binary_artifacts",
+  "target": {
+    "python": "3.11.15",
+    "implementation": "CPython",
+    "arch": "x86_64",
+    "glibc_max": "2.34"
+  },
+  "packages": [
+    {
+      "name": "tables",
+      "version": "3.10.2",
+      "filename": "tables-3.10.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/88/d5/71665919aa2a5a3d2a20eeef3c71dc7c2ebbd9f26d114a7808514aba24d6/tables-3.10.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "154773f97763ccc91a29bcead6ab7b5ef164c2ed8c409cd79a2115aa9b4184c9",
+      "bytes": 7520921,
+      "metadata_sha256": "dd03bc69d401895a790f627e697f474632c84b0e9a4e6caeebaea6eb52249a41",
+      "metadata_url": "https://pypi.org/pypi/tables/3.10.2/json",
+      "yanked": false,
+      "yanked_reason": null,
+      "explicit_pinned_reuse": true
+    },
+    {
+      "name": "natsort",
+      "version": "8.4.0",
+      "filename": "natsort-8.4.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/ef/82/7a9d0550484a62c6da82858ee9419f3dd1ccc9aa1c26a1e43da3ecd20b0d/natsort-8.4.0-py3-none-any.whl",
+      "sha256": "4732914fb471f56b5cce04d7bae6f164a592c7712e1c85f9ef585e197299521c",
+      "bytes": 38268,
+      "metadata_sha256": "8175293cdffed55c9ee3c1d97d55dfa1d08adb314542033a76916606b726ec2f",
+      "metadata_url": "https://pypi.org/pypi/natsort/8.4.0/json",
+      "yanked": false,
+      "yanked_reason": null,
+      "explicit_pinned_reuse": true
+    },
+    {
+      "name": "numexpr",
+      "version": "2.14.2",
+      "filename": "numexpr-2.14.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/d6/15/9a7bf92b7c8047157fd96bc42ff6b0a20351f43aa58b9f61eb8f5ff3048b/numexpr-2.14.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "f41170e9d0dbba76851e35d80cfa9f4ca5fe78628c5bf24d941cf3364940ab7a",
+      "bytes": 443546,
+      "metadata_sha256": "c24be26fbaa17aed80e31ca9fcc01793eaf40a0c1278d0e7da4bf7ab0c97bac1",
+      "metadata_url": "https://pypi.org/pypi/numexpr/2.14.2/json",
+      "yanked": false,
+      "yanked_reason": null,
+      "explicit_pinned_reuse": true
+    },
+    {
+      "name": "py-cpuinfo",
+      "version": "9.0.0",
+      "filename": "py_cpuinfo-9.0.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/e0/a9/023730ba63db1e494a271cb018dcd361bd2c917ba7004c3e49d5daf795a2/py_cpuinfo-9.0.0-py3-none-any.whl",
+      "sha256": "859625bc251f64e21f077d099d4162689c762b5d6a4c3c97553d56241c9674d5",
+      "bytes": 22335,
+      "metadata_sha256": "e3e023d3176522d8ef7c79527a361aec0381607fe99c8e5fa818ad11c0b96aa1",
+      "metadata_url": "https://pypi.org/pypi/py-cpuinfo/9.0.0/json",
+      "yanked": false,
+      "yanked_reason": null,
+      "explicit_pinned_reuse": true
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "bytes": 45571,
+      "metadata_sha256": "2140da00d62dde967f52d0be0ae28444f1d6a3fe603f52c83c23988c32122d5a",
+      "metadata_url": "https://pypi.org/pypi/typing-extensions/4.16.0/json",
+      "yanked": false,
+      "yanked_reason": null,
+      "explicit_pinned_reuse": true
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "filename": "pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/71/60/917329f640924b18ff085ab889a11c763e0b573da888e8404ff486657602/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d",
+      "bytes": 806638,
+      "metadata_sha256": "c3f35597bc2f08cc990c2a5fe57bef6687b3a3d7c61d8b0ba4cc067777eb1def",
+      "metadata_url": "https://pypi.org/pypi/PyYAML/6.0.3/json",
+      "yanked": false,
+      "yanked_reason": null,
+      "explicit_pinned_reuse": true
+    }
+  ],
+  "total_bytes": 8877279,
+  "source_version_constraints_sha256": "f5c4e514f6ca5e1a590b1e86416a62281509a526bca444bcf7e59862a2847a10",
+  "created_at": "2026-11-10T13:37:16.650441+00:00"
+}
