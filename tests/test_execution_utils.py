@@ -9,9 +9,9 @@ class ProducerReceipts(unittest.TestCase):
             root=Path(folder);attempt=root/'attempt';attempt.mkdir();(attempt/'resources').mkdir()
             (attempt/'workload.sh').write_text('frozen')
             (attempt/'submission.json').write_text(json.dumps({'status':'attempt_recorded'}))
-            (attempt/'submission-result.json').write_text(json.dumps({'status':'accepted','scheduler_script_verified':True,'workload_sha256':m.sha(attempt/'workload.sh')}))
+            (attempt/'submission-result.json').write_text(json.dumps({'status':'accepted','job_id':'123','scheduler_script_verified':True,'workload_sha256':m.sha(attempt/'workload.sh')}))
             start={'event':'start','job':'456','array_task':'4','device':'cpu'}
-            (attempt/'resources/resource.log').write_text('[resource] '+json.dumps(start)+'\n')
+            (attempt/'resources/resource-123_4-456-restart0.log').write_text('[resource] '+json.dumps(start)+'\n')
             service=root/'receipts/E0-user-service-4';service.mkdir(parents=True)
             (service/'worker-result.json').write_text(json.dumps({'return_code':0,'service_limits_verified':True,'stop_reason':None}))
             (service/'launcher-result.json').write_text(json.dumps({'return_code':0}))

@@ -45,6 +45,8 @@ def finished(plan,phase,index=None):
         starts=[json.loads(x[11:]) for x in log.read_text().splitlines() if x.startswith('[resource] {') and '"event": "start"' in x]
         if len(starts)==1 and str(starts[0].get('array_task'))==str(index):logs.append(log)
     require(len(logs)==1,'Require one non-requeued producer task log')
+    expected='resource-'+str(receipt['job_id'])+'_'+('batch' if index is None else str(index))+'-'
+    require(logs[0].name.startswith(expected),'Producer log belongs to another submitted job')
     gpu=phase in ('E1','E3')
     outer=log_check(logs[0],plan['monitor'],gpu)
     service=service_dir(plan,phase,index)
