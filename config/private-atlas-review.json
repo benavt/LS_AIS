@@ -2,10 +2,10 @@
   "schema_version": 1,
   "project": "LS_AIS",
   "status": "private_atlas_reviewed",
-  "checked_at_UTC": "2026-11-10T22:54:59.045320+00:00",
-  "export_manifest_sha256": "4fa7140a78fa5227af37f476152b62a188d95543b9f1072789dc65c4bba462c9",
+  "checked_at_UTC": "2026-11-10T23:09:28.684305+00:00",
+  "export_manifest_sha256": "75310d874e169325b06917627e10461f90e6532e14eafcc2d0835321653354f1",
   "files": 4552,
-  "payload_bytes": 930216255,
+  "payload_bytes": 930216687,
   "scientific_execution": false,
   "public_deployment": false,
   "tests": {
@@ -50,5 +50,23 @@
     "Fixed-budget sampling diagnostics do not establish convergence.",
     "Preview requires existing authorized Tailscale access and an online host; expiry is recorded locally.",
     "Public publication and data license remain separate."
-  ]
+  ],
+  "prior_export_manifest_sha256": "4fa7140a78fa5227af37f476152b62a188d95543b9f1072789dc65c4bba462c9",
+  "presentation_revision": {
+    "reason": "User requested removal of 3-D box summary and pair distribution detail",
+    "changed_files": [
+      "ls_atlas.js"
+    ],
+    "scientific_files_unchanged": true,
+    "shown_distance_plots": [
+      "median matrix",
+      "variance matrix"
+    ],
+    "browser_checked_views": [
+      "density",
+      "primary"
+    ],
+    "explicit_opt_in_check": "passed",
+    "installed_skill_validation": "passed"
+  }
 }

@@ -9,3 +9,5 @@ Build saved assets with scripts/build_private_atlas.py; serve only verified allo
 For HSPH1 preserve both exact 117-residue chains and supplied tag, current label, 4,006-model snapshot, accepted ProteinEBM/HDBSCAN/state/sampling artifacts and diagnostics. Do not infer organism/accession or mix future generation cohorts. Energy is separate from confidence. Request approval for reviewed source merges and public publication. Use codex/<task> branches from fetched origin/main after initial repository setup.
 
 Source checks: python3 scripts/status.py; python -m unittest discover -s tests. Keep the homodimer presentation adapter narrow and retain exact model/hash and two-chain validation.
+
+User presentation override for the pinned atlas skill: 3-D box summaries and residue-pair distribution detail plots are opt-in. Create or display them only when explicitly requested; omit inherited copies from atlas views by default. The display adapter accepts explicit `requested_optional_plots` entries `box_summary_3d` and `pair_distribution_detail`.
