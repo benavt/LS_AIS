@@ -20,7 +20,8 @@ import time
 
 PLAN_SHA = 'b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6'
 MONITOR_SHA = '206e0891dd533f808955c347716ac90d98f9c505d2a680f134fc94ab5a0a823a'
-STAGE_LIMITS = {'p0': (2 * 2**30, 540), 'p1': (16 * 2**30, 3540)}
+STAGE_LIMITS = {'p0': (2147483648, 540), 'p1': (17179869184, 3540), 'p2': (17179869184, 2640), 'e0': (17179869184, 2640), 'e1': (68719476736, 540), 'e2': (4294967296, 540), 'e3': (68719476736, 540), 'e4': (8589934592, 1140), 'e5': (8589934592, 1140), 'd0': (34359738368, 14340), 'd1': (34359738368, 43140), 'd2': (8589934592, 28740), 'd3': (34359738368, 14340), 's0': (8589934592, 540), 's1': (17179869184, 43140), 's2': (8589934592, 3540), 's3': (8589934592, 1740), 'x0': (8589934592, 1740)}
+GPU_STAGES = {'e1', 'e3'}
 STOP = False
 
 
@@ -53,7 +54,7 @@ def preserved_environment(environment):
             'SLURM_MEM_PER_CPU'}
     result = {k: v for k, v in environment.items() if k in keys}
     result.update(OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1',
-                  NUMEXPR_NUM_THREADS='1', PYTHONNOUSERSITE='1')
+                  NUMEXPR_NUM_THREADS='1', NUMBA_NUM_THREADS='1', PYTHONNOUSERSITE='1')
     return result
 
 
@@ -80,7 +81,7 @@ def service_command(request_path, request, python, source):
     argv += ['--setenv=' + k + '=' + v for k,v in request['environment'].items()]
     monitor = Path(request['monitor']) / 'log_slurm_resources.py'
     return argv + [python, '-I', '-B', str(monitor), '--log-file', request['native_log'],
-                   '--stage', 'whole-job-user-service', '--device', 'cpu', '--interval', '15',
+                   '--stage', 'whole-job-user-service', '--device', request.get('device','cpu'), '--interval', '15',
                    '--', python, '-I', '-B', str(source), 'worker', '--request', str(request_path)]
 
 
@@ -135,7 +136,7 @@ def worker(request_path):
         time.sleep(.25)
     write_new(request['worker_result'], {'return_code':child.returncode,
               'stop_reason':stop_reason, 'parent_alive_at_exit':parent_alive(request['allocation']),
-              'service_limits_verified':True, 'scientific_execution':False})
+              'service_limits_verified':True, 'scientific_execution':request.get('stage','p0') not in ('p0','p1','p2')})
     return child.returncode if child.returncode is not None and child.returncode >= 0 else 125
 
 
@@ -170,7 +171,7 @@ def launch(output, command, stage='p0', monitor=None):
         if candidate.is_absolute() and candidate.is_file():
             source_hashes[str(candidate)] = sha(candidate)
     request = {'approved_plan_sha256':PLAN_SHA, 'unit':'hsph1-' + job + '-' + stage + '-repair',
-               'allocation':allocation, 'memory_bytes':memory_bytes, 'tasks':64,
+               'allocation':allocation, 'stage':stage, 'device':'mixed' if stage in GPU_STAGES else 'cpu', 'memory_bytes':memory_bytes, 'tasks':64,
                'runtime_seconds':runtime_seconds, 'cwd':str(output.parent), 'canary':str(canary_path),
                'environment':preserved_environment(os.environ),
                'monitor':str(monitor.resolve()),
