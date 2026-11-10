@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "HSPH1_12757_homodimer",
+  "name": "HSPH1 construct 12757",
+  "cohort_models": 4006,
+  "construct": "Two identical full117-residue chains including supplied tag",
+  "organism": null,
+  "accession": null,
+  "study_config": "config/study.json",
+  "source_adapter": "scripts/assemble_hsph1_private.py",
+  "scientific_controllers": "scripts/completion",
+  "workflow_coverage": "config/workflow-coverage.json",
+  "views": [
+    "density",
+    "primary"
+  ],
+  "ranges": [
+    "all"
+  ],
+  "source_layout_note": "Inherited historical HSPH1 adapters/settings remain at their existing paths for frozen plan provenance. New targets use targets/<slug>/config and targets/<slug>/scripts."
+}

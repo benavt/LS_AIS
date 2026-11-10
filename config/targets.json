@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "project": "LS_AIS",
+  "visibility": "private",
+  "targets": [
+    {
+      "id": "HSPH1_12757_homodimer",
+      "name": "HSPH1 construct 12757",
+      "config": "targets/hsph1-12757/target.json",
+      "data": "HSPH1_12757_homodimer/primary.json",
+      "default_view": "density"
+    }
+  ],
+  "layout": "One shared atlas page; distinct target menu entries, independent residue-range and clustering menus."
+}

@@ -1,5 +1,5 @@
 {
-  "status": "incomplete_private_preview",
+  "status": "complete_private_atlas",
   "models": 4006,
   "residues": 234,
   "clusters": 27,
@@ -19,19 +19,20 @@
   "review_candidate_files": 4230,
   "payload_bytes": 720247309,
   "publications": 0,
-  "ProteinEBM_values": 0,
+  "ProteinEBM_values": 64096,
   "library_commit": "f3063757460303e1a4a4ba0b3629fe81776c58c4",
   "research_workflows_commit": "fc0e961f1581e93c8dd854ac890f9d300d00f6d5",
   "Bonsai_commit": "b16ef6f0a164610327022c7d0b92de82b3596aad",
-  "ProteinEBM_status": "pending_current4006_completion_scores",
+  "ProteinEBM_status": "verified_current4006_all16_levels",
   "workflow_coverage": "config/workflow-coverage.json",
-  "missing_requirements": [
-    "ProteinEBM coverage",
-    "HDBSCAN assignments and own figures/ensembles/Bonsai",
-    "HDBSCAN-guided structural states",
-    "MCMC",
-    "DISCO",
-    "successor browser acceptance"
-  ],
-  "publication_hold": true
+  "missing_requirements": [],
+  "publication_hold": true,
+  "density_clusters": 68,
+  "density_unassigned_models": 1386,
+  "density_Bonsai_models": 402,
+  "private_export_manifest_sha256": "4fa7140a78fa5227af37f476152b62a188d95543b9f1072789dc65c4bba462c9",
+  "private_export_files": 4552,
+  "private_payload_bytes": 930216255,
+  "sampling_panels": 12,
+  "private_review": "config/private-atlas-review.json"
 }

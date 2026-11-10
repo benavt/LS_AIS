@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
-  "status": "current4006_scientific_and_private_delivery_accepted",
+  "status": "current4006_complete_private_atlas_reviewed",
   "readiness_job": "25458",
   "environment_job": "25462",
   "history": [
@@ -175,14 +175,12 @@
   "administrator_action_required": false,
   "global_configuration_changed": false,
   "remaining": [
-    "Collect the selected verified delivery and assemble a fresh private atlas successor",
-    "Browser-test both views and review actual sampling diagnostics",
-    "Prepare the updated four-file Zenodo package,resolve data license,and obtain exact-bundle publication approval"
+    "Public GitHub Pages/Zenodo release requires a separate exact-bundle review and data license decision."
   ],
   "publication_held": true,
-  "checked_at_UTC": "2026-11-10T21:48:56.725047+00:00",
+  "checked_at_UTC": "2026-11-10T22:54:59.045320+00:00",
   "submissions": "config/mimas-submissions.json",
-  "current_stage": "Private atlas successor assembly/browser review pending",
+  "current_stage": "Complete private atlas reviewed",
   "GPU_tasks_submitted": 41,
   "GPU_task_allocations_completed": 41,
   "accepted_pilot_models": 406,
@@ -236,5 +234,6 @@
   },
   "accepted_scientific_manifest_sha256": "abf404f92dcf0ad14e3a0e9fd7286e3449a42cf5f7296d8b3409ab3a293cfc5f",
   "sampling_summary_sha256": "0eb2d0c0da726b905d8cbe4e9e5d8a003a33c8bdbd103dc3459bcae5d37b8d1b",
-  "delivery_relative": "05_delivery_002"
+  "delivery_relative": "05_delivery_002",
+  "private_atlas_review": "config/private-atlas-review.json"
 }

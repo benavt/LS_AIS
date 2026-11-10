@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "project": "LS_AIS",
+  "status": "private_atlas_reviewed",
+  "checked_at_UTC": "2026-11-10T22:54:59.045320+00:00",
+  "export_manifest_sha256": "4fa7140a78fa5227af37f476152b62a188d95543b9f1072789dc65c4bba462c9",
+  "files": 4552,
+  "payload_bytes": 930216255,
+  "scientific_execution": false,
+  "public_deployment": false,
+  "tests": {
+    "unit_tests": 37,
+    "saved_payload_views": 2,
+    "saved_panels": 12,
+    "models": 4006,
+    "energy_values_per_model": 16,
+    "homodimer_negative_checks": 3,
+    "multi_target_fixture": "two independent targets share a single menu"
+  },
+  "browser": {
+    "private_url_verified": true,
+    "default_view": "HDBSCAN",
+    "density_clusters": 68,
+    "unassigned": 1386,
+    "primary_clusters": 27,
+    "density_Bonsai_models": 402,
+    "primary_Bonsai_models": 161,
+    "figure_choices": [
+      "UMAP",
+      "PCA",
+      "t-SNE",
+      "Bonsai",
+      "Overview"
+    ],
+    "energy_color": true,
+    "ensemble_cpu_CA_segments": 1160,
+    "rotation_and_stop": true,
+    "narrow_viewport_width": 390,
+    "narrow_document_width": 375,
+    "disco_download_exact_bytes": true,
+    "disco_download_models": 50,
+    "medoid_matrix_download_shape": [
+      68,
+      68
+    ],
+    "browser_errors": [],
+    "operational_paths_and_directories_HTTP_status": 404
+  },
+  "limitations": [
+    "Fixed-budget sampling diagnostics do not establish convergence.",
+    "Preview requires existing authorized Tailscale access and an online host; expiry is recorded locally.",
+    "Public publication and data license remain separate."
+  ]
+}

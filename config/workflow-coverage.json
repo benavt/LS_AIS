@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "target": "HSPH1_12757_homodimer",
-  "status": "current4006_scientific_assets_verified_successor_pending",
+  "status": "current4006_private_atlas_reviewed",
   "release_ready": false,
   "publication_hold": true,
-  "hold_reason": "Required scientific assets are accepted;complete successor assembly,browser review and dataset/license checks remain",
+  "hold_reason": "Complete private atlas reviewed; public release and unresolved data license remain separate.",
   "cohort_models": 4006,
   "residues": 234,
   "model_roster_sha256": "5307df992cac7b9ae6a03382bba34fa8f8cd5cc0bcb02a2ff728abadc9606663",
@@ -36,7 +36,7 @@
       "range": "all",
       "view": "shared",
       "status": "verified",
-      "detail": "All 4006 models accepted at 16 time levels:64096 energies and14998464 residue values; E5 job 25691, output hash and both own finished resource logs verified. Scientific scores are ready; successor page wiring remains pending.",
+      "detail": "All 4006 models accepted at 16 time levels:64096 energies and14998464 residue values; E5 job 25691, output hash and both own finished resource logs verified. All energies are joined to exact native hashes in the reviewed private atlas.",
       "grid_sha256": "31f06b1e2f391ec76452a47167846bc7c8e105214ebb029cd964592400f827b2"
     },
     {
@@ -127,11 +127,11 @@
       "id": "successor_browser_acceptance",
       "range": "all",
       "view": "shared",
-      "status": "missing",
-      "detail": "Both clustering views, shared figure choices, partition-specific TM grids, native trees, sampling panels and verified energy colors"
+      "status": "verified",
+      "detail": "Private URL, both views, own Bonsai selections, energy colors, complete CPU ensembles, sampling downloads, medoid matrix, responsive layout and private route checks passed; config/private-atlas-review.json."
     }
   ],
   "paid_external_calls": 0,
-  "checked_at_UTC": "2026-11-10T21:48:56.725047+00:00",
+  "checked_at_UTC": "2026-11-10T22:54:59.045320+00:00",
   "private_delivery_accepted": true
 }

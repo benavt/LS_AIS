@@ -162,5 +162,6 @@
   "convergence_claimed": false,
   "private_delivery_accepted": true,
   "publication_held": true,
-  "successor_browser_review": "pending"
+  "successor_browser_review": "passed",
+  "private_atlas_review": "config/private-atlas-review.json"
 }

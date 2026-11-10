@@ -1,27 +1,11 @@
-# HSPH1 construct 12757
+# LS AIS atlas
 
-This independent project owns the homodimer cohort, run settings and atlas.
-Preserve both exact 117-residue chains, the supplied tag, native files and failed
-attempts. Keep the current construct label; do not infer an organism/accession.
+Owns an extensible private atlas and target choices. Use `config/targets.json` for menu order and `targets/<slug>/` for target-specific settings. HSPH1 inherited settings and controllers stay at their historical root paths; do not move frozen paths or alter run provenance. Preserve original source history, native files, failed attempts and current selections.
 
-Use the exact Structure_Clustering dependency in pyproject.toml and the pinned
-external/research-workflows policy. Fleet owns private machine/runtime bindings.
-Scientific calculations require an approved hash-bound project plan. Model
-generation, clustering, scientific exports and public publication are distinct
-operations; source setup and CI must never start any of them automatically.
+Use the exact Structure_Clustering dependency in pyproject.toml and pinned external/research-workflows policy. Use structure-atlas-page and its contracts from that exact library Git pin. Fleet owns machine/runtime/access bindings. Native data, credentials and private machine paths stay in ignored local/ or existing remote runs. Source setup and CI never run scientific work.
 
-Keep native models, matrices, credentials and machine paths in ignored local/
-or their existing remote scientific runs. Commit source, settings and hash rosters.
-Start new source branches from fetched origin/main using codex/<task>; request
-approval for reviewed merges. Source check: python3 scripts/status.py.
+Build saved assets with scripts/build_private_atlas.py; serve only verified allowlisted files through scripts/serve_private_atlas.py and the existing private Tailscale boundary. Test the real browser URL, both clustering views, structures, downloads, CPU fallback and responsive layout. Keep public publication separate. New targets require explicit construct, cohort, residue scope, accepted results and hash inventory; never infer scientific defaults or start calculations from adding a menu.
 
-Use the structure-atlas-page and zenodo-model-deposition skills from the exact
-Structure_Clustering Git pin, including their referenced contracts and templates.
-The installed global atlas skill may be older; it must not narrow the pinned
-defaults. Require ProteinEBM coverage, UMAP KNN, geometry-based HDBSCAN, and the
-documented HDBSCAN-guided MCMC/DISCO workflow. Track each view in
-config/workflow-coverage.json and keep publication held while required assets
-are incomplete. Test the actual
-private atlas before publishing its exact reviewed bundle. A reserved draft DOI
-must never be reported as a published dataset.
+For HSPH1 preserve both exact 117-residue chains and supplied tag, current label, 4,006-model snapshot, accepted ProteinEBM/HDBSCAN/state/sampling artifacts and diagnostics. Do not infer organism/accession or mix future generation cohorts. Energy is separate from confidence. Request approval for reviewed source merges and public publication. Use codex/<task> branches from fetched origin/main after initial repository setup.
 
+Source checks: python3 scripts/status.py; python -m unittest discover -s tests. Keep the homodimer presentation adapter narrow and retain exact model/hash and two-chain validation.

@@ -7,6 +7,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 def main():
+    atlas = json.loads((ROOT / 'config/atlas-project.json').read_text())
+    registry = json.loads((ROOT / 'config/targets.json').read_text())
+    assert atlas['project'] == registry['project'] == 'LS_AIS'
+    assert atlas['visibility'] == registry['visibility'] == 'private'
+    ids = [entry['id'] for entry in registry['targets']]
+    assert ids and len(ids) == len(set(ids))
+    for entry in registry['targets']:
+        target_config = json.loads((ROOT / entry['config']).read_text())
+        assert target_config['id'] == entry['id']
     study = json.loads((ROOT / 'config/study.json').read_text())
     roster_path = ROOT / 'config/model-roster.json'
     roster = json.loads(roster_path.read_text())
@@ -30,8 +39,8 @@ def main():
     if incomplete:
         assert not coverage['release_ready'] and coverage['publication_hold']
         assert study['publication']['hold']
-    assert study['publication']['status'] == 'held_incomplete_workflow'
-    print(json.dumps(dict(status='source_and_roster_verified', available_models=len(rows),
+    assert study['publication']['hold'] and study['publication']['status'] in {'held_incomplete_workflow', 'private_atlas_reviewed_publication_separate'}
+    print(json.dumps(dict(status='source_and_roster_verified', project='LS_AIS', targets=ids, private=True, available_models=len(rows),
                           requested_arm_models=2000, remaining_models=study['requested_total']-len(rows),
                           workflow_status=coverage['status'], incomplete_requirements=len(incomplete),
                           publication_held=coverage['publication_hold'], check_runs_science=False)))
