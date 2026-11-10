@@ -76,7 +76,17 @@ def prepare(plan,digest,index):
     with cache.open('xb') as stream:np.savez(stream,**arrays)
     with np.load(cache,allow_pickle=False) as actual:
         require(all(np.array_equal(v,actual[k]) for k,v in arrays.items()),'Lossy feature-cache roundtrip')
-    save(root/'ready.json',{'status':'validated','models':count,'residues':234,'CPU_only':True,
+    prefix=Path(sys.prefix).resolve()
+    paths={Path(module.__file__).resolve() for module in list(sys.modules.values())
+           if getattr(module,'__file__',None) and Path(module.__file__).is_file()
+           and Path(module.__file__).resolve().is_relative_to(prefix)}
+    for line in Path('/proc/self/maps').read_text().splitlines():
+        fields=line.split()
+        if len(fields)>=6 and fields[-1].startswith('/'):
+            file=Path(fields[-1])
+            if file.is_file() and file.resolve().is_relative_to(prefix):paths.add(file.resolve())
+    runtime_loaded={str(p):sha(p) for p in sorted(paths)}
+    save(root/'ready.json',{'runtime_loaded_sha256':runtime_loaded,'status':'validated','models':count,'residues':234,'CPU_only':True,
        'plan_sha256':digest,'feature_sha256':sha(cache),'native_cpu_strict_load':True,
        'model_ids':[r['model_id'] for r in rows],'native_sha256':[r['sha256'] for r in rows]})
     print('CPU native cache accepted',plan['groups'][index]['id'],count,flush=True)
@@ -85,7 +95,9 @@ def ready(plan,digest,index):
     proof=finished(plan,'E0',index);root=group_dir(plan,index);marker=read(root/'ready.json')
     require(marker['status']=='validated' and marker['CPU_only'] and marker['native_cpu_strict_load'] and
         marker['plan_sha256']==digest and marker['models']==plan['groups'][index]['count'],'CPU cache not accepted')
-    checked(root/'features.npz',marker['feature_sha256']);return root,proof
+    checked(root/'features.npz',marker['feature_sha256'])
+    for name,digest in marker['runtime_loaded_sha256'].items():checked(name,digest)
+    return root,proof
 
 def gpu(plan,digest,index,chunk):
     count=plan['groups'][index]['count'];begin,end=span(count,chunk);n=end-begin
