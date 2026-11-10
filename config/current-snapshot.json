@@ -30,9 +30,9 @@
   "density_clusters": 68,
   "density_unassigned_models": 1386,
   "density_Bonsai_models": 402,
-  "private_export_manifest_sha256": "4fa7140a78fa5227af37f476152b62a188d95543b9f1072789dc65c4bba462c9",
+  "private_export_manifest_sha256": "75310d874e169325b06917627e10461f90e6532e14eafcc2d0835321653354f1",
   "private_export_files": 4552,
-  "private_payload_bytes": 930216255,
+  "private_payload_bytes": 930216687,
   "sampling_panels": 12,
   "private_review": "config/private-atlas-review.json"
 }
