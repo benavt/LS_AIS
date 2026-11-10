@@ -70,7 +70,7 @@ def canonical_full(row,output):
     model=native_structure(row)
     keys=['group_PDB','id','type_symbol','label_atom_id','label_alt_id','label_comp_id','label_asym_id',
           'label_entity_id','label_seq_id','pdbx_PDB_ins_code','Cartn_x','Cartn_y','Cartn_z','occupancy','B_iso_or_equiv',
-          'auth_seq_id','auth_asym_id','pdbx_PDB_model_num']
+          'auth_seq_id','auth_comp_id','auth_asym_id','auth_atom_id','pdbx_PDB_model_num']
     data={'data_':row['model_id'],**{'_atom_site.'+k:[] for k in keys}};count=0
     for ci,c in enumerate(row['chains']):
         chain='AB'[ci]
@@ -78,7 +78,7 @@ def canonical_full(row,output):
             for atom in res.get_unpacked_list():
                 count+=1
                 vals=['ATOM',str(count),atom.element,atom.name,atom.altloc.strip() or '.',res.resname,chain,str(ci+1),
-                  str(ri),'?',*[format(float(v),'.9g') for v in atom.coord],str(atom.occupancy),str(atom.bfactor),str(ri),chain,'1']
+                  str(ri),'?',*[format(float(v),'.9g') for v in atom.coord],str(atom.occupancy),str(atom.bfactor),str(ri),res.resname,chain,atom.name,'1']
                 for key,value in zip(keys,vals):data['_atom_site.'+key].append(value)
     writer=MMCIFIO();writer.set_dict(data);writer.save(str(output))
     return count
@@ -90,10 +90,10 @@ def write_ca(path,name,coords,sequence):
     with Path(path).open('x') as f:
         f.write('data_'+name+'\n#\nloop_\n')
         for k in ['group_PDB','id','type_symbol','label_atom_id','label_alt_id','label_comp_id','label_asym_id','label_entity_id',
-                  'label_seq_id','pdbx_PDB_ins_code','Cartn_x','Cartn_y','Cartn_z','occupancy','B_iso_or_equiv','auth_seq_id','auth_asym_id','pdbx_PDB_model_num']:
+                  'label_seq_id','pdbx_PDB_ins_code','Cartn_x','Cartn_y','Cartn_z','occupancy','B_iso_or_equiv','auth_seq_id','auth_comp_id','auth_asym_id','auth_atom_id','pdbx_PDB_model_num']:
             f.write('_atom_site.'+k+'\n')
         for i,xyz in enumerate(a):
             chain='AB'[i//117];res=i%117+1
-            f.write('ATOM %d C CA . %s %s %d %d ? %.17g %.17g %.17g 1 0 %d %s 1\n'%(
-                i+1,seq3(sequence[i%117]).upper(),chain,i//117+1,res,*xyz,res,chain))
+            f.write('ATOM %d C CA . %s %s %d %d ? %.17g %.17g %.17g 1 0 %d %s %s CA 1\n'%(
+                i+1,seq3(sequence[i%117]).upper(),chain,i//117+1,res,*xyz,res,seq3(sequence[i%117]).upper(),chain))
         f.write('#\n')
