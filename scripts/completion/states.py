@@ -274,7 +274,7 @@ def delivery(plan,np,rows):
     root=Path(plan['run_root'])/'04_analysis';accepted=read(root/'S3-acceptance.json')
     require(accepted['status']=='validated','Scientific acceptance incomplete')
     for name,digest in accepted['accepted_json_sha256'].items():checked(root/name,digest)
-    output=Path(plan['run_root'])/'05_delivery';output.mkdir()
+    output=Path(plan['run_root'])/plan.get('delivery_relative','05_delivery');output.mkdir()
     from structure_clustering.privacy import privacy_check,CREDENTIAL
     def clean(value):
         if isinstance(value,dict):return {k:clean(v) for k,v in value.items() if k not in
@@ -298,9 +298,8 @@ def delivery(plan,np,rows):
         if source.suffix=='.json':raw=(json.dumps(clean(read(source)),indent=2,allow_nan=False)+'\n').encode()
         else:raw=source.read_bytes()
         if source.suffix=='.npz':
-            import zipfile
-            with zipfile.ZipFile(source) as package:
-                for name in package.namelist():privacy_check(package.read(name),str(relative)+'/'+name)
+            from delivery_arrays import privacy_check_npz
+            privacy_check_npz(raw,str(relative))
         if source.suffix in ('.json','.csv','.pdb'):
             privacy_check(raw,str(relative));require(not CREDENTIAL.search(raw.decode('utf-8',errors='replace')),'Credential-shaped delivery text')
         if source.suffix=='.pdb':
