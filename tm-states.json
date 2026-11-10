@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "tm_state_selection_catalog",
+  "targets": {
+    "HSPH1_12757_homodimer": {
+      "model_count": 4006,
+      "model_order_sha256": "42fbf6189e57a117f1208455b5f3f21119d5983feb6715fe9357a0bf568ba82e",
+      "sequence_sha256": "0f7f84354afcabf38bd53c354bb6524faf763a96b70b036f21b764aac09014d2",
+      "ranges": {
+        "all": {
+          "effective_scope_id": "full-dimer",
+          "views": {
+            "primary": {
+              "file": "tm-states/HSPH1_12757_homodimer/full-dimer.json",
+              "sha256": "9a4e9bb84c3698a8289b9c6578c46bdbcaa11375f1716abd7152b020eb211de4",
+              "state_count": 3,
+              "available": true,
+              "short_core": false,
+              "incomplete_coverage": true,
+              "source_data_sha256": "8c35265bd4d7d5f2339d6e61d34fd9066a6b5369950315175c6ea43d38ec595b"
+            },
+            "density": {
+              "file": "tm-states/HSPH1_12757_homodimer/full-dimer.json",
+              "sha256": "9a4e9bb84c3698a8289b9c6578c46bdbcaa11375f1716abd7152b020eb211de4",
+              "state_count": 3,
+              "available": true,
+              "short_core": false,
+              "incomplete_coverage": true,
+              "source_data_sha256": "10ab5c2febf67778e2e57219a92a43b9857b8664cfc4bbca45c3be8ab4232f7e"
+            }
+          }
+        }
+      }
+    }
+  }
+}

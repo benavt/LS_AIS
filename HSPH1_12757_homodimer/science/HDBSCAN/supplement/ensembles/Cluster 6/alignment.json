@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0130",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0803",
+      "native_sha256": "20c1c6becfd0b2ec10098e8c9c22d9e54f572ae4a7cf0a1934e042a19e30d8cb",
+      "aligned_sha256": "2fc2e32be5b4214a0185e9fe4ce085606e79a9bd5ce0dbf26e8d47db33fda445",
+      "aligned_file": "ensembles/Cluster 6/afsample2_0803.pdb",
+      "CA_RMSD": 3.3229984036453684,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0758",
+      "native_sha256": "50d40d7996d4cfde9dc7c96ad4c72dc4a42906e58b61e478cc441e1856eaca45",
+      "aligned_sha256": "9a6a3752d9b2f7e41dbdcccafe690894bf39c3bca00933a601e7833ff5dca775",
+      "aligned_file": "ensembles/Cluster 6/afsample2_0758.pdb",
+      "CA_RMSD": 4.477621047007748,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0060",
+      "native_sha256": "a21e1f7bd9c95e4a420dd738f332eb3b05978b0f6227d2b036df5395c3a178e5",
+      "aligned_sha256": "9c157c7ed1da4aca8465463c963b9dc94d078e7603852de9d88c4bfb7457e469",
+      "aligned_file": "ensembles/Cluster 6/afsample2_0060.pdb",
+      "CA_RMSD": 1.7012620257443016,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0677",
+      "native_sha256": "c6f394d5bdd3884e7e09c15205cf86c7e939495c04a64b72952da46854a9136a",
+      "aligned_sha256": "5b28333ea7b94a7f74f1637acdd370759709e53910915b8ff96687c5a6e2b9a9",
+      "aligned_file": "ensembles/Cluster 6/afsample2_0677.pdb",
+      "CA_RMSD": 2.8264650792486243,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0252",
+      "native_sha256": "759d4200666726600cf7c342a4866112dc2ef1a83ec5a8d15b241f578521ec17",
+      "aligned_sha256": "7f4d759aaecbb9af2215659dbd353a99a38a2ef0cb597f0d47d10b6404a1a9e4",
+      "aligned_file": "ensembles/Cluster 6/afsample2_0252.pdb",
+      "CA_RMSD": 2.675802924433402,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "7bae3bd18183347b0700da8afdd29b84cb9911242cd0966fe8dc9df82ff01989"
+}

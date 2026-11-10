@@ -1,0 +1,420 @@
+{
+  "kind": "MCMC50",
+  "state": "S1",
+  "k": 50,
+  "model_ids": [
+    "afsample2_0308",
+    "afsample2_0497",
+    "afsample2_0502",
+    "afsample2_0893",
+    "afsample2_0930",
+    "afcluster_0345",
+    "afcluster_0379",
+    "afcluster_0580",
+    "afcluster_0707",
+    "afcluster_0757",
+    "afcluster_0759",
+    "afcluster_0849",
+    "afcluster_0936",
+    "afcluster_0954",
+    "speachaf_0073",
+    "speachaf_0109",
+    "speachaf_0160",
+    "speachaf_0169",
+    "speachaf_0197",
+    "speachaf_0274",
+    "speachaf_0275",
+    "speachaf_0286",
+    "speachaf_0299",
+    "speachaf_0386",
+    "speachaf_0462",
+    "speachaf_0573",
+    "speachaf_0663",
+    "speachaf_0740",
+    "speachaf_0774",
+    "opendde_0005",
+    "opendde_0016",
+    "opendde_0076",
+    "opendde_0083",
+    "opendde_0145",
+    "opendde_0178",
+    "opendde_0206",
+    "opendde_0310",
+    "opendde_0356",
+    "opendde_0387",
+    "opendde_0452",
+    "opendde_0540",
+    "opendde_0582",
+    "opendde_0639",
+    "opendde_0740",
+    "opendde_0741",
+    "opendde_0750",
+    "opendde_0816",
+    "opendde_0859",
+    "opendde_0877",
+    "opendde_0975"
+  ],
+  "members": [
+    {
+      "model_id": "afsample2_0308",
+      "native_sha256": "427341291c7f992b58cf9b0f23d243f7c1a4e763fe920ff3d7efbb3c5541f236",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "e302896270a1ba469b4e4fc7aebef8918fc781dcb1056e632b2d3a46a8777f0d"
+    },
+    {
+      "model_id": "afsample2_0497",
+      "native_sha256": "a6b04bbf4ede99b3add227451279e061ff3ce42d8005cc3540af95c5a5a4e183",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "d21f676ce971e77fb9bb6a79f78d8e1cb58c920dfc351c2e206821aaf6935a2e"
+    },
+    {
+      "model_id": "afsample2_0502",
+      "native_sha256": "4a684c9cf8710c959d1d86cc8a853b0873a7d71ba0e6d0fa8f91e81a4b0152a7",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "94b045041a0caf89486ad4a457eae6cb3cfadbab4c670b24981d9f602176f097"
+    },
+    {
+      "model_id": "afsample2_0893",
+      "native_sha256": "e1bb0bbec91c567dc7e2a5c5e9a45df23abb39ea604edd329fd78b4c2092d011",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "e0c19894531b69b091c3dbf009863b3107e89025fc567e073a660b639cc59ef2"
+    },
+    {
+      "model_id": "afsample2_0930",
+      "native_sha256": "3cee27c12e92e212ec3e7941567e3cfaea5d7776872189fd61923efb10975ba9",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "b34f78dbde76562297f1c5116439bf4328dab6af5b64fc2294d000cb9548ac09"
+    },
+    {
+      "model_id": "afcluster_0345",
+      "native_sha256": "014bae637d12a4c63d44e389dca9025f1a630f32e939db6f91211f0354e817a7",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "bd150fd8cd6f751315f528a9195bc4ce38bf536e418b7c98b941a072bcd80ebe"
+    },
+    {
+      "model_id": "afcluster_0379",
+      "native_sha256": "cae90ef71a02e6a5940f50a8e85f309922ed45112645214d26c14505aab428bc",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "b1dec00e181aa90e569f473253e5333739413d19ced3316564556d815747c553"
+    },
+    {
+      "model_id": "afcluster_0580",
+      "native_sha256": "6c23f15b6eb6ef33cc0fca5254599096d44605707f2ca1f8625adc02da4d5fdc",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "a9e2045700ee4e490a486a13b1e5e32895749e2d7e0baef664db2f5bc51f4c22"
+    },
+    {
+      "model_id": "afcluster_0707",
+      "native_sha256": "79d93b77380311c47403f9f771f8cc6b64a21fb500242bbfa081b15941910d23",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "fdac76fb76ffaf91f39b451f1ad36e34db4e1e93198c77ff08fd402805919351"
+    },
+    {
+      "model_id": "afcluster_0757",
+      "native_sha256": "1be1c2aa2124b86b7cc674a4d4a06f0264eb3b10c8c2c02248fa3dcb26b23f0b",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "ba816c46363a3e7d27a695dfdbfbe09270f0b9b5a06923510629fada6751c673"
+    },
+    {
+      "model_id": "afcluster_0759",
+      "native_sha256": "949561921ed60b5d8dac24db3978dee14885ccb9d1c54b38e01573b89ff3d6b9",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "b7c48675d0ecfe05001cf4782f5ffb25ba91a89b28ec421eed7b5c94aa2a344a"
+    },
+    {
+      "model_id": "afcluster_0849",
+      "native_sha256": "46db1050719b262ecdd0600e0227e6ef42e5e530d140f90057be4bc38ba094be",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "d406afcbad74b0f15ab54a9101c5b22ebe2c2244e2c482eb69ff34e4a39aa822"
+    },
+    {
+      "model_id": "afcluster_0936",
+      "native_sha256": "f68d6b892031844efed6a7078fb0afebf696d1bc10d587980600b40b7ffe7596",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "4cf338cb4fd09d9dc443ad42a746dfe9b9c82d53f28cf9347215378a8a54be3d"
+    },
+    {
+      "model_id": "afcluster_0954",
+      "native_sha256": "a262d51889b80e542a493d76b11404202a3dc72696bd9057a67c6f880d6382b6",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "6dc5a1cd04cc59e4e2dbbbe706baf765ae9371cebb51508c79283b66f05a0031"
+    },
+    {
+      "model_id": "speachaf_0073",
+      "native_sha256": "4560e32c6f14fb12a302842fa7114f4aafdc55dfc3b24e1d57980372d5b94fd8",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "4beb6b3b4dbfabff051a2edb755b1992c55076c5c1fa05f0981bccdf3145bc07"
+    },
+    {
+      "model_id": "speachaf_0109",
+      "native_sha256": "61012be2ad5ad0ab2e3f2cbefc2181871019ae43f2bef79cf4edf669068a6042",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "0568525458a20e7853c65e6f696116aaf5cc964832478375daee65a632c32407"
+    },
+    {
+      "model_id": "speachaf_0160",
+      "native_sha256": "5e401339e094ed05955b308f82a0e3f9daf720c7e4591dd94ab3b8c8ea580bc6",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "620e9f445076f92eeca0340a3740eff9b64192ed4006ef1fa560963b0de41fff"
+    },
+    {
+      "model_id": "speachaf_0169",
+      "native_sha256": "f0e0f7a0ba94a9a2189c7f5e24e511f5c4afcc4350449f24a22c9fe343d467d2",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "028ffcbff2d2463d6264b9e820fbf6adf83bc13ff0f996f5fb3a1e2559e607b0"
+    },
+    {
+      "model_id": "speachaf_0197",
+      "native_sha256": "a09ff865764cee254755036f0a1b6dc8842fbf7b3000470394719d1ae0839883",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "0a2a6db6dacfc4e57a1f6be06231e4af93aaf0ae25df13b74f2abef75197e621"
+    },
+    {
+      "model_id": "speachaf_0274",
+      "native_sha256": "563a94910f6918ee576ac3b745b03771957452d6b19856cb3d6ab8b6ab624e38",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "df100c5baceb2b546ecb2dbdaaafeda8213561bc72496b8d9ab32321d36f5086"
+    },
+    {
+      "model_id": "speachaf_0275",
+      "native_sha256": "471811e796cd1e076d43de9e77844c77456e7a264fb8340958531b138d7f63dd",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "e44de52b005cb3ec2aa83fa36d3a7d12f52716776dfd4e0ec1b5bf80df17c9ce"
+    },
+    {
+      "model_id": "speachaf_0286",
+      "native_sha256": "ce6e9d7659c6ff8c7bc985bf4cd499a4026244686f2f053cb0036f9e7adde7a7",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "c37a71d40b453d67f87ae72afcebcb9e1c5c36acb78aeded4f17042cd1c75349"
+    },
+    {
+      "model_id": "speachaf_0299",
+      "native_sha256": "9e1343fe96573621244689019aa426f60d778a26f91034592fcd3a2674cd7e57",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "c8aa2f63ecce168a0ffe08e0ce2fcd7d685dbd39ca01ae21bc18dca0a07845ca"
+    },
+    {
+      "model_id": "speachaf_0386",
+      "native_sha256": "3080ae461c168bc21aa51e54f85d20859775b5b18c7fb6ffa3eb103c64f96438",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "cc9557b75a1e42157200cf61f95618ebeab470845f9e7badfab2f7f4545f2d37"
+    },
+    {
+      "model_id": "speachaf_0462",
+      "native_sha256": "9b3c33588feff5e103c070d566c97542b5f6c720f50a2fdba9e1294d6a63bb4b",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "a3b13427942a644ada81361fed3eff1c26b1f172d5d439e6661fc52a2dcd19f7"
+    },
+    {
+      "model_id": "speachaf_0573",
+      "native_sha256": "b25ec10a004fd5bf2114a4876855e71fcd2b867ddf2292461fe27b50ac951849",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "405a1c10988263e3b42f3f9884fbd416b7aff73ba4d242baef9211e260255f21"
+    },
+    {
+      "model_id": "speachaf_0663",
+      "native_sha256": "49f00101ecb6cf5600a5b739a7bc63afe5e7deceffea119469d08dbaeaa66e40",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "07635fe0237ae35c1d6f17d2e5d51ced3da9d64bde9d844dce85612e7b21f397"
+    },
+    {
+      "model_id": "speachaf_0740",
+      "native_sha256": "e1e5bcfaac8c4b3536a100a28e3727a77083fb9e9c83a73dd750010ce27506ba",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "eb6e5c1cfd3b163572511aa50d923ea58be78eda43ed9cb1491b6619be102992"
+    },
+    {
+      "model_id": "speachaf_0774",
+      "native_sha256": "975bc380bc2ad308048bc0195fc0013cdb6bfd36932cfd3ff2190d7da728c0e4",
+      "atom_count": 1932,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "d2d9c9a4c6da98b9dcf87f3c31dcae67a88dd7fdf8aabf7f1cab2c9bfab5dfa8"
+    },
+    {
+      "model_id": "opendde_0005",
+      "native_sha256": "87b42c28fb12dc670f3a78b22cb95d13e8249312eb6fdaa981393f8af31e078d",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "07d4f228364233c7eee74fb70a8a5301e2cff197e3b1049f7f554dc5966604d8"
+    },
+    {
+      "model_id": "opendde_0016",
+      "native_sha256": "b988f22ce6b0750a653f5a6f5f0aba45ca07fc5eadf59aed5d5723fd17b07d35",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "84ffb918748ff1c2c1f88b2fec3dab01b20762a506dfb2bc7818dc4dc7c9d6a0"
+    },
+    {
+      "model_id": "opendde_0076",
+      "native_sha256": "ac36eac5197ea0364c063df7bfc11c56deef1d7d1dc405e57c87b5c01124fcd3",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "099bb9f8c7716bd59c32271078328c387a36af13a5bf02c7f5e7be430347d159"
+    },
+    {
+      "model_id": "opendde_0083",
+      "native_sha256": "2496c7dd6f471da9e522d24432cfc011a7c4bbc56af4020fd6852aefc21c5b36",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "0d5aec8cb443758f9b75a97c369337cb1a8debdc7a7a9b41dfbb8b56bf0c9c0a"
+    },
+    {
+      "model_id": "opendde_0145",
+      "native_sha256": "b3e1ba12be2c79e44c19f5efc2dd42b4568b40131cc9e75aa491300bf29ab3f4",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "2e11ecb8c39897f30a1d6a01389aefe8456082da756719947384252220766c8d"
+    },
+    {
+      "model_id": "opendde_0178",
+      "native_sha256": "3dfc69a25aa21f26f51f6886df11df720616c1579f637db44171ce405cb8fde2",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "6afaf7205c507cca7c42d30fb29b5a14f44b219d3e0f084cdf9d104aae8bd7b0"
+    },
+    {
+      "model_id": "opendde_0206",
+      "native_sha256": "a827954dd5d23e2e79b5b44a1ad70cb436df31bfec1646600081d4f352013ba9",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "578b97084217963f6c8e5ef609bf9de7307981bea16068b1f01fa036dfc733b0"
+    },
+    {
+      "model_id": "opendde_0310",
+      "native_sha256": "35969a5745eabad0492974575902bce92326c1764bc2664de020318978f4f095",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "14e6cd36ab027f440ab24470559ac5cf3fc3d62ed29607e0305f9b6e73aa0382"
+    },
+    {
+      "model_id": "opendde_0356",
+      "native_sha256": "d2cf463d6807ade453c80f6b028592c4ba51a5cfdf1c0d918fe9caf33392967d",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "ece49d30684adf98e546963422ff994464c3a711656964c4ef15a30ba17d272e"
+    },
+    {
+      "model_id": "opendde_0387",
+      "native_sha256": "8c8cbbf6d0f528232568aba8ad5830f98900b04e13fc71f177a6bc4de61051cb",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "036e14d9b7b7b90cf3b8909acda06f447cc10867013a7a5de88461c7dbea48d5"
+    },
+    {
+      "model_id": "opendde_0452",
+      "native_sha256": "cd14e068bf46e816bd6d37ce090f0366964981295400f9d146d7dce1967f4921",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "fdfa06daf40cd46c42b2ae8e4a771aad0bd9a82577949fb845e4c766f05e9167"
+    },
+    {
+      "model_id": "opendde_0540",
+      "native_sha256": "1a0159a5e3aa4c41f875d04649c5616d041ef915f21ac13f3d7f627e20ca1109",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "0504c5fbf463f985ed1a7e6b19779b5cd51fc5def566eb5f272f724ca944bd91"
+    },
+    {
+      "model_id": "opendde_0582",
+      "native_sha256": "8ec6d006bc64cd43405a1c010e3e7aa257fbba0edc5fce0eba3fceadf252bc3b",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "12363f48a1c0613c07ec26c0e631383e5570ab7a20c54b8290ff9b66ea5f9901"
+    },
+    {
+      "model_id": "opendde_0639",
+      "native_sha256": "2d9627fa020626d2a4c8f472638964d60d20c7c38ee367c52ef1cd71d84ed016",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "f63c4e230491839b25e87def2e44872625b6f5311737ada73f1508658c61c039"
+    },
+    {
+      "model_id": "opendde_0740",
+      "native_sha256": "a78e0b9cf5f5ad034b3e3888eac662af03f07f148b2a5c2eb77362c594b79cea",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "fde09b0eb5e04bfb835f8f3d7c63a34c528eec88cae7d93d2c6d928397e4763f"
+    },
+    {
+      "model_id": "opendde_0741",
+      "native_sha256": "774d538af322d9ab38d10b028a0ebca4078736b766b51cfc6c5152506a34aba2",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "462c225b6d08559dd0abca8deac09e6c1fb3f9c39c45e88b59c88770269f7354"
+    },
+    {
+      "model_id": "opendde_0750",
+      "native_sha256": "6c5cbb59c6059e7866a618e44aa4f17ccc5c89f80596cea44f3410600f6330ad",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "53ce3e63737ef4e53b91c273a13fe144ec67c21d2fca5ca303dd6ea64868da26"
+    },
+    {
+      "model_id": "opendde_0816",
+      "native_sha256": "eec66a38a84775e0f087028a5d4ca1877851d1808727f15d83197b4a73692158",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "fbed8e3a1c080c8125af269d646dce00fba493e353783fed568085bc7494ffd4"
+    },
+    {
+      "model_id": "opendde_0859",
+      "native_sha256": "d3f03baca3ee2cc9f4c3001a9763dcd860c1945aa946dbdc51d7ebde3b0ba857",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "dc16b120e4fa954ac78b09c88b5352633a8344140ce7e4cf6126c6420b1a9fe0"
+    },
+    {
+      "model_id": "opendde_0877",
+      "native_sha256": "22b62cd6d4d2ec9d5ffb32d915a72e4ede75ca22d76eb22d6f70f819da315f05",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "05830272519ec71b3a5f6a9e35236a8c50f6d4b9315bc4676b3aa81aa66688d6"
+    },
+    {
+      "model_id": "opendde_0975",
+      "native_sha256": "b79b3dba11cce8e21f36c460d746dbb1b51ab5eb134df606e80ae4cc5398f087",
+      "atom_count": 1934,
+      "anchor": "speachaf_0636",
+      "native_pose_cache_sha256": "95f33cd92c265068c8260fb10c49ba0c9cef3309e7a134f78ef4c4d0506204eb"
+    }
+  ],
+  "ensemble_file": "S1_Primary_MCMC50.pdb",
+  "ensemble_sha256": "57ffbef588833e80133531fd4089ff3b9417eebe5f7e87fc5be396652b7a1459",
+  "residues_per_member": 234,
+  "chains": [
+    "A",
+    "B"
+  ],
+  "pose": "One native full-dimer positional-TM transform;original files unchanged",
+  "prior": "Primary",
+  "condition": "S1_Primary",
+  "law": "product_weight_fixed_cardinality_subset"
+}

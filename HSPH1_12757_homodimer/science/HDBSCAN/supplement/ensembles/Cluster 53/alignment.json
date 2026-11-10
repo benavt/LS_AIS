@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0574",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0505",
+      "native_sha256": "ede5c8b63c0e3119c632a2f51f8d9ea96d6a484ec47ec9d535647fe8cd9517f7",
+      "aligned_sha256": "3476aaea8e8b6141093fbcbc0a54707057ce818d12f37cfba57cf35c84232f08",
+      "aligned_file": "ensembles/Cluster 53/afsample2_0505.pdb",
+      "CA_RMSD": 2.8009689207023474,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0574",
+      "native_sha256": "d5bfea8ea0a7e10909b584ca459607834196b2c4467b31db7569a56462e1f4b7",
+      "aligned_sha256": "e4dbc15e776dd7ee4682842fea30b189eee86aeecc1aa928bb542995edb8cf3f",
+      "aligned_file": "ensembles/Cluster 53/afsample2_0574.pdb",
+      "CA_RMSD": 1.002445367092576e-14,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0514",
+      "native_sha256": "73bce73fe3246a74fa65219cd436b1580b64bd6e9523dddae04f13db4064de5d",
+      "aligned_sha256": "37e5fbb96234e819a4a8fbcc70928434d354c485db47b8af2c64d777009b7ab8",
+      "aligned_file": "ensembles/Cluster 53/afsample2_0514.pdb",
+      "CA_RMSD": 3.810523899033265,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0468",
+      "native_sha256": "b9de30dcc20c6fbb1d106d4000460ebdd911c21af722f9e3665296b2eeeb4e6d",
+      "aligned_sha256": "0e8688791ca31313ba4c0e012efea53f561cf9f8bf9e0f045f8e18214a1c7100",
+      "aligned_file": "ensembles/Cluster 53/afsample2_0468.pdb",
+      "CA_RMSD": 1.565476298272706,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0628",
+      "native_sha256": "1fca947943c3f614204313b5f7ba9f32f2e67f2ce59b7f9a8c8991bf5ca6aaf9",
+      "aligned_sha256": "19143d1cb483a1de3a01e560388fa4a86d99105dffa0a04c422f90743b8ca495",
+      "aligned_file": "ensembles/Cluster 53/afsample2_0628.pdb",
+      "CA_RMSD": 1.6328787334821342,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "46f125b527fe8ff78a4534dad757859da29b7d641f9c76b430447f302f22efb8"
+}

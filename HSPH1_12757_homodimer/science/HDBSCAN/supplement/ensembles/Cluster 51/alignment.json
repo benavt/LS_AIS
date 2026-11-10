@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0898",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0485",
+      "native_sha256": "d1d9be9c7c70f3116dd18a02e9ce2dd45fb9b23dd5716b48fea9268f521da52d",
+      "aligned_sha256": "aff1921eee917fb16f645fc17a8055f75d4530e026fd7fe6ddcee3d641201fc0",
+      "aligned_file": "ensembles/Cluster 51/afsample2_0485.pdb",
+      "CA_RMSD": 2.305219205031548,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0530",
+      "native_sha256": "55c6f709b14381b362289849b1da5e3f0ffc0114c4bee7f78626a74f781fbdf6",
+      "aligned_sha256": "94e12cca1db671d4effff5ab332a46c0e5c060a3da89329173bd2c54a3df5a3b",
+      "aligned_file": "ensembles/Cluster 51/afsample2_0530.pdb",
+      "CA_RMSD": 2.9206208925338584,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0427",
+      "native_sha256": "463e8f5ccd82b49dc77f56485cc8462ee73eebf5ead222c654a7b3bab3ae066f",
+      "aligned_sha256": "b10e8021fc53eb5dbe4f1073d77a0f9ddbf36a989dbb6f8c398c488c30ccc0fa",
+      "aligned_file": "ensembles/Cluster 51/afsample2_0427.pdb",
+      "CA_RMSD": 2.0173872639625916,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0627",
+      "native_sha256": "351d5a7ce00f6f8805751e2b8e4d0cf46544a3d3882b2a11ba48cab6ff2ca37c",
+      "aligned_sha256": "0f1e11b184ac46298b74cfec9654aaaaa5503e6ec2938daa1dae1e889f121776",
+      "aligned_file": "ensembles/Cluster 51/afsample2_0627.pdb",
+      "CA_RMSD": 1.7611150345845095,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0457",
+      "native_sha256": "2e6d4ce12423248c7ffca0106b05b54d37cd95eff645e55f1e37b3d99aba986c",
+      "aligned_sha256": "f2291b16926abd8a53d3510f71f411e1fa0ad0e8567030426484262192de91bd",
+      "aligned_file": "ensembles/Cluster 51/afsample2_0457.pdb",
+      "CA_RMSD": 2.2393684487258705,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "0199e77fb2140dc2cc124a7d91c80abfe75d0affd6e96def69d2c03b07731dd1"
+}

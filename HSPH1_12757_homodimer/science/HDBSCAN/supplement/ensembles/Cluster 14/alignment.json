@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0815",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0768",
+      "native_sha256": "98f16007b3d9e36cce5b657899c52fd316561312031f2438bdda3adfb47f3078",
+      "aligned_sha256": "722e9e1bc8b7b4e4ce4ec60c00d3b53091ed18b67898379141617bdef4286371",
+      "aligned_file": "ensembles/Cluster 14/afcluster_0768.pdb",
+      "CA_RMSD": 0.9853417988407367,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0318",
+      "native_sha256": "3f923d403b583cd4c60781030ef8d2087f0796cb19b72d8432979138dd5dd367",
+      "aligned_sha256": "9d4fffc9bff2578d94ea4c7693a4db597636ef4ac4e993e05925c3c19aa89904",
+      "aligned_file": "ensembles/Cluster 14/afcluster_0318.pdb",
+      "CA_RMSD": 4.866534314803066,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0125",
+      "native_sha256": "4ac90bb32037a2557a86f2c00bf91c91c34d2a27d3b21cd646b18ab36c9835b9",
+      "aligned_sha256": "cb2a599ea50c780fbca687e1787f52b2fe583ae19dbf1d49baa5e17f119048d9",
+      "aligned_file": "ensembles/Cluster 14/afcluster_0125.pdb",
+      "CA_RMSD": 0.7345073535000195,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0625",
+      "native_sha256": "61e2dd98469eccca0d8e3358df1fd88013304b9c49fba8723631172e4a3d8e73",
+      "aligned_sha256": "cccfee52d13a490dba8338507087a53c03a0d27d1a3a50511bdb0e1fad83997e",
+      "aligned_file": "ensembles/Cluster 14/afcluster_0625.pdb",
+      "CA_RMSD": 2.407653024475398,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0725",
+      "native_sha256": "da5fd859df036257904e4eb5d1021ffcad47b0962d5b5300de95753722c6d8f7",
+      "aligned_sha256": "733662027411537e920f8d7ae01a1c7ad159b6634b168b697422a82b6f566cf0",
+      "aligned_file": "ensembles/Cluster 14/afcluster_0725.pdb",
+      "CA_RMSD": 0.6112584712970185,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "e2febbbc8d0a5f7abf619adc38aab7cd04c8281f3432f1e0d219c0442d77bd0c"
+}

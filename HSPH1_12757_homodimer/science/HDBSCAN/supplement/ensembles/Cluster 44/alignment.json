@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0596",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0686",
+      "native_sha256": "fb7a97e488f2775738e1042e87ffad9b4ed2094c637183c5a5f592896d60be31",
+      "aligned_sha256": "9f4cd594a2e4b36ed4a95ea48972152cc1160a49c36d2563522b025640e34520",
+      "aligned_file": "ensembles/Cluster 44/afcluster_0686.pdb",
+      "CA_RMSD": 4.501686270003935,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0762",
+      "native_sha256": "7436c683a907035b43a8f18d660e3b6b463d262b2ae6d21bfec0c9d4477febaa",
+      "aligned_sha256": "174eb6cc478bc4c2af31d99bba5bd88648258fd81836085a6277958c435c5e1e",
+      "aligned_file": "ensembles/Cluster 44/afcluster_0762.pdb",
+      "CA_RMSD": 3.7666442290600592,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0889",
+      "native_sha256": "ebd3f95d9425b379e7f098ec65caac788cca2b07f9945d5b37b2f15ab71a586a",
+      "aligned_sha256": "aefd6db341c6c98ed9188a16bcbc3db98b0335cb2f2d9629aea5dda596fa368d",
+      "aligned_file": "ensembles/Cluster 44/speachaf_0889.pdb",
+      "CA_RMSD": 5.751410436742032,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0000",
+      "native_sha256": "19b21f2b767a60fb6d3f920b77c7c7efeafd30288c3802714e370fba95439a24",
+      "aligned_sha256": "33092e53d327eef3bc1b335a8d2906b3daa48f5ed2f4f5de54d543891c32972f",
+      "aligned_file": "ensembles/Cluster 44/afcluster_0000.pdb",
+      "CA_RMSD": 2.1674517578248857,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0796",
+      "native_sha256": "bb2e86b2e1d8e36ac8787309a685d70746ab87983e08e2b1b528b4d072c5befb",
+      "aligned_sha256": "64bc8599c74c45881aa3ca861dc211b801738bdb7982d9bb20c3f34aac7f5195",
+      "aligned_file": "ensembles/Cluster 44/afcluster_0796.pdb",
+      "CA_RMSD": 0.594557009550661,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "afee9e12efa0895211617fc8145c4adcb6575bcc80494357eb7160275f0cdc79"
+}

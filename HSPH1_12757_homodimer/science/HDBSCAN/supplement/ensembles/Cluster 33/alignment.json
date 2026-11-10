@@ -1,0 +1,48 @@
+{
+  "reference": "speachaf_0827",
+  "residues": 234,
+  "members": [
+    {
+      "model": "speachaf_0927",
+      "native_sha256": "63925df725ae482f56a7b92df6a9c56c39746ae88d475940f5355713bdd5a5b3",
+      "aligned_sha256": "7a28416b147e0dd0601d42c12b2c6a3bc8b814f1ebfcede4c25f3bf43036d05f",
+      "aligned_file": "ensembles/Cluster 33/speachaf_0927.pdb",
+      "CA_RMSD": 0.3821530930936927,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0027",
+      "native_sha256": "b89a9f335ca92f4b7a8f943330f651ca5710e30a8090cce36f2cdb33a679cc0e",
+      "aligned_sha256": "3ceb4aec5ae1b82a2ec531c2dacc4ca49fb74b507f58da4262878c9f683b2714",
+      "aligned_file": "ensembles/Cluster 33/speachaf_0027.pdb",
+      "CA_RMSD": 0.23666291234760353,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0327",
+      "native_sha256": "6a33dea9168dd0ea40988cc7daf1f36720c313c074b14da3406fdbc5adbbdec8",
+      "aligned_sha256": "71358b8d674de3c351979af960560e75464b3fddf4a12ed4b0ed7cf1c86a93e8",
+      "aligned_file": "ensembles/Cluster 33/speachaf_0327.pdb",
+      "CA_RMSD": 0.3438237338824637,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0827",
+      "native_sha256": "eb56c21b6bc81cb24c0fe5e4396208359e71f6b0b693cb9b6cd86c04aaa063a1",
+      "aligned_sha256": "df96af930fcc9cf67c7cb084de2c4dfb15ce4267866c7d7e102d30acad85750a",
+      "aligned_file": "ensembles/Cluster 33/speachaf_0827.pdb",
+      "CA_RMSD": 9.892769425011872e-15,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0227",
+      "native_sha256": "cde8ee01856ccb8579073d87f84af12ffd30e4a7beebc6a3a1c09fc325a7cbc5",
+      "aligned_sha256": "d11b7192d58ca300fad2db0ec079397a639bb8d56330ac46ec838d7a5f306b54",
+      "aligned_file": "ensembles/Cluster 33/speachaf_0227.pdb",
+      "CA_RMSD": 0.28781768577925826,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "e478d7f06daca490a86c0e97622d08b1219a194366c8dcf9dbe42904a0434f09"
+}

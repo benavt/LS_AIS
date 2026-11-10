@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0516",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0975",
+      "native_sha256": "db5fe1542cb46a6062387395a831c58a4c0c272e54d716261d6c0eb4affee073",
+      "aligned_sha256": "513933eb84971430491ffe175fe4a35a7393cfa54bcb9fe7b1fa529a51bd6f42",
+      "aligned_file": "ensembles/Cluster 16/afcluster_0975.pdb",
+      "CA_RMSD": 2.179377219726812,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0534",
+      "native_sha256": "ea6b4427ae4de2babca63975880365233f8631097e95df93ba6e4d7de984fd07",
+      "aligned_sha256": "db372c136eb58987b73739a69894e82360f39287dffd8b32cbd55b9a572d0920",
+      "aligned_file": "ensembles/Cluster 16/afcluster_0534.pdb",
+      "CA_RMSD": 3.4114036594551327,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0452",
+      "native_sha256": "5a2d6ae61e4b589d350854b9464d57178e8ae5575d4a35f6d7fd3153ed82f1cb",
+      "aligned_sha256": "c6f8389217bc2a36074dde674f9e4f5fb40b79dc00a9fc1d4127d531fe8a0ef4",
+      "aligned_file": "ensembles/Cluster 16/afcluster_0452.pdb",
+      "CA_RMSD": 0.8860311142243944,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0576",
+      "native_sha256": "c236dee8bf84b1e10d75c91d96908d0d183a381e97793b947b136b8dbbb091fd",
+      "aligned_sha256": "c3595bfe3d615cce06c305dd4325ecac60d46ab517d52eaa7d442b3334fb0bb3",
+      "aligned_file": "ensembles/Cluster 16/afcluster_0576.pdb",
+      "CA_RMSD": 1.8202455747873703,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0095",
+      "native_sha256": "c8650519fb12ac71d4cb817a222924243eae2a31bd9b36830113328e1bb7db4a",
+      "aligned_sha256": "b442aa4bfd6e165430cb68455bb57b8134f7efdbdd5d492c4ac71a90162543b3",
+      "aligned_file": "ensembles/Cluster 16/afcluster_0095.pdb",
+      "CA_RMSD": 3.1990149453597523,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "b28a68aa8d9202853ed0b367aa9956610a220183b705515b28e5d2a5da5a3c47"
+}

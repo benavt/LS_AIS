@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0265",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0422",
+      "native_sha256": "d1a8931b68b2aef79015a14a55054f7ec7ad8d20aa20a5bb2a75a8b478c2dc3d",
+      "aligned_sha256": "9fc4179afaf58aac0855ceabfc31ed4eb6110787c9dd38bbe11aa50be18d0da0",
+      "aligned_file": "ensembles/Cluster 61/afsample2_0422.pdb",
+      "CA_RMSD": 3.1832822240512657,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0233",
+      "native_sha256": "56c732744d195ea43f65af7b0a48ecb5aef7613114300e3f10c6b6dfd2807908",
+      "aligned_sha256": "55c29bf54a3224121cfd08f2d29de20a5017ad7f054342406378ba9602d66a1c",
+      "aligned_file": "ensembles/Cluster 61/afsample2_0233.pdb",
+      "CA_RMSD": 3.1927729050096527,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0265",
+      "native_sha256": "93d04f89faa463571642b0729fc06bb20d6085cbcfae936442760d1fa418ccc5",
+      "aligned_sha256": "3eaa2e04a180f6784665b1d013bf97e94aa19770346e7c2dbbde19dd2edc5491",
+      "aligned_file": "ensembles/Cluster 61/afsample2_0265.pdb",
+      "CA_RMSD": 1.1052644466676125e-14,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0360",
+      "native_sha256": "11523bed85f9a22c39c6261d76f6ac3e33c92645b6873b53153fc88f35e5b88d",
+      "aligned_sha256": "a0932d0b72c702a42d47a52ebeb8fe03e264cd9ce3c2b1f9a8c9858bddbaa6f6",
+      "aligned_file": "ensembles/Cluster 61/afsample2_0360.pdb",
+      "CA_RMSD": 3.0230887294995363,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0238",
+      "native_sha256": "0d48169d48893ce1f97cb621330a5113d3d484c725f7917d343708e009f4c6f1",
+      "aligned_sha256": "b26d09d5e0a2be9767bffb879391df32aa3245f04d634393dbc7346d0d459b88",
+      "aligned_file": "ensembles/Cluster 61/afsample2_0238.pdb",
+      "CA_RMSD": 3.8515267971051417,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "0c6af6f7a8afd3cfe4cd5ff3e185251a31be24b382d186e873c36458788ddd5f"
+}

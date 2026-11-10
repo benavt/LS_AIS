@@ -1,0 +1,48 @@
+{
+  "reference": "speachaf_0558",
+  "residues": 234,
+  "members": [
+    {
+      "model": "speachaf_0303",
+      "native_sha256": "a84d812b473a13eb582b388b00380f4b5ae3626b7b3d1bec068eda058963cc78",
+      "aligned_sha256": "d099f7acf562c412804a4c6a1bfafbe145cc25b93a1b4401e115f1f76eabc1aa",
+      "aligned_file": "ensembles/Cluster 37/speachaf_0303.pdb",
+      "CA_RMSD": 1.4601482135426738,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0224",
+      "native_sha256": "fafb4733275997c6c715a0a731f767e55b906501007cfa03c96d5511cdd73a4d",
+      "aligned_sha256": "17a1118e3da15d3232799cb99fa02e6ee6238060f155b37cda2a696351fb5012",
+      "aligned_file": "ensembles/Cluster 37/afsample2_0224.pdb",
+      "CA_RMSD": 1.8817734032206015,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0203",
+      "native_sha256": "c436a26c3d58e58f09ef53e2b7316ce9a4099a500e0004d3da26f2490316c757",
+      "aligned_sha256": "e6107a73af65d984de05040a8b10ec3703771e496313514b9628349977e20862",
+      "aligned_file": "ensembles/Cluster 37/speachaf_0203.pdb",
+      "CA_RMSD": 1.4717264651284652,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0358",
+      "native_sha256": "041ebca1ff0ed48191f96ab27b149273d20cdf736d3aae91651ddaa30383a951",
+      "aligned_sha256": "6132da6512cdf6590a0af772cfdde38f9dd81e97a027618f5bb0c4a28d9f3fd7",
+      "aligned_file": "ensembles/Cluster 37/speachaf_0358.pdb",
+      "CA_RMSD": 0.4907722065588865,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0058",
+      "native_sha256": "0e9289a76a89167c2a48006e500e9ee60807228d59b4990698be8cd5355c9d0a",
+      "aligned_sha256": "0b4cafc4606b76cd77b2b8319657b4b83bf0e21b57e829e3cb3f2423d1187d23",
+      "aligned_file": "ensembles/Cluster 37/speachaf_0058.pdb",
+      "CA_RMSD": 0.5108201969585173,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "ec6bbc24dc125b8d6ff62f8d7e4120d45c825f25a07cf2a9753e5036c78d8f9f"
+}

@@ -1,0 +1,9 @@
+{
+  "targets": [
+    {
+      "id": "HSPH1_12757_homodimer",
+      "label": "HSPH1 construct 12757",
+      "data": "HSPH1_12757_homodimer/primary.json"
+    }
+  ]
+}

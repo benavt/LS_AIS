@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0170",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0807",
+      "native_sha256": "2e1f4e072484a23549d831d05ffd6718a5064a48725f620fb3ccd0ce7f68320b",
+      "aligned_sha256": "943ca0fa8beac74a9826c75159bb26e3484c8fa590ac559cf72eb8e9c9879082",
+      "aligned_file": "ensembles/Cluster 1/afsample2_0807.pdb",
+      "CA_RMSD": 2.8925366941621307,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0377",
+      "native_sha256": "51bfc75f520548ba9ad4d06d9c6cf4226b2e6ad96fc3b32ed8e6ab892b607668",
+      "aligned_sha256": "90633420442c4e42e5d57dff8d1009e83958b8220e96c8fe80cde8acf7841290",
+      "aligned_file": "ensembles/Cluster 1/afsample2_0377.pdb",
+      "CA_RMSD": 3.4489565136883154,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0842",
+      "native_sha256": "fa19aa46784d99c31916c13804820b02246447e94c1df48d747158239202e732",
+      "aligned_sha256": "8e8349785a8e0354fd6af088d13c2a8e3ab03a7b03891a63656d8eb0b361c1a6",
+      "aligned_file": "ensembles/Cluster 1/afsample2_0842.pdb",
+      "CA_RMSD": 2.203599273871093,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0418",
+      "native_sha256": "e591522e674fce18a93152767e48e22a9f623d3245377fdf7c141aefea786742",
+      "aligned_sha256": "73463b3d0ef9bf20e20441edc7dee3d5ba06acc96e68127f5081dff58acc065e",
+      "aligned_file": "ensembles/Cluster 1/afsample2_0418.pdb",
+      "CA_RMSD": 2.664367331226924,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0416",
+      "native_sha256": "74616d4db275ad248159bd42a06192ed3f3a58c2d127fe012c6cbe4c3e43ed2b",
+      "aligned_sha256": "2d231d9b61fa64a0fd55ca06b632565bf337eb2c8736986739e282b77261c4f9",
+      "aligned_file": "ensembles/Cluster 1/afsample2_0416.pdb",
+      "CA_RMSD": 2.9242971290997497,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "a8acee9b9567004e321bbcf45ecb13cf5437e178a4605611681afe7449779420"
+}

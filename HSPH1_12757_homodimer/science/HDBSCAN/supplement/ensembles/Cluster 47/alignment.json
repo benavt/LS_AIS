@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0481",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0250",
+      "native_sha256": "ac1874c022c166289389288697bb44d43771466835f1228b27a3c834b2773556",
+      "aligned_sha256": "16095233e74dee8eb821b67f833b16a9c169d229323323029bcc8efaee39e7a8",
+      "aligned_file": "ensembles/Cluster 47/afcluster_0250.pdb",
+      "CA_RMSD": 0.6713673973419665,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0647",
+      "native_sha256": "49c189d939003db3c8d285c50a48aaa627ada73c934b6347861c81d9791e94b7",
+      "aligned_sha256": "c8d1c4540a88ba60548aa11a2052616aba35f52924d7e79256b47f87ee795c9c",
+      "aligned_file": "ensembles/Cluster 47/afcluster_0647.pdb",
+      "CA_RMSD": 0.7976358637652615,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0481",
+      "native_sha256": "166cd1dd62f3e79a59f5c827ac1885b2bf0d9795bc56412a093aee6c3e8c3ac7",
+      "aligned_sha256": "84cadc67f9c38a8febefabd258550ede7c63a0abe7caf57555d5a6088a21833e",
+      "aligned_file": "ensembles/Cluster 47/afcluster_0481.pdb",
+      "CA_RMSD": 6.9298285444877495e-15,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0648",
+      "native_sha256": "26a0aeb51c31f09c4424f9307ee852c877a737e220d40d3bd31a06c8fcd698ad",
+      "aligned_sha256": "680e1d78e5afec3de120ea9396cd0fff6da0755798196368caca0d72cb735ac2",
+      "aligned_file": "ensembles/Cluster 47/afcluster_0648.pdb",
+      "CA_RMSD": 3.679704915586285,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0482",
+      "native_sha256": "b84113173c5bd276e2036baf178eb41ca433724a750f84ab051c13b8021e2eb8",
+      "aligned_sha256": "577686d610898b2d5a91f46424120c707111ffd218f1f563804a33b7e40a9b77",
+      "aligned_file": "ensembles/Cluster 47/afcluster_0482.pdb",
+      "CA_RMSD": 2.3882369196385103,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "ead11d1175990a516a4f39d7ea88c46dafd4110202b81cfd771e24517d741e2e"
+}

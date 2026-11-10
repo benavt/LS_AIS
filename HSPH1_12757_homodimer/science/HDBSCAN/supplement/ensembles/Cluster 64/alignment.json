@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0754",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0399",
+      "native_sha256": "8b75aa886491d53ca32edef1e8228e35a28812d21c52fae8f069fc34c83e418c",
+      "aligned_sha256": "9fcb93c291e8f4a081aa4c906a7c9ff44f745c55672dc19676c104ac2ca0d919",
+      "aligned_file": "ensembles/Cluster 64/afcluster_0399.pdb",
+      "CA_RMSD": 2.2882710632696477,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0154",
+      "native_sha256": "653ca79ec2f409e9ebd6484dbcddf9315b65ad0b2286c5aff1f25d18ad318972",
+      "aligned_sha256": "e13dc27b6f203ae7762d62f15d86b0df9f3426c07082f464cc173745f1f3a07d",
+      "aligned_file": "ensembles/Cluster 64/afcluster_0154.pdb",
+      "CA_RMSD": 0.7610356932025105,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0865",
+      "native_sha256": "4972007b977707030859753aa59cef5c105a3c912710b29738355821c7aeb60a",
+      "aligned_sha256": "4a2705d145394ee25a5230f97daa1f5e04de8215ae33f6a5f00326c8b5dbb528",
+      "aligned_file": "ensembles/Cluster 64/afcluster_0865.pdb",
+      "CA_RMSD": 4.657921962156215,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0665",
+      "native_sha256": "fe59c58f2c9e6100dc7816bb2d23ea6628c22db28aa6ad248549a90e02fdf9bb",
+      "aligned_sha256": "b824287e1a71c0c85465d64acc72e54d99bdb2eb022df034e29f928511f8faca",
+      "aligned_file": "ensembles/Cluster 64/afcluster_0665.pdb",
+      "CA_RMSD": 7.22720038459341,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0554",
+      "native_sha256": "c0e0f2c3aa66505aa696868542b944fb3f0396aa200ab4c12f388d9db24b6ddc",
+      "aligned_sha256": "a08a5c3ae922b96f3c71ad62622fc2b8a8fc37d2f403913a9a2f7079cc21eca4",
+      "aligned_file": "ensembles/Cluster 64/afcluster_0554.pdb",
+      "CA_RMSD": 3.4815579242160744,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "c992ddea27ec6912e765d2260f066f5070395b18518bca3862615f5d7f1c8e8b"
+}

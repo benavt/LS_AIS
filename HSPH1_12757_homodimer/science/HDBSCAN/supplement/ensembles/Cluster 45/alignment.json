@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0401",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0820",
+      "native_sha256": "8079fb7a0902d41ca0702d1217081cd6080ab5abdac762acb6de560c05a04d97",
+      "aligned_sha256": "c602049f8877d429dbf0cc5752f35f6fa903cfd7efd6d85375d8fe6d10792f9b",
+      "aligned_file": "ensembles/Cluster 45/afcluster_0820.pdb",
+      "CA_RMSD": 4.964984175061824,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0020",
+      "native_sha256": "f243e207bb2f36c782e67616a12ef30810d636a590ada65ba08b84604c555068",
+      "aligned_sha256": "b674de34d7001f2b31a417994f210ed8c0fd9549c0495828b0d6ecdafdb40b9e",
+      "aligned_file": "ensembles/Cluster 45/afcluster_0020.pdb",
+      "CA_RMSD": 4.710400442645271,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0349",
+      "native_sha256": "b1bf13d45a4534e89a933f5a1b9b3eb1926bc3ad2fb6cad74a469c70a456c38a",
+      "aligned_sha256": "e3767d099b733ea6f47f616baf152d1a90a7d14d52223c920669fd63eb58038b",
+      "aligned_file": "ensembles/Cluster 45/afcluster_0349.pdb",
+      "CA_RMSD": 7.382377229193945,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0597",
+      "native_sha256": "3bba1cfb3e2119c757851fbc13c551d53a096860ce1ac7f851ec0d13b5ddcc8a",
+      "aligned_sha256": "609246204cb0febbb47b56d52cd104f0b3312a78b42b2175ffade313abab319f",
+      "aligned_file": "ensembles/Cluster 45/afcluster_0597.pdb",
+      "CA_RMSD": 6.449009583612129,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0001",
+      "native_sha256": "87c4fd6db4a1239b1a9ada9929b00463f4d5099c037c4c51154dbfe7fd1ef721",
+      "aligned_sha256": "62e6e7c413266be6271bd0cd0d1651c00360e82eddc6db6c2ca1559987933fb8",
+      "aligned_file": "ensembles/Cluster 45/afcluster_0001.pdb",
+      "CA_RMSD": 0.7283028760393914,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "7cffa3d9d4dcf23a4e989a7014b92ed067d502510a537ae6999eb76871eb1426"
+}

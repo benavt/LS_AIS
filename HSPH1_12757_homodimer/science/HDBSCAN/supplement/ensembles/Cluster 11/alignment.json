@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0872",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0812",
+      "native_sha256": "9f18755f1a5b2b409a6a510fffc282de8990896d6749f6f75cb7fe3b0ed995ec",
+      "aligned_sha256": "100ec65342857f69414bc83b16169e6a63b9ba3e47888a5d8f446afcf73480f9",
+      "aligned_file": "ensembles/Cluster 11/afsample2_0812.pdb",
+      "CA_RMSD": 2.6401002982231105,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0847",
+      "native_sha256": "8f060a21d4a1a444d7a4c341fd6714f5b08dd8c48973db8e1780c3eccad3e191",
+      "aligned_sha256": "185ad9133b3173c6ce4440461e1ac1a786fe20ef17fca68257b9d6555ffc0154",
+      "aligned_file": "ensembles/Cluster 11/afsample2_0847.pdb",
+      "CA_RMSD": 2.635053976949829,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0412",
+      "native_sha256": "73b37ee0af4cc4b974ba31f59254756fcfeee2a9b79b97e1b30ccf8654445209",
+      "aligned_sha256": "4e0bb8db7cd23b55d4cd7a9316a27069c390f0328f8a9d9bed6a55b19791434f",
+      "aligned_file": "ensembles/Cluster 11/afsample2_0412.pdb",
+      "CA_RMSD": 2.7214187479429985,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0727",
+      "native_sha256": "7b6b5a676f8ed29a6e628bd0a5bf6d8adff951523f6c6e2c285a5a2522f10a97",
+      "aligned_sha256": "9888a378f4daccb48057e5d2bb2fb8b92a991d3064792a94fcff760a9e29b1bc",
+      "aligned_file": "ensembles/Cluster 11/afsample2_0727.pdb",
+      "CA_RMSD": 2.1309056343483173,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0789",
+      "native_sha256": "bc90528736da5eee71e06d168d4057ef3ce512bf4797cf227399fdd8b281ecd7",
+      "aligned_sha256": "e3c890c55a6562a8c55b467e8dcede3f9f505cff4e1fdee7e32cb162ee711b81",
+      "aligned_file": "ensembles/Cluster 11/afsample2_0789.pdb",
+      "CA_RMSD": 4.047934732925727,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "b23090446bb3801e028b0888750939a8a2bf63025755ad2c9a8f2a76586029aa"
+}

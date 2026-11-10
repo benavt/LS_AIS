@@ -1,0 +1,48 @@
+{
+  "reference": "speachaf_0636",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0820",
+      "native_sha256": "fbf03abc2d1901a859c85d8e57d8009c1a12bd47f56fe3434d45a35820f85b90",
+      "aligned_sha256": "c0b788e4152b5c6d07005d266d4da989e86616c96063db352f86b5fd2843f09a",
+      "aligned_file": "ensembles/Cluster 42/afsample2_0820.pdb",
+      "CA_RMSD": 5.22143559540677,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0121",
+      "native_sha256": "4be6164feb4376652b8545f266bbeecec13c6338b1c3858f279b4b2b8c31f2c4",
+      "aligned_sha256": "09d407d3f00ef67319d7f86d801b8436497fdff7c7fe0fc62d5ab574c7c387d6",
+      "aligned_file": "ensembles/Cluster 42/speachaf_0121.pdb",
+      "CA_RMSD": 1.5159071040667358,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0136",
+      "native_sha256": "cd9af092b36ed07d7adc312509798cb49cd1434d6c2432f2af3df3a26d2a3752",
+      "aligned_sha256": "3ecde74d3336cc04665834a20e4fd3407e022930fe7dbc3e72d5f50ebd35ff70",
+      "aligned_file": "ensembles/Cluster 42/speachaf_0136.pdb",
+      "CA_RMSD": 0.5143277162912756,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0536",
+      "native_sha256": "abcffa42f0a14f1ad2ba157b576e7c6dd9d1b59ae73ac1d2224d6db155628468",
+      "aligned_sha256": "2065700bcd08e2eaf93a0b9b21a7b15aa72a94ebf70ea6dba388335b4025ba31",
+      "aligned_file": "ensembles/Cluster 42/speachaf_0536.pdb",
+      "CA_RMSD": 0.6656692189341044,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0221",
+      "native_sha256": "e6aeb6681c9ad48075f3a6e6f4cacf0350a4ca233b29d613b82887d9babd7458",
+      "aligned_sha256": "9c7e5446426826c1ba31cd537aefd560317158a061a223ec12baa679b6b3277a",
+      "aligned_file": "ensembles/Cluster 42/speachaf_0221.pdb",
+      "CA_RMSD": 1.4307186742424396,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "87686a6fc86b33f891739f7175cd3a40bbbc6881eeb9d90af8bd8523a59d20a0"
+}

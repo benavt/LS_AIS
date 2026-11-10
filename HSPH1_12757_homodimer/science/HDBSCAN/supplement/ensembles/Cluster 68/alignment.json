@@ -1,0 +1,48 @@
+{
+  "reference": "speachaf_0277",
+  "residues": 234,
+  "members": [
+    {
+      "model": "speachaf_0372",
+      "native_sha256": "fd364b7b222a397dbb0a84965a19f6302c24bc878cfb8b3c16e76b5b6b041ce8",
+      "aligned_sha256": "dfb8e2ad4681bdbbb6c56f33e5b56c73fddea2c24dde80df690607cfe39475ce",
+      "aligned_file": "ensembles/Cluster 68/speachaf_0372.pdb",
+      "CA_RMSD": 0.49994787352864545,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0377",
+      "native_sha256": "2ea0f6f60fe5625c16075bcc2354f1c47a97e8aec025af0bd51d6a1a9791b7b7",
+      "aligned_sha256": "c75da9b2f64daf22bec438b48047b332e3db4bcf22e48c962c4b0e1482388781",
+      "aligned_file": "ensembles/Cluster 68/speachaf_0377.pdb",
+      "CA_RMSD": 0.3927886056543976,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0277",
+      "native_sha256": "b02c95df35bea1fa70e42383cb1cc49bc70e212554590d3a1d399b1c873859cc",
+      "aligned_sha256": "5b76b35ffb75d9b1b2c08c6b949543f428ab24b29b86d6f0424ec7fbd684bd7c",
+      "aligned_file": "ensembles/Cluster 68/speachaf_0277.pdb",
+      "CA_RMSD": 9.149710627290202e-15,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0479",
+      "native_sha256": "18edfe00e678f624aaac5a8a58c7e9f7e7d7ce65db6282ea4ef2c3e32bf1c406",
+      "aligned_sha256": "6c24910ba0e9d9dabf88c7173e66be1c345a7eccb7c1e7081e9a2177066c2e3d",
+      "aligned_file": "ensembles/Cluster 68/speachaf_0479.pdb",
+      "CA_RMSD": 0.8948665840089685,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0077",
+      "native_sha256": "98ef4d4c29e37a03303b1e8abe3a438a706ceca6cd0a05cc0342fcdff549f7d8",
+      "aligned_sha256": "72cec78a113876f9d7d832b639b6a73d578f59a0b3bd2d6d7704d5bca9ea2479",
+      "aligned_file": "ensembles/Cluster 68/speachaf_0077.pdb",
+      "CA_RMSD": 0.23743050756950823,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "8980083d7b8f6eb5294b94aa84b2516504218d7b552db244c375cbcfe65e4370"
+}

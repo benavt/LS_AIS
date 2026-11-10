@@ -1,0 +1,48 @@
+{
+  "reference": "opendde_0011",
+  "residues": 234,
+  "members": [
+    {
+      "model": "opendde_0202",
+      "native_sha256": "f18ac868ed47584711e170bd3dff09cec86b64c76b384560dcf27a50e8413240",
+      "aligned_sha256": "cd067ce4c1efe933ffb1a3afe3c6b6e7627f25cce2456795996bd97d4e928868",
+      "aligned_file": "ensembles/Cluster 21/opendde_0202.pdb",
+      "CA_RMSD": 2.8874359919082275,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0203",
+      "native_sha256": "f00a8dffae9746a1d4b3b4e4ed8d8949117f3a11febc1302e97342fefb342c98",
+      "aligned_sha256": "65ee44fbcbff13ee70945a4a4b1ce831936bee91220d94bec6e2aff2c385392a",
+      "aligned_file": "ensembles/Cluster 21/opendde_0203.pdb",
+      "CA_RMSD": 1.2463292070055028,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0474",
+      "native_sha256": "1faba87769018083f19db706db8e04aa321534ce45359408ff8ae143ea4837c1",
+      "aligned_sha256": "4b89267a8518c0580a92bd0cf0f787e88739c051c3068ddccba276c7847c93ba",
+      "aligned_file": "ensembles/Cluster 21/opendde_0474.pdb",
+      "CA_RMSD": 3.2610751794735604,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0204",
+      "native_sha256": "4f8b76b7227d19f1a8bfc6c368932b78e187c9e9b54cbee5496689bdfac3a7cf",
+      "aligned_sha256": "5751a164dce3cd8e5005d8d34863e5e27cdac40272c53981f1d4c7c14232fa77",
+      "aligned_file": "ensembles/Cluster 21/opendde_0204.pdb",
+      "CA_RMSD": 1.12665009553628,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0904",
+      "native_sha256": "bc9b8bad53da25cdfdbffac04c349d5af5b6b887d8b651461d62dd78dc59896d",
+      "aligned_sha256": "ff73845795df6cbdd6df98ece4dcd97cf2bffdde61cf7cf681c13fa7abb724ac",
+      "aligned_file": "ensembles/Cluster 21/opendde_0904.pdb",
+      "CA_RMSD": 1.8791870862409226,
+      "atom_count": 1934
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "b8d4ddb6f05bbd462e4870e026c329ee6d7417cf08350f5de367ac2b366bbaf0"
+}

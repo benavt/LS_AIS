@@ -1,0 +1,178 @@
+{
+  "cluster": "Cluster 26",
+  "policy": "top5_common_multimer_confidence_eligible",
+  "alignment_residues": 234,
+  "fixed_chains": [
+    "A",
+    "B"
+  ],
+  "reference_model": "afcluster_0424",
+  "members": [
+    {
+      "model": "afcluster_0625",
+      "native_sha256": "61e2dd98469eccca0d8e3358df1fd88013304b9c49fba8723631172e4a3d8e73",
+      "analysis_sha256": "6014dd809261f8354da6f0fbdddff0adcffee6150c071542fd6c2a4ab6f3148a",
+      "aligned_file": "ensembles/Cluster 26/afcluster_0625.pdb",
+      "aligned_sha256": "f8d41ee7aa717db4137ee53f5d652d29d1da6641896f7147d7ebf4ccb1afae60",
+      "rank": 1,
+      "confidence": 0.7098031961835448,
+      "rotation_row_vectors": [
+        [
+          0.10023910868678193,
+          -0.4553258716083284,
+          0.8846640445580439
+        ],
+        [
+          -0.48693887665280405,
+          -0.797833211359977,
+          -0.35546124578515187
+        ],
+        [
+          0.8676650572045562,
+          -0.3951461976220226,
+          -0.3016899584193553
+        ]
+      ],
+      "translation": [
+        -0.4389005982628553,
+        -0.297629223062551,
+        -0.1483009767296362
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 1.9094960255477773,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0429",
+      "native_sha256": "02592f086f3ab3843a496fc86577cb430fce20117af7404b696b16a45dbe2fb4",
+      "analysis_sha256": "7c322b4ecfd6e899896926a813cf237cd33d192425b0c2d7da2260e456bc7cc3",
+      "aligned_file": "ensembles/Cluster 26/afcluster_0429.pdb",
+      "aligned_sha256": "d4e4b7117b0a6de2ab92b1aa50c5ef9e4f486a6b6aaf87c61ba2126a4cbd8728",
+      "rank": 2,
+      "confidence": 0.6763406682419423,
+      "rotation_row_vectors": [
+        [
+          -0.998168536608323,
+          0.05913169172303842,
+          -0.012767754664424914
+        ],
+        [
+          -0.0280793374803559,
+          -0.6398208130980392,
+          -0.7680109881591729
+        ],
+        [
+          -0.05358286416256323,
+          -0.7662458940578647,
+          0.6403093834292928
+        ]
+      ],
+      "translation": [
+        0.7654932831570035,
+        -0.38519110665002265,
+        0.47666942413260815
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 0.9676029678235608,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0948",
+      "native_sha256": "88db64e208970cd9cbdbfa2cdebc2becd72d0c673f75d58f779aa180b257ef9b",
+      "analysis_sha256": "aed1ba3219e0fa2869af60931a3886002884b1802dc05288947dcf4aafe3fe96",
+      "aligned_file": "ensembles/Cluster 26/afcluster_0948.pdb",
+      "aligned_sha256": "4da69ed2f457ac426721baabd850245c77777dc0f9e8dc5e64ec6e4d2452e110",
+      "rank": 3,
+      "confidence": 0.6512363424808643,
+      "rotation_row_vectors": [
+        [
+          -0.6225635330247506,
+          0.40837586980369395,
+          -0.6675655745391739
+        ],
+        [
+          0.2845925091651324,
+          -0.6764889020485101,
+          -0.6792421285022708
+        ],
+        [
+          -0.7289867975998158,
+          -0.6128555411899917,
+          0.3049366074414285
+        ]
+      ],
+      "translation": [
+        0.3557628479310427,
+        -0.05876721415324282,
+        0.021918034655354024
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 0.9761870973539253,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0174",
+      "native_sha256": "f7687619404dd96245313fb041316b14cdaaaf0442224769fd0935d9adc0051a",
+      "analysis_sha256": "555abdb65f8450422743d6a843c4d0c06e8fc1360a293b70e5b3047eb5872a89",
+      "aligned_file": "ensembles/Cluster 26/afcluster_0174.pdb",
+      "aligned_sha256": "83f4f264a36c92a8c59acbfb33399b8459cadbdfa1f00fc07324fd974da0c2a6",
+      "rank": 4,
+      "confidence": 0.6511349356149682,
+      "rotation_row_vectors": [
+        [
+          0.21927538425696078,
+          0.3964942870069884,
+          -0.8914654150497278
+        ],
+        [
+          -0.4062804725189432,
+          0.8678217258654709,
+          0.28604480377322206
+        ],
+        [
+          0.8870481855619499,
+          0.2994624057986187,
+          0.3513798286819505
+        ]
+      ],
+      "translation": [
+        0.21555331808881428,
+        0.05345781387662557,
+        0.715687777065037
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 1.7042654741375096,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0785",
+      "native_sha256": "fedd41ff141f4c28170f9478e1d1f4d6405ff07c4d0f5e8bcc3235738698478a",
+      "analysis_sha256": "a066c8f5764d8f3e85048de00905f623116c0a06a012b410747a4632ef05dd0e",
+      "aligned_file": "ensembles/Cluster 26/speachaf_0785.pdb",
+      "aligned_sha256": "d5034baba6d4ac740ff5c222a0f1dc5ce19199e76ecc2331343e0b69589a4710",
+      "rank": 5,
+      "confidence": 0.6373192238677643,
+      "rotation_row_vectors": [
+        [
+          -0.26556095082473324,
+          -0.3482727537940616,
+          0.8989902504264249
+        ],
+        [
+          -0.4144611977114327,
+          -0.8006669660531097,
+          -0.43261336671780537
+        ],
+        [
+          0.8704592448751804,
+          -0.4874817929277058,
+          0.06828033813127195
+        ]
+      ],
+      "translation": [
+        0.5830318369568241,
+        -0.5305633617541292,
+        -0.07897689172759126
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 5.192013888156694,
+      "atom_count": 1932
+    }
+  ],
+  "ensemble_sha256": "b22e6a709d6988d7357f1c06cd66a890be3e6d64c98fa18847d4d5e45d2f7ead"
+}

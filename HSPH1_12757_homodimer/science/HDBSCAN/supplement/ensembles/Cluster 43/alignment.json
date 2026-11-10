@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0994",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0346",
+      "native_sha256": "9fff900ef9e586ce489b0e85ecd3c38e1496cbb83e04c4cf6b8d357abcc47de1",
+      "aligned_sha256": "7667fd8d05d4b94fd72d15346f42516eba00fedc3807fdb8c468914e8e7fc786",
+      "aligned_file": "ensembles/Cluster 43/afsample2_0346.pdb",
+      "CA_RMSD": 4.46210656926479,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0203",
+      "native_sha256": "3e92e086e8276eea3142674b11efedeec9dd18b63868ec7faf211f963860bd46",
+      "aligned_sha256": "b5d612c6dd4971b14dc8d90bd705c39c41839007286e6838eaccdbb74d13e06c",
+      "aligned_file": "ensembles/Cluster 43/afsample2_0203.pdb",
+      "CA_RMSD": 3.6995245210738297,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0811",
+      "native_sha256": "bd001631b20b1e4a05be91c16cc126297b5ad158c86b1bde2babe07f57ece28b",
+      "aligned_sha256": "d150cb3fe282210c61f51e101e4c283710727479bf56bdfe3001ff757c07f717",
+      "aligned_file": "ensembles/Cluster 43/afsample2_0811.pdb",
+      "CA_RMSD": 4.58152217219255,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0909",
+      "native_sha256": "6765419da99228704ddcae2edddcec7120c2055e2dacb4246ab61d70eb68b889",
+      "aligned_sha256": "a0512097eaf663354b401646351ae822f37995a7cb38352a807d268b78e8607e",
+      "aligned_file": "ensembles/Cluster 43/afsample2_0909.pdb",
+      "CA_RMSD": 4.159650077604131,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0775",
+      "native_sha256": "af947ace1adf0c7df511df15d6330fb0b8a93fa0f430a52f8c8def6703ab00ee",
+      "aligned_sha256": "117d4b8790d365a216399027e979110c029c932ec0220f3810ccc3fd392d2bb8",
+      "aligned_file": "ensembles/Cluster 43/afsample2_0775.pdb",
+      "CA_RMSD": 1.9462040859719305,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "45edd6a99d1526cacc4d1d22afcb47ddb720b0f79afb1191b123058dce1fbe64"
+}

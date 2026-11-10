@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0348",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0888",
+      "native_sha256": "f28aa22c78ecdbcdeac91db304f04d56711fd3f595ae6ac008be2b43222e2924",
+      "aligned_sha256": "12246b694aedd43161e1e62b0dbd7d88a6d45541c25998a5801d5519f0bf9b9a",
+      "aligned_file": "ensembles/Cluster 35/afcluster_0888.pdb",
+      "CA_RMSD": 2.4383898152837524,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0295",
+      "native_sha256": "e61c68d292ca93f4ada4906da3262f2435edc65c0cc6ed7fe6eedbd38d41d784",
+      "aligned_sha256": "76dab0dad1bcddccdba9bd86fe7793a36004164305e4264a28d091b7b0ee879d",
+      "aligned_file": "ensembles/Cluster 35/speachaf_0295.pdb",
+      "CA_RMSD": 8.220333340135127,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0947",
+      "native_sha256": "3d703629f5ee73dc4b7021d4b567b508e74c79d781792e9b9c874d36dbdf515e",
+      "aligned_sha256": "7a2f8f4a0612125080e9dd514b4d3f1627f186ce532cfaae33f679770dd3ae2e",
+      "aligned_file": "ensembles/Cluster 35/afsample2_0947.pdb",
+      "CA_RMSD": 4.28794125397983,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0847",
+      "native_sha256": "a70b96209c9df9579e3986fdaac46180b5b5d510c50c4454ab87866c93778fca",
+      "aligned_sha256": "588eacb857e1b8a3c6853e9077651719fb451e360e3af8a2c9706d92df0869a8",
+      "aligned_file": "ensembles/Cluster 35/afcluster_0847.pdb",
+      "CA_RMSD": 2.8153418923112916,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0899",
+      "native_sha256": "9ed1dc61a757b727c31a7d9e5d271dd70502f09c637c7dffca229c1276c97e88",
+      "aligned_sha256": "bb25fc7cef8ef1241cd67671f0e2e8c23dc81bef67a0b7082068a0d1b2e9f2b2",
+      "aligned_file": "ensembles/Cluster 35/afsample2_0899.pdb",
+      "CA_RMSD": 4.996234968705974,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "5dd445ac2d266c95f713da4a86fdfc011d551cef953e5a74002e880618689f06"
+}

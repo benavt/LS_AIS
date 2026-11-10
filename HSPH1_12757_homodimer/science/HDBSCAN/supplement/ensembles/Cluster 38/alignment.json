@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0361",
+  "residues": 234,
+  "members": [
+    {
+      "model": "speachaf_0250",
+      "native_sha256": "6e1840ae1914a401be262273e13dcd5edc8ad5292c7b76df8e808a5974d9af09",
+      "aligned_sha256": "e2954eea8ab5ffeaffb3eaa34003c9bd36d1e570c859c3d53d7299b5e004c74c",
+      "aligned_file": "ensembles/Cluster 38/speachaf_0250.pdb",
+      "CA_RMSD": 3.0343979665877896,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0846",
+      "native_sha256": "0cf65c201f5c3c1c823334123e0a3af01aba62d4c600adf3eb2c9185d6c3b4c0",
+      "aligned_sha256": "4c36c8509c4ae9bee2795090cfa8ad7e8f224824afe1da049f13583b26ca671d",
+      "aligned_file": "ensembles/Cluster 38/afsample2_0846.pdb",
+      "CA_RMSD": 5.0851642154444905,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0221",
+      "native_sha256": "a5e36fe1016f528ed65a254bef28b744302518838bb8fad270b438d02f6effc9",
+      "aligned_sha256": "dc2405e09fc633a2e3fbb400f5502e4c5edf68991af961bfce2b97662d912014",
+      "aligned_file": "ensembles/Cluster 38/afsample2_0221.pdb",
+      "CA_RMSD": 2.7857024578205825,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0815",
+      "native_sha256": "5ec8f2371bf99d932354d1a89e3036bbd02999c60e39cdb982cc9eac8d7ac2d2",
+      "aligned_sha256": "4a264a0a2aa915652cdcc682c6a8219a5c5354b84d4d416ce86fc15505698d60",
+      "aligned_file": "ensembles/Cluster 38/afsample2_0815.pdb",
+      "CA_RMSD": 4.167557211818192,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0876",
+      "native_sha256": "c37ac804ac847b42b0a5ff5f9c643ef1cc5cc79fa2627cb1298308accb099f8d",
+      "aligned_sha256": "bb3233178bdc597545e1c3261979a0f691963cb656c25ab1b8b12779014031e3",
+      "aligned_file": "ensembles/Cluster 38/afsample2_0876.pdb",
+      "CA_RMSD": 5.167690998353454,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "36fdf048f67044be42bb9a9f0c596cd30d0dab7d3b0ad264ada1e083d01a1884"
+}

@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0104",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0838",
+      "native_sha256": "95997a5df87af57cb474b599c42b5ea860716689951094b885aa8ef69bdc1888",
+      "aligned_sha256": "4c5ff823cd9a52a3113fd8bdc0b9389885c2415bfdd8e65f89ba71c0aa39b428",
+      "aligned_file": "ensembles/Cluster 66/afsample2_0838.pdb",
+      "CA_RMSD": 5.6080616871972895,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0127",
+      "native_sha256": "40c643883e17fe3c8d85d878df547a4681c98e61824160679ba43b03ae576b37",
+      "aligned_sha256": "1f4b00405947e48f4dcfc1bf3afc373b0bb108457fe0cb065b6bae0fc869f16a",
+      "aligned_file": "ensembles/Cluster 66/afsample2_0127.pdb",
+      "CA_RMSD": 3.1987964223994423,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0996",
+      "native_sha256": "1fc38d1adbbc60028db77d6735a923fb21247e0a6734ee50e5f68e45bec12d28",
+      "aligned_sha256": "364e2fc100fbfd0c7dd5e273c9dd31c41c050db950933512876a6d4fb8cd193a",
+      "aligned_file": "ensembles/Cluster 66/afsample2_0996.pdb",
+      "CA_RMSD": 2.978354897902351,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0319",
+      "native_sha256": "567e9092d4283b2944209008454fa1f87122e15b9452f2f85c6f3efc058dc695",
+      "aligned_sha256": "999367388c7ef3b89509f5317c2b78f53f1cc21c229cc2d005a3db5d89a5e67c",
+      "aligned_file": "ensembles/Cluster 66/afsample2_0319.pdb",
+      "CA_RMSD": 2.8778900480566176,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0082",
+      "native_sha256": "5dc81a3684946f566f207d748e8cbe7e7190e12b27a7c9d4cf5dbe266c36c863",
+      "aligned_sha256": "b6277fd2c9ee144a740f0358ef636bd1b407c3fda740dbd6edb69894dbd32039",
+      "aligned_file": "ensembles/Cluster 66/afsample2_0082.pdb",
+      "CA_RMSD": 3.321950709804299,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "5c51dd82ff4b3dc95d8987f428d7766f5f478cf905b4d631657d4ac2afcb6a9a"
+}

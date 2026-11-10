@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0303",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0061",
+      "native_sha256": "32c72b0d7d502281a4cfaf1b93e91a86374e79a593eda870d61b5ebbb87dd0c4",
+      "aligned_sha256": "2db0f6d70f17acea41f0deeaf29c0f85497963ab0562a109e2b9783d04416b85",
+      "aligned_file": "ensembles/Cluster 12/afcluster_0061.pdb",
+      "CA_RMSD": 4.512487527546896,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0884",
+      "native_sha256": "83d2a88e569cec651f4944197f7c297d946e7553987da989468db5d374c2776d",
+      "aligned_sha256": "ce2a8a7abd1802c654580e34130aa5a66d94b098654085c605817e20f7e33704",
+      "aligned_file": "ensembles/Cluster 12/afcluster_0884.pdb",
+      "CA_RMSD": 3.607267719496392,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0984",
+      "native_sha256": "63a81430a54ffb0394c1773494d065c8af7a916424ca501fac58be15454120ab",
+      "aligned_sha256": "3778c7e46c675a9db3af456698178b959c42da5529a3ab32b2d027f26b253e76",
+      "aligned_file": "ensembles/Cluster 12/afcluster_0984.pdb",
+      "CA_RMSD": 4.072783537277649,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0771",
+      "native_sha256": "3c442603fc56c7fa2caf8fd78777fa499f795e528567825cb964cc83507c564a",
+      "aligned_sha256": "4e9be2b65ae3df5cb64e52a78762b7c2fb9959715a20fda802faf0c3446a5e23",
+      "aligned_file": "ensembles/Cluster 12/afcluster_0771.pdb",
+      "CA_RMSD": 4.003683156563182,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0421",
+      "native_sha256": "ebd514d07bf0f558c1572bf79b2c37a02f0577f72ac44a4d69b6a381db9a133d",
+      "aligned_sha256": "7d832c2126dd881b6fe9ef1d86beb55d27c040927e39166c325bc2553f21624b",
+      "aligned_file": "ensembles/Cluster 12/afcluster_0421.pdb",
+      "CA_RMSD": 3.812058183160594,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "11452c65dc4e3404bd06e7805ebe930aff7fdb3e5a42a9cb30261984a0cf5d90"
+}

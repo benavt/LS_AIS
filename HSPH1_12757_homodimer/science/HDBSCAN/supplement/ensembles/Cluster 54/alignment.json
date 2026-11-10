@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0221",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0986",
+      "native_sha256": "cbe9ad2a06e059f43c4160a090e990127e6def7a43677c4d271afb85d7bc3191",
+      "aligned_sha256": "a370c1a8a93e57a9c2761889dcb041d6607fe04d84d36ad01b84066069dfff4f",
+      "aligned_file": "ensembles/Cluster 54/afcluster_0986.pdb",
+      "CA_RMSD": 3.8084441856574056,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0186",
+      "native_sha256": "1bff13fde95d2d536ef8cd82fd20b512865bf44b2e1e5f8be4fedf0aac6f8e90",
+      "aligned_sha256": "8584e37f4bcfb34a6f0877e130545fb1cc6d51a0262fc0f6ed666a556c00175d",
+      "aligned_file": "ensembles/Cluster 54/afcluster_0186.pdb",
+      "CA_RMSD": 2.910353186280923,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0171",
+      "native_sha256": "191a3a17ecc7f83a4827e796a99be02aaaeb8d352dfa137839ce1127f48ae5cd",
+      "aligned_sha256": "6abc206c27eb282f3a968da64aa12be32b6939b3372ec16fe0a5d441d8e06a7f",
+      "aligned_file": "ensembles/Cluster 54/afcluster_0171.pdb",
+      "CA_RMSD": 4.980632495302344,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0180",
+      "native_sha256": "253ee0bfa403ca9d3c1bc0286c6a9e37be824e008b342cbfb7dea5566ca5d329",
+      "aligned_sha256": "0b3e7c00842b24641f38944931d346996728c1f1267ec84dea6a1934fd7ef1ac",
+      "aligned_file": "ensembles/Cluster 54/afcluster_0180.pdb",
+      "CA_RMSD": 5.37205158776873,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0086",
+      "native_sha256": "3ca0adda7a6d76ca4d82e8654f58647b0d1989e4aea576dd566bf0752a3cbdc1",
+      "aligned_sha256": "3b98830e053b0f66657d13684a7fb2ec35acd685439554f51778dabb5f11bdb4",
+      "aligned_file": "ensembles/Cluster 54/afcluster_0086.pdb",
+      "CA_RMSD": 3.102783675481255,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "2bcd1478a7337f6097ba0614b94567a9996acdd5a4b0606cc46cba994d5ea11b"
+}

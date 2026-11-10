@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0036",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0827",
+      "native_sha256": "582429a2d4a3032ebe676d8f2daafaab39b197b4ff0053de5e06b6c0d39852be",
+      "aligned_sha256": "87984ad114fe339d34fdaf7be5f7c19bdca9395c44972bd39fa0d35fef94874c",
+      "aligned_file": "ensembles/Cluster 63/afsample2_0827.pdb",
+      "CA_RMSD": 3.302950993248493,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0271",
+      "native_sha256": "814ee6ff6ed5e5330d6345dc39b8724351609a2a5a0a63cea3f0b6f97b3e7cbd",
+      "aligned_sha256": "fd975dbcea585ec1dae20a08902685ea26102359a11070e1ae54b5d52b68cf29",
+      "aligned_file": "ensembles/Cluster 63/afsample2_0271.pdb",
+      "CA_RMSD": 3.733803417175164,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0695",
+      "native_sha256": "c1ea5d963ddf2f8ae3d21c22ff39759419f9470de42b13946aa50bf9fe0624bb",
+      "aligned_sha256": "444f004a203ee9b9cfa7318adca41bb8cddf0f8ce2b7f2a976170bcc02911ba1",
+      "aligned_file": "ensembles/Cluster 63/afsample2_0695.pdb",
+      "CA_RMSD": 1.6940342463169613,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0015",
+      "native_sha256": "ef20e19358da48e3b3496504a231c81b3a495f840e208283a2e578478ac6c103",
+      "aligned_sha256": "b047b8b173828652f9c6555cebe310df1cd27cc464d8dab302d84e7f89bfc40c",
+      "aligned_file": "ensembles/Cluster 63/afsample2_0015.pdb",
+      "CA_RMSD": 5.303125854767139,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0341",
+      "native_sha256": "3dcdce2545b329d6127234292ba51099362613459c295b20cc5d2939acf6f649",
+      "aligned_sha256": "26aabd88cb441e09a1d52357ff8aaf5e52772248f53c7ed87ae4285136a43158",
+      "aligned_file": "ensembles/Cluster 63/afsample2_0341.pdb",
+      "CA_RMSD": 3.8427825845438086,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "aa2cb359053d7216218de2ce56525625bd030e95ee61765cbf84e7a81504e2fa"
+}

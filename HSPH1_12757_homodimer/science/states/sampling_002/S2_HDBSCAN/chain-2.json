@@ -1,0 +1,33 @@
+{
+  "law": "product_weight_fixed_cardinality_subset",
+  "k": 50,
+  "model_count": 563,
+  "requested_steps": 10000,
+  "proposals": 10000,
+  "degenerate_single_subset": false,
+  "seed": 202912092,
+  "rng_algorithm": "PCG64",
+  "uniform_mixture": 0.1,
+  "group_keys": [
+    "Cluster 1",
+    "Cluster 11",
+    "Cluster 13",
+    "Cluster 21",
+    "Cluster 24",
+    "Cluster 26",
+    "Cluster 27",
+    "Cluster 3",
+    "Cluster 37",
+    "Cluster 6",
+    "Cluster 65",
+    "Cluster 7",
+    "Cluster 8",
+    "Unassigned"
+  ],
+  "method_keys": [
+    "afcluster",
+    "afsample2",
+    "opendde",
+    "speachaf"
+  ]
+}

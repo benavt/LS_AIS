@@ -1,0 +1,132 @@
+[
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/HDBSCAN-full-prior.json.gz",
+    "native_npz_sha256": "cace1aeb6fd5a0f1cb1f15132ec9348cbae844ffcf9e0725ce0035137c612215",
+    "sha256": "4be1aad5d0c7d33147b9eb726076a2f145fa5c823191f9d4ea1aa12c401fc320"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/Primary-full-prior.json.gz",
+    "native_npz_sha256": "97d8f84df9262cc4785c8eec606d43593b19dba55d2223a8513ceb0443434864",
+    "sha256": "3f119c4033a0a5e007393b1b336e6a231261a1754695f990b907ec7b92240d45"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_HDBSCAN/chain-0.json.gz",
+    "native_npz_sha256": "9f9c5c09980e6c2459b5e3bf81f47670002a61b93fa5e49c841ca6a26a662de7",
+    "sha256": "082e8ece38019311520a3c31ed48857a2d1ff7d94f8216287594cc9f7bb74cf3"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_HDBSCAN/chain-1.json.gz",
+    "native_npz_sha256": "7828c52b5eeb5f37635220b8f4fb096d383c4f849b64551acee335a7adc0fe2b",
+    "sha256": "304c40f336ab751b5f033a1e6a12860a8cc6c85f98cd60dfb347f4770fe8b185"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_HDBSCAN/chain-2.json.gz",
+    "native_npz_sha256": "25fbdc8effdda5038bee04a8690fdd909725b351f66715073a5d15cfad80c117",
+    "sha256": "963a953c0c9b51656302c4b8aeefad225093d7211a3e1a3303c836c598b466dc"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_HDBSCAN/chain-3.json.gz",
+    "native_npz_sha256": "2a2520bfa1138f91793a55c375c976bdadfa8978d3d259da38eb6316ce32b384",
+    "sha256": "5d6ab537352309ac7d29fbf518661682b8b9b035024e2ef3e9a8f73c0a95d0b2"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_Primary/chain-0.json.gz",
+    "native_npz_sha256": "08ad2dd74c1d91630a8a5532315831962560a5510c2d548c3b1b753477752a73",
+    "sha256": "298f43664b7a16cfae8796ae208cf91f0496ed44c557cd70216184e959d054db"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_Primary/chain-1.json.gz",
+    "native_npz_sha256": "d7c92123c2f8d91f9dd662246f6031132983d2c3d27ed237cd622fc79b1829c2",
+    "sha256": "26268e0d9f1b23666140d8288f18fe414bf0ec11f4c206bdb56b18ac3d5e01c8"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_Primary/chain-2.json.gz",
+    "native_npz_sha256": "715dde01d6937829c066142d71a33398d12a3d9ec2db1739ad1c9f1bf7b945ad",
+    "sha256": "53bafefc1622b9ed31d7b9b2eb14ee41c51d51939b4f7f4e3c862211e04100a7"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S1_Primary/chain-3.json.gz",
+    "native_npz_sha256": "cb42c14cf073ef3204495d762a46ac17591dd07146c20c53f6b1c40dc713a071",
+    "sha256": "686f1da3cf301c6b1b8736eefba5def6ad8f26e95ae7b89506a71b6936f1fc39"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_HDBSCAN/chain-0.json.gz",
+    "native_npz_sha256": "6363312a5a532473025425372eae9caf5c5a06e50969feba56bb477e5376fd03",
+    "sha256": "a5b6d715ad26f520d89cee72e7cf2a4507a3e5bb22ce7934696c2ec681ade126"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_HDBSCAN/chain-1.json.gz",
+    "native_npz_sha256": "bc5f26185977c7e353f0aed237f5c63763ba39728049c190a3af0186ab6b64fd",
+    "sha256": "9246e725860407ef9eeba4ccef5c35a8bbe4a7eab81b14747ec4ec9df47222f5"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_HDBSCAN/chain-2.json.gz",
+    "native_npz_sha256": "eda61fa3dfc4ee370694b6c853fc468bad712137145dee928e1492e23a9aa769",
+    "sha256": "a20b318b83f6de60a3ed6c3ef5c13cc0e2984a608b755879fe89bf64a8bd35d3"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_HDBSCAN/chain-3.json.gz",
+    "native_npz_sha256": "8ac8c3df3cff7d952bacadbfe49566a7c4991770f809c49744da7c2258e93afe",
+    "sha256": "c4efc4bd626d0b20df158803f1a0538f6650994cf1461d7fd7a2f987bac0fa3c"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_Primary/chain-0.json.gz",
+    "native_npz_sha256": "d1f4b09781addee642c42e767da6444fa6027b50f4ddf83635e5130f08d67142",
+    "sha256": "89a7206821252f55b6c112138d82e0ae73d4fd6e968047f09029273bb20e8ffa"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_Primary/chain-1.json.gz",
+    "native_npz_sha256": "f70a29b679eebdf368c5de02d8d3ccd48ca4154e4fc2e1aaa431fb0c7ecc8ba1",
+    "sha256": "3720fc27042ae96a32b103d9f529132cacb8c651bf83b6eefd53f1380955decb"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_Primary/chain-2.json.gz",
+    "native_npz_sha256": "f69cc7e4ddf612a65c653946be72ac16de827babe337ab6c7a0eb6f8b4b1c713",
+    "sha256": "25b2d6af929ffe450b61505bb3723cf9697f8b51eb2488df736cd144a0889296"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S2_Primary/chain-3.json.gz",
+    "native_npz_sha256": "7ab4852a17c7529fad4868cc9ae2e99539279320439fd4b1e8036dddecb3480e",
+    "sha256": "489f5753a9ca738efcd58592eb86f93f20b7b5c4898d1de809de4ac903c3e6a0"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_HDBSCAN/chain-0.json.gz",
+    "native_npz_sha256": "147b70c004ae2a26bc5f941d3f95f7c621fd16ddfd0e4931a2335862bd018bfb",
+    "sha256": "4681cdae8355746cb686cc01731d5731181a73794b2514ac28e6ce1c4020a95c"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_HDBSCAN/chain-1.json.gz",
+    "native_npz_sha256": "0919c26729dc27c6afdb6b133638320ce9767ab0422d7cc7402089332110fee7",
+    "sha256": "7f402932afb6fd387d4abc457665a149cd40f3547eed4ce24769f6c096166cc1"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_HDBSCAN/chain-2.json.gz",
+    "native_npz_sha256": "9125fac9393bc333397f021048edf0cf156a36adef38a58ca144c229c3544dd0",
+    "sha256": "a4c6f3cf908ecce1afbab854d6e881e8b8850386bb4667cc9c532ca318b63a2d"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_HDBSCAN/chain-3.json.gz",
+    "native_npz_sha256": "ff3bd4ae187477ef54c6504a571ac5c21e6ae40e8aa6b489e9d7b6065cf0b855",
+    "sha256": "fc661b6ec37a9f7597e3c5a9a5d8aab13e21284a445f453d2a9bc4cbdb542c5b"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_Primary/chain-0.json.gz",
+    "native_npz_sha256": "50112ab5de136101e1d916d3b9add007d6dc0a1717f1cd75bf414d96264fe6c4",
+    "sha256": "a6cd389937900cb5af79386924e32d1bdfbd18caf24e8d9071bf42ea6ba3a172"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_Primary/chain-1.json.gz",
+    "native_npz_sha256": "c318ad409b889c111841daa1c47533e00039ce43d786c3ef4c2887d858e6affc",
+    "sha256": "4aa61f2994a2316a0665b50d85137fd01ec4a1a4386df3c6f43e7af085cb12af"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_Primary/chain-2.json.gz",
+    "native_npz_sha256": "911c757a669ca46c452f6c4e9194190e40f18afb93d56a615fb9a4e0f7fe7014",
+    "sha256": "d14ed7c14a8dae7ae4fdfc224dab6a204749bd9d1d82690b74d0e81229db801a"
+  },
+  {
+    "file": "HSPH1_12757_homodimer/science/states/sampling_002/S3_Primary/chain-3.json.gz",
+    "native_npz_sha256": "4909248c7e418ffd3d609421f73b43eeafb34ca74d1afbb6837b80e0965434d5",
+    "sha256": "58df40337084501f52130cd45f2efefb1eee83f663d1483074fe4fcddb1838b0"
+  }
+]

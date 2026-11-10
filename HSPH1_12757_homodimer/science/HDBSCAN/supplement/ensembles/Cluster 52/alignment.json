@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0680",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0756",
+      "native_sha256": "a5be2fb3df4265b3fa4b7770c744012757bbbe5193c2c3912932740e15d6cd22",
+      "aligned_sha256": "bd45a677309569f2269536389457fa7995c018d3b6803264c87f5553d923104b",
+      "aligned_file": "ensembles/Cluster 52/afsample2_0756.pdb",
+      "CA_RMSD": 5.006701171331892,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0414",
+      "native_sha256": "21a35d62ccc8e621ef5614e18b869cbcb93385050b9de98cd1ce25bf6905a1e5",
+      "aligned_sha256": "d7196106de555815d82cc7ad51c6813e377b0c5da45de2069af7e412b1b81190",
+      "aligned_file": "ensembles/Cluster 52/afsample2_0414.pdb",
+      "CA_RMSD": 3.173959116768058,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0680",
+      "native_sha256": "2228735d8eaa6b99aa7279059b991e420d26a063f3a51559c04c8a7c0cb7686f",
+      "aligned_sha256": "350c6bf294ef331dd3d171e6895f872bc129d2f8202e4df7d9315ed9363850d4",
+      "aligned_file": "ensembles/Cluster 52/afsample2_0680.pdb",
+      "CA_RMSD": 9.01947486788937e-15,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0772",
+      "native_sha256": "7c5c90a9197cede03398db8a9853179123c20ec95bdb4cbf6827e37184883909",
+      "aligned_sha256": "729a337ec02ec241ec90172c58561b37ea771970f5394becbb5380cdd4ff0b47",
+      "aligned_file": "ensembles/Cluster 52/afsample2_0772.pdb",
+      "CA_RMSD": 3.4209959323063277,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0792",
+      "native_sha256": "d8b2c8fe33cf7251ba9530d8a4371556689218d9979439073196d123e509d0fa",
+      "aligned_sha256": "9190b3292515532b4aff850b979da53238d9c356f6e96d4f4fc2083083c58ba8",
+      "aligned_file": "ensembles/Cluster 52/afsample2_0792.pdb",
+      "CA_RMSD": 3.5724061319154146,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "86ffef1f2efa5ba73414e669c3de93b9e73410fb650dcf1592373467d1b60299"
+}

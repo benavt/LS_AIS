@@ -1,0 +1,48 @@
+{
+  "reference": "afsample2_0584",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0929",
+      "native_sha256": "90a4d95b239976ed2f1af1715c6e80550ba709d2b441f361012a2f31d0ed041f",
+      "aligned_sha256": "9d16291de82fc337fcdfc755431bb5718810b36675b4d58d454c29cf5dafadde",
+      "aligned_file": "ensembles/Cluster 58/afsample2_0929.pdb",
+      "CA_RMSD": 3.2735180380416495,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0443",
+      "native_sha256": "d759782e4e4926927b8a05f91026d6d0a3a87d697d71d08ec11d05ce4d215dcf",
+      "aligned_sha256": "a6a9bb0872fe8b8b0c560be28a1761bdf70036fcb84044a42ac8716e07fe2e83",
+      "aligned_file": "ensembles/Cluster 58/afsample2_0443.pdb",
+      "CA_RMSD": 3.294023049603538,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0529",
+      "native_sha256": "31e7623554a2aed3a05aa73d25800a002dbce96fee8e9e9ef028f18ccd899450",
+      "aligned_sha256": "c3cf601b00c351d83eb0ab127d2c6fbbeaca0c93dc016cc3f5d5b410ea42aa12",
+      "aligned_file": "ensembles/Cluster 58/afsample2_0529.pdb",
+      "CA_RMSD": 4.277936563095126,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0612",
+      "native_sha256": "e9f3337741294fbd9fa65ccfa181700212e09b4bcff1d826da571a33bfd52ada",
+      "aligned_sha256": "2010793a634af5d37a8328c4eb853fe574d39019315b606f9bbe5227210ba0aa",
+      "aligned_file": "ensembles/Cluster 58/afsample2_0612.pdb",
+      "CA_RMSD": 3.425681713875742,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0866",
+      "native_sha256": "2922d32ea7523f134adf988c0c66025d44aec3dec744c95cb538a4de0d9ac276",
+      "aligned_sha256": "abf5ce21bac0c1c99d35c8f2d06cf2c57ad2e334e7b74797499e597f86decd6e",
+      "aligned_file": "ensembles/Cluster 58/afsample2_0866.pdb",
+      "CA_RMSD": 3.574217487856934,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "7bb4ea682874608ab88e3f59596238dd051f3b5a270e4e2fa11f23000a43012e"
+}

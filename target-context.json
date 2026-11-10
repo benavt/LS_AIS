@@ -1,0 +1,60 @@
+{
+  "verified_on": "2026-11-09",
+  "targets": {
+    "HSPH1_12757_homodimer": {
+      "title": "HSPH1 construct 12757",
+      "record_summary": "Two identical 117-residue chains,including the supplied tag. Organism and accession remain unverified.",
+      "project_writeup": {
+        "status": "Exact construct and native-model scope verified",
+        "biological_relevance": "The construct label is retained from its native run records;no full-length protein or biological oligomeric-state assignment is inferred.",
+        "ensemble_interpretation": "4006 generated homodimers, complete117-residue chains including the supplied tag. ProteinEBM covers all4006 models; 68 HDBSCAN clusters plus1386 Unassigned models and27 UMAP KNN clusters. Three supported TM states cover2184 models; 1822 remain uncovered. Library frequencies and exploratory selected panels are not calibrated biological populations.",
+        "project_citations": []
+      },
+      "references": [
+        {
+          "label": "AFsample2 \u00b7 Kalakoti and Wallner (2025)",
+          "url": "https://doi.org/10.1038/s42003-025-07791-9"
+        },
+        {
+          "label": "AF-Cluster \u00b7 Wayment-Steele et al. (2024)",
+          "url": "https://doi.org/10.1038/s41586-023-06832-9"
+        },
+        {
+          "label": "SPEACH_AF \u00b7 Stein and Mchaourab (2022)",
+          "url": "https://doi.org/10.1371/journal.pcbi.1010483"
+        },
+        {
+          "label": "OpenDDE (2026 preprint)",
+          "url": "https://doi.org/10.48550/arXiv.2607.03787"
+        },
+        {
+          "label": "AFsample3 (2026 preprint)",
+          "url": "https://doi.org/10.64898/2026.01.16.699904"
+        },
+        {
+          "label": "BioEmu2 software release",
+          "url": "https://github.com/microsoft/bioemu2/releases/tag/v0.1.0rc0"
+        },
+        {
+          "label": "UMAP \u00b7 McInnes et al.",
+          "url": "https://doi.org/10.48550/arXiv.1802.03426"
+        },
+        {
+          "label": "t-SNE \u00b7 van der Maaten and Hinton",
+          "url": "https://jmlr.org/papers/v9/vandermaaten08a.html"
+        },
+        {
+          "label": "Bonsai \u00b7 de Groot et al. (2026)",
+          "url": "https://doi.org/10.1038/s41587-026-03220-2"
+        },
+        {
+          "label": "US-align \u00b7 Zhang et al. (2022)",
+          "url": "https://doi.org/10.1038/s41592-022-01585-1"
+        }
+      ],
+      "provenance": {
+        "analysis_sequence_sha256": "0f7f84354afcabf38bd53c354bb6524faf763a96b70b036f21b764aac09014d2"
+      }
+    }
+  }
+}

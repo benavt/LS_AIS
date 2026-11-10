@@ -1,0 +1,178 @@
+{
+  "cluster": "Cluster 17",
+  "policy": "top5_common_multimer_confidence_eligible",
+  "alignment_residues": 234,
+  "fixed_chains": [
+    "A",
+    "B"
+  ],
+  "reference_model": "opendde_0513",
+  "members": [
+    {
+      "model": "opendde_0366",
+      "native_sha256": "fee9ccd2a4e483c9fbb116e7b6b9b394a79db43f2050806edae13c8d2a25fdef",
+      "analysis_sha256": "dfaa8b49c3b8d132277effc3a5d6cf9b6fd916f00e6e21e4cf5cdec4541d4986",
+      "aligned_file": "ensembles/Cluster 17/opendde_0366.pdb",
+      "aligned_sha256": "604c758a658c6e584267398b6b06b5f1893b3bf54acdf2eb20fd30da9299acc5",
+      "rank": 1,
+      "confidence": 0.3449050068855286,
+      "rotation_row_vectors": [
+        [
+          -0.7504053425361887,
+          -0.6237021485862988,
+          0.21883201717751824
+        ],
+        [
+          -0.04656955192306915,
+          0.3801389636124785,
+          0.9237562693575162
+        ],
+        [
+          -0.6593353461834365,
+          0.6830007307407996,
+          -0.3143038387940925
+        ]
+      ],
+      "translation": [
+        0.8567404622433175,
+        -0.44385410156640304,
+        0.7882402658015957
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 1.3870768441123464,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0992",
+      "native_sha256": "d34ca3dafa31b1ae6066c99028e20a590d6f2e1d7ac1b0a52c59e12fe4464ab3",
+      "analysis_sha256": "09514bfc7c25029de54f301bf93e5f59186f31eba73756c1f8f84b375a08e2fd",
+      "aligned_file": "ensembles/Cluster 17/opendde_0992.pdb",
+      "aligned_sha256": "38f5c3d3afb933899c7af1e1f88204e87aed6c8d3b2bea4ccfc65e889dcb94bd",
+      "rank": 2,
+      "confidence": 0.32408242225646977,
+      "rotation_row_vectors": [
+        [
+          -0.2697221012125833,
+          0.9292064467512487,
+          -0.2526368291310433
+        ],
+        [
+          -0.5407228578562316,
+          0.07093836366262567,
+          0.8382043542911595
+        ],
+        [
+          0.7967865329617836,
+          0.3626887479324225,
+          0.48330952092210344
+        ]
+      ],
+      "translation": [
+        -0.528406944713607,
+        -2.27819891316745,
+        -0.6473990594090255
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 1.6396687048259029,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0679",
+      "native_sha256": "9dd644eb5b0ab70f92fa85e8e4865e417882b4d016d0058de807f40830f29f16",
+      "analysis_sha256": "bce54f38d2f32456e7a29b9f1aa0bc05db66829655de64d14270eac22ec722c6",
+      "aligned_file": "ensembles/Cluster 17/opendde_0679.pdb",
+      "aligned_sha256": "2b2e4103e32a73073a9c569811e8d600f1f19e118fcb0bed6559978e711ecbf8",
+      "rank": 3,
+      "confidence": 0.3238884687423706,
+      "rotation_row_vectors": [
+        [
+          0.2091028298156771,
+          0.9449905746905433,
+          0.25153294080321476
+        ],
+        [
+          -0.9767350127958931,
+          0.21434529265840813,
+          0.006694049132548749
+        ],
+        [
+          -0.04758908847292123,
+          -0.24708077477055726,
+          0.9678255883149085
+        ]
+      ],
+      "translation": [
+        1.2655248183059897,
+        -2.346330614676882,
+        0.437184774075669
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 1.1057508246025403,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0488",
+      "native_sha256": "4cddcf716fc9eaaeff4777d05c982c212dfab38a86c1f56b43da3ed3a1acaa64",
+      "analysis_sha256": "a8e427ccb9badc6390102c6cb041994987184a87dd42bfd06aa9f9fed383d347",
+      "aligned_file": "ensembles/Cluster 17/opendde_0488.pdb",
+      "aligned_sha256": "0a78e8e7a00612aed7f5009a372e51dde75d49ea6aa430c6d03d8b5506d3c4b0",
+      "rank": 4,
+      "confidence": 0.3231977939605713,
+      "rotation_row_vectors": [
+        [
+          -0.41244730082454256,
+          0.292458600594397,
+          0.8627602163874488
+        ],
+        [
+          0.7509785163026429,
+          -0.426944963112845,
+          0.5037353139541172
+        ],
+        [
+          0.5156728537497699,
+          0.8556786577979719,
+          -0.04353782831780051
+        ]
+      ],
+      "translation": [
+        -1.8223506341031155,
+        0.17679207247316509,
+        0.31559224923912693
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 2.1012617616199805,
+      "atom_count": 1934
+    },
+    {
+      "model": "opendde_0494",
+      "native_sha256": "d68ce94718c2be45fc8a2e04a135bf7cdeb007ed6aa6e8d5caf1994cca327428",
+      "analysis_sha256": "616c9133bedbfcb3b441255ccc7ba85ca615b32a1815b1cda23b08694d9f9cc7",
+      "aligned_file": "ensembles/Cluster 17/opendde_0494.pdb",
+      "aligned_sha256": "24ffb00c2ad0f466cc1983f6963dd4d07d282deecb4cb453581888b4920423eb",
+      "rank": 5,
+      "confidence": 0.3218989372253418,
+      "rotation_row_vectors": [
+        [
+          -0.6968042451142441,
+          -0.7022529853460223,
+          -0.145960914505803
+        ],
+        [
+          0.7172610716470114,
+          -0.682402904300593,
+          -0.1409355572660742
+        ],
+        [
+          -0.0006317361416259212,
+          -0.202896576547552,
+          0.9791999694315415
+        ]
+      ],
+      "translation": [
+        -1.0261663932758145,
+        0.4665604991088892,
+        -0.4182352499723697
+      ],
+      "CA_RMSD_to_structural_medoid_angstrom": 1.3258599052672988,
+      "atom_count": 1934
+    }
+  ],
+  "ensemble_sha256": "b1571f03b8582729ec5eb2a86143bb386c77fb6313685c1ef367553a9a4fb76c"
+}

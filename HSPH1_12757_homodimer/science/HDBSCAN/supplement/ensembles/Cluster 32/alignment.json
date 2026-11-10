@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0657",
+  "residues": 234,
+  "members": [
+    {
+      "model": "opendde_0029",
+      "native_sha256": "a88e606f5a5b44fff87856bbdffe01dcd80d43d66f0ba61e0795383de3d28bbc",
+      "aligned_sha256": "b9fd3afdabf218111cb03f784043f840989938a48f0b0eeb2586c58a64587fe3",
+      "aligned_file": "ensembles/Cluster 32/opendde_0029.pdb",
+      "CA_RMSD": 2.2120395582191943,
+      "atom_count": 1934
+    },
+    {
+      "model": "afsample2_0553",
+      "native_sha256": "36197dee29b42e3a069e8cbfe1bbb62b1cc337b9f470e1c2e3ec2a8349ecdf73",
+      "aligned_sha256": "d014b534db8862660a7c885958b203bbf71321138eb29d99ad3c95f6e3475250",
+      "aligned_file": "ensembles/Cluster 32/afsample2_0553.pdb",
+      "CA_RMSD": 3.821743894886641,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0540",
+      "native_sha256": "31ca7195f8a0a1ffe787e27c19e45424a9d5fea9db4298eba35cc981db7113e5",
+      "aligned_sha256": "458b94b1e043ba8c7757f8181ffdd08a85ed37663edde2d02f05808d4a6b07a9",
+      "aligned_file": "ensembles/Cluster 32/afsample2_0540.pdb",
+      "CA_RMSD": 2.8036452374635923,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0957",
+      "native_sha256": "f8b33940279aaaabc50d4bcc7e80afe238162139db83b82145d77b85c0c29f2d",
+      "aligned_sha256": "a5e2d62743763072083cc861d7733e0d5db5cc7cf5e773f79a135e412d99e514",
+      "aligned_file": "ensembles/Cluster 32/afcluster_0957.pdb",
+      "CA_RMSD": 0.7937138074767768,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0198",
+      "native_sha256": "9ac6ba3ff3f9a693362e564f38e2e558d269eab33aeb406b252b43a739fb1c99",
+      "aligned_sha256": "1992dc81deeaaff1f8feced8db77e58a2a6d13c596a337c791bf846030c29201",
+      "aligned_file": "ensembles/Cluster 32/afcluster_0198.pdb",
+      "CA_RMSD": 2.245142864488809,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "64982544b11127295d75044048238dc0bd755a127e6518ab82d6cd94479563e3"
+}

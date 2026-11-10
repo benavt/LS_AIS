@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0531",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0695",
+      "native_sha256": "9cbfd104af2b04f74cad53db073e0f7a26a993a0e2050bb98191b1c573ffe246",
+      "aligned_sha256": "b8aa8ef6ba4b5a2ff44d928aa8e72571c710024d247e7af1cf3f6ecd1fd0a4b6",
+      "aligned_file": "ensembles/Cluster 41/afcluster_0695.pdb",
+      "CA_RMSD": 1.374867196123735,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0295",
+      "native_sha256": "a519b502856d3f5d5cc242b58afe55c4c0578955ac3b1228bfca27f6f734e623",
+      "aligned_sha256": "33094f87d71bfcc23ea994fb5348706255ec44bbcae1a1dcf66a8e858112e3c8",
+      "aligned_file": "ensembles/Cluster 41/afcluster_0295.pdb",
+      "CA_RMSD": 1.4230099484447376,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0995",
+      "native_sha256": "87ca71d297d576c352e8b46fc16e6839fc49cbbf6d3840b9448b1105ec136339",
+      "aligned_sha256": "c7083acb939636140d903a5c3b82ffe288cff7a091789b951e5ffa8e5ac5e9b1",
+      "aligned_file": "ensembles/Cluster 41/afcluster_0995.pdb",
+      "CA_RMSD": 1.2012858160073447,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0895",
+      "native_sha256": "bd4c5c1a35d545c92472a20201033dae6c08057ae69509d0d507555503f52b26",
+      "aligned_sha256": "d9405d3e4f65d7525ae895c392a324e488aaec0f7865d119f2c9b36677839976",
+      "aligned_file": "ensembles/Cluster 41/afcluster_0895.pdb",
+      "CA_RMSD": 1.1740437809134678,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0795",
+      "native_sha256": "6753e098b2c1a8e9e97cef266bdaf823d3ea5a965c613d5b5aab743eac1d9484",
+      "aligned_sha256": "a0651a9d78783e09735c5e603efd3782fe60928d0bca27303e6d4083cf4d9efa",
+      "aligned_file": "ensembles/Cluster 41/afcluster_0795.pdb",
+      "CA_RMSD": 1.481211286855705,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "4fd93cef4e1df04c63df7c89c85a80e91615526e30d272b8be1efe883b7ad286"
+}

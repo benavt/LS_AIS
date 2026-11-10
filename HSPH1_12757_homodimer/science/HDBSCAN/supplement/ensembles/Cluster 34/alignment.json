@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0402",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afcluster_0741",
+      "native_sha256": "b4dd2d9d3d5c8b96d3706b791aab61e7be7921414e1f13c58ed22d423afecb38",
+      "aligned_sha256": "429aff465000b14fd991dfe94a8f49543775b18d7637abd68c98886d321a0a21",
+      "aligned_file": "ensembles/Cluster 34/afcluster_0741.pdb",
+      "CA_RMSD": 2.5409040046880476,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0862",
+      "native_sha256": "a153d6977e0fced3cd66578724671594e6eb2ae0827020c1df94b138db6c600d",
+      "aligned_sha256": "fd86ce5552d3c0a28ccab6248fcb23aff703a8bedae92eccc2c0b034f4d68661",
+      "aligned_file": "ensembles/Cluster 34/afcluster_0862.pdb",
+      "CA_RMSD": 6.267319416006453,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0062",
+      "native_sha256": "bd9edd0ce72ebf26f9432fcbcba50622d3887b56c6bf6d5f45d87ab0f7f8193c",
+      "aligned_sha256": "6d836c8bdbdfcb38fdd0b0855e848cd1e118cb03e94e2dc945d1a8e54a4b2bb2",
+      "aligned_file": "ensembles/Cluster 34/afcluster_0062.pdb",
+      "CA_RMSD": 6.416497234408606,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0868",
+      "native_sha256": "8c705e51323aa07ddee6fe1b250063c26a532c50b99de5d8aaf5f3ee3d4434d3",
+      "aligned_sha256": "9b6166ed4b550a76be8c17659469df81a3d8a83bf8709cf96c3fc1071a54c728",
+      "aligned_file": "ensembles/Cluster 34/afcluster_0868.pdb",
+      "CA_RMSD": 4.904914576510473,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0362",
+      "native_sha256": "9e9d88520fbcf53513484251212263c7b88812c406178efb6594110250edde83",
+      "aligned_sha256": "81064a275fb6bad4a35e3a34529ec9e1e6bd74148e3e60d680712139b3441c32",
+      "aligned_file": "ensembles/Cluster 34/afcluster_0362.pdb",
+      "CA_RMSD": 3.5648810513071663,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "a9dd07c2647d41c497900d7c8e2652e93c3a78e2f85ffed6536157cbff0440cc"
+}

@@ -1,0 +1,25 @@
+{
+  "law": "product_weight_fixed_cardinality_subset",
+  "k": 50,
+  "model_count": 563,
+  "requested_steps": 10000,
+  "proposals": 10000,
+  "degenerate_single_subset": false,
+  "seed": 202812093,
+  "rng_algorithm": "PCG64",
+  "uniform_mixture": 0.1,
+  "group_keys": [
+    "Cluster 24",
+    "Cluster 5",
+    "Cluster 6",
+    "Cluster 7",
+    "Cluster 8",
+    "Cluster 9"
+  ],
+  "method_keys": [
+    "afcluster",
+    "afsample2",
+    "opendde",
+    "speachaf"
+  ]
+}

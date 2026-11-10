@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0509",
+  "residues": 234,
+  "members": [
+    {
+      "model": "opendde_0891",
+      "native_sha256": "6b4d1075a3a6df2d81837f3bc6a60baca4748b6dc2d661a9c5c0227e3c3c7c54",
+      "aligned_sha256": "45658324a42a032357e4b7e75da95ef1ea42d28ae37c95c10553ef657d6795a4",
+      "aligned_file": "ensembles/Cluster 46/opendde_0891.pdb",
+      "CA_RMSD": 11.280279706435072,
+      "atom_count": 1934
+    },
+    {
+      "model": "afcluster_0561",
+      "native_sha256": "81aee17c471e1847aee95ccf4366043f44b9d64b0b306b4102cb9a261c69fc77",
+      "aligned_sha256": "f0ea8f40a506a20f0bbf57302f415e0680edb347f9a27a73d3c27b84581d43ab",
+      "aligned_file": "ensembles/Cluster 46/afcluster_0561.pdb",
+      "CA_RMSD": 4.7539066323355,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0261",
+      "native_sha256": "19b30b0b3862118edbc9b93bc12721f19bb677953195a89e5dd149fd93edd14a",
+      "aligned_sha256": "6cd5c810f2f0089bd0137914e8541a1ea18a41685b445efd5f8eb29b6088ef0c",
+      "aligned_file": "ensembles/Cluster 46/afcluster_0261.pdb",
+      "CA_RMSD": 2.5430305801656368,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0518",
+      "native_sha256": "269c2fba3b0d065fd85aec127b869794031d61d4f4ebf05d9eb216a481247abd",
+      "aligned_sha256": "179f98c576a011aa7cac7c08dfd1aa99a8a45a93263d79cb656957c1b66a9afe",
+      "aligned_file": "ensembles/Cluster 46/afcluster_0518.pdb",
+      "CA_RMSD": 2.5164712175894883,
+      "atom_count": 1932
+    },
+    {
+      "model": "afcluster_0230",
+      "native_sha256": "fb692bbea4f47b43078d1a1520e9fc9ca539d3fa43ab4a9379913264fff23337",
+      "aligned_sha256": "94abad3d230caf28c7bf773a6095caa773b8775a087701a5caf000fd4ae61346",
+      "aligned_file": "ensembles/Cluster 46/afcluster_0230.pdb",
+      "CA_RMSD": 1.7099465605588307,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "75e21827152c00158ff8a58cb5f7334b645606c25af0e416328bbca09830e4fe"
+}

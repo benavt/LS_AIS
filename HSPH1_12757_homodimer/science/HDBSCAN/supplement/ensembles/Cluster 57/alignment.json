@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0956",
+  "residues": 234,
+  "members": [
+    {
+      "model": "speachaf_0184",
+      "native_sha256": "8a392f466697f745c532389e06402d01bd8a1de5689055b788394cc0ee0fa7eb",
+      "aligned_sha256": "64c10d4cc944986b098c8d681e71a8158f4f3adef78871e98065bf3622c9b873",
+      "aligned_file": "ensembles/Cluster 57/speachaf_0184.pdb",
+      "CA_RMSD": 7.177618929401988,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0880",
+      "native_sha256": "ce31c01f06b4b32d05a091107a2898fcd681998e896c907a15da223d4569704c",
+      "aligned_sha256": "e8502e13d91ee0b7bb428ac1ad63a98ec8378b0ad629d6fa7306224a1fceb8a6",
+      "aligned_file": "ensembles/Cluster 57/speachaf_0880.pdb",
+      "CA_RMSD": 3.473212690216318,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0980",
+      "native_sha256": "660d9b65d2d512431c52d3efbe558fdd1804f26c7e229c4476773371463c3a60",
+      "aligned_sha256": "0f5461d61b538c351f58f4b42498106dad6fd862962777b9d1ea30837abfa700",
+      "aligned_file": "ensembles/Cluster 57/speachaf_0980.pdb",
+      "CA_RMSD": 3.556087162427875,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0384",
+      "native_sha256": "45d8205b3f8e65007dc9c6b862c5bd2cdb89aa274e5b7724af7611880e12837d",
+      "aligned_sha256": "fe082d8fddb63967ee680c7032b220d7e49b634eebd87c46b94d556dbaeced72",
+      "aligned_file": "ensembles/Cluster 57/speachaf_0384.pdb",
+      "CA_RMSD": 5.704968219000757,
+      "atom_count": 1932
+    },
+    {
+      "model": "speachaf_0884",
+      "native_sha256": "b5dfb8cb60d2b8c739c20227cb74182f6b567c1c8b7a962d7f4e0760553daccf",
+      "aligned_sha256": "dedba7a756fd26abcca781e8f6bb3fd4a62e92840e21b3da321ea32ad6ebab5d",
+      "aligned_file": "ensembles/Cluster 57/speachaf_0884.pdb",
+      "CA_RMSD": 5.29745579168285,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "ca77c8aeb71e6ebcf8ee063315ba1684bcc0103171786a78cc7e5f210d67bd67"
+}

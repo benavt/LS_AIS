@@ -1,0 +1,48 @@
+{
+  "reference": "afcluster_0317",
+  "residues": 234,
+  "members": [
+    {
+      "model": "afsample2_0749",
+      "native_sha256": "9842b0f7ff7bce4cda5d85aee455d87e4cc6a92137a1d030a1fbb9b37383aeae",
+      "aligned_sha256": "faf1774005cfaaa070bc579c8c5f7a37e033bbf162780ded6dc631a6fe1fc8b2",
+      "aligned_file": "ensembles/Cluster 40/afsample2_0749.pdb",
+      "CA_RMSD": 3.808551637119719,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0317",
+      "native_sha256": "f61be47b2d7c3f12635e186fb1233fc703ed7bb7aff29357dc4d7ad9a7cfdb3d",
+      "aligned_sha256": "8159587ac1059f5d912c29491d7fb16d336f1b3d64807d9abe6b14cdafd66863",
+      "aligned_file": "ensembles/Cluster 40/afsample2_0317.pdb",
+      "CA_RMSD": 4.147769955360938,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0685",
+      "native_sha256": "b61162848f1248f6cd71e83fd16ac645044d6a27aaa9c5b39f283a0766603158",
+      "aligned_sha256": "33c99b8d0251e1d968c1f3b68b02d35dbfed8f3cae2e62f5a724b6218fec918d",
+      "aligned_file": "ensembles/Cluster 40/afsample2_0685.pdb",
+      "CA_RMSD": 2.6357316500747223,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0242",
+      "native_sha256": "78be011e1bee5ebef0cfd93ce9a92c389e7430e3541a9ad72090347a902ee78c",
+      "aligned_sha256": "a3c765bcdacdf8c7c1986a066fde5ccf6e4c68b5c75c171788ca258eaf0b4974",
+      "aligned_file": "ensembles/Cluster 40/afsample2_0242.pdb",
+      "CA_RMSD": 3.047387792997442,
+      "atom_count": 1932
+    },
+    {
+      "model": "afsample2_0232",
+      "native_sha256": "8493c3cab973942092be19b06862ae607ba66fbc5d9f339e99f386160b2c7372",
+      "aligned_sha256": "ba9b675722e90459f1d7ba96157efb702ece96296fa06118bc2abf749b8adb0c",
+      "aligned_file": "ensembles/Cluster 40/afsample2_0232.pdb",
+      "CA_RMSD": 2.8166395348190028,
+      "atom_count": 1932
+    }
+  ],
+  "policy": "top5_common_multimer_confidence_eligible",
+  "ensemble_sha256": "beea046939045adda5145182e7c148c0dc2422069ba1fac1ce3173227520a9c5"
+}
