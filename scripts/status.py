@@ -10,7 +10,8 @@ def main():
     atlas = json.loads((ROOT / 'config/atlas-project.json').read_text())
     registry = json.loads((ROOT / 'config/targets.json').read_text())
     assert atlas['project'] == registry['project'] == 'LS_AIS'
-    assert atlas['visibility'] == registry['visibility'] == 'private'
+    assert atlas['visibility'] == registry['visibility'] == 'public'
+    assert atlas['public_publication']
     ids = [entry['id'] for entry in registry['targets']]
     assert ids and len(ids) == len(set(ids))
     for entry in registry['targets']:
@@ -39,12 +40,13 @@ def main():
     if incomplete:
         assert not coverage['release_ready'] and coverage['publication_hold']
         assert study['publication']['hold']
-    assert study['publication']['hold'] and study['publication']['status'] in {'held_incomplete_workflow', 'private_atlas_reviewed_publication_separate'}
-    print(json.dumps(dict(status='source_and_roster_verified', project='LS_AIS', targets=ids, private=True, available_models=len(rows),
+    assert study['publication']['hold'] and study['publication']['status'] == 'pages_published_zenodo_held'
+    assert study['publication']['pages_url'] == 'https://benavt.github.io/LS_AIS/'
+    assert study['publication']['zenodo_record'] is None
+    print(json.dumps(dict(status='source_and_roster_verified', project='LS_AIS', targets=ids, public=True, available_models=len(rows),
                           requested_arm_models=2000, remaining_models=study['requested_total']-len(rows),
                           workflow_status=coverage['status'], incomplete_requirements=len(incomplete),
-                          publication_held=coverage['publication_hold'], check_runs_science=False)))
+                          pages_url=study['publication']['pages_url'], zenodo_held=study['publication']['hold'], check_runs_science=False)))
 
 if __name__ == '__main__':
     main()
-
