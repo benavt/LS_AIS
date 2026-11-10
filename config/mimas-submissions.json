@@ -3,8 +3,8 @@
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
   "authorization": "submit these jobs!",
   "cohort": 4006,
-  "checked_at_UTC": "2026-11-10T20:38:33.161475+00:00",
-  "checked_at_Eastern": "2026-11-10T15:38:33.161475-05:00",
+  "checked_at_UTC": "2026-11-10T21:48:56.725047+00:00",
+  "checked_at_Eastern": "2026-11-10T16:48:56.725047-05:00",
   "jobs": {
     "P2_002": {
       "job_id": "25683",
@@ -93,7 +93,7 @@
       "source_script_sha256": "7d5a17099981524945e6fbfde98e5c123ca24883d87855bc84895909c9492020",
       "monitored_batch_sha256": "c7430fbbb3370771134951619af4081982c088f7600acdd7a19f49f282cc8936",
       "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "running",
+      "status_at_check": "passed",
       "afterok": "25885"
     },
     "D1": {
@@ -103,7 +103,7 @@
       "source_script_sha256": "0c1f50c0d18353a6f5c6aa1bd9b169d292b598614c727c873b22c6970203d543",
       "monitored_batch_sha256": "71508b8fb736cbad87385944583232cd45df687eaa7faf7f2b05a7891efe571b",
       "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25888"
     },
     "D2": {
@@ -113,7 +113,7 @@
       "source_script_sha256": "c6374463c0b8d073abeea32a4e0e8010eae97d3f401852750130bef727c99ec2",
       "monitored_batch_sha256": "70ca7426a646924789090afabff0c7589603bdd5a9892926bfe2bdf022fe6839",
       "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25889"
     },
     "D3": {
@@ -123,7 +123,7 @@
       "source_script_sha256": "c0850cb1f0aca930719bae56adef4dbdc4d108563dc0bdfff1569bb0b922da81",
       "monitored_batch_sha256": "07ba8a2e3b55f776982b3cce8ebcc8c0b34d5aace3e4bf8cb4cd5c8ffb6a713f",
       "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25890"
     },
     "S0": {
@@ -133,7 +133,7 @@
       "source_script_sha256": "f9eaa55122580850493fa0a2e13f42cad3545b64992f163f214ba1808bc580ba",
       "monitored_batch_sha256": "f9ae2fc586e1f77b35140bfc65446224b31592d9fcaa1f139034df31b38940f8",
       "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25892"
     },
     "S1": {
@@ -143,38 +143,38 @@
       "source_script_sha256": "372edcf6002666c704379d04f1b68bd862fbb748761163d755ca68f89b6620bf",
       "monitored_batch_sha256": "a0eccfb489ec5c866f7d4268128a1bec5a563224ac89436448f53934eead5031",
       "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
+      "status_at_check": "passed",
       "afterok": "25893"
     },
     "S2": {
-      "job_id": "25895",
+      "job_id": "25915",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "45d90a631e2876ff2377caa947c64593c2bb3086a018887830c5631e458a6335",
-      "monitored_batch_sha256": "0fabe71843f7dcbb8a6cab0b2d96d50a2b8d0c6cc820086d0a12b5d310b1478a",
-      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
-      "afterok": "25894"
+      "source_script_sha256": "9452a3bb1695986969bfb5e5ba5492eb0b836b33afe7b69e2f22ba722feafbcc",
+      "monitored_batch_sha256": "1c72bbe3919004bf326d2ac19bc83bd2e39392d8784e8728827ec1e19208afca",
+      "execution_plan_sha256": "619841c5a734696ea30f571596e5f5a7c3bb734899f35360051c00c6d2463d06",
+      "status_at_check": "passed",
+      "afterok": "Historical accepted S1 verified by finished logs;expired Slurm dependency omitted"
     },
     "S3": {
-      "job_id": "25896",
+      "job_id": "25916",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "699ffb98f631cbdada8b9069f457be73ad4f51b3443f71f805b9ec82b0174284",
-      "monitored_batch_sha256": "6cb610c9691ad46ed95be7f4cae578ab361961c1d5435adbf747c33612d6f84f",
-      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
-      "afterok": "25895"
+      "source_script_sha256": "3b035a84a0861849c169640ce1569ee546981da4203cfb7f63033de9a981f182",
+      "monitored_batch_sha256": "9332f96ad51aabeb2627e124ae90a666711c38ad103b7a608869886a37cf7794",
+      "execution_plan_sha256": "619841c5a734696ea30f571596e5f5a7c3bb734899f35360051c00c6d2463d06",
+      "status_at_check": "passed",
+      "afterok": "25915"
     },
     "X0": {
-      "job_id": "25897",
+      "job_id": "25924",
       "device": "cpu",
       "scheduler_script_verified": true,
-      "source_script_sha256": "01bc7e5c99e93e20819b56bcbd21b567c086edfc1c2507a9d2029b400bcd8b05",
-      "monitored_batch_sha256": "415a35fca791f8f240515d41167baa64782b2cf861b8e584281d5c888a4dfa39",
-      "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
-      "status_at_check": "pending_dependency",
-      "afterok": "25896"
+      "source_script_sha256": "68fc11d59beaa91982bff2e7b7a04b92440cf99bfdb96a63b7f3c25e64e4c7ea",
+      "monitored_batch_sha256": "0f9b4cf670a73a75374e670c84f8989241e53d47483ebc70183d9e755b35cb0f",
+      "execution_plan_sha256": "764b41cb224b8e96e546b593744677f6f730a018d530259949aba63edd54ac89",
+      "status_at_check": "passed",
+      "afterok": "Historical accepted S3 verified by finished logs and scientific manifest hash;expired Slurm dependency omitted"
     }
   },
   "accepted_pilot_models": 406,
@@ -189,7 +189,9 @@
   "CPU_repairs": [
     "P2 job25679 stopped on an initial-versus-final receipt bug;job25683 reused frozen inputs and passed",
     "R0 completes missing native Bonsai HDF/export dependencies offline at the accepted Pax versions,in a new runtime after E5",
-    "R0 dependency closure repaired and launcher helper restored;fresh 57-package runtime passed native fixtures and both finished resource checks as job25885;all scientific settings and 37 prior package pins retained"
+    "R0 dependency closure repaired and launcher helper restored;fresh 57-package runtime passed native fixtures and both finished resource checks as job25885;all scientific settings and 37 prior package pins retained",
+    "Sampling50 serialization repaired using the unchanged pinned five-member helper in blocks;40,000 saved transitions and20 exact controls reused;remaining200,000 proposals retain original seeds",
+    "X0 delivery now validates NumPy format and scans headers/string values with pinned privacy rules;numeric array bytes and all scientific outputs preserved"
   ],
   "generation_jobs_unchanged": [
     25423,
@@ -384,5 +386,74 @@
   "generation_observation_at_check": {
     "BioEmu2_production": "Running separately;outside frozen current4006 cohort",
     "changed_by_this_repair": false
-  }
+  },
+  "sampling_repair_history": [
+    {
+      "original_jobs": {
+        "S2": {
+          "job_id": "25895",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "45d90a631e2876ff2377caa947c64593c2bb3086a018887830c5631e458a6335",
+          "monitored_batch_sha256": "0fabe71843f7dcbb8a6cab0b2d96d50a2b8d0c6cc820086d0a12b5d310b1478a",
+          "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
+          "status_at_check": "pending_dependency",
+          "afterok": "25894"
+        },
+        "S3": {
+          "job_id": "25896",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "699ffb98f631cbdada8b9069f457be73ad4f51b3443f71f805b9ec82b0174284",
+          "monitored_batch_sha256": "6cb610c9691ad46ed95be7f4cae578ab361961c1d5435adbf747c33612d6f84f",
+          "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
+          "status_at_check": "pending_dependency",
+          "afterok": "25895"
+        },
+        "X0": {
+          "job_id": "25897",
+          "device": "cpu",
+          "scheduler_script_verified": true,
+          "source_script_sha256": "01bc7e5c99e93e20819b56bcbd21b567c086edfc1c2507a9d2029b400bcd8b05",
+          "monitored_batch_sha256": "415a35fca791f8f240515d41167baa64782b2cf861b8e584281d5c888a4dfa39",
+          "execution_plan_sha256": "f1390748858a0a3618bbea187b6d2398bfe4a76b76f75e0ca0e3591233075555",
+          "status_at_check": "pending_dependency",
+          "afterok": "25896"
+        }
+      },
+      "result": "S2 25895 stopped at five-member serializer guard after saving four chains and20 exact controls;dependent checks never started"
+    },
+    {
+      "job_id": "25917",
+      "stage": "X0_004",
+      "result": "Raw binary NPY privacy scan false positive;all scientific results preserved"
+    }
+  ],
+  "scientific_gate_accepted": true,
+  "private_delivery_accepted": true,
+  "scientific_acceptance_sha256": "abf404f92dcf0ad14e3a0e9fd7286e3449a42cf5f7296d8b3409ab3a293cfc5f",
+  "completion_results": {
+    "density_clusters": 68,
+    "density_noise_models": 1386,
+    "density_medoid_count": 68,
+    "density_Bonsai_models": 402,
+    "density_Bonsai_layouts": 3,
+    "state_pool_sizes": [
+      1280,
+      563,
+      341
+    ],
+    "state_uncovered_models": 1822,
+    "sampling_conditions": 6,
+    "panels": 12,
+    "members_per_panel": 50,
+    "coordinate_instances": 600,
+    "proposals": 240000,
+    "restored_proposals": 40000,
+    "new_proposals": 200000,
+    "exact_control_panels": 120,
+    "restored_exact_controls": 20,
+    "native_TM_directional_calls": 36780
+  },
+  "delivery_manifest_sha256": "a9b5c44b6a25c0d142c073e624c078c67d99f63826fcaca0f8203e4ac9d4ce13"
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
-  "status": "current4006_energies_accepted_remaining_CPU_chain_resubmitted",
+  "status": "current4006_scientific_and_private_delivery_accepted",
   "readiness_job": "25458",
   "environment_job": "25462",
   "history": [
@@ -84,6 +84,61 @@
       "job": "25885",
       "phase": "R0",
       "result": "Complete57-package isolated offline runtime,native imports,HDF fixture and finished inner/outer checks passed"
+    },
+    {
+      "job": "25888",
+      "phase": "D0",
+      "result": "Passed geometry HDBSCAN:68 clusters,1386 noise"
+    },
+    {
+      "job": "25889",
+      "phase": "D1",
+      "result": "Passed68 medoids/ensembles and402-model native selection"
+    },
+    {
+      "job": "25890",
+      "phase": "D2",
+      "result": "Passed68-medoid bidirectional TM grid:4556 directional calls"
+    },
+    {
+      "job": "25892",
+      "phase": "D3",
+      "result": "Passed402-model native Bonsai andthree layouts"
+    },
+    {
+      "job": "25893",
+      "phase": "S0",
+      "result": "Passed full-dimer positional protocol fixtures"
+    },
+    {
+      "job": "25894",
+      "phase": "S1",
+      "result": "Passed three supported states;1280/563/341 members and1822 uncovered"
+    },
+    {
+      "job": "25895",
+      "phase": "S2",
+      "result": "Stopped at five-member serializer guard;40,000 proposals and20 controls saved"
+    },
+    {
+      "job": "25915",
+      "phase": "S2",
+      "result": "Passed six conditions,12 panels of50;240,000 total proposals including40,000 reused"
+    },
+    {
+      "job": "25916",
+      "phase": "S3",
+      "result": "Full scientific acceptance passed,including all600 full-dimer coordinate instances"
+    },
+    {
+      "job": "25917",
+      "phase": "X0",
+      "result": "Stopped on raw numeric-byte privacy false positive;scientific arrays unchanged"
+    },
+    {
+      "job": "25924",
+      "phase": "X0",
+      "result": "Fresh selected private delivery/privacy and finished inner/outer monitoring checks passed"
     }
   ],
   "resource_model": "Slurm placement plus a private transient delegated user service for each job",
@@ -120,21 +175,21 @@
   "administrator_action_required": false,
   "global_configuration_changed": false,
   "remaining": [
-    "Wait for resubmitted density,supplement,state,sampling and acceptance chain",
-    "Verify X0 own final resource logs before collecting allowlisted outputs",
-    "Assemble and browser-test a fresh private complete atlas successor;review dataset license and package before publication"
+    "Collect the selected verified delivery and assemble a fresh private atlas successor",
+    "Browser-test both views and review actual sampling diagnostics",
+    "Prepare the updated four-file Zenodo package,resolve data license,and obtain exact-bundle publication approval"
   ],
   "publication_held": true,
-  "checked_at_UTC": "2026-11-10T20:38:33.161475+00:00",
+  "checked_at_UTC": "2026-11-10T21:48:56.725047+00:00",
   "submissions": "config/mimas-submissions.json",
-  "current_stage": "D0 geometry HDBSCAN running",
+  "current_stage": "Private atlas successor assembly/browser review pending",
   "GPU_tasks_submitted": 41,
   "GPU_task_allocations_completed": 41,
   "accepted_pilot_models": 406,
   "accepted_pilot_energies": 6496,
   "full4006_score_join_accepted": true,
   "all_remaining_scientific_stages_submitted": true,
-  "tests": "Existing23 source tests;offline resolver reproduced original failure and accepted repaired57-package closure;fresh local native imports and HDF fixture passed;Mimas R0 native fixtures and own finished inner/outer resource checks passed",
+  "tests": "34 source tests passed,including50-model full-dimer pose export,saved-chain/native-diagnostics restoration without new transitions,and format-aware blocking privacy inspection;all scientific stages passed native and finished inner/outer checks",
   "models_with_completed_score_chunks": 4006,
   "accepted_models": 4006,
   "accepted_energies": 64096,
@@ -149,5 +204,37 @@
     "plan_sha256": "80b50239634035361443ba57398de8de699a7ec72f959ebea921cd4173044e1b",
     "lock": "config/runtime/analysis-complete-repaired-linux-cp311.lock",
     "added_artifacts": "config/runtime/analysis-dependency-closure-artifacts.json"
-  }
+  },
+  "scientific_gate_accepted": true,
+  "private_delivery_accepted": true,
+  "sampling_complete": true,
+  "density_complete": true,
+  "state_discovery_complete": true,
+  "new_GPU_jobs_for_repairs": 0,
+  "completion_results": {
+    "density_clusters": 68,
+    "density_noise_models": 1386,
+    "density_medoid_count": 68,
+    "density_Bonsai_models": 402,
+    "density_Bonsai_layouts": 3,
+    "state_pool_sizes": [
+      1280,
+      563,
+      341
+    ],
+    "state_uncovered_models": 1822,
+    "sampling_conditions": 6,
+    "panels": 12,
+    "members_per_panel": 50,
+    "coordinate_instances": 600,
+    "proposals": 240000,
+    "restored_proposals": 40000,
+    "new_proposals": 200000,
+    "exact_control_panels": 120,
+    "restored_exact_controls": 20,
+    "native_TM_directional_calls": 36780
+  },
+  "accepted_scientific_manifest_sha256": "abf404f92dcf0ad14e3a0e9fd7286e3449a42cf5f7296d8b3409ab3a293cfc5f",
+  "sampling_summary_sha256": "0eb2d0c0da726b905d8cbe4e9e5d8a003a33c8bdbd103dc3459bcae5d37b8d1b",
+  "delivery_relative": "05_delivery_002"
 }

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "target": "HSPH1_12757_homodimer",
-  "status": "current4006_energies_verified_remaining_CPU_resubmitted",
+  "status": "current4006_scientific_assets_verified_successor_pending",
   "release_ready": false,
   "publication_hold": true,
-  "hold_reason": "User stopped publication and confirmed full skill workflow requirements",
+  "hold_reason": "Required scientific assets are accepted;complete successor assembly,browser review and dataset/license checks remain",
   "cohort_models": 4006,
   "residues": 234,
   "model_roster_sha256": "5307df992cac7b9ae6a03382bba34fa8f8cd5cc0bcb02a2ff728abadc9606663",
@@ -65,56 +65,63 @@
       "range": "all",
       "view": "primary",
       "status": "verified",
-      "detail": "Own161-model selection; three native layouts"
+      "detail": "Own 161-model selection; three native layouts"
     },
     {
       "id": "memberships",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "in_flight",
-      "detail": "No accepted geometry-based HDBSCAN assignments or strengths; retain noise Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
+      "status": "verified",
+      "detail": "68 geometry clusters;1386 Unassigned models;all 4006 assignments and strengths retained",
+      "artifact_sha256": "fa42b52ec56b7a8f3c2f34e6dd7b23a80905eb8bd7f4b2bbfa2f3b431c24e0ef"
     },
     {
       "id": "structures_ensembles",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "queued",
-      "detail": "Select exact representatives/medoids and real aligned members from accepted density assignments Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
+      "status": "verified",
+      "detail": "68 exact full-dimer medoids and aligned comparison ensembles;402 selected Bonsai models",
+      "artifact_sha256": "72157f00e71dc19eabc9e8fa258c2ab8aa1e47f417505c1a4519f7b28b3082ee"
     },
     {
       "id": "medoid_TM_grid",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "queued",
-      "detail": "Separate grid ordered by verified HDBSCAN medoids Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
+      "status": "verified",
+      "detail": "Own 68-by68 bidirectional fixed-chain TM grid;4556 native directions",
+      "artifact_sha256": "44da5e25066834fdfcaa678528e59a9b261b2a9a77945409482efedfbc9051e4"
     },
     {
       "id": "native_Bonsai",
       "range": "all",
       "view": "HDBSCAN",
-      "status": "queued",
-      "detail": "Native tree from HDBSCAN's own verified selection and residue scope Resubmitted density/supplement jobs 25888,25889,25890,25892 after accepted 4006 energies and repaired native runtime."
+      "status": "verified",
+      "detail": "Own 402-model native Bonsai with three layouts",
+      "artifact_sha256": "5afab1c070f509072edcd4f621b1a84cd18248f9deda058650231b365633a3af"
     },
     {
       "id": "structural_states",
       "range": "all",
       "view": "shared",
-      "status": "queued",
-      "detail": "Full-dimer positional-TM protocol and geometry-guided states jobs 25893,25894; maximum three supported states, uncovered and unsupported retained."
+      "status": "verified",
+      "detail": "Three supported full-dimer states:1280, 563, 341 models;1822 uncovered retained explicitly",
+      "artifact_sha256": "89be4d39f3ce816376dfd54d8fd280b62301a171701eab0c9623c27e06b1badd"
     },
     {
       "id": "MCMC",
       "range": "all",
       "view": "shared",
-      "status": "queued",
-      "detail": "Resubmitted S2 job 25895 with unchanged frozen PCG64 streams and approved protocol; scientific/delivery gates 25896,25897."
+      "status": "verified",
+      "detail": "Six prespecified state/prior conditions;one 50-member panel per method/condition;600 total conformer instances;all source identities and complete chains accepted",
+      "artifact_sha256": "0eb2d0c0da726b905d8cbe4e9e5d8a003a33c8bdbd103dc3459bcae5d37b8d1b"
     },
     {
       "id": "DISCO",
       "range": "all",
       "view": "shared",
-      "status": "queued",
-      "detail": "Resubmitted S2 job 25895 with unchanged frozen PCG64 streams and approved protocol; scientific/delivery gates 25896,25897."
+      "status": "verified",
+      "detail": "Six prespecified state/prior conditions;one 50-member panel per method/condition;600 total conformer instances;all source identities and complete chains accepted",
+      "artifact_sha256": "0eb2d0c0da726b905d8cbe4e9e5d8a003a33c8bdbd103dc3459bcae5d37b8d1b"
     },
     {
       "id": "successor_browser_acceptance",
@@ -125,5 +132,6 @@
     }
   ],
   "paid_external_calls": 0,
-  "checked_at_UTC": "2026-11-10T20:38:33.161475+00:00"
+  "checked_at_UTC": "2026-11-10T21:48:56.725047+00:00",
+  "private_delivery_accepted": true
 }

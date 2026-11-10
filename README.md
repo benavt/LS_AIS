@@ -19,29 +19,29 @@ Cluster sizes describe this generated library, not equilibrium populations.
 
 Native pTM/ipTM are available for 4,005 models, mean pLDDT for 3,000, native
 AFsample2 ranking confidence for 1,000 and native OpenDDE/AF3 ranking score for
-1,005. ProteinEBM now has verified coverage for all 4,006 models at 16 noise levels
-(64,096 energies). The saved partial site still needs these scores wired into its
-reviewed successor. The repaired native export runtime passed; the remaining
-HDBSCAN, supplement and MCMC/DISCO stages are submitted with success dependencies.
-The two future production arms remain outside the frozen completion cohort.
-The atlas keeps missing scores empty and identifies energy separately from confidence.
+1,005. ProteinEBM has accepted coverage for all 4,006 models at 16 noise levels
+(64,096 energies). HDBSCAN and its 68-medoid grid, aligned ensembles and 402-model
+Bonsai are complete. Three supported state pools contain 1,280, 563 and 341 models;
+1,822 remain uncovered. MCMC/DISCO completed all six state/prior conditions with
+12 panels of 50 models and saved diagnostics.
 
-## Incomplete workflow and publication hold
+## Scientific results and publication hold
 
-The saved atlas is a partial preview. The required full workflow also includes
-accepted ProteinEBM coverage, geometry-based HDBSCAN, its own medoids/ensembles,
-TM grid and native Bonsai, and HDBSCAN-guided structural states with MCMC/DISCO
-selection and diagnostics. None of those missing outputs is claimed complete.
-See [the coverage ledger](config/workflow-coverage.json) and
-[the completion requirements](docs/workflow-completeness.md).
+All required scientific calculations passed acceptance. The saved site remains
+a partial preview until the accepted energies, density supplements, state panels
+and diagnostics are assembled into a fresh successor and browser-tested.
+See [the current results](config/scientific-completion.json),
+[the coverage ledger](config/workflow-coverage.json) and
+[the execution record](docs/submitted-workflow.md).
 
-The user stopped publication pending these additions. The previous exact bundle
-and its accepted Primary results remain preserved. `scripts/build_site.py`
-refuses a publication build while coverage is incomplete or the hold is set.
+The original exact bundle and its accepted Primary results remain preserved.
+Public deployment remains blocked pending successor review and final dataset
+metadata, license and file checks. Completion of sampling is not a convergence
+claim; the full diagnostics must remain visible in the successor.
 
 ## Private preview
 
-The private atlas passed browser checks for the three projections, native model
+The original partial atlas passed browser checks for the three projections, native model
 inspection, method/confidence colors, aligned ensembles, three Bonsai layouts,
 variance figures, desktop/narrow layouts and the CPU/SVG structure renderer.
 Native download routes matched original coordinate hashes. The in-app browser's
@@ -84,10 +84,9 @@ were unchanged. The [readiness result](docs/completion-readiness.md) and
 [machine-readable status](config/completion-execution-status.json) retain the
 successful evidence and diagnosed failed attempts. Both final monitoring logs
 passed and both private services were cleaned up. The current 4,006 completion
-workflow has accepted all 4,006 ProteinEBM score grids. The latest saved progress
-is in the execution status ledger. Density, native supplements, MCMC/DISCO and final
-acceptance are resubmitted after the repaired native runtime. See
-[the submitted workflow](docs/submitted-workflow.md).
+workflow has now accepted all 4,006 energy grids, the density supplements,
+structural states and all six MCMC/DISCO conditions. The latest native/job status
+is in the execution ledger. See [the completed scientific workflow](docs/submitted-workflow.md).
 Publication remains held.
 
 ## Source and execution
