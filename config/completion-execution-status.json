@@ -95,14 +95,15 @@
     "Assemble and browser-test a fresh private complete atlas successor;review dataset license and package before publication"
   ],
   "publication_held": true,
-  "checked_at_UTC": "2026-11-10T14:05:33.865717+00:00",
+  "checked_at_UTC": "2026-11-10T14:21:15.830025+00:00",
   "submissions": "config/mimas-submissions.json",
-  "current_stage": "E3 ProteinEBM production waiting for GPU resources",
+  "current_stage": "E3 ProteinEBM production running,one GPU task at a time",
   "GPU_tasks_submitted": 41,
   "GPU_task_allocations_completed": 5,
   "accepted_pilot_models": 406,
   "accepted_pilot_energies": 6496,
   "full4006_score_join_accepted": false,
   "all_remaining_scientific_stages_submitted": true,
-  "tests": "23 source tests passed;P2 and all15 E0/E1/E2 tasks passed native and separate inner/outer finished monitoring checks"
+  "tests": "23 source tests passed;P2 and all15 E0/E1/E2 tasks passed native and separate inner/outer finished monitoring checks",
+  "models_with_completed_score_chunks": 1006
 }

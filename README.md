@@ -82,8 +82,8 @@ were unchanged. The [readiness result](docs/completion-readiness.md) and
 [machine-readable status](config/completion-execution-status.json) retain the
 successful evidence and diagnosed failed attempts. Both final monitoring logs
 passed and both private services were cleaned up. The current4,006 completion
-workflow is now submitted: all406 pilots passed, and production is waiting for GPU
-resources. Density, native supplements, MCMC/DISCO and final acceptance are queued
+workflow is now submitted: all406 pilots passed, and production has started. The latest saved progress
+is in the execution status ledger. Density, native supplements, MCMC/DISCO and final acceptance are queued
 with success dependencies. See [the submitted workflow](docs/submitted-workflow.md).
 Publication remains held.
 

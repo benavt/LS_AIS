@@ -12,7 +12,7 @@ methods and numeric settings remain within the approved current4,006 plan.
 |E0 native CPU caches|25685|Allfive groups passed strict native checkpoint load and lossless cache checks|
 |E1 counted GPU pilots|25687|All406 models scored,including exact six accepted pilots|
 |E2 pilot acceptance|25688|Allfive gates passed native and both finished resource-log checks|
-|E3 remaining3,600 models|25689|Waiting for GPU resources;36 serialized tasks|
+|E3 remaining3,600 models|25689|Running;36 serialized tasks,one GPU at a time|
 |E4 group acceptance|25690|Queued after E3|
 |E5 full score join|25691|Queued after E4|
 |R0 native export runtime completion|25722|Queued after E5;offline,new isolated prefix|
@@ -26,8 +26,9 @@ methods and numeric settings remain within the approved current4,006 plan.
 |S3 scientific acceptance|25731|Queued after S2|
 |X0 selected delivery/privacy audit|25732|Queued after S3|
 
-The check verified406 pilot models,6,496 total energies and464 native GPU batch
-calls. Full-cohort coverage is pending E5. Production evaluates the remaining
+The pilot check verified406 models,6,496 total energies and464 native GPU batch
+calls. Production subsequently started;at09:21 Eastern on November10,the native
+chunk markers recorded1,006 completed models. Full-cohort acceptance is pending E5. Production evaluates the remaining
 3,600 models once;all accepted pilot results are reused. GPU arrays have1-task
 concurrency and success dependencies serialize stages. The approved GPU ceiling
 remains41 tasks and410 requested GPU-minutes,with at most one GPU active.

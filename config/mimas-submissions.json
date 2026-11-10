@@ -3,8 +3,8 @@
   "approved_plan_sha256": "b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6",
   "authorization": "submit these jobs!",
   "cohort": 4006,
-  "checked_at_UTC": "2026-11-10T14:05:33.865717+00:00",
-  "checked_at_Eastern": "2026-11-10T09:05:33.865717-05:00",
+  "checked_at_UTC": "2026-11-10T14:21:15.830025+00:00",
+  "checked_at_Eastern": "2026-11-10T09:21:15.830025-05:00",
   "jobs": {
     "P2_002": {
       "job_id": "25683",
@@ -53,7 +53,7 @@
       "source_script_sha256": "1e34d670f2cd52e56c8af00e54ae83ce43f83a47be14afd9d3e043c779d4eae6",
       "monitored_batch_sha256": "c48e40b933b68cfea3742a3e06117b3df68d49d8a02033da941e9226bcd5558c",
       "execution_plan_sha256": "12d436816a6ac46a8d21e9fc31712ffa42861f5f3d7f32f80eaf560a61015aaa",
-      "status_at_check": "pending_resources",
+      "status_at_check": "running",
       "afterok": "25688"
     },
     "E4": {
@@ -194,5 +194,7 @@
     25423,
     25426,
     25427
-  ]
+  ],
+  "models_with_completed_score_chunks": 1006,
+  "full_energy_join_accepted": false
 }
