@@ -91,10 +91,24 @@ def json_value(value):
     if isinstance(value,(list,tuple)):return [json_value(v) for v in value]
     return value
 
+def panel_pdb(texts,names):
+    """Use the pinned five-member serializer in blocks; retain one 50-MODEL panel."""
+    from src.analysis.casp17_ensemble_exports import multimodel_pdb
+    require(len(texts)==len(names)==len(set(names))==50,'Panel cardinality must be50 distinct originals')
+    lines=[];serial=0
+    for first in range(0,50,5):
+        block=multimodel_pdb(texts[first:first+5],names[first:first+5])
+        for line in block.splitlines():
+            if line.startswith('MODEL '):
+                serial+=1;lines.append(f'MODEL     {serial:4d}')
+            elif line and line!='END':lines.append(line)
+    require(serial==50,'Serialized panel cardinality differs')
+    return '\n'.join([*lines,'END',''])
+
 def export_panel(plan,rows,names,poses,output,label,state):
     import numpy as np
     from Bio.PDB import PDBIO,Model
-    from src.analysis.casp17_ensemble_exports import all_atoms,atom_signature,pdb_compatible,multimodel_pdb
+    from src.analysis.casp17_ensemble_exports import all_atoms,atom_signature,pdb_compatible
     lookup={r['model_id']:r for r in rows};texts=[];members=[]
     require(len(names)==len(set(names))==50,'Panel cardinality must be50 distinct originals')
     for name in names:
@@ -109,7 +123,7 @@ def export_panel(plan,rows,names,poses,output,label,state):
         pdb_compatible(model);writer=PDBIO();writer.set_structure(model);stream=io.StringIO();writer.save(stream);texts.append(stream.getvalue())
         members.append({'model_id':name,'native_sha256':row['sha256'],'atom_count':len(atoms),'anchor':pose['anchor'],
                         'native_pose_cache_sha256':pose['cache_sha256']})
-    output.write_text(multimodel_pdb(texts,names))
+    output.write_text(panel_pdb(texts,names))
     return {'kind':label,'state':state,'k':50,'model_ids':names,'members':members,'ensemble_file':str(output.name),
             'ensemble_sha256':sha(output),'residues_per_member':234,'chains':['A','B'],
             'pose':'One native full-dimer positional-TM transform;original files unchanged'}
@@ -125,18 +139,29 @@ def sample(plan,np,rows):
     with saved_path(plan,plan['primary_labels_relative']).open() as f:primary={r['model']:r['cluster_label'] for r in csv.DictReader(f)}
     all_names=[r['model_id'] for r in rows];hdb=read(Path(plan['run_root'])/'04_analysis/HDBSCAN/partition.json')
     priors={'Primary':([primary[n] for n in all_names],()),'HDBSCAN':(hdb['labels'],('Unassigned',))}
-    output=root/'sampling';output.mkdir();(output/'exports').mkdir()
+    from sampling_resume import copy_frozen_sampling,restore_chains
+    output=root/plan.get('sampling_relative','sampling');output.mkdir();(output/'exports').mkdir()
+    resume=plan.get('sampling_resume')
+    if resume:copy_frozen_sampling(root,output,resume)
     distributions={}
     for name,(labels,noise) in priors.items():
         value=energy_distribution(e,labels,.5,tau,noise_labels=noise)
         require(np.isfinite(value['log_probabilities']).all() and np.all(value['probabilities']>0),'Unrepresentable full-cohort probabilities')
         distributions[name]=value
-        with (output/(name+'-full-prior.npz')).open('xb') as f:
-            np.savez_compressed(f,log_probability=value['log_probabilities'],probability=value['probabilities'],energy=e,model_ids=np.asarray(all_names))
-        save(output/(name+'-prior.json'),{'alpha':.5,'tau':tau,'tau_rule':'Full4006 energy IQR,linear quantiles',
+        prior_arrays={'log_probability':value['log_probabilities'],'probability':value['probabilities'],'energy':e,'model_ids':np.asarray(all_names)}
+        prior_path=output/(name+'-full-prior.npz')
+        if prior_path.exists():
+            with np.load(prior_path,allow_pickle=False) as cached:
+                require(set(cached.files)==set(prior_arrays) and all(np.array_equal(cached[k],v) for k,v in prior_arrays.items()),'Frozen full-cohort prior differs')
+        else:
+            with prior_path.open('xb') as f:np.savez_compressed(f,**prior_arrays)
+        prior_record={'alpha':.5,'tau':tau,'tau_rule':'Full4006 energy IQR,linear quantiles',
             'group_sizes':value['cluster_sizes'],'group_probabilities':value['cluster_probabilities'],
-            'original_noise_probability':value['noise_probability'],'pool_scope':4006,'noise_labels':list(noise)})
-    conditions=[];proposal_count=0;exact_count=0;export_count=0
+            'original_noise_probability':value['noise_probability'],'pool_scope':4006,'noise_labels':list(noise)}
+        prior_meta=output/(name+'-prior.json')
+        if prior_meta.exists():require(read(prior_meta)==json_value(prior_record),'Frozen prior metadata differs')
+        else:save(prior_meta,prior_record)
+    conditions=[];proposal_count=0;exact_count=0;export_count=0;restored_proposals=0;restored_controls=0
     for state in sorted(result['membership']['states'],key=lambda r:r['id']):
         if not state['supported']:continue
         indices=np.asarray(state['indices'],dtype=int);names=[all_names[i] for i in indices];pool_e=e[indices]
@@ -145,15 +170,24 @@ def sample(plan,np,rows):
             stream=plan['sampling_streams'][state['id']+'_'+prior];seed=stream['base']
             lp=distributions[prior]['log_probabilities'][indices];lp=lp-logsumexp(lp)
             fine=[labels[i] for i in indices];methods=[rows[i]['method'] for i in indices]
-            condition=state['id']+'_'+prior;folder=output/condition;folder.mkdir()
-            chains=run_subset_chains(lp,k=50,chains=4,steps=10000,burn=1000,seed=seed,energies=pool_e,
-                labels=fine,methods=methods,noise_labels=noise,uniform_mixture=.1)
+            condition=state['id']+'_'+prior;folder=output/condition
+            restored=bool(resume and condition==resume['condition'])
+            if restored:
+                require(folder.is_dir(),'Missing frozen condition')
+                chains=restore_chains(folder,lp,k=50,steps=10000,burn=1000,seed=seed,energies=pool_e,
+                    labels=fine,methods=methods,noise_labels=noise)
+                restored_proposals+=chains['restored_proposals']
+            else:
+                folder.mkdir()
+                chains=run_subset_chains(lp,k=50,chains=4,steps=10000,burn=1000,seed=seed,energies=pool_e,
+                    labels=fine,methods=methods,noise_labels=noise,uniform_mixture=.1)
             empirical=np.zeros(len(names));draws=0
             for ci,chain in enumerate(chains['chains']):
                 arrays={k:v for k,v in chain.items() if isinstance(v,np.ndarray)}
-                with (folder/f'chain-{ci}.npz').open('xb') as f:np.savez_compressed(f,**arrays)
-                meta={k:v for k,v in chain.items() if not isinstance(v,np.ndarray)}
-                save(folder/f'chain-{ci}.json',json_value(meta))
+                if not restored:
+                    with (folder/f'chain-{ci}.npz').open('xb') as f:np.savez_compressed(f,**arrays)
+                    meta={k:v for k,v in chain.items() if not isinstance(v,np.ndarray)}
+                    save(folder/f'chain-{ci}.json',json_value(meta))
                 replayed=0
                 for step,panel in enumerate(replay_subsets(chain)):
                     replayed+=1
@@ -161,11 +195,18 @@ def sample(plan,np,rows):
                 require(replayed==chain['proposals'],'Saved chain replay count differs')
                 proposal_count+=chain['proposals']
             dp=log_subset_dp(lp,k=50);marginal=inclusion_probabilities(lp,k=50,dp=dp)
-            controls=[exact_subset_draw(lp,k=50,seed=s,dp=dp) for s in stream['exact_control_seeds']]
+            if restored:
+                cached=read(folder/'exact-controls.json')
+                require(cached['law']=='product_weight_fixed_cardinality_subset' and cached['seeds']==stream['exact_control_seeds'] and
+                    cached['conditional_pool']==names and np.allclose(cached['inclusion_probabilities'],marginal,rtol=0,atol=1e-12),'Frozen exact controls differ')
+                lookup={n:i for i,n in enumerate(names)}
+                controls=[np.asarray([lookup[n] for n in c],dtype=int) for c in cached['panels']]
+                restored_controls+=len(controls)
+            else:controls=[exact_subset_draw(lp,k=50,seed=s,dp=dp) for s in stream['exact_control_seeds']]
             exact_count+=len(controls);require(len(controls)==20,'Exact control count differs')
             require(all(len(c)==len(set(c.tolist()))==50 for c in controls),'Exact control cardinality differs')
             control_ids=[[names[i] for i in c] for c in controls]
-            save(folder/'exact-controls.json',{'law':'product_weight_fixed_cardinality_subset','panels':control_ids,
+            if not restored:save(folder/'exact-controls.json',{'law':'product_weight_fixed_cardinality_subset','panels':control_ids,
                   'seeds':stream['exact_control_seeds'],'conditional_pool':names,'inclusion_probabilities':marginal.tolist()})
             production=[names[i] for i in chains['production_indices']]
             disco=disco_subset(lp,pool_e,fine,k=50,seed=stream['DISCO_seed'],noise_labels=noise,model_ids=names)
@@ -191,7 +232,8 @@ def sample(plan,np,rows):
             print('Accepted sampling condition',condition,len(names),'MCMC50 and DISCO50',flush=True)
     require(proposal_count<=240000 and exact_count<=120 and export_count<=600,'Sampling budget exceeded')
     save(output/'S2-summary.json',{'status':'validated','tau':tau,'alpha':.5,'models':4006,'conditions':conditions,
-         'proposals':proposal_count,'exact_control_panels':exact_count,'exported_coordinate_instances':export_count,
+         'proposals':proposal_count,'restored_proposals':restored_proposals,'new_proposals':proposal_count-restored_proposals,
+         'restored_exact_control_panels':restored_controls,'exact_control_panels':exact_count,'exported_coordinate_instances':export_count,
          'unsupported_states':[r for r in result['membership']['states'] if not r['supported']],
          'uncovered_models':result['membership']['unassigned_models'],'source_states_sha256':sha(root/'S1-states.json'),
          'files_sha256':{str(p.relative_to(output)):sha(p) for p in output.rglob('*') if p.is_file()}})
@@ -200,9 +242,9 @@ def acceptance(plan,np,rows):
     finished(plan,'S2')
     root=Path(plan['run_root'])/'04_analysis';d=root/'HDBSCAN';s=root/'states'
     partition=read(d/'partition.json');selection=read(d/'supplement/selection.json');tm=read(d/'supplement/medoid-tm.json');tree=read(d/'supplement/bonsai.json')
-    states=read(s/'S1-states.json');sampling=read(s/'sampling/S2-summary.json');protocol_record=read(s/'S0-protocol.json')
+    states=read(s/'S1-states.json');sampling_root=s/plan.get('sampling_relative','sampling');sampling=read(sampling_root/'S2-summary.json');protocol_record=read(s/'S0-protocol.json')
     for name,digest in partition['fit_files_sha256'].items():checked(d/'fits'/name,digest)
-    for name,digest in sampling['files_sha256'].items():checked(s/'sampling'/name,digest)
+    for name,digest in sampling['files_sha256'].items():checked(sampling_root/name,digest)
     require(partition['models']==states['models']==[r['model_id'] for r in rows] and len(partition['labels'])==4006,'Cohort differs')
     require(sum(g['cluster_size'] for g in selection['clusters'])+partition['noise_models']==4006,'Noise or cluster accounting differs')
     require({r['model'] for r in tree['models']}=={r['model'] for r in selection['selected_tree']},'Native tree selection differs')
@@ -214,7 +256,7 @@ def acceptance(plan,np,rows):
     for condition in sampling['conditions']:
         for panel in condition['panels']:
             require(len(panel['model_ids'])==len(set(panel['model_ids']))==50,'Panel cardinality differs')
-            path=s/'sampling/exports'/panel['ensemble_file'];checked(path,panel['ensemble_sha256'])
+            path=sampling_root/'exports'/panel['ensemble_file'];checked(path,panel['ensemble_sha256'])
             models=list(PDBParser(QUIET=True).get_structure('panel',path));require(len(models)==50,'Ensemble conformer count differs')
             for model in models:
                 require([c.id for c in model]==['A','B'],'Ensemble lost a chain')
@@ -240,13 +282,14 @@ def delivery(plan,np,rows):
         if isinstance(value,list):return [clean(x) for x in value]
         if isinstance(value,str) and value.startswith(('/scratch/','/home/','/gpfs/','/sys/')):return None
         return value
+    sampling_root=root/'states'/plan.get('sampling_relative','sampling')
     selected=[root/'current4006-energy-rankings.csv',root/'HDBSCAN/partition.json',root/'HDBSCAN/memberships.csv',
        root/'HDBSCAN/supplement/selection.json',root/'HDBSCAN/supplement/medoid-tm.json',root/'HDBSCAN/supplement/bonsai.json',
-       root/'states/S1-states.json',root/'states/sampling/S2-summary.json']
-    for name,digest in read(root/'states/sampling/S2-summary.json')['files_sha256'].items():checked(root/'states/sampling'/name,digest)
+       root/'states/S1-states.json',sampling_root/'S2-summary.json']
+    for name,digest in read(sampling_root/'S2-summary.json')['files_sha256'].items():checked(sampling_root/name,digest)
     selected+=list((root/'HDBSCAN/supplement/ensembles').glob('*/alignment.json'))
-    selected+=list((root/'states/sampling').rglob('*.json'))+list((root/'states/sampling').rglob('*.npz'))
-    ensembles=list((root/'HDBSCAN/supplement/ensembles').glob('*/ensemble.pdb'))+list((root/'states/sampling/exports').glob('*.pdb'))
+    selected+=list(sampling_root.rglob('*.json'))+list(sampling_root.rglob('*.npz'))
+    ensembles=list((root/'HDBSCAN/supplement/ensembles').glob('*/ensemble.pdb'))+list((sampling_root/'exports').glob('*.pdb'))
     selected+=ensembles
     source_hashes={}
     for source in sorted(set(selected)):
