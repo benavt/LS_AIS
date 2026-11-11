@@ -12,6 +12,18 @@ The user approved this exact plan, and Mimas array job `26061` was submitted
 with one target running at a time. Acceptance requires a validated receipt for
 each target before any new plot or map is displayed.
 
+Both array tasks finished with exit code 0 on 2026-11-11 and produced validated
+receipts. The saved private preview verifies each receipt and all seven output
+files per target before displaying the new projections or maps.
+
+| Target | Acceptance receipt SHA-256 | PCA 1 variance | PCA 2 variance |
+| --- | --- | ---: | ---: |
+| DOC1R dimer–CDK2 | `6648bf3ceb66507a7f006fdcf491c0072bfa220a91c4f520217efc7f8c01b736` | 28.97% | 16.94% |
+| DOC1 dimer–CDK2 | `21ea1bed76844a995033045f2c4de09d3be1ae8847fc8d04a68143fb568a04b0` | 27.49% | 21.30% |
+
+The private export manifest SHA-256 is
+`e6d47706cfb276218b70dff6cae4bcfd3db353ab74aa4aeda960e46f32272171`.
+
 | Target | Accepted models | Full A/B/C Cα positions | Pair features |
 | --- | ---: | ---: | ---: |
 | DOC1R dimer–CDK2 | 57,463 | 126 + 126 + 298 = 550 | 150,975 |
@@ -30,15 +42,14 @@ The variance map uses every accepted model, population variance in Å², and all
 A/B/C residue pairs. The median distance map uses a reproducible uniform
 5,000-model sample per target; it is labeled as sampled rather than a
 full-cohort median. Both maps show A/B/C boundaries and retain every residue.
-The job creates PCA and t-SNE coordinates, sampled indices, numeric map
+The job created PCA and t-SNE coordinates, sampled indices, numeric map
 matrices, PNG maps, and a hash-bearing acceptance receipt. No ProteinEBM values,
 experimental structures, residue trims, 3-D box summaries, or pair-distribution
 detail plots are added.
 
-Execution is a monitored serial two-task CPU Slurm array: eight CPU cores and
+Execution used a monitored serial two-task CPU Slurm array: eight CPU cores and
 256 GiB per task, at most 36 hours per task, with a hard request ceiling of
-576 CPU-core-hours and zero GPUs. It makes zero paid external calls. After
-both tasks finish, accept output hashes and finite full-roster coordinates,
-then add PCA and t-SNE to the private atlas explorer and the two map figures
-to each target's figure section. The public atlas is unchanged until separately
+576 CPU-core-hours and zero GPUs. It made zero paid external calls. PCA and
+t-SNE now appear in the private atlas explorer, and the two Cα maps appear in
+each target's figure section. The public atlas is unchanged until separately
 reviewed and approved for publication.
