@@ -63,14 +63,23 @@ sketch had median errors of 1.18% and 1.19%, and mean recalls of 95.6% and
 `ba9943fdfb85cce54b1e2ae8589bd4a842968d71a9140850697fd14974f992fb`
 and `1db3c89785371e4bfd8d5bf1945c559d6a54c349e12cfd2486d9199ef6cbe617`.
 Both completion records reported exit zero and both finished CPU resource logs
-passed. This validates sampled fidelity only; full-cohort projection and
-clustering need a separate approved plan and acceptance.
+passed. This validates sampled fidelity only.
+
+The full-cohort geometry clustering plan
+(`76024b0e0cff251ca7b6cc2dfb309e26fa1d92192d860df2dcc7eb33ff99bc6c`)
+was explicitly approved and submitted on Mimas as monitored Slurm array 26011.
+It runs one target at a time, fitting a 2-D UMAP KNN partition and 10-D
+HDBSCAN leaf/EOM partitions at seeds 42, 7, and 123 from the validated
+4,096-dimensional all-pair sketch. It excludes ProteinEBM energies. Each task
+must reproduce the accepted 5,000-model sketch exactly and write full-cohort
+labels, strengths, model identities, and diagnostics before an acceptance
+receipt is valid. Neither target has an accepted full-cohort cluster result yet.
 
 The approved ProteinEBM Model 6 production plan
 (`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
 is running in 134 monitored GPU chunks. Each accepted model will receive the
 same 16-level energy grid. The first 1,000-model DOC1R chunk validated with
 16,000 finite energy values and a passing finished GPU log. Full-cohort score
-acceptance has not yet run. Clustering, MCMC/DISCO, and atlas exports still
-require their own hash-bound plans and accepted outputs. The existing HSPH1
+acceptance has not yet run. Clustering is in flight; MCMC/DISCO and atlas exports
+still require their own hash-bound plans and accepted outputs. The existing HSPH1
 public page does not include either target yet.
