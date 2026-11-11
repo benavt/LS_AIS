@@ -79,7 +79,12 @@ The approved ProteinEBM Model 6 production plan
 (`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
 is running in 134 monitored GPU chunks. Each accepted model will receive the
 same 16-level energy grid. The first 1,000-model DOC1R chunk validated with
-16,000 finite energy values and a passing finished GPU log. Full-cohort score
-acceptance has not yet run. Clustering is in flight; MCMC/DISCO and atlas exports
+16,000 finite energy values and a passing finished GPU log. Array 25984 now
+permits four concurrent one-GPU tasks under the explicitly
+approved resource-only amendment
+(`ee2f5bbfee05bcdf40c0c869d9122f2c92df186eae176558b3b11e53b61e0334`).
+The original model inputs, method, outputs, and 134 GPU-hour ceiling are unchanged.
+Full-cohort score acceptance has not yet run. Clustering is in flight; MCMC/DISCO
+and atlas exports
 still require their own hash-bound plans and accepted outputs. The existing HSPH1
 public page does not include either target yet.
