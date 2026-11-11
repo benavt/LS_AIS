@@ -89,8 +89,12 @@ def validate(config_path, intake_root, output):
     seen_hashes = set()
     duplicates = 0
     rejected = 0
+    exclusions = {row['name']: row for row in config['cohort'].get('source_exclusions', [])}
+    if len(exclusions) != len(config['cohort'].get('source_exclusions', [])):
+        raise ValueError('Duplicate source exclusion')
+    excluded = []
     private_sequences = None
-    with listing.open() as rows, (output / 'roster.jsonl').open('x') as accepted, (output / 'rejections.jsonl').open('x') as failures:
+    with listing.open() as rows, (output / 'roster.jsonl').open('x') as accepted, (output / 'rejections.jsonl').open('x') as failures, (output / 'exclusions.jsonl').open('x') as omissions:
         for line in rows:
             entry = json.loads(line)
             name = entry.get('name', '<missing>')
@@ -102,6 +106,13 @@ def validate(config_path, intake_root, output):
                 raw = path.read_bytes()
                 if len(raw) != entry['bytes'] or sha(raw) != entry['sha256']:
                     raise ValueError('native PDB hash or size differs')
+                if name in exclusions:
+                    policy = exclusions[name]
+                    if entry['sha256'] != policy['sha256'] or len(raw) != policy['bytes'] or policy['reason'] != 'zero-byte source PDB':
+                        raise ValueError('Frozen source exclusion identity differs')
+                    excluded.append(name)
+                    omissions.write(json.dumps({'name': name, 'sha256': entry['sha256'], 'bytes': len(raw), 'reason': policy['reason']}, separators=(',', ':')) + '\n')
+                    continue
                 sequences = inspect_pdb(raw, config['chains'])
                 if private_sequences is None:
                     private_sequences = sequences
@@ -119,7 +130,9 @@ def validate(config_path, intake_root, output):
             except (KeyError, OSError, UnicodeError, ValueError) as error:
                 rejected += 1
                 failures.write(json.dumps({'name': name, 'reason': str(error)}, separators=(',', ':')) + '\n')
-    total = sum(counts.values()) + rejected
+    if set(excluded) != set(exclusions):
+        raise ValueError('Expected source exclusion is absent')
+    total = sum(counts.values()) + len(excluded) + rejected
     if total != receipt['models'] or total != config['cohort']['expected_models']:
         raise ValueError('Manifest cardinality differs from frozen cohort')
     if private_sequences is not None:
@@ -129,6 +142,7 @@ def validate(config_path, intake_root, output):
     summary = {
         'status': 'validated' if rejected == 0 else 'rejected',
         'target': target, 'input_models': total, 'validated_models': sum(counts.values()),
+        'excluded_models': len(excluded), 'exclusions_sha256': sha_file(output / 'exclusions.jsonl'),
         'rejected_models': rejected, 'duplicate_native_hashes': duplicates,
         'methods': dict(sorted(counts.items())), 'source_manifest_sha256': receipt['manifest_sha256'],
         'target_config_sha256': sha_file(config_path),

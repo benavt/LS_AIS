@@ -7,6 +7,9 @@
   "organism": null,
   "cohort": {
     "expected_models": 57464,
+    "source_exclusions": [
+      {"name": "spec_inter_ref_sto_af3_662.pdb", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0, "reason": "zero-byte source PDB"}
+    ],
     "archive_sha256": "c8aa11e9f24f04e5e42f384d7bcddf5a3c075b01394cbf2e7dd418fe4c68ddfa"
   },
   "chains": [

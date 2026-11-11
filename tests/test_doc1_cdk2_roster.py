@@ -2,7 +2,9 @@
 
 import hashlib
 import importlib.util
+import json
 from pathlib import Path
+import tempfile
 import unittest
 
 
@@ -38,6 +40,36 @@ class ThreeChainRoster(unittest.TestCase):
     def test_sequence_mismatch_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'sequence differs'):
             validator.inspect_pdb(self.raw.replace(row(5, 'C', 1, 'LYS'), row(5, 'C', 1, 'ALA')), self.chains)
+
+    def test_frozen_empty_source_is_excluded_without_dropping_valid_models(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'inputs/example'
+            (source / 'pdb').mkdir(parents=True)
+            (source / 'pdb/valid_1.pdb').write_bytes(self.raw)
+            (source / 'pdb/empty_2.pdb').write_bytes(b'')
+            entries = [
+                {'name': 'valid_1.pdb', 'bytes': len(self.raw), 'sha256': validator.sha(self.raw)},
+                {'name': 'empty_2.pdb', 'bytes': 0, 'sha256': validator.sha(b'')},
+            ]
+            listing = source / 'pdb-sha256.jsonl'
+            listing.write_text(''.join(json.dumps(entry) + '\n' for entry in entries))
+            (source / 'acceptance.json').write_text(json.dumps({
+                'status': 'validated', 'archive_sha256': 'archive', 'manifest_sha256': validator.sha_file(listing),
+                'models': 2,
+            }))
+            config = root / 'target.json'
+            config.write_text(json.dumps({
+                'id': 'example', 'chains': self.chains,
+                'cohort': {'archive_sha256': 'archive', 'expected_models': 2,
+                           'source_exclusions': [{'name': 'empty_2.pdb', 'sha256': validator.sha(b''),
+                                                  'bytes': 0, 'reason': 'zero-byte source PDB'}]},
+            }))
+            result = validator.validate(config, root, root / 'result')
+            self.assertEqual((result['status'], result['validated_models'], result['excluded_models']),
+                             ('validated', 1, 1))
+            self.assertEqual(json.loads((root / 'result/roster.jsonl').read_text())['model_id'], 'valid_1')
+            self.assertEqual((root / 'result/rejections.jsonl').read_text(), '')
 
 
 if __name__ == '__main__':
