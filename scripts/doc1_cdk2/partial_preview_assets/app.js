@@ -4,7 +4,21 @@ const cache = new Map();
 const $ = id => document.getElementById(id);
 const fmt = value => Number(value).toLocaleString();
 const svgMode = new URLSearchParams(location.search).get("renderer") === "svg";
+const publicBundle = document.documentElement.dataset.publicBundle === "true";
 let current = TARGETS[0], data = null, selected = null, projection = "umap", viewer = null, spinning = false;
+
+async function readTargetJSON(path) {
+  const name = publicBundle ? `${path}.gz` : path;
+  const response = await fetch(name);
+  if (!response.ok) throw Error(`${name} returned ${response.status}`);
+  if (!publicBundle) return response.json();
+  const raw = await response.arrayBuffer(), bytes = new Uint8Array(raw);
+  // Static hosts may transmit .gz as-is or apply Content-Encoding on the wire.
+  if (bytes[0] !== 0x1f || bytes[1] !== 0x8b) return JSON.parse(new TextDecoder().decode(bytes));
+  if (!('DecompressionStream' in window)) throw Error("This browser cannot unpack the saved atlas data");
+  const stream = new Blob([raw]).stream().pipeThrough(new DecompressionStream("gzip"));
+  return JSON.parse(await new Response(stream).text());
+}
 
 function groupName(view, label) {
   if (Number(label) === -1) return "Unassigned";
@@ -169,9 +183,7 @@ async function showStructure(slug) {
 async function setRange(slug, range) {
   if (!cache.has(slug)) throw Error("Target data is not loaded");
   if (range === "core" && !cache.has(`${slug}-core`)) {
-    const response = await fetch(`data/${slug}-core.json`);
-    if (!response.ok) throw Error(`Core data returned ${response.status}`);
-    cache.set(`${slug}-core`, await response.json());
+    cache.set(`${slug}-core`, await readTargetJSON(`data/${slug}-core.json`));
   }
   if (current !== slug) return;
   const full = cache.get(slug);
@@ -184,8 +196,8 @@ async function setRange(slug, range) {
   else if (cache.has(`${slug}-core`)) $("residueRange").options[1].textContent = `Core · ${cache.get(`${slug}-core`).range_label}`;
   if (!data[projection] && projection !== "umap") projection = "umap";
   for (const button of document.querySelectorAll("[data-projection]")) button.disabled = button.dataset.projection !== "umap" && !data[button.dataset.projection];
-  $("summary").textContent = `${fmt(data.models)} accepted models · ${data.range_label} fit · ${data.energy ? "geometry + full-complex ProteinEBM" : "geometry-only"} private preview`;
-  $("members").href = `downloads/${slug}${range === "core" ? "-core" : ""}-geometry-memberships.csv`;
+  $("summary").textContent = `${fmt(data.models)} accepted models · ${data.range_label} fit · ${data.energy ? "geometry + full-complex ProteinEBM" : "geometry-only"} ${publicBundle ? "preliminary public atlas" : "private preview"}`;
+  $("members").href = `downloads/${slug}${range === "core" ? "-core" : ""}-geometry-memberships.csv${publicBundle ? ".gz" : ""}`;
   $("provenance").textContent = `Accepted ${range === "core" ? "A/B-core" : "full-construct"} clustering receipt SHA-256: ${data.receipt_sha256}. Saved UMAP, labels, and model order were verified against native hashes.`;
   $("fitMethods").textContent = range === "core"
     ? `Core fit retains ${data.range_label}, with ${fmt(data.pair_count)} Cα pair features per model in the validated 4,096-dimensional sketch. Saved seed-42 UMAP KNN and HDBSCAN leaf/EOM partitions are exploratory geometry groups, not validated biological states. PCA, t-SNE, and distance maps have only been calculated for the full construct. ProteinEBM scores are full-complex overlays, not fit features.`
@@ -194,7 +206,7 @@ async function setRange(slug, range) {
   $("color").querySelector('[value="energy"]').disabled = !data.energy;
   if (data.energy) {
     $("energyScope").textContent = `Energy scoring scope: full A/B/C complex for every accepted model. Active geometry fit: ${data.range_label}.`;
-    $("energyDownload").href = data.energy.download;
+    $("energyDownload").href = data.energy.download + (publicBundle ? ".gz" : "");
     $("provenance").textContent += ` Accepted ProteinEBM receipt SHA-256: ${data.energy.receipt_sha256}; full 16-level CSV SHA-256: ${data.energy.csv_sha256}.`;
   } else {
     $("energyDownload").removeAttribute("href");
@@ -225,12 +237,12 @@ async function setTarget(slug) {
   for(const link of document.querySelectorAll("[data-target]")) link.setAttribute("aria-current",link.dataset.target === slug ? "page":"false");
   $("summary").textContent="Loading saved target data…";
   try {
-    if (!cache.has(slug)) {const response=await fetch(`data/${slug}.json`);if(!response.ok)throw Error(`Data returned ${response.status}`);cache.set(slug,await response.json());}
+    if (!cache.has(slug)) cache.set(slug,await readTargetJSON(`data/${slug}.json`));
     if (current !== slug) return;
     $("title").textContent=cache.get(slug).title;
     await setRange(slug, rangeFromHash());
     await showStructure(slug);
-  } catch(error) {$("error").hidden=false;$("error").textContent=`Preview could not load: ${error.message}`;}
+  } catch(error) {$("error").hidden=false;$("error").textContent=`Atlas could not load: ${error.message}`;}
 }
 function targetFromHash() {const slug=location.hash.slice(1).split("?")[0];return TARGETS.includes(slug)?slug:null;}
 function rangeFromHash() {return new URLSearchParams(location.hash.split("?")[1] || "").get("range") === "core" ? "core" : "full";}
@@ -239,7 +251,7 @@ $("residueRange").addEventListener("change",async()=>{
   const range=$("residueRange").value;
   history.replaceState(null,"",`#${current}?range=${range}`);
   try { await setRange(current,range); }
-  catch(error) {$("error").hidden=false;$("error").textContent=`Preview could not load: ${error.message}`;}
+  catch(error) {$("error").hidden=false;$("error").textContent=`Atlas could not load: ${error.message}`;}
 });
 $("analysisView").addEventListener("change",()=>{selected=null;const view=$("analysisView").value;$("color").querySelector('[value="strength"]').disabled=view==="knn";if(view==="knn"&&$("color").value==="strength")$("color").value="cluster";drawTable(view);drawBars(view);draw();});
 $("color").addEventListener("change",draw);

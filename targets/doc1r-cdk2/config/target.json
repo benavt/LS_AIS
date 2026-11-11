@@ -2,11 +2,12 @@
   "schema_version": 1,
   "id": "DOC1Rdimer_CDK2",
   "name": "DOC1R dimer + CDK2",
-  "status": "input_intake_in_progress",
+  "status": "preliminary_public_atlas",
   "accession": null,
   "organism": null,
   "cohort": {
     "expected_models": 57464,
+    "accepted_models": 57463,
     "source_exclusions": [
       {"name": "spec_inter_ref_sto_af3_662.pdb", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0, "reason": "zero-byte source PDB"}
     ],
@@ -18,6 +19,13 @@
     {"id": "C", "residues": 298, "sequence_sha256": "fe22d91e18cd544a85d7c768cd864172200252df906b774d890dc103224f7c8d"}
   ],
   "primary_residue_scope": "A1-126+B1-126+C1-298",
+  "alternate_residue_scope": "A65-126+B65-126+C1-298",
+  "accepted_results": {
+    "full_clustering_receipt_sha256": "24c734481c2e6b42e074983a2a9c8b20ab6d819476f3b917a8385d090465756d",
+    "core_clustering_receipt_sha256": "b1a1f6c42e55c854e28b7bb869ce38031e6efe297e75c90c3a5f6de933d9577d",
+    "full_projection_maps_receipt_sha256": "6648bf3ceb66507a7f006fdcf491c0072bfa220a91c4f520217efc7f8c01b736",
+    "proteinebm_receipt_sha256": "98699db15988dcc07e7021be9cee7d001dfb5c5fafe9d6e0c5b36815af55d4b7"
+  },
   "analysis_requested": ["ProteinEBM Model 6", "UMAP KNN", "HDBSCAN", "MCMC", "DISCO"],
-  "publication": "pending_private_review"
+  "publication": "preliminary_pages"
 }

@@ -109,4 +109,5 @@ The primary atlas value is t=0.10 (index 10), with learned arbitrary units;
 it is neither binding energy nor confidence. The private preview overlays
 these full-complex scores on both full and A/B-core geometry fits without
 refitting either clustering. Cluster representatives, Bonsai, and MCMC/DISCO
-remain pending. The public HSPH1 page is unchanged.
+remain pending. The preliminary DOC1/CDK2 views are published alongside the
+unchanged HSPH1 page at `https://benavt.github.io/LS_AIS/doc1-cdk2/`.

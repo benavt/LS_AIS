@@ -66,4 +66,5 @@ UMAP, KNN, leaf/EOM memberships, counts, and CSV downloads. PCA, t-SNE, and
 Cα distance maps remain full-construct-only. Cluster representatives and
 aligned ensembles are still pending for both fits. Accepted ProteinEBM t=0.10
 full-complex scores are overlaid on both fits, with their scoring scope stated
-explicitly. The public export is unchanged.
+explicitly. The labeled preliminary DOC1/CDK2 export is now available under
+`https://benavt.github.io/LS_AIS/doc1-cdk2/`; the HSPH1 export is unchanged.
