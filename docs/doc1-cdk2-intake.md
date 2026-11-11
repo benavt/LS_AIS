@@ -40,6 +40,17 @@ and its matrix SHA-256 is
 Both monitored CPU resource logs passed. These matrices retain every Cα pair
 across chains A, B, and C; they are private source data, not atlas downloads.
 
+A bounded direct-UMAP feasibility pilot
+(`8911e49577c9403b05bed99acf749bb0edca6ba284e3637cd2aabda6937ec8bd`)
+fit 2-D and 10-D projections on a fixed 5,000-model sample of each complete
+distance matrix. DOC1R took 1,448 and 1,404 seconds; DOC1 took 1,226 and
+1,194 seconds, respectively. Peak observed memory was 13.9 and 12.9 GiB.
+Both completion records and finished resource logs passed. The DOC1R and DOC1
+pilot receipt SHA-256 values are
+`4a9afa76e83e05e573c5d92a4a45f51f968ba36735d48a6b6f4fb9a13ca10bc9`
+and `a8e10aeab5aead1b81a61737f25a4825e5bdf117be7a65d36d2474b367435930`.
+These are sampled performance measurements, not full-cohort cluster results.
+
 The approved ProteinEBM Model 6 production plan
 (`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
 is running in 134 monitored GPU chunks. Each accepted model will receive the
