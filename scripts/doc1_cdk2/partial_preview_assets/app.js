@@ -100,11 +100,11 @@ function draw() {
     plot.dataset.clickBound = "true";
   }
   $("plotNote").textContent = svgMode
-    ? `${fmt(indexes.length)} evenly spaced display points in CPU/SVG mode; all ${fmt(data.models)} models are in the download. ${title} fit uses the full cohort.`
-    : `${fmt(data.models)} accepted models plotted · saved seed-42 ${title}${projection === "pca" ? ` · explained variance ${(100*data.pca.explained_variance_ratio[0]).toFixed(1)}%, ${(100*data.pca.explained_variance_ratio[1]).toFixed(1)}%` : ""}`;
+    ? `${fmt(indexes.length)} evenly spaced display points in CPU/SVG mode; all ${fmt(data.models)} models are in the download. ${title} fit uses ${data.range_label}.`
+    : `${fmt(data.models)} accepted models plotted · ${data.range_label} · saved seed-42 ${title}${projection === "pca" ? ` · explained variance ${(100*data.pca.explained_variance_ratio[0]).toFixed(1)}%, ${(100*data.pca.explained_variance_ratio[1]).toFixed(1)}%` : ""}`;
   const count = Object.keys(data.counts[view]).filter(x=>x!=="-1").length;
   const noise = Number(data.counts[view][-1] || 0);
-  $("explorerNote").textContent = `${fmt(data.models)} accepted full-construct A/B/C models · ${fmt(count)} ${view === "knn" ? "groups" : "clusters"}${view === "knn" ? "" : ` · ${fmt(noise)} unassigned (${(100*noise/data.models).toFixed(1)}%)`}${view === "eom" ? " · diagnostic alternate" : ""}.`;
+  $("explorerNote").textContent = `${fmt(data.models)} accepted models · fit residues ${data.range_label} · ${fmt(count)} ${view === "knn" ? "groups" : "clusters"}${view === "knn" ? "" : ` · ${fmt(noise)} unassigned (${(100*noise/data.models).toFixed(1)}%)`}${view === "eom" ? " · diagnostic alternate" : ""}.`;
   updateLegend(view,mode); updateSelection(view);
 }
 function chooseCluster(label) {
@@ -135,6 +135,49 @@ async function showStructure(slug) {
   $("modelInfo").textContent = `Native full-construct A/B/C coordinates from the accepted roster. Example identity: ${data.example_model}.`;
   $("pdbLink").href = `data/${slug}-example.pdb`;
 }
+async function setRange(slug, range) {
+  if (!cache.has(slug)) throw Error("Target data is not loaded");
+  if (range === "core" && !cache.has(`${slug}-core`)) {
+    const response = await fetch(`data/${slug}-core.json`);
+    if (!response.ok) throw Error(`Core data returned ${response.status}`);
+    cache.set(`${slug}-core`, await response.json());
+  }
+  if (current !== slug) return;
+  const full = cache.get(slug);
+  const core = range === "core" ? cache.get(`${slug}-core`) : null;
+  data = core ? {...full, ...core, pca:null, tsne:null, maps:null, supplemental_receipt_sha256:null} : full;
+  selected = null;
+  $("residueRange").value = range;
+  $("residueRange").options[0].textContent = `Full · ${full.range_label}`;
+  if (core) $("residueRange").options[1].textContent = `Core · ${core.range_label}`;
+  else if (cache.has(`${slug}-core`)) $("residueRange").options[1].textContent = `Core · ${cache.get(`${slug}-core`).range_label}`;
+  if (!data[projection] && projection !== "umap") projection = "umap";
+  for (const button of document.querySelectorAll("[data-projection]")) button.disabled = button.dataset.projection !== "umap" && !data[button.dataset.projection];
+  $("summary").textContent = `${fmt(data.models)} accepted models · ${data.range_label} fit · geometry-only private preview`;
+  $("members").href = `downloads/${slug}${range === "core" ? "-core" : ""}-geometry-memberships.csv`;
+  $("provenance").textContent = `Accepted ${range === "core" ? "A/B-core" : "full-construct"} clustering receipt SHA-256: ${data.receipt_sha256}. Saved UMAP, labels, and model order were verified against native hashes.`;
+  $("fitMethods").textContent = range === "core"
+    ? `Core fit retains ${data.range_label}, with ${fmt(data.pair_count)} Cα pair features per model in the validated 4,096-dimensional sketch. Saved seed-42 UMAP KNN and HDBSCAN leaf/EOM partitions are exploratory geometry groups, not validated biological states. PCA, t-SNE, and distance maps have only been calculated for the full construct. ProteinEBM values are not fit features or displayed here.`
+    : "Full fit retains all A/B/C residues in the validated 4,096-dimensional all-pair sketch. UMAP and clustering views are saved seed-42 results. HDBSCAN EOM is a diagnostic alternate; unassigned models remain unassigned. No energy values appear in this partial preview.";
+  $("distanceMaps").hidden = !data.maps;
+  $("supplementalMethods").hidden = !data.maps;
+  if (data.maps) {
+    $("medianMap").src = data.maps.median; $("varianceMap").src = data.maps.variance;
+    $("medianDownload").href = data.maps.median; $("varianceDownload").href = data.maps.variance;
+    $("mapCaption").textContent = `Full-construct map: all ${data.maps.chain_lengths.reduce((a,b)=>a+b,0)} Cα positions in chains A/B/C; dashed lines mark chain boundaries.`;
+    $("medianCaption").textContent = `Median Cα distance (Å), frozen uniform sample of ${fmt(data.maps.median_models)} accepted models.`;
+    $("varianceCaption").textContent = `Cα distance variance (Å²), all ${fmt(data.maps.variance_models)} accepted models.`;
+    $("pendingText").textContent = "Bonsai, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.";
+    $("provenance").textContent += ` Accepted full-construct PCA/t-SNE/map receipt SHA-256: ${data.supplemental_receipt_sha256}.`;
+  } else {
+    $("medianMap").removeAttribute("src"); $("varianceMap").removeAttribute("src");
+    $("medianDownload").removeAttribute("href"); $("varianceDownload").removeAttribute("href");
+    $("pendingText").textContent = "The A/B-core fit has no saved PCA, t-SNE, or Cα distance maps. Switch to Full for those full-construct figures. Bonsai, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels remain pending.";
+  }
+  $("color").querySelector('[value="strength"]').disabled = $("analysisView").value === "knn";
+  if ($("color").value === "strength" && $("analysisView").value === "knn") $("color").value = "cluster";
+  fillMethods(); drawTable($("analysisView").value); drawBars($("analysisView").value); draw();
+}
 async function setTarget(slug) {
   if (!TARGETS.includes(slug)) return;
   current=slug;selected=null;$("error").hidden=true;
@@ -143,41 +186,26 @@ async function setTarget(slug) {
   try {
     if (!cache.has(slug)) {const response=await fetch(`data/${slug}.json`);if(!response.ok)throw Error(`Data returned ${response.status}`);cache.set(slug,await response.json());}
     if (current !== slug) return;
-    data=cache.get(slug);
-    if (!data[projection] && projection !== "umap") projection="umap";
-    for (const button of document.querySelectorAll("[data-projection]")) button.disabled = button.dataset.projection !== "umap" && !data[button.dataset.projection];
-    $("title").textContent=data.title;
-    $("summary").textContent=`${fmt(data.models)} accepted models · full A/B/C construct · geometry-only private preview`;
-    $("members").href=`downloads/${slug}-geometry-memberships.csv`;
-    $("provenance").textContent=`Accepted clustering receipt SHA-256: ${data.receipt_sha256}. Saved UMAP, labels, model order, and example PDB were verified against their native hashes.`;
-    $("distanceMaps").hidden = !data.maps;
-    $("supplementalMethods").hidden = !data.maps;
-    if (data.maps) {
-      $("medianMap").src=data.maps.median;$("varianceMap").src=data.maps.variance;
-      $("medianDownload").href=data.maps.median;$("varianceDownload").href=data.maps.variance;
-      $("mapCaption").textContent=`All ${data.maps.chain_lengths.reduce((a,b)=>a+b,0)} Cα positions in chains A/B/C are retained; dashed lines mark chain boundaries.`;
-      $("medianCaption").textContent=`Median Cα distance (Å), frozen uniform sample of ${fmt(data.maps.median_models)} accepted models.`;
-      $("varianceCaption").textContent=`Cα distance variance (Å²), all ${fmt(data.maps.variance_models)} accepted models.`;
-      $("pendingText").textContent="Bonsai, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.";
-      $("provenance").textContent += ` Accepted PCA/t-SNE/map receipt SHA-256: ${data.supplemental_receipt_sha256}.`;
-    } else {
-      $("medianMap").removeAttribute("src");$("varianceMap").removeAttribute("src");
-      $("medianDownload").removeAttribute("href");$("varianceDownload").removeAttribute("href");
-      $("pendingText").textContent="PCA, t-SNE, Bonsai, Cα distance maps, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.";
-    }
-    $("color").querySelector('[value="strength"]').disabled = $("analysisView").value === "knn";
-    if ($("color").value === "strength" && $("analysisView").value === "knn") $("color").value="cluster";
-    fillMethods();drawTable($("analysisView").value);drawBars($("analysisView").value);draw();await showStructure(slug);
+    $("title").textContent=cache.get(slug).title;
+    await setRange(slug, rangeFromHash());
+    await showStructure(slug);
   } catch(error) {$("error").hidden=false;$("error").textContent=`Preview could not load: ${error.message}`;}
 }
 function targetFromHash() {const slug=location.hash.slice(1).split("?")[0];return TARGETS.includes(slug)?slug:null;}
+function rangeFromHash() {return new URLSearchParams(location.hash.split("?")[1] || "").get("range") === "core" ? "core" : "full";}
 window.addEventListener("hashchange",()=>{const slug=targetFromHash();if(slug)setTarget(slug);});
+$("residueRange").addEventListener("change",async()=>{
+  const range=$("residueRange").value;
+  history.replaceState(null,"",`#${current}?range=${range}`);
+  try { await setRange(current,range); }
+  catch(error) {$("error").hidden=false;$("error").textContent=`Preview could not load: ${error.message}`;}
+});
 $("analysisView").addEventListener("change",()=>{selected=null;const view=$("analysisView").value;$("color").querySelector('[value="strength"]').disabled=view==="knn";if(view==="knn"&&$("color").value==="strength")$("color").value="cluster";drawTable(view);drawBars(view);draw();});
 $("color").addEventListener("change",draw);
 for (const button of document.querySelectorAll("[data-projection]")) button.addEventListener("click",()=>{if(button.disabled)return;projection=button.dataset.projection;draw();});
 $("clear").addEventListener("click",()=>{selected=null;draw();});
 $("resetPlot").addEventListener("click",()=>Plotly.relayout("umap",{"xaxis.autorange":true,"yaxis.autorange":true}));
-$("savePlot").addEventListener("click",()=>Plotly.downloadImage($("umap"),{format:"png",filename:`${current}-${$("analysisView").value}-${projection}`}));
+$("savePlot").addEventListener("click",()=>Plotly.downloadImage($("umap"),{format:"png",filename:`${current}-${data.range}-${$("analysisView").value}-${projection}`}));
 $("resetStructure").addEventListener("click",()=>{if(viewer)viewer.zoomTo().render();});
 $("spin").addEventListener("click",()=>{if(!viewer)return;spinning=!spinning;viewer.spin(spinning);$("spin").setAttribute("aria-pressed",String(spinning));});
 setTarget(targetFromHash() || TARGETS[0]);

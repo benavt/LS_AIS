@@ -20,6 +20,11 @@ TARGETS = {
 }
 PLAN = '76024b0e0cff251ca7b6cc2dfb309e26fa1d92192d860df2dcc7eb33ff99bc6c'
 SUPPLEMENTAL_PLAN = '8f2b26e94195a55327cbd3d5d3d341352019eb5cdebe06f3172c6ad4fe78360d'
+CORE_PLAN = 'dcec61046f7b836a4ee86e56263ab2d8c2994554cab7edac693c021202222145'
+CORE_RECEIPTS = {
+    'DOC1Rdimer_CDK2': ('b1a1f6c42e55c854e28b7bb869ce38031e6efe297e75c90c3a5f6de933d9577d', 65, 88831),
+    'DOC1dimer_CDK2': ('d13deb318f13ec6fe3e81ad353900d3c08e39cefcf9d05e258f3a115073adf56', 60, 83845),
+}
 
 
 def digest(path):
@@ -87,7 +92,74 @@ def load_supplemental(folder, slug, count, clustering_receipt, output):
             'supplemental_receipt_sha256': digest(receipt_path)}
 
 
-def run(inputs, output, vendor, supplements=None):
+def load_core(folder, slug, count, full_receipt, full_index, roster_rows, output):
+    receipt_hash, first_ab, pair_count = CORE_RECEIPTS[slug]
+    receipt_path = folder / 'acceptance.json'
+    checked(receipt_path, receipt_hash)
+    receipt = json.loads(receipt_path.read_text())
+    if (receipt['status'], receipt['target'], receipt['models'], receipt['plan_sha256'],
+            receipt['first_retained_ab'], receipt['subset_pairs_per_model'],
+            receipt['roster_sha256'], receipt['geometry_matrix_sha256']) != (
+            'validated', slug, count, CORE_PLAN, first_ab, pair_count,
+            full_receipt['roster_sha256'], full_receipt['geometry_matrix_sha256']):
+        raise ValueError(f'{slug}: core receipt identity or scope differs')
+    expected = {
+        'model-index.jsonl': receipt['model_index_sha256'],
+        'umap-2d-seed-42.npy': next(x['embedding_sha256'] for x in receipt['umap_fits'] if x['dimensions'] == 2 and x['seed'] == 42),
+        'umap-knn-labels.npy': receipt['umap_knn_labels_sha256'],
+        'hdbscan-leaf-seed-42.npz': next(x['labels_sha256'] for x in receipt['hdbscan_fits'] if x['method'] == 'leaf' and x['seed'] == 42),
+        'hdbscan-eom-seed-42.npz': next(x['labels_sha256'] for x in receipt['hdbscan_fits'] if x['method'] == 'eom' and x['seed'] == 42),
+    }
+    for name, sha in expected.items():
+        checked(folder / name, sha)
+    if digest(folder / 'model-index.jsonl') != digest(full_index):
+        raise ValueError(f'{slug}: core model order differs from full fit')
+    coords = np.load(folder / 'umap-2d-seed-42.npy', allow_pickle=False)
+    knn = np.load(folder / 'umap-knn-labels.npy', allow_pickle=False)
+    with np.load(folder / 'hdbscan-leaf-seed-42.npz', allow_pickle=False) as fit:
+        leaf, leaf_probability = fit['labels'], fit['probabilities']
+    with np.load(folder / 'hdbscan-eom-seed-42.npz', allow_pickle=False) as fit:
+        eom, eom_probability = fit['labels'], fit['probabilities']
+    if coords.shape != (count, 2) or not np.isfinite(coords).all():
+        raise ValueError(f'{slug}: invalid core UMAP coordinates')
+    if any(array.shape != (count,) for array in (knn, leaf, leaf_probability, eom, eom_probability)):
+        raise ValueError(f'{slug}: core label length mismatch')
+    if any(not np.isfinite(array).all() or ((array < 0) | (array > 1)).any()
+           for array in (leaf_probability, eom_probability)):
+        raise ValueError(f'{slug}: invalid core membership strengths')
+    for key, array in (('leaf', leaf), ('eom', eom)):
+        fit = next(x for x in receipt['hdbscan_fits'] if x['method'] == key and x['seed'] == 42)
+        if int(np.sum(array == -1)) != fit['unassigned_models'] or len(set(array) - {-1}) != fit['clusters']:
+            raise ValueError(f'{slug}: core cluster counts differ from receipt')
+    last_ab = receipt['chain_lengths'][0]
+    export = {
+        'range': 'core', 'range_label': f'A{first_ab}–{last_ab} + B{first_ab}–{last_ab} + C1–298',
+        'receipt_sha256': receipt_hash, 'pair_count': pair_count,
+        'x': np.round(coords[:, 0], 5).tolist(), 'y': np.round(coords[:, 1], 5).tolist(),
+        'knn': knn.tolist(), 'leaf': leaf.tolist(), 'eom': eom.tolist(),
+        'leaf_probability': np.round(leaf_probability, 5).tolist(),
+        'eom_probability': np.round(eom_probability, 5).tolist(),
+        'counts': {name: dict(sorted(Counter(int(v) for v in array).items()))
+                   for name, array in [('knn', knn), ('leaf', leaf), ('eom', eom)]},
+    }
+    (output / 'data' / f'{slug}-core.json').write_text(json.dumps(export, separators=(',', ':')))
+    with (output / 'downloads' / f'{slug}-core-geometry-memberships.csv').open('w', newline='') as stream:
+        writer = csv.writer(stream)
+        writer.writerow(['model_id', 'native_sha256', 'method', 'umap_1', 'umap_2',
+                         'umap_knn_group', 'hdbscan_leaf_cluster', 'hdbscan_leaf_strength',
+                         'hdbscan_eom_cluster', 'hdbscan_eom_strength'])
+        for i, model in enumerate(roster_rows):
+            writer.writerow([model['model_id'], model['native_sha256'], model['method'],
+                             float(coords[i, 0]), float(coords[i, 1]), int(knn[i]),
+                             int(leaf[i]), float(leaf_probability[i]), int(eom[i]),
+                             float(eom_probability[i])])
+    return {'range_label': export['range_label'], 'receipt_sha256': receipt_hash,
+            'knn_groups': receipt['umap_knn_clusters'],
+            'leaf_clusters': next(x['clusters'] for x in receipt['hdbscan_fits'] if x['method'] == 'leaf' and x['seed'] == 42),
+            'eom_clusters': next(x['clusters'] for x in receipt['hdbscan_fits'] if x['method'] == 'eom' and x['seed'] == 42)}
+
+
+def run(inputs, output, vendor, supplements=None, core_inputs=None):
     if output.exists():
         raise FileExistsError(output)
     output.mkdir(parents=True)
@@ -161,6 +233,8 @@ def run(inputs, output, vendor, supplements=None):
             'example_model': roster_rows[0]['model_id'],
             'counts': {name: dict(sorted(Counter(int(v) for v in array).items())) for name, array in [('knn', knn), ('leaf', leaf), ('eom', eom)]},
             'receipt_sha256': receipt_hash,
+            'range': 'full',
+            'range_label': f'A1–{126 if slug == "DOC1Rdimer_CDK2" else 115} + B1–{126 if slug == "DOC1Rdimer_CDK2" else 115} + C1–298',
         }
         if supplements is not None:
             extra = load_supplemental(supplements / slug, slug, count, receipt, output)
@@ -178,7 +252,8 @@ def run(inputs, output, vendor, supplements=None):
                     row += [float(extra['pca']['x'][i]), float(extra['pca']['y'][i]),
                             float(extra['tsne']['x'][i]), float(extra['tsne']['y'][i])]
                 writer.writerow(row)
-        summary.append({'slug': slug, 'title': title, 'models': count, 'chains': 'A/B/C', 'example_model': roster_rows[0]['model_id'], 'receipt_sha256': receipt_hash,
+        core_summary = load_core(core_inputs / slug, slug, count, receipt, folder / 'model-index.jsonl', roster_rows, output) if core_inputs is not None else None
+        summary.append({'slug': slug, 'title': title, 'models': count, 'chains': 'A/B/C', 'example_model': roster_rows[0]['model_id'], 'receipt_sha256': receipt_hash, 'core': core_summary,
                         'knn_groups': receipt['umap_knn_clusters'], 'leaf_clusters': next(x['clusters'] for x in receipt['hdbscan_fits'] if x['method'] == 'leaf' and x['seed'] == 42),
                         'leaf_unassigned': int(np.sum(leaf == -1)), 'eom_clusters': next(x['clusters'] for x in receipt['hdbscan_fits'] if x['method'] == 'eom' and x['seed'] == 42), 'eom_unassigned': int(np.sum(eom == -1))})
     (output / 'data' / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
@@ -191,7 +266,8 @@ def run(inputs, output, vendor, supplements=None):
             files.append({'path': path.relative_to(output).as_posix(), 'bytes': path.stat().st_size, 'sha256': digest(path)})
     (output / 'export-manifest.json').write_text(json.dumps({'kind': 'private-partial-geometry-preview', 'files': files}, indent=2) + '\n')
     (output.parent / 'delivery-manifest.json').write_text(json.dumps({'kind': 'private-partial-geometry-preview', 'files': files, 'source_plan_sha256': PLAN,
-                                                                    'supplemental_plan_sha256': SUPPLEMENTAL_PLAN if supplements is not None else None}, indent=2) + '\n')
+                                                                    'supplemental_plan_sha256': SUPPLEMENTAL_PLAN if supplements is not None else None,
+                                                                    'core_plan_sha256': CORE_PLAN if core_inputs is not None else None}, indent=2) + '\n')
 
 
 if __name__ == '__main__':
@@ -200,5 +276,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--vendor', type=Path, required=True)
     parser.add_argument('--supplements', type=Path)
+    parser.add_argument('--core-inputs', type=Path)
     args = parser.parse_args()
-    run(args.inputs, args.output, args.vendor, args.supplements)
+    run(args.inputs, args.output, args.vendor, args.supplements, args.core_inputs)

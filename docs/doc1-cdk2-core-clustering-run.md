@@ -60,5 +60,9 @@ noise is 0.600/0.584 versus 0.618/0.592 for the full fit, and DOC1 leaf is
 0.584/0.581 versus 0.617/0.613. EOM agreement falls more sharply,
 especially for DOC1 (0.398/0.407 versus 0.965/0.971). These are geometry
 partitions, not validated biological states; inspect representatives and
-boundary sensitivity before interpreting them. No atlas view or public
-export has been changed by this calculation.
+boundary sensitivity before interpreting them. The private partial atlas now
+offers these core fits alongside the full-construct baseline, with distinct
+UMAP, KNN, leaf/EOM memberships, counts, and CSV downloads. PCA, t-SNE, and
+Cα distance maps remain full-construct-only. Cluster representatives and
+aligned ensembles are still pending for both fits. The public export is
+unchanged.
