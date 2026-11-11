@@ -26,6 +26,25 @@ for DOC1. Every accepted file has exactly one model, complete A/B/C chain
 numbering, the target's frozen chain sequence hashes, and finite Cα coordinates.
 Private full sequences and original coordinates remain on Mimas.
 
-ProteinEBM, clustering, MCMC/DISCO, and atlas exports are pending separate
-hash-bound scientific plans and acceptance. The existing HSPH1 public page
-does not include either target yet.
+The approved full-construct Cα geometry plan
+(`4a414103f270b2cef731294fc20206e64a3623baebe81adceeb661de53d23764`)
+has finished on Mimas. DOC1R has 150,975 pair distances per accepted model;
+its validated receipt SHA-256 is
+`3d6f284bee585eed54d8fda8cfc3d08b0be76556213db3004b36e495f733b140`,
+and the complete distance matrix SHA-256 is
+`e1c9711173ef9fcd2ba0170fba33f8dd9a75fa91109a46ac903eefaf5963d465`.
+DOC1 has 139,128 pair distances per accepted model; its receipt SHA-256 is
+`9a645f4842b1ad16be89be99e9e2b2cdea479bb0e6795b43b5791d578e5c3326`,
+and its matrix SHA-256 is
+`fac2a461a5f1fce00538b210d40f21133b22edcfbf49295484ac92dd1cb0bd7f`.
+Both monitored CPU resource logs passed. These matrices retain every Cα pair
+across chains A, B, and C; they are private source data, not atlas downloads.
+
+The approved ProteinEBM Model 6 production plan
+(`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
+is running in 134 monitored GPU chunks. Each accepted model will receive the
+same 16-level energy grid. The first 1,000-model DOC1R chunk validated with
+16,000 finite energy values and a passing finished GPU log. Full-cohort score
+acceptance has not yet run. Clustering, MCMC/DISCO, and atlas exports still
+require their own hash-bound plans and accepted outputs. The existing HSPH1
+public page does not include either target yet.
