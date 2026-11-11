@@ -67,13 +67,29 @@ passed. This validates sampled fidelity only.
 
 The full-cohort geometry clustering plan
 (`76024b0e0cff251ca7b6cc2dfb309e26fa1d92192d860df2dcc7eb33ff99bc6c`)
-was explicitly approved and submitted on Mimas as monitored Slurm array 26011.
-It runs one target at a time, fitting a 2-D UMAP KNN partition and 10-D
+was explicitly approved and completed on Mimas as monitored Slurm array 26011.
+It ran one target at a time, fitting a 2-D UMAP KNN partition and 10-D
 HDBSCAN leaf/EOM partitions at seeds 42, 7, and 123 from the validated
 4,096-dimensional all-pair sketch. It excludes ProteinEBM energies. Each task
-must reproduce the accepted 5,000-model sketch exactly and write full-cohort
-labels, strengths, model identities, and diagnostics before an acceptance
-receipt is valid. Neither target has an accepted full-cohort cluster result yet.
+reproduced the accepted 5,000-model sketch exactly and wrote full-cohort
+labels, strengths, model identities, and diagnostics. Both acceptance receipts,
+all 28 referenced output hashes, zero-exit completion records, and finished
+CPU monitors passed. Receipt SHA-256 values are
+`24c734481c2e6b42e074983a2a9c8b20ab6d819476f3b917a8385d090465756d`
+for DOC1R and
+`c6f7be99d0a5edc2d1bd9dc275fd3ae31f0b4d26861ee255450e853bfca687e3`
+for DOC1.
+
+| Target | UMAP KNN groups | Seed-42 HDBSCAN leaf groups | Leaf unassigned | EOM groups (diagnostic) | EOM unassigned |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| DOC1R dimer + CDK2 | 2 | 391 | 35,334 (61.5%) | 182 | 7,193 (12.5%) |
+| DOC1 dimer + CDK2 | 6 | 476 | 50,093 (66.1%) | 150 | 4,324 (5.7%) |
+
+The leaf partitions preserve their large unassigned populations; EOM is a
+saved alternative diagnostic, not a relabeling of the selected leaf view.
+Seed agreement and structural interpretation need review before these cluster
+labels are presented as atlas states. The computational outputs are accepted,
+but medoids, ensembles, TM grids, Bonsai, and MCMC/DISCO are still missing.
 
 The approved ProteinEBM Model 6 production plan
 (`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
@@ -84,7 +100,7 @@ permits four concurrent one-GPU tasks under the explicitly
 approved resource-only amendment
 (`ee2f5bbfee05bcdf40c0c869d9122f2c92df186eae176558b3b11e53b61e0334`).
 The original model inputs, method, outputs, and 134 GPU-hour ceiling are unchanged.
-Full-cohort score acceptance has not yet run. Clustering is in flight; MCMC/DISCO
+Full-cohort score acceptance has not yet run. Cluster supplements, MCMC/DISCO,
 and atlas exports
 still require their own hash-bound plans and accepted outputs. The existing HSPH1
 public page does not include either target yet.
