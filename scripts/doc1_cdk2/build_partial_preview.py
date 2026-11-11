@@ -44,6 +44,8 @@ def run(inputs, output, vendor):
     (output / 'downloads').mkdir()
     shutil.copyfile(vendor / 'plotly.min.js', output / 'assets' / 'plotly.min.js')
     shutil.copyfile(vendor / '3Dmol-min.js', output / 'assets' / '3Dmol-min.js')
+    shutil.copyfile(vendor / 'ca_fallback.js', output / 'assets' / 'ca_fallback.js')
+    shutil.copyfile(vendor.parent / 'style.css', output / 'assets' / 'atlas.css')
     summary = []
     for slug, (title, count, receipt_hash) in TARGETS.items():
         folder = inputs / slug

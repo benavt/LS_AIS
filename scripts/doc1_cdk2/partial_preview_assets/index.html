@@ -1,26 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LS AIS · DOC1/CDK2 private geometry preview</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LS AIS · DOC1/CDK2 structure atlas preview</title>
+  <link rel="stylesheet" href="assets/atlas.css"><link rel="stylesheet" href="style.css">
   <script defer src="assets/plotly.min.js"></script>
   <script defer src="assets/3Dmol-min.js"></script>
+  <script defer src="assets/ca_fallback.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
-  <header class="masthead"><div class="brand"><span class="mark">LS</span><div><b>LS AIS</b><small>Structure atlas · private preview</small></div></div><a class="public-link" href="https://benavt.github.io/LS_AIS/">Published HSPH1 atlas ↗</a></header>
-  <main>
-    <div class="eyebrow">SAVED GEOMETRY · PARTIAL PREVIEW</div>
-    <h1>DOC1 dimers with CDK2</h1>
-    <p class="intro">Explore the accepted full-construct A/B/C models using saved UMAP coordinates and cluster assignments. These are geometry groups, not confirmed structural states. This private view excludes energy values.</p>
-    <nav class="targets" aria-label="Target menu"><button type="button" data-target="DOC1Rdimer_CDK2">DOC1R dimer–CDK2</button><button type="button" data-target="DOC1dimer_CDK2">DOC1 dimer–CDK2</button></nav>
-    <div id="status" role="status">Loading verified saved data…</div>
-    <section class="stats" aria-label="Target summary"><div><span>Accepted models</span><strong id="model-count">—</strong></div><div><span>UMAP KNN groups</span><strong id="knn-count">—</strong></div><div><span>HDBSCAN leaf clusters</span><strong id="leaf-count">—</strong></div><div><span>Leaf unassigned</span><strong id="noise-count">—</strong></div></section>
-    <section class="panel plot-panel"><div class="panel-top"><div><h2>Geometry landscape</h2><p>2-D UMAP of full A/B/C distance features. Every accepted model is plotted.</p></div><div class="controls"><label>Color by <select id="color-by"><option value="leaf">HDBSCAN leaf</option><option value="eom">HDBSCAN EOM diagnostic</option><option value="knn">UMAP KNN</option><option value="method">Generation method</option></select></label></div></div><div id="umap" aria-label="UMAP scatter plot"></div><p class="note" id="plot-note"></p></section>
-    <section class="grid"><div class="panel"><h2>Group sizes</h2><p id="group-subtitle">Largest assigned groups; unassigned shown separately.</p><div id="group-bars" aria-label="Cluster size bar chart"></div></div><div class="panel"><h2>Example native structure</h2><p id="structure-note">First accepted model in the frozen roster; illustrative, not a cluster representative.</p><div id="structure" aria-label="Interactive molecular structure"></div><a id="pdb-link" download>Download example PDB</a></div></section>
-    <section class="panel details"><h2>Available data</h2><p>Full-cohort UMAP coordinates, UMAP KNN groups, HDBSCAN leaf and EOM assignments, membership strengths, method labels, model IDs, and native file hashes are available in the downloadable table.</p><a id="csv-link" download>Download all geometry memberships (CSV)</a><p class="note">HDBSCAN leaf is the accepted density view. EOM is a diagnostic alternate. Unassigned models remain unassigned; high unassigned fractions limit interpretation of leaf clusters.</p></section>
-    <section class="pending"><h2>Still pending for the complete atlas</h2><p>Representative medoids, structural ensembles, TM comparisons, Bonsai, and MCMC/DISCO panels have not been accepted for these targets. This preview will not be used as a complete scientific atlas.</p></section>
-  </main><footer>LS AIS · private, time-limited preview · accepted geometry receipt only</footer>
+<header><a class="brand" href="./">LS AIS · structure atlas</a><a href="#methods">Methods</a></header>
+<main>
+  <p class="hint">Private LS AIS atlas preview · accepted DOC1/CDK2 geometry only.</p>
+  <nav id="targets" aria-label="Select target">
+    <a href="https://benavt.github.io/LS_AIS/">HSPH1 construct 12757 ↗</a>
+    <a href="#DOC1Rdimer_CDK2" data-target="DOC1Rdimer_CDK2">DOC1R dimer–CDK2</a>
+    <a href="#DOC1dimer_CDK2" data-target="DOC1dimer_CDK2">DOC1 dimer–CDK2</a>
+  </nav>
+  <div class="toolbar"><div><h1 id="title">Loading target…</h1><p id="summary" aria-live="polite"></p></div></div>
+  <nav class="page-index" aria-label="On this target"><a href="#clusterExplorer">Explorer</a><a href="#representativesPanel">Clusters</a><a href="#supplementary">Figures</a><a href="#methods">Methods</a></nav>
+  <details id="clusterExplorer" class="figure-panel cluster-explorer" open>
+    <summary><span>Cluster explorer</span></summary>
+    <div class="explorer-controls" role="group" aria-label="Cluster explorer settings">
+      <label>Clustering <select id="analysisView" aria-label="Saved clustering analysis"><option value="leaf">HDBSCAN leaf · accepted</option><option value="eom">HDBSCAN EOM · diagnostic</option><option value="knn">UMAP KNN</option></select></label>
+      <label>Residues <select id="residueRange" aria-label="Clustering residue range" disabled><option>Full construct · chains A/B/C</option></select></label>
+      <label>Color <select id="color" aria-label="Plot color scheme"><option value="cluster">Cluster</option><option value="method">Generation method</option><option value="strength">Membership strength</option></select></label>
+      <button type="button" id="clear">Clear cluster</button>
+    </div>
+    <p id="explorerNote" class="explorer-hint"></p>
+    <div id="projectionLegend" class="shared-projection-legend" aria-label="Projection legend"></div>
+    <div class="explorer-pair partial-explorer-pair">
+      <div class="plot-column"><section id="umapPanel" class="cluster-view is-featured projection-panel" aria-label="UMAP">
+        <div class="view-heading"><h3>UMAP</h3><div class="featured-tools"><button type="button" id="resetPlot">Reset plot</button><button type="button" id="savePlot">Save PNG</button></div></div>
+        <div id="umap" class="plot" aria-label="UMAP of accepted models"></div>
+        <p id="plotNote" class="explorer-hint"></p>
+      </section></div>
+      <section class="molecular" aria-label="Structure preview">
+        <div class="structure-heading"><h3>Structure preview</h3></div>
+        <h4 id="modelTitle">First accepted model · example, not a cluster representative</h4>
+        <div class="model-controls"><button type="button" id="resetStructure">Reset view</button><button type="button" id="spin" aria-pressed="false">Rotate</button></div>
+        <div id="molecule" role="img" aria-label="Interactive example native structure"></div>
+        <p id="selectionSummary" class="hint"></p>
+        <details class="structure-details"><summary>Model details & downloads</summary><p id="modelInfo"></p><p><a id="pdbLink" download>Full saved example PDB</a></p><p class="hint">Cluster representatives and aligned ensembles are pending. Selecting a cluster highlights its models in UMAP; it does not change this example structure.</p></details>
+      </section>
+    </div>
+  </details>
+  <details id="representativesPanel" class="figure-panel" open><summary><span>Clusters & downloads</span></summary><div class="panel-body">
+    <p id="clusterPolicy">Saved geometry groups are exploratory. Structural representatives have not been selected.</p>
+    <p><a id="members" download>All model memberships and UMAP coordinates (CSV)</a></p>
+    <div class="table-wrap"><table><thead><tr><th>Cluster</th><th>Models</th><th>Population</th><th>Representative</th></tr></thead><tbody id="clusterRows"></tbody></table></div>
+  </div></details>
+  <section id="supplementary" class="supplementary-intro"><h2>Figures</h2></section>
+  <details class="figure-panel supplementary-panel" open><summary><span>Saved cluster populations</span></summary><div class="panel-body"><p>Largest 15 assigned groups, with unassigned models shown separately.</p><div id="groupBars" aria-label="Cluster population bar chart"></div></div></details>
+  <details class="figure-panel supplementary-panel"><summary><span>Additional atlas views · pending</span></summary><div class="panel-body"><p>PCA, t-SNE, Bonsai, Cα distance maps, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.</p></div></details>
+  <details id="methods" class="figure-panel"><summary><span>Methods</span></summary><div class="panel-body">
+    <details class="method-counts" open><summary>Model counts by generation method</summary><div id="methodCounts" class="table-wrap"></div></details>
+    <p>Geometry uses all accepted full-construct chains A/B/C and the validated 4,096-dimensional all-pair sketch. UMAP and the clustering views shown above are saved outputs from the accepted seed-42 run. HDBSCAN EOM is a diagnostic alternate; unassigned models remain unassigned. No energy values appear in this partial preview.</p>
+    <p id="provenance" class="hint"></p>
+  </div></details>
+  <div id="error" role="alert" hidden></div>
+</main>
 </body>
 </html>

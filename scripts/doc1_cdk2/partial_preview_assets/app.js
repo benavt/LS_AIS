@@ -1,81 +1,159 @@
 "use strict";
 const TARGETS = ["DOC1Rdimer_CDK2", "DOC1dimer_CDK2"];
 const cache = new Map();
-let current = TARGETS[0];
 const $ = id => document.getElementById(id);
-const fmt = n => Number(n).toLocaleString();
-function rgb(label) {
-  if (label === -1) return "#adb8c5";
-  const hue = (Number(label) * 137.508 + 174) % 360;
-  return `hsl(${hue},68%,45%)`;
+const fmt = value => Number(value).toLocaleString();
+const svgMode = new URLSearchParams(location.search).get("renderer") === "svg";
+let current = TARGETS[0], data = null, selected = null, viewer = null, spinning = false;
+
+function groupName(view, label) {
+  if (Number(label) === -1) return "Unassigned";
+  return `${view === "knn" ? "Group" : "Cluster"} ${label}`;
 }
-function colorFor(key, value, methods) {
-  if (key !== "method") return rgb(value);
-  const index = methods.indexOf(value);
-  return rgb(index);
+function groupColor(label) {
+  if (Number(label) === -1) return "#adb3bb";
+  return `hsl(${(Number(label) * 137.508 + 174) % 360},67%,43%)`;
 }
-function countsFor(data, key) {
-  if (key === "method") return Object.entries(data.method_counts).sort((a,b) => b[1]-a[1]);
-  return Object.entries(data.counts[key]).map(([label,n]) => [Number(label),n]).sort((a,b) => b[1]-a[1]);
+function colors(view, mode, indexes) {
+  const labels = data[view], methods = Object.keys(data.method_counts);
+  return indexes.map(i => {
+    if (selected !== null && Number(labels[i]) !== selected) return "#d6d9da";
+    if (mode === "method") return groupColor(methods.indexOf(data.method[i]));
+    if (mode === "strength" && view !== "knn") {
+      if (labels[i] === -1) return "#adb3bb";
+      const p = data[`${view}_probability`][i];
+      return `hsl(205,75%,${Math.round(86 - p * 51)}%)`;
+    }
+    return groupColor(labels[i]);
+  });
 }
-function labelFor(key, value) {
-  if (key === "method") return value;
-  if (value === -1 || value === "-1") return "Unassigned";
-  return `${key === "knn" ? "Group" : "Cluster"} ${value}`;
+function updateLegend(view, mode) {
+  const element = $("projectionLegend");
+  element.replaceChildren();
+  const items = [];
+  if (selected !== null) items.push([groupColor(selected), `${groupName(view, selected)} highlighted`]);
+  else if (mode === "method") items.push(["#317f7b", `${Object.keys(data.method_counts).length} generation methods`]);
+  else if (mode === "strength") items.push(["#2869a2", "Darker = stronger membership"], ["#adb3bb", "Unassigned"]);
+  else items.push(["#317f7b", `${Object.keys(data.counts[view]).filter(x => x !== "-1").length} saved ${view === "knn" ? "groups" : "clusters"}`]);
+  if (view !== "knn" && mode !== "strength") items.push(["#adb3bb", "Unassigned"]);
+  for (const [color, label] of items) {
+    const span = document.createElement("span"), swatch = document.createElement("i");
+    swatch.className = "swatch"; swatch.style.background = color;
+    span.append(swatch, document.createTextNode(label)); element.append(span);
+  }
 }
-function draw(data) {
-  const key = $("color-by").value;
-  const methods = Object.keys(data.method_counts);
-  const values = data[key];
-  const colors = values.map(value => colorFor(key, value, methods));
-  const custom = data.model_id.map((id,i) => [id, data.method[i], labelFor(key,values[i]), key === "leaf" ? data.leaf_probability[i] : key === "eom" ? data.eom_probability[i] : "—"]);
-  Plotly.react("umap", [{type:"scattergl", mode:"markers", x:data.x, y:data.y,
-    customdata:custom, hovertemplate:"<b>%{customdata[0]}</b><br>Method: %{customdata[1]}<br>" + (key === "method" ? "" : "%{customdata[2]}<br>") + "Strength: %{customdata[3]}<extra></extra>",
-    marker:{size:4,opacity:.67,color:colors}, showlegend:false}],
-    {margin:{l:54,r:15,t:20,b:47},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:"UMAP 1",zeroline:false,gridcolor:"#e9eef4"},yaxis:{title:"UMAP 2",zeroline:false,gridcolor:"#e9eef4"},hovermode:"closest"},
-    {responsive:true,displaylogo:false,modeBarButtonsToRemove:["lasso2d","select2d"]});
-  const entries = countsFor(data,key);
-  const unassigned = key === "leaf" || key === "eom" ? entries.find(row => row[0] === -1) : null;
-  const visible = entries.filter(row => row[0] !== -1).slice(0,15);
-  if (unassigned) visible.unshift(unassigned);
-  Plotly.react("group-bars", [{type:"bar",orientation:"h",x:visible.map(row=>row[1]).reverse(),y:visible.map(row=>labelFor(key,row[0])).reverse(),marker:{color:visible.map(row=>colorFor(key,row[0],methods)).reverse()}}],
-    {margin:{l:120,r:10,t:8,b:40},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:"Models",gridcolor:"#e9eef4"},yaxis:{automargin:true}},
+function updateSelection(view) {
+  const counts = data.counts[view];
+  $("selectionSummary").textContent = selected === null
+    ? "Select a UMAP point or cluster row to inspect a saved group. The structure shown is an independent example model."
+    : `${groupName(view, selected)} · ${fmt(counts[selected] || 0)} models (${(100*(counts[selected] || 0)/data.models).toFixed(1)}%). The example structure is not a representative of this selection.`;
+  for (const row of $("clusterRows").querySelectorAll("tr[data-cluster]")) row.classList.toggle("selected", Number(row.dataset.cluster) === selected);
+}
+function drawTable(view) {
+  const body = $("clusterRows"); body.replaceChildren();
+  const rows = Object.entries(data.counts[view]).map(([label, count]) => [Number(label), Number(count)]).sort((a,b) => b[1] - a[1]);
+  const fragment = document.createDocumentFragment();
+  for (const [label, count] of rows) {
+    const row = document.createElement("tr"); row.dataset.cluster = label; row.tabIndex = 0;
+    const name = document.createElement("td"), dot = document.createElement("span"); dot.className = "dot"; dot.style.background = groupColor(label);
+    name.append(dot, document.createTextNode(groupName(view,label)));
+    for (const value of [name, fmt(count), `${(100*count/data.models).toFixed(2)}%`, "Pending"]) {
+      if (value instanceof Element) row.append(value);
+      else { const td = document.createElement("td"); td.textContent = value; row.append(td); }
+    }
+    row.addEventListener("click", () => chooseCluster(label));
+    row.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); chooseCluster(label); }});
+    fragment.append(row);
+  }
+  body.append(fragment); updateSelection(view);
+}
+function drawBars(view) {
+  const rows = Object.entries(data.counts[view]).map(([label,n]) => [Number(label),Number(n)]).sort((a,b) => b[1]-a[1]);
+  const unassigned = rows.find(row => row[0] === -1);
+  const shown = rows.filter(row => row[0] !== -1).slice(0,15);
+  if (unassigned) shown.unshift(unassigned);
+  Plotly.react("groupBars", [{type:"bar",orientation:"h",x:shown.map(row=>row[1]).reverse(),y:shown.map(row=>groupName(view,row[0])).reverse(),marker:{color:shown.map(row=>groupColor(row[0])).reverse()}}],
+    {margin:{l:110,r:12,t:12,b:40},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:"Models",gridcolor:"#e8e8e2"},yaxis:{automargin:true}},
     {responsive:true,displaylogo:false});
-  $("plot-note").textContent = `${fmt(data.models)} accepted models · ${key === "leaf" ? "accepted density view" : key === "eom" ? "diagnostic alternate" : key === "knn" ? "UMAP KNN grouping" : "generation method"} · seed 42`;
-  $("group-subtitle").textContent = key === "method" ? "Generation-method counts." : "Largest 15 assigned groups; unassigned shown separately when applicable.";
+}
+function draw() {
+  if (!data) return;
+  const view = $("analysisView").value, mode = $("color").value;
+  const step = svgMode ? Math.ceil(data.models / 5000) : 1;
+  const indexes = Array.from({length:Math.ceil(data.models / step)}, (_,j) => j*step).filter(i => i < data.models);
+  const labels = data[view];
+  const custom = indexes.map(i => [i,data.model_id[i],data.method[i],groupName(view,labels[i]),view === "knn" ? "—" : data[`${view}_probability`][i]]);
+  const plot = $("umap");
+  Plotly.react(plot,[{type:svgMode?"scatter":"scattergl",mode:"markers",x:indexes.map(i=>data.x[i]),y:indexes.map(i=>data.y[i]),customdata:custom,
+    hovertemplate:"<b>%{customdata[1]}</b><br>Method: %{customdata[2]}<br>%{customdata[3]}<br>Strength: %{customdata[4]}<extra></extra>",
+    marker:{size:svgMode?4:4,opacity:.68,color:colors(view,mode,indexes)},showlegend:false}],
+    {margin:{l:52,r:12,t:15,b:45},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:"UMAP 1",zeroline:false,gridcolor:"#e8e8e2"},yaxis:{title:"UMAP 2",zeroline:false,gridcolor:"#e8e8e2"},hovermode:"closest"},
+    {responsive:true,displaylogo:false,modeBarButtonsToRemove:["lasso2d","select2d"]});
+  if (!plot.dataset.clickBound) {
+    plot.on("plotly_click", event => {const index=event.points[0].customdata[0];chooseCluster(Number(data[$("analysisView").value][index]));});
+    plot.dataset.clickBound = "true";
+  }
+  $("plotNote").textContent = svgMode
+    ? `${fmt(indexes.length)} evenly spaced display points in CPU/SVG mode; all ${fmt(data.models)} models are in the download. UMAP fit uses the full cohort.`
+    : `${fmt(data.models)} accepted models plotted · saved seed-42 UMAP`;
+  const count = Object.keys(data.counts[view]).filter(x=>x!=="-1").length;
+  const noise = Number(data.counts[view][-1] || 0);
+  $("explorerNote").textContent = `${fmt(data.models)} accepted full-construct A/B/C models · ${fmt(count)} ${view === "knn" ? "groups" : "clusters"}${view === "knn" ? "" : ` · ${fmt(noise)} unassigned (${(100*noise/data.models).toFixed(1)}%)`}${view === "eom" ? " · diagnostic alternate" : ""}.`;
+  updateLegend(view,mode); updateSelection(view);
+}
+function chooseCluster(label) {
+  selected = Number(label); draw(); updateSelection($("analysisView").value);
+}
+function fillMethods() {
+  const table = document.createElement("table"), head = document.createElement("thead"), hr = document.createElement("tr");
+  for (const title of ["Generation method","Accepted models"]) {const th=document.createElement("th");th.textContent=title;hr.append(th);} head.append(hr);table.append(head);
+  const body = document.createElement("tbody");
+  for (const [method,count] of Object.entries(data.method_counts).sort((a,b)=>b[1]-a[1])) {
+    const row=document.createElement("tr");for(const value of [method,fmt(count)]){const td=document.createElement("td");td.textContent=value;row.append(td);}body.append(row);
+  }
+  table.append(body);$("methodCounts").replaceChildren(table);
+}
+async function showStructure(slug) {
+  const response = await fetch(`data/${slug}-example.pdb`);
+  if (!response.ok) throw Error(`Example structure returned ${response.status}`);
+  const pdb = await response.text();if (current !== slug) return;
+  if (viewer && spinning) {viewer.spin(false);spinning=false;$("spin").setAttribute("aria-pressed","false");}
+  $("molecule").replaceChildren();
+  viewer = AtlasStructureRenderer.createViewer($("molecule"),{backgroundColor:"#f7f7f4"});
+  viewer.addModel(pdb,"pdb");
+  viewer.setStyle({chain:"A"},{cartoon:{color:"#008e83"}});
+  viewer.setStyle({chain:"B"},{cartoon:{color:"#e3934d"}});
+  viewer.setStyle({chain:"C"},{cartoon:{color:"#4871ad"}});
+  viewer.zoomTo();viewer.render();
+  $("modelTitle").textContent = `${data.example_model} · first accepted model, not a cluster representative`;
+  $("modelInfo").textContent = `Native full-construct A/B/C coordinates from the accepted roster. Example identity: ${data.example_model}.`;
+  $("pdbLink").href = `data/${slug}-example.pdb`;
 }
 async function setTarget(slug) {
-  current = slug;
-  for (const button of document.querySelectorAll("[data-target]")) button.classList.toggle("active",button.dataset.target === slug);
-  $("status").textContent = "Loading target data…";
+  if (!TARGETS.includes(slug)) return;
+  current=slug;selected=null;$("error").hidden=true;
+  for(const link of document.querySelectorAll("[data-target]")) link.setAttribute("aria-current",link.dataset.target === slug ? "page":"false");
+  $("summary").textContent="Loading saved target data…";
   try {
-    if (!cache.has(slug)) {
-      const response = await fetch(`data/${slug}.json`);
-      if (!response.ok) throw new Error(`Data request returned ${response.status}`);
-      cache.set(slug, await response.json());
-    }
-    const data = cache.get(slug);
+    if (!cache.has(slug)) {const response=await fetch(`data/${slug}.json`);if(!response.ok)throw Error(`Data returned ${response.status}`);cache.set(slug,await response.json());}
     if (current !== slug) return;
-    $("model-count").textContent = fmt(data.models);
-    $("knn-count").textContent = fmt(Object.keys(data.counts.knn).length);
-    $("leaf-count").textContent = fmt(Object.keys(data.counts.leaf).filter(x=>x!=="-1").length);
-    $("noise-count").textContent = `${fmt(data.counts.leaf[-1] || 0)} (${(100*(data.counts.leaf[-1]||0)/data.models).toFixed(1)}%)`;
-    $("csv-link").href = `downloads/${slug}-geometry-memberships.csv`;
-    $("pdb-link").href = `data/${slug}-example.pdb`;
-    $("structure-note").textContent = `${data.example_model}: first accepted model in the frozen roster; illustrative, not a cluster representative.`;
-    draw(data);
-    const pdb = await fetch(`data/${slug}-example.pdb`).then(r=>{if(!r.ok)throw new Error("PDB unavailable");return r.text()});
-    if (current !== slug) return;
-    $("structure").innerHTML = "";
-    const viewer = $3Dmol.createViewer("structure",{backgroundColor:"#eef3f7"});
-    viewer.addModel(pdb,"pdb");
-    viewer.setStyle({chain:"A"},{cartoon:{color:"#008e83"}});
-    viewer.setStyle({chain:"B"},{cartoon:{color:"#e3934d"}});
-    viewer.setStyle({chain:"C"},{cartoon:{color:"#4871ad"}});
-    viewer.zoomTo();viewer.render();
-    $("status").textContent = `${data.title} · accepted geometry snapshot · receipt ${data.receipt_sha256.slice(0,12)}…`;
-  } catch(error) { $("status").textContent = `Preview could not load: ${error.message}`; }
+    data=cache.get(slug);
+    $("title").textContent=data.title;
+    $("summary").textContent=`${fmt(data.models)} accepted models · full A/B/C construct · geometry-only private preview`;
+    $("members").href=`downloads/${slug}-geometry-memberships.csv`;
+    $("provenance").textContent=`Accepted clustering receipt SHA-256: ${data.receipt_sha256}. Saved UMAP, labels, model order, and example PDB were verified against their native hashes.`;
+    $("color").querySelector('[value="strength"]').disabled = $("analysisView").value === "knn";
+    if ($("color").value === "strength" && $("analysisView").value === "knn") $("color").value="cluster";
+    fillMethods();drawTable($("analysisView").value);drawBars($("analysisView").value);draw();await showStructure(slug);
+  } catch(error) {$("error").hidden=false;$("error").textContent=`Preview could not load: ${error.message}`;}
 }
-for (const button of document.querySelectorAll("[data-target]")) button.addEventListener("click",()=>setTarget(button.dataset.target));
-$("color-by").addEventListener("change",()=>{const data=cache.get(current);if(data)draw(data)});
-setTarget(TARGETS[0]);
+function targetFromHash() {const slug=location.hash.slice(1).split("?")[0];return TARGETS.includes(slug)?slug:null;}
+window.addEventListener("hashchange",()=>{const slug=targetFromHash();if(slug)setTarget(slug);});
+$("analysisView").addEventListener("change",()=>{selected=null;const view=$("analysisView").value;$("color").querySelector('[value="strength"]').disabled=view==="knn";if(view==="knn"&&$("color").value==="strength")$("color").value="cluster";drawTable(view);drawBars(view);draw();});
+$("color").addEventListener("change",draw);
+$("clear").addEventListener("click",()=>{selected=null;draw();});
+$("resetPlot").addEventListener("click",()=>Plotly.relayout("umap",{"xaxis.autorange":true,"yaxis.autorange":true}));
+$("savePlot").addEventListener("click",()=>Plotly.downloadImage($("umap"),{format:"png",filename:`${current}-${$("analysisView").value}-umap`}));
+$("resetStructure").addEventListener("click",()=>{if(viewer)viewer.zoomTo().render();});
+$("spin").addEventListener("click",()=>{if(!viewer)return;spinning=!spinning;viewer.spin(spinning);$("spin").setAttribute("aria-pressed",String(spinning));});
+setTarget(targetFromHash() || TARGETS[0]);
