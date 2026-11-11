@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "DOC1Rdimer_CDK2",
+  "name": "DOC1R dimer + CDK2",
+  "status": "input_intake_in_progress",
+  "accession": null,
+  "organism": null,
+  "cohort": {
+    "expected_models": 57464,
+    "archive_sha256": "c8aa11e9f24f04e5e42f384d7bcddf5a3c075b01394cbf2e7dd418fe4c68ddfa"
+  },
+  "chains": [
+    {"id": "A", "residues": 126, "sequence_sha256": "fe1a9f6ba92629101b7dde78b6f4c3c0efc8983962224cac6577529db42fd0bc"},
+    {"id": "B", "residues": 126, "sequence_sha256": "fe1a9f6ba92629101b7dde78b6f4c3c0efc8983962224cac6577529db42fd0bc"},
+    {"id": "C", "residues": 298, "sequence_sha256": "fe22d91e18cd544a85d7c768cd864172200252df906b774d890dc103224f7c8d"}
+  ],
+  "primary_residue_scope": "A1-126+B1-126+C1-298",
+  "analysis_requested": ["ProteinEBM Model 6", "UMAP KNN", "HDBSCAN", "MCMC", "DISCO"],
+  "publication": "pending_private_review"
+}
