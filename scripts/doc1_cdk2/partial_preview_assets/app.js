@@ -4,7 +4,7 @@ const cache = new Map();
 const $ = id => document.getElementById(id);
 const fmt = value => Number(value).toLocaleString();
 const svgMode = new URLSearchParams(location.search).get("renderer") === "svg";
-let current = TARGETS[0], data = null, selected = null, viewer = null, spinning = false;
+let current = TARGETS[0], data = null, selected = null, projection = "umap", viewer = null, spinning = false;
 
 function groupName(view, label) {
   if (Number(label) === -1) return "Unassigned";
@@ -45,7 +45,7 @@ function updateLegend(view, mode) {
 function updateSelection(view) {
   const counts = data.counts[view];
   $("selectionSummary").textContent = selected === null
-    ? "Select a UMAP point or cluster row to inspect a saved group. The structure shown is an independent example model."
+    ? "Select a projection point or cluster row to inspect a saved group. The structure shown is an independent example model."
     : `${groupName(view, selected)} · ${fmt(counts[selected] || 0)} models (${(100*(counts[selected] || 0)/data.models).toFixed(1)}%). The example structure is not a representative of this selection.`;
   for (const row of $("clusterRows").querySelectorAll("tr[data-cluster]")) row.classList.toggle("selected", Number(row.dataset.cluster) === selected);
 }
@@ -79,23 +79,29 @@ function drawBars(view) {
 function draw() {
   if (!data) return;
   const view = $("analysisView").value, mode = $("color").value;
+  const coordinates = projection === "umap" ? {x:data.x,y:data.y} : data[projection];
+  if (!coordinates) return;
+  const title = projection === "tsne" ? "t-SNE" : projection.toUpperCase();
+  $("projectionTitle").textContent = title;
+  for (const button of document.querySelectorAll("[data-projection]")) button.setAttribute("aria-selected",String(button.dataset.projection === projection));
   const step = svgMode ? Math.ceil(data.models / 5000) : 1;
   const indexes = Array.from({length:Math.ceil(data.models / step)}, (_,j) => j*step).filter(i => i < data.models);
   const labels = data[view];
   const custom = indexes.map(i => [i,data.model_id[i],data.method[i],groupName(view,labels[i]),view === "knn" ? "—" : data[`${view}_probability`][i]]);
   const plot = $("umap");
-  Plotly.react(plot,[{type:svgMode?"scatter":"scattergl",mode:"markers",x:indexes.map(i=>data.x[i]),y:indexes.map(i=>data.y[i]),customdata:custom,
+  plot.setAttribute("aria-label",`${title} projection of ${fmt(data.models)} accepted models`);
+  Plotly.react(plot,[{type:svgMode?"scatter":"scattergl",mode:"markers",x:indexes.map(i=>coordinates.x[i]),y:indexes.map(i=>coordinates.y[i]),customdata:custom,
     hovertemplate:"<b>%{customdata[1]}</b><br>Method: %{customdata[2]}<br>%{customdata[3]}<br>Strength: %{customdata[4]}<extra></extra>",
     marker:{size:svgMode?4:4,opacity:.68,color:colors(view,mode,indexes)},showlegend:false}],
-    {margin:{l:52,r:12,t:15,b:45},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:"UMAP 1",zeroline:false,gridcolor:"#e8e8e2"},yaxis:{title:"UMAP 2",zeroline:false,gridcolor:"#e8e8e2"},hovermode:"closest"},
+    {margin:{l:52,r:12,t:15,b:45},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:`${title} 1`,zeroline:false,gridcolor:"#e8e8e2"},yaxis:{title:`${title} 2`,zeroline:false,gridcolor:"#e8e8e2"},hovermode:"closest"},
     {responsive:true,displaylogo:false,modeBarButtonsToRemove:["lasso2d","select2d"]});
   if (!plot.dataset.clickBound) {
     plot.on("plotly_click", event => {const index=event.points[0].customdata[0];chooseCluster(Number(data[$("analysisView").value][index]));});
     plot.dataset.clickBound = "true";
   }
   $("plotNote").textContent = svgMode
-    ? `${fmt(indexes.length)} evenly spaced display points in CPU/SVG mode; all ${fmt(data.models)} models are in the download. UMAP fit uses the full cohort.`
-    : `${fmt(data.models)} accepted models plotted · saved seed-42 UMAP`;
+    ? `${fmt(indexes.length)} evenly spaced display points in CPU/SVG mode; all ${fmt(data.models)} models are in the download. ${title} fit uses the full cohort.`
+    : `${fmt(data.models)} accepted models plotted · saved seed-42 ${title}${projection === "pca" ? ` · explained variance ${(100*data.pca.explained_variance_ratio[0]).toFixed(1)}%, ${(100*data.pca.explained_variance_ratio[1]).toFixed(1)}%` : ""}`;
   const count = Object.keys(data.counts[view]).filter(x=>x!=="-1").length;
   const noise = Number(data.counts[view][-1] || 0);
   $("explorerNote").textContent = `${fmt(data.models)} accepted full-construct A/B/C models · ${fmt(count)} ${view === "knn" ? "groups" : "clusters"}${view === "knn" ? "" : ` · ${fmt(noise)} unassigned (${(100*noise/data.models).toFixed(1)}%)`}${view === "eom" ? " · diagnostic alternate" : ""}.`;
@@ -138,10 +144,27 @@ async function setTarget(slug) {
     if (!cache.has(slug)) {const response=await fetch(`data/${slug}.json`);if(!response.ok)throw Error(`Data returned ${response.status}`);cache.set(slug,await response.json());}
     if (current !== slug) return;
     data=cache.get(slug);
+    if (!data[projection] && projection !== "umap") projection="umap";
+    for (const button of document.querySelectorAll("[data-projection]")) button.disabled = button.dataset.projection !== "umap" && !data[button.dataset.projection];
     $("title").textContent=data.title;
     $("summary").textContent=`${fmt(data.models)} accepted models · full A/B/C construct · geometry-only private preview`;
     $("members").href=`downloads/${slug}-geometry-memberships.csv`;
     $("provenance").textContent=`Accepted clustering receipt SHA-256: ${data.receipt_sha256}. Saved UMAP, labels, model order, and example PDB were verified against their native hashes.`;
+    $("distanceMaps").hidden = !data.maps;
+    $("supplementalMethods").hidden = !data.maps;
+    if (data.maps) {
+      $("medianMap").src=data.maps.median;$("varianceMap").src=data.maps.variance;
+      $("medianDownload").href=data.maps.median;$("varianceDownload").href=data.maps.variance;
+      $("mapCaption").textContent=`All ${data.maps.chain_lengths.reduce((a,b)=>a+b,0)} Cα positions in chains A/B/C are retained; dashed lines mark chain boundaries.`;
+      $("medianCaption").textContent=`Median Cα distance (Å), frozen uniform sample of ${fmt(data.maps.median_models)} accepted models.`;
+      $("varianceCaption").textContent=`Cα distance variance (Å²), all ${fmt(data.maps.variance_models)} accepted models.`;
+      $("pendingText").textContent="Bonsai, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.";
+      $("provenance").textContent += ` Accepted PCA/t-SNE/map receipt SHA-256: ${data.supplemental_receipt_sha256}.`;
+    } else {
+      $("medianMap").removeAttribute("src");$("varianceMap").removeAttribute("src");
+      $("medianDownload").removeAttribute("href");$("varianceDownload").removeAttribute("href");
+      $("pendingText").textContent="PCA, t-SNE, Bonsai, Cα distance maps, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.";
+    }
     $("color").querySelector('[value="strength"]').disabled = $("analysisView").value === "knn";
     if ($("color").value === "strength" && $("analysisView").value === "knn") $("color").value="cluster";
     fillMethods();drawTable($("analysisView").value);drawBars($("analysisView").value);draw();await showStructure(slug);
@@ -151,9 +174,10 @@ function targetFromHash() {const slug=location.hash.slice(1).split("?")[0];retur
 window.addEventListener("hashchange",()=>{const slug=targetFromHash();if(slug)setTarget(slug);});
 $("analysisView").addEventListener("change",()=>{selected=null;const view=$("analysisView").value;$("color").querySelector('[value="strength"]').disabled=view==="knn";if(view==="knn"&&$("color").value==="strength")$("color").value="cluster";drawTable(view);drawBars(view);draw();});
 $("color").addEventListener("change",draw);
+for (const button of document.querySelectorAll("[data-projection]")) button.addEventListener("click",()=>{if(button.disabled)return;projection=button.dataset.projection;draw();});
 $("clear").addEventListener("click",()=>{selected=null;draw();});
 $("resetPlot").addEventListener("click",()=>Plotly.relayout("umap",{"xaxis.autorange":true,"yaxis.autorange":true}));
-$("savePlot").addEventListener("click",()=>Plotly.downloadImage($("umap"),{format:"png",filename:`${current}-${$("analysisView").value}-umap`}));
+$("savePlot").addEventListener("click",()=>Plotly.downloadImage($("umap"),{format:"png",filename:`${current}-${$("analysisView").value}-${projection}`}));
 $("resetStructure").addEventListener("click",()=>{if(viewer)viewer.zoomTo().render();});
 $("spin").addEventListener("click",()=>{if(!viewer)return;spinning=!spinning;viewer.spin(spinning);$("spin").setAttribute("aria-pressed",String(spinning));});
 setTarget(targetFromHash() || TARGETS[0]);

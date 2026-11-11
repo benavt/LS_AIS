@@ -19,6 +19,7 @@ TARGETS = {
     'DOC1dimer_CDK2': ('DOC1 dimer–CDK2', 75800, 'c6f7be99d0a5edc2d1bd9dc275fd3ae31f0b4d26861ee255450e853bfca687e3'),
 }
 PLAN = '76024b0e0cff251ca7b6cc2dfb309e26fa1d92192d860df2dcc7eb33ff99bc6c'
+SUPPLEMENTAL_PLAN = '8f2b26e94195a55327cbd3d5d3d341352019eb5cdebe06f3172c6ad4fe78360d'
 
 
 def digest(path):
@@ -35,13 +36,65 @@ def checked(path, expected):
         raise ValueError(f'{path.name}: SHA-256 mismatch, {actual}')
 
 
-def run(inputs, output, vendor):
+def load_supplemental(folder, slug, count, clustering_receipt, output):
+    receipt_path = folder / 'acceptance.json'
+    receipt = json.loads(receipt_path.read_text())
+    if (receipt['status'], receipt['target'], receipt['models'], receipt['plan_sha256'],
+            receipt['roster_sha256'], receipt['geometry_matrix_sha256'],
+            receipt['sketch_sha256']) != ('validated', slug, count, SUPPLEMENTAL_PLAN,
+                                         clustering_receipt['roster_sha256'],
+                                         clustering_receipt['geometry_matrix_sha256'],
+                                         clustering_receipt['sketch_sha256']):
+        raise ValueError(f'{slug}: supplemental receipt identity differs')
+    if set(receipt['files']) != {'pca-2d.npy', 'tsne-2d.npy', 'median-sample-indices.npy',
+                                  'median-ca-distances.npy', 'variance-ca-distances.npy',
+                                  'median-ca-distances.png', 'variance-ca-distances.png'}:
+        raise ValueError(f'{slug}: supplemental file set differs')
+    for name, expected in receipt['files'].items():
+        checked(folder / name, expected)
+    pca = np.load(folder / 'pca-2d.npy', allow_pickle=False)
+    tsne = np.load(folder / 'tsne-2d.npy', allow_pickle=False)
+    sample = np.load(folder / 'median-sample-indices.npy', allow_pickle=False)
+    lengths = receipt['full_construct_chain_lengths']
+    expected_lengths = [126, 126, 298] if slug == 'DOC1Rdimer_CDK2' else [115, 115, 298]
+    if (pca.shape != (count, 2) or tsne.shape != (count, 2) or
+            not np.isfinite(pca).all() or not np.isfinite(tsne).all() or
+            len(sample) != 5000 or not np.array_equal(sample, np.unique(sample)) or
+            sample[0] < 0 or sample[-1] >= count or
+            lengths != expected_lengths or receipt['median_sample_models'] != 5000 or
+            receipt['variance_models'] != count or
+            len(receipt['pca_explained_variance_ratio']) != 2 or
+            any(not 0 <= float(value) <= 1 for value in receipt['pca_explained_variance_ratio']) or
+            not np.isfinite(receipt['tsne_kl_divergence'])):
+        raise ValueError(f'{slug}: supplemental projection/sample validation failed')
+    for name in ('median-ca-distances.npy', 'variance-ca-distances.npy'):
+        array = np.load(folder / name, allow_pickle=False)
+        if (array.shape != (sum(lengths), sum(lengths)) or not np.isfinite(array).all() or
+                (array < 0).any() or not np.array_equal(array, array.T) or
+                not np.array_equal(np.diag(array), np.zeros(sum(lengths)))):
+            raise ValueError(f'{slug}: {name} invalid')
+    figures = {}
+    for name in ('median-ca-distances.png', 'variance-ca-distances.png'):
+        destination = output / 'figures' / f'{slug}-{name}'
+        shutil.copyfile(folder / name, destination)
+        figures[name] = f'figures/{destination.name}'
+    return {'pca': {'x': pca[:, 0].tolist(), 'y': pca[:, 1].tolist(),
+                    'explained_variance_ratio': receipt['pca_explained_variance_ratio']},
+            'tsne': {'x': tsne[:, 0].tolist(), 'y': tsne[:, 1].tolist()},
+            'maps': {'median': figures['median-ca-distances.png'],
+                     'variance': figures['variance-ca-distances.png'],
+                     'median_models': 5000, 'variance_models': count, 'chain_lengths': lengths},
+            'supplemental_receipt_sha256': digest(receipt_path)}
+
+
+def run(inputs, output, vendor, supplements=None):
     if output.exists():
         raise FileExistsError(output)
     output.mkdir(parents=True)
     (output / 'assets').mkdir()
     (output / 'data').mkdir()
     (output / 'downloads').mkdir()
+    (output / 'figures').mkdir()
     shutil.copyfile(vendor / 'plotly.min.js', output / 'assets' / 'plotly.min.js')
     shutil.copyfile(vendor / '3Dmol-min.js', output / 'assets' / '3Dmol-min.js')
     shutil.copyfile(vendor / 'ca_fallback.js', output / 'assets' / 'ca_fallback.js')
@@ -109,12 +162,22 @@ def run(inputs, output, vendor):
             'counts': {name: dict(sorted(Counter(int(v) for v in array).items())) for name, array in [('knn', knn), ('leaf', leaf), ('eom', eom)]},
             'receipt_sha256': receipt_hash,
         }
+        if supplements is not None:
+            extra = load_supplemental(supplements / slug, slug, count, receipt, output)
+            export.update(extra)
         (output / 'data' / f'{slug}.json').write_text(json.dumps(export, separators=(',', ':')))
         with (output / 'downloads' / f'{slug}-geometry-memberships.csv').open('w', newline='') as stream:
             writer = csv.writer(stream)
-            writer.writerow(['model_id', 'native_sha256', 'method', 'umap_1', 'umap_2', 'umap_knn_group', 'hdbscan_leaf_cluster', 'hdbscan_leaf_strength', 'hdbscan_eom_cluster', 'hdbscan_eom_strength'])
+            columns = ['model_id', 'native_sha256', 'method', 'umap_1', 'umap_2', 'umap_knn_group', 'hdbscan_leaf_cluster', 'hdbscan_leaf_strength', 'hdbscan_eom_cluster', 'hdbscan_eom_strength']
+            if supplements is not None:
+                columns += ['pca_1', 'pca_2', 'tsne_1', 'tsne_2']
+            writer.writerow(columns)
             for i, model in enumerate(roster_rows):
-                writer.writerow([model['model_id'], model['native_sha256'], model['method'], float(coords[i, 0]), float(coords[i, 1]), int(knn[i]), int(leaf[i]), float(leaf_probability[i]), int(eom[i]), float(eom_probability[i])])
+                row = [model['model_id'], model['native_sha256'], model['method'], float(coords[i, 0]), float(coords[i, 1]), int(knn[i]), int(leaf[i]), float(leaf_probability[i]), int(eom[i]), float(eom_probability[i])]
+                if supplements is not None:
+                    row += [float(extra['pca']['x'][i]), float(extra['pca']['y'][i]),
+                            float(extra['tsne']['x'][i]), float(extra['tsne']['y'][i])]
+                writer.writerow(row)
         summary.append({'slug': slug, 'title': title, 'models': count, 'chains': 'A/B/C', 'example_model': roster_rows[0]['model_id'], 'receipt_sha256': receipt_hash,
                         'knn_groups': receipt['umap_knn_clusters'], 'leaf_clusters': next(x['clusters'] for x in receipt['hdbscan_fits'] if x['method'] == 'leaf' and x['seed'] == 42),
                         'leaf_unassigned': int(np.sum(leaf == -1)), 'eom_clusters': next(x['clusters'] for x in receipt['hdbscan_fits'] if x['method'] == 'eom' and x['seed'] == 42), 'eom_unassigned': int(np.sum(eom == -1))})
@@ -127,7 +190,8 @@ def run(inputs, output, vendor):
         if path.is_file():
             files.append({'path': path.relative_to(output).as_posix(), 'bytes': path.stat().st_size, 'sha256': digest(path)})
     (output / 'export-manifest.json').write_text(json.dumps({'kind': 'private-partial-geometry-preview', 'files': files}, indent=2) + '\n')
-    (output.parent / 'delivery-manifest.json').write_text(json.dumps({'kind': 'private-partial-geometry-preview', 'files': files, 'source_plan_sha256': PLAN}, indent=2) + '\n')
+    (output.parent / 'delivery-manifest.json').write_text(json.dumps({'kind': 'private-partial-geometry-preview', 'files': files, 'source_plan_sha256': PLAN,
+                                                                    'supplemental_plan_sha256': SUPPLEMENTAL_PLAN if supplements is not None else None}, indent=2) + '\n')
 
 
 if __name__ == '__main__':
@@ -135,5 +199,6 @@ if __name__ == '__main__':
     parser.add_argument('--inputs', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--vendor', type=Path, required=True)
+    parser.add_argument('--supplements', type=Path)
     args = parser.parse_args()
-    run(args.inputs, args.output, args.vendor)
+    run(args.inputs, args.output, args.vendor, args.supplements)
