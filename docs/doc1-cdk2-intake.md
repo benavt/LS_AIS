@@ -51,6 +51,21 @@ pilot receipt SHA-256 values are
 and `a8e10aeab5aead1b81a61737f25a4825e5bdf117be7a65d36d2474b367435930`.
 These are sampled performance measurements, not full-cohort cluster results.
 
+The approved all-pair sketch fidelity pilot
+(`db94a219ef1b5d9be81be88105a64035b1b16a6dd35b7e2387264657219fcea0`)
+tested the same 5,000-model samples. Each original A/B/C pair feature mapped
+once into a signed 2,048- or 4,096-dimensional sketch. On 256 fixed evaluation
+models per target, the 4,096-dimensional sketch had median relative pair-distance
+errors of 0.80% (DOC1R) and 0.81% (DOC1), 95th-percentile errors of 2.27% and
+2.08%, and mean 15-neighbor recalls of 96.9% and 97.1%. The 2,048-dimensional
+sketch had median errors of 1.18% and 1.19%, and mean recalls of 95.6% and
+96.0%. Acceptance receipt SHA-256 values are
+`ba9943fdfb85cce54b1e2ae8589bd4a842968d71a9140850697fd14974f992fb`
+and `1db3c89785371e4bfd8d5bf1945c559d6a54c349e12cfd2486d9199ef6cbe617`.
+Both completion records reported exit zero and both finished CPU resource logs
+passed. This validates sampled fidelity only; full-cohort projection and
+clustering need a separate approved plan and acceptance.
+
 The approved ProteinEBM Model 6 production plan
 (`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
 is running in 134 monitored GPU chunks. Each accepted model will receive the
