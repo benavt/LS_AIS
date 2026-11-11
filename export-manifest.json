@@ -22607,6 +22607,131 @@
       "sha256": "48f2a5cef297c6a584ac2839bc57e49b133834d03095394c6ec8d1248d6f2fd1"
     },
     {
+      "path": "doc1-cdk2/app.js",
+      "bytes": 19927,
+      "sha256": "017e0c95a3fd9b98bd1c484e7bf6af03274c2abbbbb1f403b3aa7ffdc4864bb7"
+    },
+    {
+      "path": "doc1-cdk2/assets/3Dmol-min.js",
+      "bytes": 545215,
+      "sha256": "4ab374e1830bccec950b280fd285a430e05e91bd13c9ef0097c611c66de6cb36"
+    },
+    {
+      "path": "doc1-cdk2/assets/atlas.css",
+      "bytes": 27782,
+      "sha256": "76e3221c1d0a37086f8d93e0e64cd048fd5aee64d2575a3526b8f36e198420ff"
+    },
+    {
+      "path": "doc1-cdk2/assets/ca_fallback.js",
+      "bytes": 4294,
+      "sha256": "61a56ae43c63277eb02a8f624c8d7c2d0ae28fa0c14684ea05d580cd9c1cc52a"
+    },
+    {
+      "path": "doc1-cdk2/assets/plotly.min.js",
+      "bytes": 4763993,
+      "sha256": "122e3be346d66616944d0b83eaaf7242581508c3c1cfa0995a17af0d83eff770"
+    },
+    {
+      "path": "doc1-cdk2/data/DOC1Rdimer_CDK2-core.json.gz",
+      "bytes": 1215790,
+      "sha256": "0a68a8133abd4a76f0f5bc97b04c9d480c462b8d5e6b0e20413660f0a5525c55"
+    },
+    {
+      "path": "doc1-cdk2/data/DOC1Rdimer_CDK2-example.pdb",
+      "bytes": 343278,
+      "sha256": "0e4238ce0d2c0a5541c79e2947eb12fe57cba439202a3551b31a002f112b16b1"
+    },
+    {
+      "path": "doc1-cdk2/data/DOC1Rdimer_CDK2.json.gz",
+      "bytes": 3314674,
+      "sha256": "de386b2ad384ce9ede8689682678efc5a3f9231efc78407b3b2e38b67a326c38"
+    },
+    {
+      "path": "doc1-cdk2/data/DOC1dimer_CDK2-core.json.gz",
+      "bytes": 1553278,
+      "sha256": "5a9a95254ce91718141368819cddb58d650fb80b2f0930f6993cb8f3b40ec498"
+    },
+    {
+      "path": "doc1-cdk2/data/DOC1dimer_CDK2-example.pdb",
+      "bytes": 334854,
+      "sha256": "8439cf5cbd76089d019dc199e29c5e270d74a6c4224f7b07206e6606f474f564"
+    },
+    {
+      "path": "doc1-cdk2/data/DOC1dimer_CDK2.json.gz",
+      "bytes": 4328232,
+      "sha256": "476dc57fa42133815e9f5ca2eefd0f3e327e27d4c1aa7c4303838688c70d39ea"
+    },
+    {
+      "path": "doc1-cdk2/data/summary.json",
+      "bytes": 1290,
+      "sha256": "05a514559be011558ad099e809b0875f5e510c21ff110a9b42edca0630b3a07e"
+    },
+    {
+      "path": "doc1-cdk2/downloads/DOC1Rdimer_CDK2-core-geometry-memberships.csv.gz",
+      "bytes": 4688090,
+      "sha256": "a2ec7f3e97544d02924f6c77dd60165c0bea538f7960e5cafd8c911fdb696eeb"
+    },
+    {
+      "path": "doc1-cdk2/downloads/DOC1Rdimer_CDK2-geometry-memberships.csv.gz",
+      "bytes": 6652748,
+      "sha256": "52fc03dc09223f318c122d6f6b888a9181ee80305e61e2ec0abb9a719627fd39"
+    },
+    {
+      "path": "doc1-cdk2/downloads/DOC1Rdimer_CDK2-proteinebm-full-complex.csv.gz",
+      "bytes": 7665515,
+      "sha256": "c1f6255167064f71b9594ba1d1f9c5a38c094e482e642f7893170a21c5c9366f"
+    },
+    {
+      "path": "doc1-cdk2/downloads/DOC1dimer_CDK2-core-geometry-memberships.csv.gz",
+      "bytes": 6108428,
+      "sha256": "21f15efe3f6e2f4f423e1130b50a6d32e712d884c86f2627fc2cc8e018790939"
+    },
+    {
+      "path": "doc1-cdk2/downloads/DOC1dimer_CDK2-geometry-memberships.csv.gz",
+      "bytes": 8669432,
+      "sha256": "98ad54825017ab7f1d7f8df1d9074fab18417b58d2b83267b0cbba0f936c18b0"
+    },
+    {
+      "path": "doc1-cdk2/downloads/DOC1dimer_CDK2-proteinebm-full-complex.csv.gz",
+      "bytes": 10134185,
+      "sha256": "e504f6076084032809faeaf60c07bbe9688cb09858c8895d4bdcf16bc220cca8"
+    },
+    {
+      "path": "doc1-cdk2/export-manifest.json",
+      "bytes": 4317,
+      "sha256": "cf7c5bae83326f32d0d4918dd3d9f8e5d13b139dd24335935b5333e6787ee897"
+    },
+    {
+      "path": "doc1-cdk2/figures/DOC1Rdimer_CDK2-median-ca-distances.png",
+      "bytes": 529059,
+      "sha256": "914bca245647b1d4e8bb355e4cc0479f796d88f06d95a5439a6fde0ce902ffd9"
+    },
+    {
+      "path": "doc1-cdk2/figures/DOC1Rdimer_CDK2-variance-ca-distances.png",
+      "bytes": 383828,
+      "sha256": "9049c28b884ef2c6e6832ecd8eaf6e708e68b39b2fe9a6db10c590ddeb51d6e2"
+    },
+    {
+      "path": "doc1-cdk2/figures/DOC1dimer_CDK2-median-ca-distances.png",
+      "bytes": 517680,
+      "sha256": "3bbf09b296ec925be1d06a57d897a58f754839f51c573267583baeaece505a6f"
+    },
+    {
+      "path": "doc1-cdk2/figures/DOC1dimer_CDK2-variance-ca-distances.png",
+      "bytes": 372676,
+      "sha256": "e74b4eebdc8d11e2764f1c9993642221619b606c0acf97a75f7696d96ed33527"
+    },
+    {
+      "path": "doc1-cdk2/index.html",
+      "bytes": 8235,
+      "sha256": "7357ecad2d0f312cb43397347bf55afe1f2a21a1786962560fb09d97a25c08ce"
+    },
+    {
+      "path": "doc1-cdk2/style.css",
+      "bytes": 2752,
+      "sha256": "a79347540ebe91f143df3a431b5d2f11bf1495af9ef0e7f828e9c114f304cfb8"
+    },
+    {
       "path": "figure-supplements.json",
       "bytes": 3,
       "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
@@ -22628,8 +22753,8 @@
     },
     {
       "path": "ls_atlas.js",
-      "bytes": 1202,
-      "sha256": "376efbb6ba1ca0d2a0f7a4d3f81e5cef27224d1baad09353f831b44ad4581c67"
+      "bytes": 1652,
+      "sha256": "d7ab5ed0566260eec45d96991d8702f45b55572413ff9301123d36334dba461a"
     },
     {
       "path": "metric-overlays.json",
@@ -22766,5 +22891,10 @@
       "bytes": 3,
       "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
     }
-  ]
+  ],
+  "additional_delivery": {
+    "target_group": "DOC1/CDK2 preliminary",
+    "manifest_sha256": "cf7c5bae83326f32d0d4918dd3d9f8e5d13b139dd24335935b5333e6787ee897",
+    "scientific_execution": false
+  }
 }

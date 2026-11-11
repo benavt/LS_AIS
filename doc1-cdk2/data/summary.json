@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "DOC1Rdimer_CDK2",
+    "title": "DOC1R dimer\u2013CDK2",
+    "models": 57463,
+    "chains": "A/B/C",
+    "example_model": "def_mul_comp_af3_338",
+    "receipt_sha256": "24c734481c2e6b42e074983a2a9c8b20ab6d819476f3b917a8385d090465756d",
+    "core": {
+      "range_label": "A65\u2013126 + B65\u2013126 + C1\u2013298",
+      "receipt_sha256": "b1a1f6c42e55c854e28b7bb869ce38031e6efe297e75c90c3a5f6de933d9577d",
+      "knn_groups": 15,
+      "leaf_clusters": 576,
+      "eom_clusters": 406
+    },
+    "knn_groups": 2,
+    "leaf_clusters": 391,
+    "leaf_unassigned": 35334,
+    "eom_clusters": 182,
+    "eom_unassigned": 7193
+  },
+  {
+    "slug": "DOC1dimer_CDK2",
+    "title": "DOC1 dimer\u2013CDK2",
+    "models": 75800,
+    "chains": "A/B/C",
+    "example_model": "unidist_prot_sto_af3_33",
+    "receipt_sha256": "c6f7be99d0a5edc2d1bd9dc275fd3ae31f0b4d26861ee255450e853bfca687e3",
+    "core": {
+      "range_label": "A60\u2013115 + B60\u2013115 + C1\u2013298",
+      "receipt_sha256": "d13deb318f13ec6fe3e81ad353900d3c08e39cefcf9d05e258f3a115073adf56",
+      "knn_groups": 10,
+      "leaf_clusters": 707,
+      "eom_clusters": 252
+    },
+    "knn_groups": 6,
+    "leaf_clusters": 476,
+    "leaf_unassigned": 50093,
+    "eom_clusters": 150,
+    "eom_unassigned": 4324
+  }
+]

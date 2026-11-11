@@ -1,5 +1,18 @@
 /* Target-specific links follow the saved target menu; no scientific computation. */
 window.addEventListener('atlas:cohort', event => {
+  const menu = document.getElementById('targets');
+  for (const [slug, label] of [
+    ['DOC1Rdimer_CDK2', 'DOC1R dimer–CDK2'],
+    ['DOC1dimer_CDK2', 'DOC1 dimer–CDK2'],
+  ]) {
+    if (menu && !menu.querySelector(`[data-linked-target="${slug}"]`)) {
+      const link = document.createElement('a');
+      link.href = `doc1-cdk2/#${slug}`;
+      link.textContent = label;
+      link.dataset.linkedTarget = slug;
+      menu.append(link);
+    }
+  }
   // Diagnostic summaries are opt-in, including when inherited from saved exports.
   const current = event.detail.current;
   const requested = new Set(current.requested_optional_plots || []);
