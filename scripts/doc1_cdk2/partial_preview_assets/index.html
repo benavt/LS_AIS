@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LS AIS · DOC1/CDK2 private geometry preview</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="assets/plotly.min.js"></script>
+  <script defer src="assets/3Dmol-min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="masthead"><div class="brand"><span class="mark">LS</span><div><b>LS AIS</b><small>Structure atlas · private preview</small></div></div><a class="public-link" href="https://benavt.github.io/LS_AIS/">Published HSPH1 atlas ↗</a></header>
+  <main>
+    <div class="eyebrow">SAVED GEOMETRY · PARTIAL PREVIEW</div>
+    <h1>DOC1 dimers with CDK2</h1>
+    <p class="intro">Explore the accepted full-construct A/B/C models using saved UMAP coordinates and cluster assignments. These are geometry groups, not confirmed structural states. This private view excludes energy values.</p>
+    <nav class="targets" aria-label="Target menu"><button type="button" data-target="DOC1Rdimer_CDK2">DOC1R dimer–CDK2</button><button type="button" data-target="DOC1dimer_CDK2">DOC1 dimer–CDK2</button></nav>
+    <div id="status" role="status">Loading verified saved data…</div>
+    <section class="stats" aria-label="Target summary"><div><span>Accepted models</span><strong id="model-count">—</strong></div><div><span>UMAP KNN groups</span><strong id="knn-count">—</strong></div><div><span>HDBSCAN leaf clusters</span><strong id="leaf-count">—</strong></div><div><span>Leaf unassigned</span><strong id="noise-count">—</strong></div></section>
+    <section class="panel plot-panel"><div class="panel-top"><div><h2>Geometry landscape</h2><p>2-D UMAP of full A/B/C distance features. Every accepted model is plotted.</p></div><div class="controls"><label>Color by <select id="color-by"><option value="leaf">HDBSCAN leaf</option><option value="eom">HDBSCAN EOM diagnostic</option><option value="knn">UMAP KNN</option><option value="method">Generation method</option></select></label></div></div><div id="umap" aria-label="UMAP scatter plot"></div><p class="note" id="plot-note"></p></section>
+    <section class="grid"><div class="panel"><h2>Group sizes</h2><p id="group-subtitle">Largest assigned groups; unassigned shown separately.</p><div id="group-bars" aria-label="Cluster size bar chart"></div></div><div class="panel"><h2>Example native structure</h2><p id="structure-note">First accepted model in the frozen roster; illustrative, not a cluster representative.</p><div id="structure" aria-label="Interactive molecular structure"></div><a id="pdb-link" download>Download example PDB</a></div></section>
+    <section class="panel details"><h2>Available data</h2><p>Full-cohort UMAP coordinates, UMAP KNN groups, HDBSCAN leaf and EOM assignments, membership strengths, method labels, model IDs, and native file hashes are available in the downloadable table.</p><a id="csv-link" download>Download all geometry memberships (CSV)</a><p class="note">HDBSCAN leaf is the accepted density view. EOM is a diagnostic alternate. Unassigned models remain unassigned; high unassigned fractions limit interpretation of leaf clusters.</p></section>
+    <section class="pending"><h2>Still pending for the complete atlas</h2><p>Representative medoids, structural ensembles, TM comparisons, Bonsai, and MCMC/DISCO panels have not been accepted for these targets. This preview will not be used as a complete scientific atlas.</p></section>
+  </main><footer>LS AIS · private, time-limited preview · accepted geometry receipt only</footer>
+</body>
+</html>
