@@ -93,7 +93,7 @@ def validate(config_path, intake_root, output):
     with listing.open() as rows, (output / 'roster.jsonl').open('x') as accepted, (output / 'rejections.jsonl').open('x') as failures:
         for line in rows:
             entry = json.loads(line)
-            name = entry['name']
+            name = entry.get('name', '<missing>')
             try:
                 if Path(name).name != name or not name.endswith('.pdb') or name in seen_names:
                     raise ValueError('unsafe or duplicate model name')
@@ -127,9 +127,11 @@ def validate(config_path, intake_root, output):
         private.write_text(json.dumps({'target': target, 'sequences': private_sequences}, separators=(',', ':')) + '\n')
         private.chmod(0o600)
     summary = {
+        'status': 'validated' if rejected == 0 else 'rejected',
         'target': target, 'input_models': total, 'validated_models': sum(counts.values()),
         'rejected_models': rejected, 'duplicate_native_hashes': duplicates,
         'methods': dict(sorted(counts.items())), 'source_manifest_sha256': receipt['manifest_sha256'],
+        'target_config_sha256': sha_file(config_path),
         'roster_sha256': sha_file(output / 'roster.jsonl'),
         'private_construct_sha256': sha_file(output / 'private-construct.json') if private_sequences is not None else None,
     }
