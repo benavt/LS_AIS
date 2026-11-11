@@ -64,5 +64,6 @@ boundary sensitivity before interpreting them. The private partial atlas now
 offers these core fits alongside the full-construct baseline, with distinct
 UMAP, KNN, leaf/EOM memberships, counts, and CSV downloads. PCA, t-SNE, and
 Cα distance maps remain full-construct-only. Cluster representatives and
-aligned ensembles are still pending for both fits. The public export is
-unchanged.
+aligned ensembles are still pending for both fits. Accepted ProteinEBM t=0.10
+full-complex scores are overlaid on both fits, with their scoring scope stated
+explicitly. The public export is unchanged.

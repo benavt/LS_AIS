@@ -14,10 +14,16 @@ function groupColor(label) {
   if (Number(label) === -1) return "#adb3bb";
   return `hsl(${(Number(label) * 137.508 + 174) % 360},67%,43%)`;
 }
+function energyColor(value) {
+  const [low,,high] = data.energy.limits;
+  const fraction = Math.max(0, Math.min(1, (value - low) / (high - low || 1)));
+  return `hsl(${Math.round(225 - 220 * fraction)},70%,43%)`;
+}
 function colors(view, mode, indexes) {
   const labels = data[view], methods = Object.keys(data.method_counts);
   return indexes.map(i => {
     if (selected !== null && Number(labels[i]) !== selected) return "#d6d9da";
+    if (mode === "energy" && data.energy) return energyColor(data.energy.values[i]);
     if (mode === "method") return groupColor(methods.indexOf(data.method[i]));
     if (mode === "strength" && view !== "knn") {
       if (labels[i] === -1) return "#adb3bb";
@@ -31,11 +37,16 @@ function updateLegend(view, mode) {
   const element = $("projectionLegend");
   element.replaceChildren();
   const items = [];
-  if (selected !== null) items.push([groupColor(selected), `${groupName(view, selected)} highlighted`]);
+  if (selected !== null) items.push([mode === "energy" ? "#d6d9da" : groupColor(selected),
+                                    mode === "energy" ? "Other groups dimmed" : `${groupName(view, selected)} highlighted`]);
+  if (mode === "energy" && data.energy) {
+    items.push([energyColor(data.energy.limits[0]), `Lower score ${data.energy.limits[0].toFixed(2)}`],
+               [energyColor(data.energy.limits[2]), `Higher score ${data.energy.limits[2].toFixed(2)} · learned units`]);
+  }
   else if (mode === "method") items.push(["#317f7b", `${Object.keys(data.method_counts).length} generation methods`]);
   else if (mode === "strength") items.push(["#2869a2", "Darker = stronger membership"], ["#adb3bb", "Unassigned"]);
   else items.push(["#317f7b", `${Object.keys(data.counts[view]).filter(x => x !== "-1").length} saved ${view === "knn" ? "groups" : "clusters"}`]);
-  if (view !== "knn" && mode !== "strength") items.push(["#adb3bb", "Unassigned"]);
+  if (view !== "knn" && mode !== "strength" && mode !== "energy") items.push(["#adb3bb", "Unassigned"]);
   for (const [color, label] of items) {
     const span = document.createElement("span"), swatch = document.createElement("i");
     swatch.className = "swatch"; swatch.style.background = color;
@@ -76,6 +87,26 @@ function drawBars(view) {
     {margin:{l:110,r:12,t:12,b:40},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:"Models",gridcolor:"#e8e8e2"},yaxis:{automargin:true}},
     {responsive:true,displaylogo:false});
 }
+function drawEnergy(view) {
+  if (!data.energy) return;
+  const values = data.energy.values, low = data.energy.minimum, high = data.energy.maximum;
+  const bins = 60, width = (high - low) / bins || 1;
+  const all = Array(bins).fill(0), highlighted = Array(bins).fill(0);
+  for (let i = 0; i < values.length; i++) {
+    const bin = Math.max(0, Math.min(bins - 1, Math.floor((values[i] - low) / width)));
+    all[bin]++;
+    if (selected !== null && Number(data[view][i]) === selected) highlighted[bin]++;
+  }
+  const x = all.map((_, i) => low + (i + .5) * width);
+  const traces = [{type:"bar",x,y:all,name:"All accepted models",marker:{color:"#88ada9"}}];
+  if (selected !== null) traces.push({type:"bar",x,y:highlighted,name:groupName(view,selected),marker:{color:"#ae3348"}});
+  Plotly.react("energyHistogram",traces,
+    {barmode:"overlay",margin:{l:55,r:12,t:8,b:55},paper_bgcolor:"#fff",plot_bgcolor:"#fff",
+     xaxis:{title:"ProteinEBM full-complex energy · t = 0.10 (learned units)",gridcolor:"#e8e8e2"},
+     yaxis:{title:"Models",gridcolor:"#e8e8e2"},legend:{orientation:"h"}},
+    {responsive:true,displaylogo:false});
+  $("energySummary").textContent = `${fmt(values.length)} of ${fmt(data.models)} models scored · median ${data.energy.limits[1].toFixed(3)} learned units · range ${low.toFixed(3)} to ${high.toFixed(3)}${selected === null ? "" : ` · highlighted ${fmt(data.counts[view][selected] || 0)} models`}.`;
+}
 function draw() {
   if (!data) return;
   const view = $("analysisView").value, mode = $("color").value;
@@ -87,11 +118,11 @@ function draw() {
   const step = svgMode ? Math.ceil(data.models / 5000) : 1;
   const indexes = Array.from({length:Math.ceil(data.models / step)}, (_,j) => j*step).filter(i => i < data.models);
   const labels = data[view];
-  const custom = indexes.map(i => [i,data.model_id[i],data.method[i],groupName(view,labels[i]),view === "knn" ? "—" : data[`${view}_probability`][i]]);
+  const custom = indexes.map(i => [i,data.model_id[i],data.method[i],groupName(view,labels[i]),view === "knn" ? "—" : data[`${view}_probability`][i],data.energy ? data.energy.values[i].toFixed(3) : "—"]);
   const plot = $("umap");
   plot.setAttribute("aria-label",`${title} projection of ${fmt(data.models)} accepted models`);
   Plotly.react(plot,[{type:svgMode?"scatter":"scattergl",mode:"markers",x:indexes.map(i=>coordinates.x[i]),y:indexes.map(i=>coordinates.y[i]),customdata:custom,
-    hovertemplate:"<b>%{customdata[1]}</b><br>Method: %{customdata[2]}<br>%{customdata[3]}<br>Strength: %{customdata[4]}<extra></extra>",
+    hovertemplate:`<b>%{customdata[1]}</b><br>Method: %{customdata[2]}<br>%{customdata[3]}<br>Strength: %{customdata[4]}${data.energy ? "<br>Full-complex ProteinEBM t=0.10: %{customdata[5]}" : ""}<extra></extra>`,
     marker:{size:svgMode?4:4,opacity:.68,color:colors(view,mode,indexes)},showlegend:false}],
     {margin:{l:52,r:12,t:15,b:45},paper_bgcolor:"#fff",plot_bgcolor:"#fff",xaxis:{title:`${title} 1`,zeroline:false,gridcolor:"#e8e8e2"},yaxis:{title:`${title} 2`,zeroline:false,gridcolor:"#e8e8e2"},hovermode:"closest"},
     {responsive:true,displaylogo:false,modeBarButtonsToRemove:["lasso2d","select2d"]});
@@ -105,7 +136,7 @@ function draw() {
   const count = Object.keys(data.counts[view]).filter(x=>x!=="-1").length;
   const noise = Number(data.counts[view][-1] || 0);
   $("explorerNote").textContent = `${fmt(data.models)} accepted models · fit residues ${data.range_label} · ${fmt(count)} ${view === "knn" ? "groups" : "clusters"}${view === "knn" ? "" : ` · ${fmt(noise)} unassigned (${(100*noise/data.models).toFixed(1)}%)`}${view === "eom" ? " · diagnostic alternate" : ""}.`;
-  updateLegend(view,mode); updateSelection(view);
+  updateLegend(view,mode); updateSelection(view); drawEnergy(view);
 }
 function chooseCluster(label) {
   selected = Number(label); draw(); updateSelection($("analysisView").value);
@@ -153,12 +184,22 @@ async function setRange(slug, range) {
   else if (cache.has(`${slug}-core`)) $("residueRange").options[1].textContent = `Core · ${cache.get(`${slug}-core`).range_label}`;
   if (!data[projection] && projection !== "umap") projection = "umap";
   for (const button of document.querySelectorAll("[data-projection]")) button.disabled = button.dataset.projection !== "umap" && !data[button.dataset.projection];
-  $("summary").textContent = `${fmt(data.models)} accepted models · ${data.range_label} fit · geometry-only private preview`;
+  $("summary").textContent = `${fmt(data.models)} accepted models · ${data.range_label} fit · ${data.energy ? "geometry + full-complex ProteinEBM" : "geometry-only"} private preview`;
   $("members").href = `downloads/${slug}${range === "core" ? "-core" : ""}-geometry-memberships.csv`;
   $("provenance").textContent = `Accepted ${range === "core" ? "A/B-core" : "full-construct"} clustering receipt SHA-256: ${data.receipt_sha256}. Saved UMAP, labels, and model order were verified against native hashes.`;
   $("fitMethods").textContent = range === "core"
-    ? `Core fit retains ${data.range_label}, with ${fmt(data.pair_count)} Cα pair features per model in the validated 4,096-dimensional sketch. Saved seed-42 UMAP KNN and HDBSCAN leaf/EOM partitions are exploratory geometry groups, not validated biological states. PCA, t-SNE, and distance maps have only been calculated for the full construct. ProteinEBM values are not fit features or displayed here.`
-    : "Full fit retains all A/B/C residues in the validated 4,096-dimensional all-pair sketch. UMAP and clustering views are saved seed-42 results. HDBSCAN EOM is a diagnostic alternate; unassigned models remain unassigned. No energy values appear in this partial preview.";
+    ? `Core fit retains ${data.range_label}, with ${fmt(data.pair_count)} Cα pair features per model in the validated 4,096-dimensional sketch. Saved seed-42 UMAP KNN and HDBSCAN leaf/EOM partitions are exploratory geometry groups, not validated biological states. PCA, t-SNE, and distance maps have only been calculated for the full construct. ProteinEBM scores are full-complex overlays, not fit features.`
+    : "Full fit retains all A/B/C residues in the validated 4,096-dimensional all-pair sketch. UMAP and clustering views are saved seed-42 results. HDBSCAN EOM is a diagnostic alternate; unassigned models remain unassigned. ProteinEBM scores are separate from geometry and confidence.";
+  $("energyPanel").hidden = !data.energy;
+  $("color").querySelector('[value="energy"]').disabled = !data.energy;
+  if (data.energy) {
+    $("energyScope").textContent = `Energy scoring scope: full A/B/C complex for every accepted model. Active geometry fit: ${data.range_label}.`;
+    $("energyDownload").href = data.energy.download;
+    $("provenance").textContent += ` Accepted ProteinEBM receipt SHA-256: ${data.energy.receipt_sha256}; full 16-level CSV SHA-256: ${data.energy.csv_sha256}.`;
+  } else {
+    $("energyDownload").removeAttribute("href");
+    if ($("color").value === "energy") $("color").value = "cluster";
+  }
   $("distanceMaps").hidden = !data.maps;
   $("supplementalMethods").hidden = !data.maps;
   if (data.maps) {

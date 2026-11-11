@@ -12,7 +12,7 @@
 <body>
 <header><a class="brand" href="./">LS AIS · structure atlas</a><a href="#methods">Methods</a></header>
 <main>
-  <p class="hint">Private LS AIS atlas preview · accepted DOC1/CDK2 geometry only.</p>
+  <p class="hint">Private LS AIS atlas preview · accepted DOC1/CDK2 saved analyses.</p>
   <nav id="targets" aria-label="Select target">
     <a href="https://benavt.github.io/LS_AIS/">HSPH1 construct 12757 ↗</a>
     <a href="#DOC1Rdimer_CDK2" data-target="DOC1Rdimer_CDK2">DOC1R dimer–CDK2</a>
@@ -25,7 +25,7 @@
     <div class="explorer-controls" role="group" aria-label="Cluster explorer settings">
       <label>Clustering <select id="analysisView" aria-label="Saved clustering analysis"><option value="leaf">HDBSCAN leaf · accepted</option><option value="eom">HDBSCAN EOM · diagnostic</option><option value="knn">UMAP KNN</option></select></label>
       <label>Residues <select id="residueRange" aria-label="Clustering residue range"><option value="full">Full construct · chains A/B/C</option><option value="core">A/B C-terminal core + full C</option></select></label>
-      <label>Color <select id="color" aria-label="Plot color scheme"><option value="cluster">Cluster</option><option value="method">Generation method</option><option value="strength">Membership strength</option></select></label>
+      <label>Color <select id="color" aria-label="Plot color scheme"><option value="cluster">Cluster</option><option value="method">Generation method</option><option value="strength">Membership strength</option><option value="energy" disabled>ProteinEBM energy · full complex</option></select></label>
       <button type="button" id="clear">Clear cluster</button>
     </div>
     <p id="explorerNote" class="explorer-hint"></p>
@@ -54,11 +54,17 @@
   </div></details>
   <section id="supplementary" class="supplementary-intro"><h2>Figures</h2></section>
   <details class="figure-panel supplementary-panel" open><summary><span>Saved cluster populations</span></summary><div class="panel-body"><p>Largest 15 assigned groups, with unassigned models shown separately.</p><div id="groupBars" aria-label="Cluster population bar chart"></div></div></details>
+  <details id="energyPanel" class="figure-panel supplementary-panel" open hidden><summary><span>ProteinEBM full-complex energy</span></summary><div class="panel-body">
+    <p id="energyScope"></p><p id="energySummary"></p>
+    <div id="energyHistogram" aria-label="ProteinEBM energy distribution"></div>
+    <p><a id="energyDownload" download>Download accepted 16-level ProteinEBM scores (CSV)</a></p>
+    <p class="hint">ProteinEBM Model 6 frozen native Cα expert · t = 0.10 (index 10). Scores use learned arbitrary units, are not binding energies or confidence, and were calculated on each full A/B/C complex. The A/B-core mask changes the clustering geometry only.</p>
+  </div></details>
   <details id="distanceMaps" class="figure-panel supplementary-panel" hidden><summary><span>Cα distance maps</span></summary><div class="panel-body"><p id="mapCaption"></p><div class="map-grid"><figure><img id="medianMap" alt="Median C-alpha distance map with chain boundaries"><figcaption id="medianCaption"></figcaption><a id="medianDownload" download>Download median map PNG</a></figure><figure><img id="varianceMap" alt="C-alpha distance variance map with chain boundaries"><figcaption id="varianceCaption"></figcaption><a id="varianceDownload" download>Download variance map PNG</a></figure></div></div></details>
   <details class="figure-panel supplementary-panel"><summary><span>Additional atlas views · pending</span></summary><div class="panel-body"><p id="pendingText">PCA, t-SNE, Bonsai, Cα distance maps, representative medoids, TM comparisons, aligned ensembles, and MCMC/DISCO panels do not yet have accepted outputs for these two targets. No values or structures are inferred to fill those views.</p></div></details>
   <details id="methods" class="figure-panel"><summary><span>Methods</span></summary><div class="panel-body">
     <details class="method-counts" open><summary>Model counts by generation method</summary><div id="methodCounts" class="table-wrap"></div></details>
-    <p id="fitMethods">Geometry uses the validated 4,096-dimensional pair sketch. UMAP and clustering views are saved seed-42 results. HDBSCAN EOM is a diagnostic alternate; unassigned models remain unassigned. No energy values appear in this partial preview.</p>
+    <p id="fitMethods">Geometry uses the validated 4,096-dimensional pair sketch. UMAP and clustering views are saved seed-42 results. HDBSCAN EOM is a diagnostic alternate; unassigned models remain unassigned.</p>
     <p id="supplementalMethods" hidden>PCA fits 50 components to every accepted model's 4,096-dimensional all-pair sketch; the first two components are plotted. t-SNE fits all models from those 50 PCA coordinates (perplexity 30, seed 42). The Cα median map uses a frozen uniform sample of 5,000 models per target; the population variance map uses every accepted model. Both maps retain all A/B/C residues and mark chain boundaries.</p>
     <p id="provenance" class="hint"></p>
   </div></details>

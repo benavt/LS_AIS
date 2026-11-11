@@ -19,6 +19,7 @@ html:has(.cluster-explorer[open]){scroll-snap-type:none!important}
 #selectionSummary{margin:10px 0}
 #modelInfo{word-break:break-word}
 #groupBars{height:370px;max-width:100%}
+#energyHistogram{height:370px;max-width:100%}
 #representativesPanel .table-wrap{max-height:480px}
 #clusterRows tr{cursor:pointer}
 #clusterRows tr.selected{background:#faeeee}

@@ -93,14 +93,20 @@ but medoids, ensembles, TM grids, Bonsai, and MCMC/DISCO are still missing.
 
 The approved ProteinEBM Model 6 production plan
 (`c8eead144f40b7f9ca972473998e9946c20b986564b87a74153bbdb23c863195`)
-is running in 134 monitored GPU chunks. Each accepted model will receive the
-same 16-level energy grid. The first 1,000-model DOC1R chunk validated with
-16,000 finite energy values and a passing finished GPU log. Array 25984 now
-permits four concurrent one-GPU tasks under the explicitly
+finished all 134 monitored GPU chunks. Every accepted model received the
+same 16-level energy grid. Array 25984 ran up to four concurrent one-GPU
+tasks under the explicitly
 approved resource-only amendment
 (`ee2f5bbfee05bcdf40c0c869d9122f2c92df186eae176558b3b11e53b61e0334`).
-The original model inputs, method, outputs, and 134 GPU-hour ceiling are unchanged.
-Full-cohort score acceptance has not yet run. Cluster supplements, MCMC/DISCO,
-and atlas exports
-still require their own hash-bound plans and accepted outputs. The existing HSPH1
-public page does not include either target yet.
+All 134 completion events and whole-job GPU logs finished with zero exit codes.
+The approved CPU acceptance job 26146 validated exact model ID and native-hash
+order, finite 16-level grids, and full-roster coverage: 919,408 DOC1R and
+1,212,800 DOC1 energy values, 2,132,208 total. The DOC1R and DOC1 acceptance
+receipt SHA-256 values are
+`98699db15988dcc07e7021be9cee7d001dfb5c5fafe9d6e0c5b36815af55d4b7`
+and `fbb5eb821d15183a7470f4b6670d9025ac73b6e818d5cf080ca9e3dcc790c4f8`.
+The primary atlas value is t=0.10 (index 10), with learned arbitrary units;
+it is neither binding energy nor confidence. The private preview overlays
+these full-complex scores on both full and A/B-core geometry fits without
+refitting either clustering. Cluster representatives, Bonsai, and MCMC/DISCO
+remain pending. The public HSPH1 page is unchanged.
