@@ -9,7 +9,25 @@
       "config": "targets/hsph1-12757/target.json",
       "data": "HSPH1_12757_homodimer/primary.json",
       "default_view": "density"
+    },
+    {
+      "id": "DOC1Rdimer_CDK2",
+      "name": "DOC1R dimer–CDK2",
+      "config": "targets/doc1r-cdk2/config/target.json",
+      "data": "doc1-cdk2/data/DOC1Rdimer_CDK2.json.gz",
+      "page": "doc1-cdk2/",
+      "default_view": "leaf",
+      "stage": "preliminary"
+    },
+    {
+      "id": "DOC1dimer_CDK2",
+      "name": "DOC1 dimer–CDK2",
+      "config": "targets/doc1-cdk2/config/target.json",
+      "data": "doc1-cdk2/data/DOC1dimer_CDK2.json.gz",
+      "page": "doc1-cdk2/",
+      "default_view": "leaf",
+      "stage": "preliminary"
     }
   ],
-  "layout": "One shared atlas page; distinct target menu entries, independent residue-range and clustering menus."
+  "layout": "One GitHub Pages atlas with linked target menus; DOC1/CDK2 results are preliminary pending representatives and sampling."
 }
