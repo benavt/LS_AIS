@@ -8,7 +8,7 @@ The linked target menus keep HSPH1 and DOC1/CDK2 within one GitHub Pages atlas. 
 
 - `config/targets.json`: ordered target menus and target metadata pointers.
 - `targets/<slug>/`: target-specific configuration and future adapters.
-- `scripts/build_private_atlas.py`: compose one verified saved delivery per registered target and export through the pinned blocking privacy gate.
+- `scripts/build_private_atlas.py`: compose verified saved deliveries or augment a verified saved multi-target atlas with registered placeholders, then export through the pinned blocking privacy gate.
 - `scripts/assemble_hsph1_private.py`: serialize the accepted HSPH1 saved results; no fitting, scoring or sampling.
 - `scripts/serve_private_atlas.py`: bounded, allowlisted private Tailscale preview at `/LS_AIS/`.
 - `scripts/doc1_cdk2/package_public_preview.py`: hash-bind and privacy-check the preliminary DOC1/CDK2 bundle, with lossless transport compression for Pages.
@@ -27,6 +27,6 @@ python scripts/build_private_atlas.py \
   --output local/atlas/NEW_RUN/site
 ```
 
-The builder verifies every size and SHA256, rejects colliding target artifacts and incompatible shared renderer bytes, merges target catalogs, and calls the shared saved-file exporter. It never starts science or deploys a public site. See [adding targets](docs/adding-targets.md) and [private preview workflow](docs/private-atlas.md).
+The builder verifies every size and SHA256, rejects colliding target artifacts and incompatible shared renderer bytes, merges target catalogs, and calls the shared saved-file exporter. For an existing multi-target saved export, use `--base-delivery /absolute/path/to/site` instead of per-target sources to add registered placeholder pages. It never starts science or deploys a public site. See [adding targets](docs/adding-targets.md) and [private preview workflow](docs/private-atlas.md).
 
 GitHub Pages publishes the reviewed 4,006-model HSPH1 atlas and the labeled preliminary DOC1/CDK2 views. The Pages branch contains the verified static exports, including model and compressed CSV downloads. Zenodo has no published record or DOI for this project, and the data license remains unresolved. The private Tailscale server remains available for bounded prepublication reviews.

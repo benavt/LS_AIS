@@ -1,0 +1,129 @@
+{
+  "accepted_results": {
+    "afsample3_energy_table_sha256": "8dc8ffb259c026db722673cd313cae157131b5066bccc9fa62512ca7a773316c",
+    "afsample3_proteinebm_models": 1000
+  },
+  "accession": null,
+  "alternate_residue_scopes": [],
+  "analysis_requested": [
+    "ProteinEBM Model 6 t=0.10 all 5000 models",
+    "full-construct C-alpha distance maps and variance maps",
+    "PCA",
+    "UMAP",
+    "t-SNE",
+    "UMAP KNN per saved/new cohort",
+    "geometry HDBSCAN per saved/new cohort",
+    "HDBSCAN-guided structural states",
+    "MCMC50",
+    "DISCO50",
+    "native Bonsai per clustering view",
+    "cluster representative TM similarity heatmaps"
+  ],
+  "chains": [
+    {
+      "description": "CDK2",
+      "id": "A",
+      "residues": 298,
+      "sequence_sha256": "fe22d91e18cd544a85d7c768cd864172200252df906b774d890dc103224f7c8d"
+    },
+    {
+      "description": "DOC1",
+      "id": "B",
+      "residues": 115,
+      "sequence_sha256": "c0bfddde73232af25275e5753a115e1f5177473bbbfe129a9979c1bb2b8d9b50"
+    }
+  ],
+  "cohort": {
+    "expected_models": 5000,
+    "manifest_sha256": "7de0b1d0ed9024305d05d67bdcc9e9c7c9a27e6aa29855db472e962162027133",
+    "methods": [
+      {
+        "id": "afsample3",
+        "models": 1000
+      },
+      {
+        "id": "afsample2",
+        "model_backbones": 5,
+        "models": 3000,
+        "prediction_indices": 200,
+        "weights_versions": {
+          "v1": 1000,
+          "v2": 1000,
+          "v3": 1000
+        }
+      },
+      {
+        "failed_frames_retained": true,
+        "id": "bioemu2",
+        "models": 1000,
+        "native_physicality_passed": 1,
+        "native_physicality_rejected": 999
+      }
+    ],
+    "snapshot": "2026-11-12",
+    "source_inventory_sha256": {
+      "afsample2": "b00ef7d676b72a3ebd0b769c032762d296198747c8bc7f7a8f5912dd5263b29c",
+      "bioemu2": "ef3d01c9b3da6b3b9e842320da470f0e278d8612929b37b70466a971a59bcad6"
+    }
+  },
+  "id": "CDK2_DOC1",
+  "name": "CDK2 + full-length DOC1",
+  "organism": null,
+  "presentation": {
+    "afsample2_color_by_weights_version": true,
+    "bioemu2_physicality_labels": true,
+    "requested_optional_plots": []
+  },
+  "primary_residue_scope": "A1-298+B1-115",
+  "publication": "private_preview_until_complete_and_reviewed",
+  "representative_policy": "lowest verified ProteinEBM energy per assigned cluster",
+  "schema_version": 1,
+  "status": "scientific_work_in_progress_private",
+  "cohort_views": [
+    {
+      "id": "afsample3_saved",
+      "label": "AFsample3 saved atlas",
+      "models": 1000,
+      "fit_models": 1000,
+      "display_models": 1000,
+      "methods": [
+        "afsample3"
+      ],
+      "status": "verified_saved_external"
+    },
+    {
+      "id": "afsample2_bioemu2_new",
+      "label": "AFsample2 + BioEMU2",
+      "models": 4000,
+      "fit_models": 4000,
+      "display_models": 4000,
+      "methods": [
+        {
+          "id": "afsample2",
+          "models": 3000,
+          "weights_versions": {
+            "v1": 1000,
+            "v2": 1000,
+            "v3": 1000
+          }
+        },
+        {
+          "id": "bioemu2",
+          "models": 1000,
+          "physicality_failed_retained": true
+        }
+      ],
+      "status": "scoring_submitted_clustering_pending"
+    }
+  ],
+  "existing_afsample3_snapshot": {
+    "repository": "benavt/cdk2-doc1-afs3",
+    "commit": "d672ba45d8a7723ac07041f41410b1150a2b33e6",
+    "publication_manifest_sha256": "9b852e91b29cff0cbfc0b1a06f1f11366300a889899151146c034e18fbe56cfa",
+    "primary_sha256": "bc137a4065701bd493a3251c143ec270199540b3ecf1ddc3d7f9b00021f61e50",
+    "density_sha256": "fbababecef9319bed209701ba3d4403979f3290b80c275311687148f46a82cfc",
+    "bonsai_sha256": "92ceee67e6dd96efecf79dca9beea4ca8e2ddff6c02ef63e5838c4555d8738bf",
+    "live_files_verified_on": "2026-11-12",
+    "source_url": "https://benavt.github.io/cdk2-doc1-afs3/#CDK2_DOC1"
+  }
+}
