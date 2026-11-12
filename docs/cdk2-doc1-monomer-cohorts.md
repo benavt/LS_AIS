@@ -42,3 +42,8 @@ labeled separately. The AFsample3 views expose DockQ as a color metric; the
 target downloads include every model, including AFsample2 weights v1/v2/v3
 and BioEMU2 physicality labels. The pending 4,000-model cohort remains a
 separate view and is not represented as a completed atlas.
+
+The 0865 scores, concentrated near zero, were checked independently;
+see [the 0865 DockQ distribution audit](dockq-0865-distribution-audit.md).
+Low DockQ here means low similarity to that one predicted reference pose,
+not a general judgment of whether a model binds CDK2.
