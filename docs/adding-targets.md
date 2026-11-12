@@ -9,6 +9,14 @@
 
 The current HSPH1 controllers remain at their original paths because frozen plans bind them by hash. That historical layout does not dictate new target layouts.
 
+For the transferred CDK2–DOC1 AFsample3 monomer atlas, use
+`scripts/transfer_afsample3_atlas.py` with a verified LS_AIS base delivery,
+the immutable AFsample3 site files and a saved copy of its published export
+manifest. The transfer checks every selected source hash and imports only the
+two target directories and their catalog entries. The existing LS_AIS renderer
+and other targets remain intact. The new AFsample2/BioEMU2 cohort stays a
+disabled Model cohort option until its own accepted scientific results exist.
+
 For an existing external atlas whose new cohort is still being calculated, a
 `stage: placeholder` target may supply a verified source URL and a static
 LS_AIS page. The composer adds it to the target menu without claiming a saved

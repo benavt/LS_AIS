@@ -1,14 +1,16 @@
 # CDK2–DOC1 monomer cohorts
 
-`CDK2_DOC1` and `CDK2_DOC1t` each have two distinct atlas cohorts. Their
-LS_AIS menu entries are placeholders until the second cohort's analyses pass.
+`CDK2_DOC1` and `CDK2_DOC1t` each have two distinct atlas cohorts. The saved
+AFsample3 cohort is transferred into the LS_AIS explorer. The second cohort
+appears as a disabled, clearly labeled choice in each target's Model cohort
+dropdown until its own analyses pass.
 
 | Cohort | Models per target | Current evidence |
 | --- | ---: | --- |
-| Saved AFsample3 | 1,000 | Existing [AFsample3 atlas](https://benavt.github.io/cdk2-doc1-afs3/) at publication commit `d672ba45d8a7723ac07041f41410b1150a2b33e6`; live primary and HDBSCAN JSON hashes match its saved manifest. ProteinEBM tables also match the accepted local hashes. |
+| Saved AFsample3 | 1,000 | Transferred into LS_AIS from the immutable [AFsample3 publication](https://benavt.github.io/cdk2-doc1-afs3/) at commit `d672ba45d8a7723ac07041f41410b1150a2b33e6`; all transferred assets match the published manifest. ProteinEBM tables also match the accepted local hashes. |
 | New AFsample2 + BioEMU2 | 4,000 | 3,000 AFsample2 models (1,000 each from multimer weights v1/v2/v3) and 1,000 BioEMU2 frames. All 8,000 missing ProteinEBM scores across both targets are submitted on Mimas. Clustering is not yet calculated or displayed. |
 
-The new cohort must be fit and displayed separately from the saved AFsample3
+The new cohort must be fit and displayed separately from the transferred AFsample3
 cohort, using complete two-chain scopes `A1-298+B1-115` and `A1-298+B1-55`.
 The full-length target retains 999 BioEMU2 frames flagged by native physicality;
 the truncated target's 1,000 BioEMU2 frames passed that check. Show those labels
