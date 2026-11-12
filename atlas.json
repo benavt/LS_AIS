@@ -1,1 +1,61 @@
-{"targets":[{"id":"HSPH1_12757_homodimer","label":"HSPH1 construct 12757","data":"HSPH1_12757_homodimer/primary.json"},{"id":"DOC1Rdimer_CDK2","label":"DOC1Rdimer_CDK2","data":"DOC1Rdimer_CDK2/full-density.json","residue_ranges":[{"id":"all","name":"A1\u2013126 + B1\u2013126 + C1\u2013298","available":true,"data":"DOC1Rdimer_CDK2/full-density.json","default_view":"density"},{"id":"core","name":"A65\u2013126 + B65\u2013126 + C1\u2013298","available":true,"data":"DOC1Rdimer_CDK2/core-density.json","default_view":"density"}]},{"id":"DOC1dimer_CDK2","label":"DOC1dimer_CDK2","data":"DOC1dimer_CDK2/full-density.json","residue_ranges":[{"id":"all","name":"A1\u2013115 + B1\u2013115 + C1\u2013298","available":true,"data":"DOC1dimer_CDK2/full-density.json","default_view":"density"},{"id":"core","name":"A60\u2013115 + B60\u2013115 + C1\u2013298","available":true,"data":"DOC1dimer_CDK2/core-density.json","default_view":"density"}]}]}
+{
+  "targets": [
+    {
+      "id": "HSPH1_12757_homodimer",
+      "label": "HSPH1 construct 12757",
+      "data": "HSPH1_12757_homodimer/primary.json"
+    },
+    {
+      "id": "DOC1Rdimer_CDK2",
+      "label": "DOC1Rdimer_CDK2",
+      "data": "DOC1Rdimer_CDK2/full-density.json",
+      "residue_ranges": [
+        {
+          "id": "all",
+          "name": "A1\u2013126 + B1\u2013126 + C1\u2013298",
+          "available": true,
+          "data": "DOC1Rdimer_CDK2/full-density.json",
+          "default_view": "density"
+        },
+        {
+          "id": "core",
+          "name": "A65\u2013126 + B65\u2013126 + C1\u2013298",
+          "available": true,
+          "data": "DOC1Rdimer_CDK2/core-density.json",
+          "default_view": "density"
+        }
+      ]
+    },
+    {
+      "id": "DOC1dimer_CDK2",
+      "label": "DOC1dimer_CDK2",
+      "data": "DOC1dimer_CDK2/full-density.json",
+      "residue_ranges": [
+        {
+          "id": "all",
+          "name": "A1\u2013115 + B1\u2013115 + C1\u2013298",
+          "available": true,
+          "data": "DOC1dimer_CDK2/full-density.json",
+          "default_view": "density"
+        },
+        {
+          "id": "core",
+          "name": "A60\u2013115 + B60\u2013115 + C1\u2013298",
+          "available": true,
+          "data": "DOC1dimer_CDK2/core-density.json",
+          "default_view": "density"
+        }
+      ]
+    },
+    {
+      "id": "CDK2_DOC1",
+      "data": "CDK2_DOC1/primary.json",
+      "label": "CDK2\u2013DOC1 monomer"
+    },
+    {
+      "id": "CDK2_DOC1t",
+      "data": "CDK2_DOC1t/primary.json",
+      "label": "CDK2\u2013DOC1t monomer"
+    }
+  ]
+}

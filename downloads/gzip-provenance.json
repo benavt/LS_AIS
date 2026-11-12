@@ -1,0 +1,41 @@
+{
+  "transport": "gzip",
+  "files": [
+    {
+      "file": "downloads/DOC1Rdimer_CDK2-proteinebm-full-complex.csv.gz",
+      "original_sha256": "b8e131faaa22be3c2b989e6332a5afef6d6db95e0474417c7d62d2196cf028e4",
+      "original_bytes": 20671226,
+      "compressed_sha256": "c1f6255167064f71b9594ba1d1f9c5a38c094e482e642f7893170a21c5c9366f"
+    },
+    {
+      "file": "downloads/DOC1Rdimer_CDK2-geometry-memberships.csv.gz",
+      "original_sha256": "d773d1f67706102cff7862657230cfa43cf68465917db944dc9637eca2679201",
+      "original_bytes": 14876487,
+      "compressed_sha256": "52fc03dc09223f318c122d6f6b888a9181ee80305e61e2ec0abb9a719627fd39"
+    },
+    {
+      "file": "downloads/DOC1Rdimer_CDK2-core-geometry-memberships.csv.gz",
+      "original_sha256": "6e0bd4261101fe7c05d4dbe5f3bab6ccf0710522f86875dcee96fde115c3fd55",
+      "original_bytes": 14962670,
+      "compressed_sha256": "9042300002233411fb958781378e2595e13eeadd3c22a5ab0d9ae14aea80f7f6"
+    },
+    {
+      "file": "downloads/DOC1dimer_CDK2-proteinebm-full-complex.csv.gz",
+      "original_sha256": "8af793e6d1c0469ca2ce123ae14764e01194b847d6e9b11ad6680e60c829d662",
+      "original_bytes": 27471270,
+      "compressed_sha256": "e504f6076084032809faeaf60c07bbe9688cb09858c8895d4bdcf16bc220cca8"
+    },
+    {
+      "file": "downloads/DOC1dimer_CDK2-geometry-memberships.csv.gz",
+      "original_sha256": "61c2861d18e1257a0c6adf1805d9d55cb1caa08d469942fcab0b72083623b22a",
+      "original_bytes": 19509036,
+      "compressed_sha256": "98ad54825017ab7f1d7f8df1d9074fab18417b58d2b83267b0cbba0f936c18b0"
+    },
+    {
+      "file": "downloads/DOC1dimer_CDK2-core-geometry-memberships.csv.gz",
+      "original_sha256": "7024e7b41be0e8795d5cec7e96630e69274d3a07c80b8db47878258df99afad8",
+      "original_bytes": 19597306,
+      "compressed_sha256": "584213e0147dfc85ac15f2e68c40e3832d148dcc461b2217be2152c7804c66c2"
+    }
+  ]
+}
