@@ -11,8 +11,8 @@
     "PCA",
     "UMAP",
     "t-SNE",
-    "UMAP KNN",
-    "geometry HDBSCAN",
+    "UMAP KNN per saved/new cohort",
+    "geometry HDBSCAN per saved/new cohort",
     "HDBSCAN-guided structural states",
     "MCMC50",
     "DISCO50",
@@ -34,9 +34,7 @@
     }
   ],
   "cohort": {
-    "display_models": 5000,
     "expected_models": 5000,
-    "fit_models": 5000,
     "manifest_sha256": "7de0b1d0ed9024305d05d67bdcc9e9c7c9a27e6aa29855db472e962162027133",
     "methods": [
       {
@@ -80,5 +78,52 @@
   "publication": "private_preview_until_complete_and_reviewed",
   "representative_policy": "lowest verified ProteinEBM energy per assigned cluster",
   "schema_version": 1,
-  "status": "scientific_work_in_progress_private"
+  "status": "scientific_work_in_progress_private",
+  "cohort_views": [
+    {
+      "id": "afsample3_saved",
+      "label": "AFsample3 saved atlas",
+      "models": 1000,
+      "fit_models": 1000,
+      "display_models": 1000,
+      "methods": [
+        "afsample3"
+      ],
+      "status": "verified_saved_external"
+    },
+    {
+      "id": "afsample2_bioemu2_new",
+      "label": "AFsample2 + BioEMU2",
+      "models": 4000,
+      "fit_models": 4000,
+      "display_models": 4000,
+      "methods": [
+        {
+          "id": "afsample2",
+          "models": 3000,
+          "weights_versions": {
+            "v1": 1000,
+            "v2": 1000,
+            "v3": 1000
+          }
+        },
+        {
+          "id": "bioemu2",
+          "models": 1000,
+          "physicality_failed_retained": true
+        }
+      ],
+      "status": "scoring_submitted_clustering_pending"
+    }
+  ],
+  "existing_afsample3_snapshot": {
+    "repository": "benavt/cdk2-doc1-afs3",
+    "commit": "d672ba45d8a7723ac07041f41410b1150a2b33e6",
+    "publication_manifest_sha256": "9b852e91b29cff0cbfc0b1a06f1f11366300a889899151146c034e18fbe56cfa",
+    "primary_sha256": "bc137a4065701bd493a3251c143ec270199540b3ecf1ddc3d7f9b00021f61e50",
+    "density_sha256": "fbababecef9319bed209701ba3d4403979f3290b80c275311687148f46a82cfc",
+    "bonsai_sha256": "92ceee67e6dd96efecf79dca9beea4ca8e2ddff6c02ef63e5838c4555d8738bf",
+    "live_files_verified_on": "2026-11-12",
+    "source_url": "https://benavt.github.io/cdk2-doc1-afs3/#CDK2_DOC1"
+  }
 }

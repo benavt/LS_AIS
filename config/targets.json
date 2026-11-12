@@ -27,6 +27,22 @@
       "page": "doc1-cdk2/",
       "default_view": "leaf",
       "stage": "preliminary"
+    },
+    {
+      "id": "CDK2_DOC1",
+      "name": "CDK2–DOC1 monomer",
+      "config": "targets/cdk2-doc1-monomer/config/target.json",
+      "page": "targets/cdk2-doc1-monomer/",
+      "source_url": "https://benavt.github.io/cdk2-doc1-afs3/#CDK2_DOC1",
+      "stage": "placeholder"
+    },
+    {
+      "id": "CDK2_DOC1t",
+      "name": "CDK2–DOC1t monomer",
+      "config": "targets/cdk2-doc1t-monomer/config/target.json",
+      "page": "targets/cdk2-doc1t-monomer/",
+      "source_url": "https://benavt.github.io/cdk2-doc1-afs3/#CDK2_DOC1t",
+      "stage": "placeholder"
     }
   ],
   "layout": "One GitHub Pages atlas with linked target menus; DOC1/CDK2 results are preliminary pending representatives and sampling."

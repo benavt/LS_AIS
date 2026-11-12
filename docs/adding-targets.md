@@ -8,3 +8,14 @@
 6. Review the real private target deep link; switch targets, residue ranges and both clustering views, inspect medoids and native downloads, and verify source identities and responsive rendering. Publish a newly reviewed export to `gh-pages` only after its own privacy and content checks.
 
 The current HSPH1 controllers remain at their original paths because frozen plans bind them by hash. That historical layout does not dictate new target layouts.
+
+For an existing external atlas whose new cohort is still being calculated, a
+`stage: placeholder` target may supply a verified source URL and a static
+LS_AIS page. The composer adds it to the target menu without claiming a saved
+clustering view or requiring an unaccepted delivery. Replace the placeholder
+with a hash-verified saved delivery through the normal steps above after the
+new cohort's analyses are accepted and reviewed.
+When extending an existing hash-verified multi-target export, pass
+`--base-delivery /absolute/path/to/site` to `build_private_atlas.py` instead
+of separate `--target-source` arguments. The builder verifies the complete
+saved file inventory before adding the placeholder pages.
