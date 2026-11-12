@@ -10,6 +10,16 @@ import time
 from urllib.parse import urlsplit
 
 
+def private_route(request_path):
+    parsed = urlsplit(request_path)
+    if not parsed.path.startswith('/LS_AIS/'):
+        return None
+    relative = parsed.path[len('/LS_AIS'):]
+    if relative != '/' and relative.endswith('/'):
+        relative += 'index.html'
+    return relative + ('?' + parsed.query if parsed.query else '')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--site', type=Path, required=True)
@@ -38,11 +48,11 @@ def main():
     base = handler_for(overlay)
     class Handler(base):
         def _send(self, head):
-            path = urlsplit(self.path).path
-            if not path.startswith('/LS_AIS/'):
+            route = private_route(self.path)
+            if route is None:
                 self.send_error(404)
                 return
-            self.path = self.path[len('/LS_AIS'):]
+            self.path = route
             return super()._send(head)
     now = datetime.datetime.now(datetime.timezone.utc)
     result = dict(status='serving', project='LS_AIS', private=True,
