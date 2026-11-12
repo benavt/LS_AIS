@@ -1,4 +1,4 @@
-# HSPH1 construct 12757 · structure atlas
+# HSPH1 construct 12757 · accepted private atlas
 
 The snapshot contains 4,006 exact native homodimers: 1,000 each AFsample2, AFcluster, SPEACH_AF and OpenDDE; five AFsample3 pilots and one BioEmu2 pilot. Both complete 117-residue chains, including the supplied tag, are retained. Organism and UniProt accession remain unverified. The supplied construct sequence appears in sequence.fasta. Original downloads retain native chain IDs; comparison-only canonical mapping is A/B.
 
@@ -24,4 +24,4 @@ Every full-atom panel uses one native whole-complex pose; chains are not fit ind
 
 The accepted scientific supplement manifest SHA256 is a9b5c44b6a25c0d142c073e624c078c67d99f63826fcaca0f8203e4ac9d4ce13. The pinned analysis/presentation library is f3063757460303e1a4a4ba0b3629fe81776c58c4. Native hashes identify every plotted or downloaded model. Scientific JSON and native results remain preserved. Typed JSON trace downloads retain source NPZ hashes, dtypes, shapes and exact values.
 
-This atlas is published through GitHub Pages. No Zenodo record or DOI has been issued. No additional reuse license is granted by this publication; upstream software retains its own licenses. Additional queued generation models are outside this frozen cohort.
+This is a private review atlas. No public Zenodo record or DOI has been issued; data licensing and public release remain separate decisions. Additional queued generation models are outside this frozen cohort.

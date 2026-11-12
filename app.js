@@ -72,7 +72,7 @@ let tmStateLoader=null,tmStatePayload=null,tmStatePreference={state_id:'none',me
 function effectiveSelectionHighlight(){return tmStateHighlight.active?tmStateHighlight:selectionHighlight}
 const hiddenProjectionCategories=new Set();
 const $=id=>document.getElementById(id), escapeText=x=>String(x).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-async function json(url){let r;try{r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(30000)})}catch(error){throw Error('The atlas service is unavailable. Reopen the local atlas or request a fresh private preview; models in an already loaded analysis remain available.')}if(!r.ok)throw Error(`Could not load ${url}: ${r.status}`);if(typeof AISExplorerTMStates!=='undefined'&&typeof r.arrayBuffer==='function'){const raw=new Uint8Array(await r.arrayBuffer()),value=JSON.parse(new TextDecoder().decode(raw));return {...value,_source_sha:AISExplorerTMStates.sha256(raw)}}return r.json()}
+async function json(url){let r;try{r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(30000)})}catch(error){throw Error('The atlas service is unavailable. Reload the published atlas; models in an already loaded analysis remain available.')}if(!r.ok)throw Error(`Could not load ${url}: ${r.status}`);if(typeof AISExplorerTMStates!=='undefined'&&typeof r.arrayBuffer==='function'){const raw=new Uint8Array(await r.arrayBuffer()),value=JSON.parse(new TextDecoder().decode(raw));return {...value,_source_sha:AISExplorerTMStates.sha256(raw)}}return r.json()}
 function fail(error){setAnalysisLoading(false);window.AtlasExplorer?.setBusy(false);$('error').hidden=false;$('error').textContent=error.message||String(error);console.error(error)}
 let clusteringResidueCatalog={},structureScopePreference='clustering',structureMappingError='';
 let supplementaryMetadataCatalog={},savedHeatmapSpecs=[];
@@ -375,16 +375,26 @@ function scheme(){return data.schemes.find(x=>x.key===$('color').value)}
 function traces(method){
  const s=scheme(),xy=data.projections[method].xy,out=[],groups=new Map();
  data.models.forEach((name,i)=>{const v=s.values[i],key=s.type==='continuous'?(Number.isFinite(v)?'valid':'Not calculable'):String(v??'Unspecified');if(!groups.has(key))groups.set(key,[]);groups.get(key).push(i)});
- for(const [label,indices] of groups){const numeric=s.type==='continuous'&&label==='valid',marker={size:4.5,opacity:indices.map(i=>visibleCluster(data.clusters[i])?(effectiveSelectionHighlight().active?(effectiveSelectionHighlight().indices.has(i) ? .85 : .09):.7):.06)};
+ if(s.type==='categorical'&&groups.size>50){
+  const indices=data.models.map((_,i)=>i),selected=effectiveSelectionHighlight();
+  return [{type:'scattergl',mode:'markers',name:'All categories',
+   x:xy.map(p=>p[0]),y:xy.map(p=>p[1]),customdata:indices,
+   text:indices.map(i=>`${escapeText(data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])}`),
+   hovertemplate:'%{text}<extra></extra>',
+   marker:{size:4.5,color:indices.map(i=>s.colors[String(s.values[i]??'Unspecified')]||'#808080'),
+    opacity:indices.map(i=>visibleCluster(data.clusters[i])?(selected.active?(selected.indices.has(i)?.85:.09):.7):.06)},
+   meta:{legendKey:'All categories',bulk:true,numeric:false},showlegend:false}];
+ }
+ for(const [label,indices] of groups){const numeric=s.type==='continuous'&&label==='valid',plain=!familyPrefix&&!chosenClusters&&!effectiveSelectionHighlight().active,marker={size:4.5,opacity:plain?.7:indices.map(i=>visibleCluster(data.clusters[i])?(effectiveSelectionHighlight().active?(effectiveSelectionHighlight().indices.has(i) ? .85 : .09):.7):.06)};
   if(numeric)Object.assign(marker,{color:indices.map(i=>s.values[i]),colorscale:s.colorscale,cmin:s.range?.[0],cmax:s.range?.[1],showscale:false,colorbar:{title:{text:s.short_name||s.name},thickness:10,len:.7}});
   else marker.color=s.type==='continuous'?'#808080':s.colors[label]||'#808080';
-  out.push({type:'scatter',mode:'markers',name:label==='valid'?s.name:label,x:indices.map(i=>xy[i][0]),y:indices.map(i=>xy[i][1]),customdata:indices,text:indices.map(i=>`${escapeText(data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])}${numeric?'<br>'+s.name+': '+s.values[i].toFixed(2):''}`),hovertemplate:'%{text}<extra></extra>',marker,meta:{legendKey:label,numeric},visible:hiddenProjectionCategories.has(label)?'legendonly':true,showlegend:false});
+  out.push({type:data.models.length>10000?'scattergl':'scatter',mode:'markers',name:label==='valid'?s.name:label,x:indices.map(i=>xy[i][0]),y:indices.map(i=>xy[i][1]),customdata:indices,text:indices.map(i=>`${escapeText(data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])}${numeric?'<br>'+s.name+': '+s.values[i].toFixed(2):''}`),hovertemplate:'%{text}<extra></extra>',marker,meta:{legendKey:label,numeric},visible:hiddenProjectionCategories.has(label)?'legendonly':true,showlegend:false});
  }if(s.type==='continuous')out.sort((a,b)=>Number(a.meta.numeric)-Number(b.meta.numeric));return out;
 }
 function projectionLegendTraces(){
  const s=scheme();
  return traces('pca').map(trace=>{
-  const marker={...trace.marker,size:8,opacity:1};
+  const marker={...trace.marker,size:8,opacity:1,color:trace.meta.bulk?'#657885':trace.marker.color};
   if(trace.meta.numeric){
    const finite=s.values.filter(Number.isFinite),range=s.range||[Math.min(...finite),Math.max(...finite)];
    Object.assign(marker,{color:range,showscale:true,cmin:range[0],cmax:range[1],colorbar:{title:{text:s.short_name||s.name},outlinewidth:0}});
@@ -404,12 +414,29 @@ function changeProjectionCategory(event,isolate=false){
 async function drawProjections(){
  const key=data.target+'|'+(data.range_id||'all')+'|'+(data.view_id||'whole')+'|'+scheme().key;
  if(projectionLegendKey!==key){projectionLegendKey=key;hiddenProjectionCategories.clear()}
- await Promise.all(['pca','umap','tsne'].map(async method=>{const p=data.projections[method],axes=projectionAxisTitles(method,p);await AtlasResponsive.react($(method),selectionProjectionTraces(method),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:52,r:25,t:16,b:58},showlegend:false,hovermode:'closest',font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{title:{text:axes[0]},zeroline:false,gridcolor:'#edf1f2'},yaxis:{title:{text:axes[1]},zeroline:false,gridcolor:'#edf1f2'},uirevision:data.target+'-'+(data.range_id||'all')+'-'+(data.view_id||'whole')+'-'+method},{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d']});$(method).removeAllListeners('plotly_click');$(method).on('plotly_click',e=>{const i=e.points[0].customdata;if(Number.isInteger(i)&&i>=0&&i<data.models.length)(data.model_files?choose(data.clusters[i],i):choose(data.clusters[i])).catch(fail)})}));
+ const legend=$('projectionLegend');
+ if(data.models.length>10000){
+  const s=scheme(),panel=$('legendPanel');panel.open=true;
+  $('legendSummary').textContent='Shared color legend · '+(s.short_name||s.name);
+  legend.replaceChildren();
+  if(s.type==='continuous'){
+   const finite=s.values.filter(Number.isFinite),range=s.range||[Math.min(...finite),Math.max(...finite)];
+   const note=document.createElement('p');note.textContent=finite.length.toLocaleString()+'/'+data.models.length.toLocaleString()+' models scored · '+s.name;
+   const bar=document.createElement('div');bar.setAttribute('role','img');bar.setAttribute('aria-label','Continuous ProteinEBM energy scale from '+range[0].toFixed(1)+' to '+range[1].toFixed(1));bar.style.cssText='height:14px;max-width:560px;border-radius:3px;background:linear-gradient(90deg,#440154,#414487,#2a788e,#22a884,#7ad151,#fde725)';
+   const ticks=document.createElement('div');ticks.style.cssText='display:flex;justify-content:space-between;width:560px;max-width:100%;font-size:11px';const low=document.createElement('span'),high=document.createElement('span');low.textContent=range[0].toFixed(1);high.textContent=range[1].toFixed(1);ticks.append(low,high);
+   legend.append(note,bar,ticks);
+  }else{
+   const note=document.createElement('p');note.textContent='Colors show '+s.name.toLowerCase()+'. Select a cluster or use Filter clusters to inspect individual categories.';legend.append(note);
+  }
+ }else{
  const legend=$('projectionLegend');const legendCount=projectionLegendTraces().length;const panel=$('legendPanel');if(panel.dataset.legendKey!==key){panel.dataset.legendKey=key;panel.open=legendCount<=16}$('legendSummary').textContent='Shared color legend · '+(scheme().short_name||scheme().name)+(legendCount>16?' · '+legendCount+' categories':'');
  await AtlasResponsive.react(legend,projectionLegendTraces(),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:8,r:8,t:8,b:8},xaxis:{visible:false,range:[1,2],fixedrange:true},yaxis:{visible:false,range:[1,2],fixedrange:true},showlegend:true,legend:{orientation:'h',font:{size:12}},uirevision:projectionLegendKey},{displayModeBar:false,displaylogo:false,staticPlot:false});
  legend.removeAllListeners('plotly_legendclick');legend.removeAllListeners('plotly_legenddoubleclick');
  legend.on('plotly_legendclick',event=>changeProjectionCategory(event));
  legend.on('plotly_legenddoubleclick',event=>changeProjectionCategory(event,true));
+
+ }
+ await Promise.all(['pca','umap','tsne'].map(async method=>{const p=data.projections[method],axes=projectionAxisTitles(method,p);await AtlasResponsive.react($(method),selectionProjectionTraces(method),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:52,r:25,t:16,b:58},showlegend:false,hovermode:'closest',font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{title:{text:axes[0]},zeroline:false,gridcolor:'#edf1f2'},yaxis:{title:{text:axes[1]},zeroline:false,gridcolor:'#edf1f2'},uirevision:data.target+'-'+(data.range_id||'all')+'-'+(data.view_id||'whole')+'-'+method},{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d']});$(method).removeAllListeners('plotly_click');$(method).on('plotly_click',e=>{const i=e.points[0].customdata;if(Number.isInteger(i)&&i>=0&&i<data.models.length)(data.model_files?choose(data.clusters[i],i):choose(data.clusters[i])).catch(fail)})}));
  updateTMStateControls();updateSelectionControls();showProjection();
 }
 async function draw(){
@@ -447,24 +474,28 @@ function pointModelDescriptor(current,index){
  if(!Array.isArray(current.model_files)||!Array.isArray(current.model_sha256)||current.model_files.length!==current.models.length||current.model_sha256.length!==current.models.length)throw Error('Exact model files and original hashes are unavailable for this analysis.');
  const file=current.model_files[index],digest=current.model_sha256[index];
  if(typeof file!=='string'||!file||file.startsWith('/')||/[\\:?#]/.test(file)||file.split('/').some(part=>!part||part==='.'||part==='..')||typeof digest!=='string'||!/^[a-f0-9]{64}$/.test(digest))throw Error('Unsafe or unverified exact-model coordinate descriptor.');
- const extension=file.split('.').at(-1).toLowerCase();if(!['cif','mmcif','pdb'].includes(extension))throw Error('Unsupported exact-model coordinate format.');
+ const extension=file.endsWith('.pdb.gz')?'pdb':file.endsWith('.cif.gz')?'cif':file.split('.').at(-1).toLowerCase();if(!['cif','mmcif','pdb'].includes(extension))throw Error('Unsupported exact-model coordinate format.');
  const label=current.clusters[index],cluster=current.representatives.find(row=>row.cluster===label),palette=current.schemes.find(s=>s.key==='clusters')?.colors||{};
  return {cluster:label,model:current.models[index],method:current.methods[index],count:current.clusters.filter(value=>value===label).length,color:cluster?.color||palette[label]||'#808080',file,sha256:digest,format:extension==='mmcif'?'cif':extension,exact_model_index:index};
 }
 function representativeDownloadLinks(cluster){
- const extension=cluster.file?.split('.').at(-1)?.toLowerCase(),format=extension==='mmcif'?'CIF':extension?.toUpperCase();
+ const extension=cluster.file?.endsWith('.pdb.gz')?'pdb.gz':cluster.file?.endsWith('.cif.gz')?'cif.gz':cluster.file?.split('.').at(-1)?.toLowerCase(),format=extension==='pdb.gz'?'PDB.gz':extension==='cif.gz'?'CIF.gz':extension==='mmcif'?'CIF':extension?.toUpperCase();
  const model=cluster.file?'<a download href="'+escapeText(cluster.file)+'" aria-label="Download '+escapeText(cluster.cluster)+' representative '+escapeText(format||'model')+'">Representative '+escapeText(format||'model')+'</a>':'';
  return model+(cluster.ensemble_file?' · <a download href="'+escapeText(cluster.ensemble_file)+'">Ensemble PDB</a>':'')+(cluster.ensemble_pse?' · <a download href="'+escapeText(cluster.ensemble_pse)+'">Ensemble PSE</a>':'');
 }
 async function savedCoordinate(descriptor){
  if(descriptor.coordinate_text)return descriptor.coordinate_text;
  const response=await fetch(descriptor.file,{cache:'no-cache',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('HTTP '+response.status);
- let text;
+ let bytes=new Uint8Array(await response.arrayBuffer());
+ if(descriptor.file.endsWith('.pdb.gz')||descriptor.file.endsWith('.cif.gz')){
+  if(typeof DecompressionStream==='undefined')throw Error('This browser cannot decompress saved coordinate files.');
+  bytes=new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
+ }
  if(descriptor.sha256&&globalThis.crypto?.subtle){
-  const bytes=await response.arrayBuffer(),digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');
-  if(digest!==descriptor.sha256)throw Error('Original coordinate hash does not match the selected model.');text=new TextDecoder().decode(bytes);
- }else text=await response.text();
- descriptor.coordinate_text=text;return text;
+  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');
+  if(digest!==descriptor.sha256)throw Error('Original coordinate hash does not match the selected model.');
+ }
+ const text=new TextDecoder().decode(bytes);descriptor.coordinate_text=text;return text;
 }
 async function choose(label,modelIndex=null){
  const current=data,exact=modelIndex!==null,cluster=exact?pointModelDescriptor(current,modelIndex):current.representatives.find(x=>x.cluster===label);
@@ -482,7 +513,7 @@ async function choose(label,modelIndex=null){
  $('error').hidden=true;$('modelTitle').textContent='Loading '+(exact?cluster.model:label)+'…';$('modelInfo').textContent='';$('structure').removeAttribute('href');$('ensemblePdb').hidden=true;$('ensemblePse').hidden=true;configureEnsembleDownloads();
  viewer.spin(false);viewer.removeAllModels();viewer._aisModels=[];viewer._aisDescriptor=null;notifyInspectedStructure();updateStructureViewControls();viewer.render();
  let coordinate;
- try{coordinate=await savedCoordinate(cluster)}catch(error){if(serial!==loadSerial||data!==current)return;$('modelTitle').textContent=label+' · model unavailable';throw Error('Could not load '+cluster.model+'. The private preview may have expired. Reopen the atlas with an active service. '+error.message)}
+ try{coordinate=await savedCoordinate(cluster)}catch(error){if(serial!==loadSerial||data!==current)return;$('modelTitle').textContent=label+' · model unavailable';throw Error('Could not load '+cluster.model+'. The saved model could not be reached. Reload the atlas or try again later. '+error.message)}
  if(serial!==loadSerial||data!==current)return;
  if(!exact&&$('modelMode').value==='ensemble'&&!cluster.ensemble_text&&cluster.ensemble_file){const response=await fetch(cluster.ensemble_file);if(!response.ok)throw Error('Ensemble file unavailable');cluster.ensemble_text=await response.text()}
  if(serial!==loadSerial||data!==current)return;
