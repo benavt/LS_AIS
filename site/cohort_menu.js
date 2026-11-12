@@ -15,7 +15,7 @@
     select.style.maxWidth = '480px';
     select.setAttribute('aria-label', 'Model cohort');
     const saved = new Option('AFsample3 · 1,000 models', 'afsample3');
-    const pending = new Option('AFsample2 v1/v2/v3 + BioEMU2 · 4,000 models — clustering pending', 'afsample2-bioemu2');
+    const pending = new Option('AFsample2 v1/v2/v3 + BioEMU2 · 4,000 models — atlas view pending', 'afsample2-bioemu2');
     pending.disabled = true;
     select.add(saved);
     select.add(pending);
