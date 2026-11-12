@@ -3,12 +3,12 @@
 `CDK2_DOC1` and `CDK2_DOC1t` each have two distinct atlas cohorts. The saved
 AFsample3 cohort is transferred into the LS_AIS explorer. The second cohort
 appears as a disabled, clearly labeled choice in each target's Model cohort
-dropdown until its own analyses pass.
+dropdown until its atlas assets pass.
 
 | Cohort | Models per target | Current evidence |
 | --- | ---: | --- |
 | Saved AFsample3 | 1,000 | Transferred into LS_AIS from the immutable [AFsample3 publication](https://benavt.github.io/cdk2-doc1-afs3/) at commit `d672ba45d8a7723ac07041f41410b1150a2b33e6`; all transferred assets match the published manifest. ProteinEBM tables also match the accepted local hashes. |
-| New AFsample2 + BioEMU2 | 4,000 | 3,000 AFsample2 models (1,000 each from multimer weights v1/v2/v3) and 1,000 BioEMU2 frames. All 8,000 missing ProteinEBM scores across both targets are submitted on Mimas. Clustering is not yet calculated or displayed. |
+| New AFsample2 + BioEMU2 | 4,000 | 3,000 AFsample2 models (1,000 each from multimer weights v1/v2/v3) and 1,000 BioEMU2 frames. The full-cohort UMAP KNN and HDBSCAN fits are accepted on Mimas; their atlas views and required supplements are pending. |
 
 The new cohort must be fit and displayed separately from the transferred AFsample3
 cohort, using complete two-chain scopes `A1-298+B1-115` and `A1-298+B1-55`.
@@ -17,10 +17,9 @@ the truncated target's 1,000 BioEMU2 frames passed that check. Show those labels
 in the model browser, downloads and clustering diagnostics. Do not present the
 flagged frames as validated native structures.
 
-After accepted scoring outputs are hash-inventoried, freeze the new cohort's
-geometry, projection and UMAP KNN/HDBSCAN plan under the pinned
-`structure-atlas-page` contract and obtain its exact-plan approval. Add the
-resulting views only after assignments, representative structures, diagnostics,
+The geometry, projection and UMAP KNN/HDBSCAN plan was approved and its
+full-cohort fit accepted on Mimas. Add the resulting views only after
+assignments, representative structures, diagnostics,
 and required atlas supplements pass their own acceptance checks. The successor
 delivery must show PCA, UMAP and t-SNE, ProteinEBM color and downloads, separate
 AFsample2 v1/v2/v3 labels, BioEMU2 physicality labels, per-cluster low-energy

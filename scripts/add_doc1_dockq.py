@@ -131,6 +131,13 @@ def augment(base, scores, acceptance, output):
         if original.count(old) != 1:
             raise ValueError('Saved download menu is unsupported')
         replace(script, original.replace(old, old+", dockq:'DockQ vs 0865 · all 5,000 target models'").encode())
+        cohort_menu = stage / 'cohort_menu.js'
+        old_label = '4,000 models — clustering pending'
+        new_label = '4,000 models — atlas view pending'
+        menu_text = cohort_menu.read_text()
+        if menu_text.count(old_label) != 1:
+            raise ValueError('Saved monomer cohort menu is unsupported')
+        replace(cohort_menu, menu_text.replace(old_label, new_label).encode())
         if not {f'{t}/primary.json' for t in TARGETS} <= source_names:
             raise ValueError('Published atlas is missing the monomer views')
         files = [dict(path=p.relative_to(stage).as_posix(), bytes=p.stat().st_size, sha256=sha(p))
