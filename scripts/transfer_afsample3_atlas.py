@@ -3,6 +3,8 @@
 This composes existing files only. It never runs clustering or scoring.
 """
 import argparse
+import gzip
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -41,6 +43,75 @@ def verified_rows(source, manifest, selected=lambda name: True):
             raise ValueError('Saved file differs from its manifest: ' + name)
         selected_rows.append(row)
     return selected_rows
+
+
+def compress_afsample3_coordinates(stage):
+    """Change transport only; keep each model's original decoded SHA-256."""
+    for target in MONOMERS:
+        model_dir = stage / target / 'models'
+        models = sorted(model_dir.glob('*.cif'))
+        if len(models) != 1000 or len(list(model_dir.iterdir())) != 1000:
+            raise ValueError('AFsample3 model-file count differs: ' + target)
+        original_hashes = {}
+        for model in models:
+            raw = model.read_bytes()
+            original_hashes[f'{target}/models/{model.name}'] = hashlib.sha256(raw).hexdigest()
+            compressed = model.with_suffix('.cif.gz')
+            compressed.write_bytes(gzip.compress(raw, compresslevel=9, mtime=0))
+            model.unlink()  # Remove only the staged hard link, not the saved source.
+        for view in ('primary', 'density'):
+            path = stage / target / (view + '.json')
+            data = read(path)
+            originals = data['model_files']
+            if (len(originals) != 1000 or len(data['model_sha256']) != 1000 or
+                    set(originals) != set(original_hashes)):
+                raise ValueError('AFsample3 model inventory differs: ' + target + '/' + view)
+            for original, digest in zip(originals, data['model_sha256']):
+                if original_hashes[original] != digest:
+                    raise ValueError('Original coordinate hash differs: ' + original)
+            data['model_files'] = [name + '.gz' for name in originals]
+            for representative in data['representatives']:
+                original = representative['file']
+                if representative['sha256'] != original_hashes[original]:
+                    raise ValueError('Representative hash differs: ' + original)
+                representative['file'] = original + '.gz'
+            optional = {'box_summary_3d.png', 'pair_distribution_detail.png'}
+            data['heatmaps'] = [row for row in data['heatmaps']
+                                if Path(row['file']).name not in optional]
+            if {Path(row['file']).name for row in data['heatmaps']} != {
+                    'median_matrix.png', 'variance_matrix.png'}:
+                raise ValueError('Required distance/variance maps differ: ' + target)
+            data['provenance']['transport_compression'] = 'gzip; original CIF SHA-256 checked after decompression'
+            data['provenance']['optional_plots_excluded_from_view'] = sorted(optional)
+            replace_text(path, json.dumps(data, separators=(',', ':')) + '\n')
+
+
+def compress_dimer_downloads(stage):
+    """Retain exact CSV bytes as reproducible gzip downloads within Pages limits."""
+    receipts = []
+    for target in ('DOC1Rdimer_CDK2', 'DOC1dimer_CDK2'):
+        for suffix in ('proteinebm-full-complex', 'geometry-memberships',
+                       'core-geometry-memberships'):
+            name = f'{target}-{suffix}.csv'
+            original = stage / 'downloads' / name
+            raw = original.read_bytes()
+            compressed = original.with_suffix('.csv.gz')
+            compressed.write_bytes(gzip.compress(raw, compresslevel=9, mtime=0))
+            original.unlink()
+            receipts.append(dict(file=f'downloads/{name}.gz',
+                                 original_sha256=hashlib.sha256(raw).hexdigest(),
+                                 original_bytes=len(raw),
+                                 compressed_sha256=sha(compressed)))
+            replacements = 0
+            for view in (stage / target).glob('*.json'):
+                saved = view.read_text()
+                if name in saved:
+                    replacements += saved.count(name)
+                    replace_text(view, saved.replace(name, name + '.gz'))
+            if not replacements:
+                raise ValueError('Dimer CSV has no saved atlas link: ' + name)
+    replace_text(stage / 'downloads' / 'gzip-provenance.json',
+                 json.dumps({'transport': 'gzip', 'files': receipts}, indent=2) + '\n')
 
 
 def transfer(base, afs3, afs3_manifest, output, expected_manifest_sha=PUBLISHED_AFS3_MANIFEST_SHA256):
@@ -99,6 +170,8 @@ def transfer(base, afs3, afs3_manifest, output, expected_manifest_sha=PUBLISHED_
         for row in old_rows:
             if row['path'].startswith(tuple(target + '/' for target in MONOMERS)):
                 copy_verified_file(afs3, stage, row)
+        compress_afsample3_coordinates(stage)
+        compress_dimer_downloads(stage)
 
         base_atlas['targets'].extend(dict(row, label=registry['targets'][i + len(BASE_TARGETS)]['name'])
                                      for i, row in enumerate(old_atlas['targets']))
@@ -133,8 +206,8 @@ def transfer(base, afs3, afs3_manifest, output, expected_manifest_sha=PUBLISHED_
                 '</body></html>')
         files = [dict(path=p.relative_to(stage).as_posix(), bytes=p.stat().st_size, sha256=sha(p))
                  for p in sorted(stage.rglob('*')) if p.is_file()]
-        if sum(row['bytes'] for row in files) > 2 * 2**30:
-            raise ValueError('Atlas exceeds the 2 GiB output cap')
+        if sum(row['bytes'] for row in files) > 1 * 2**30:
+            raise ValueError('Atlas exceeds the GitHub Pages 1 GiB output cap')
         validate_views(stage, {row['path'] for row in files})
         publication = dict(schema_version=1, project='LS_AIS', renderer='saved',
                            source_delivery_sha256=sha(base_manifest),

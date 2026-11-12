@@ -1,5 +1,6 @@
 """Safety checks for importing immutable saved atlas assets."""
 import hashlib
+import gzip
 import json
 import os
 from pathlib import Path
@@ -8,7 +9,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from transfer_afsample3_atlas import replace_text, verified_rows
+from transfer_afsample3_atlas import compress_dimer_downloads, replace_text, verified_rows
 
 
 class SavedTransferSafety(unittest.TestCase):
@@ -36,6 +37,29 @@ class SavedTransferSafety(unittest.TestCase):
             replace_text(staged, '{"targets":{"CDK2_DOC1":{}}}')
             self.assertEqual(saved.read_text(), '{"targets":{}}')
             self.assertIn('CDK2_DOC1', staged.read_text())
+
+    def test_compressed_downloads_keep_original_bytes_and_update_links(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory);stage = root / 'stage';downloads = stage / 'downloads'
+            downloads.mkdir(parents=True)
+            for target in ('DOC1Rdimer_CDK2', 'DOC1dimer_CDK2'):
+                target_dir = stage / target;target_dir.mkdir()
+                names = [f'{target}-{suffix}.csv' for suffix in
+                         ('proteinebm-full-complex', 'geometry-memberships',
+                          'core-geometry-memberships')]
+                for name in names:
+                    saved = root / name;saved.write_bytes(((name + '\n') * 100).encode())
+                    os.link(saved, downloads / name)
+                (target_dir / 'primary.json').write_text(json.dumps({'links':names}))
+            compress_dimer_downloads(stage)
+            receipt = json.loads((downloads / 'gzip-provenance.json').read_text())
+            self.assertEqual(len(receipt['files']), 6)
+            for row in receipt['files']:
+                original = root / Path(row['file']).name.removesuffix('.gz')
+                self.assertEqual(gzip.decompress((stage / row['file']).read_bytes()),
+                                 original.read_bytes())
+                self.assertFalse((downloads / original.name).exists())
+            self.assertIn('.csv.gz', (stage / 'DOC1dimer_CDK2/primary.json').read_text())
 
 
 if __name__ == '__main__':
