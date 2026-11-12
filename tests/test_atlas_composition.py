@@ -88,7 +88,9 @@ class TargetComposition(unittest.TestCase):
             self.assertIn('AFsample2 + BioEMU2 · 4,000 models', page)
             self.assertIn('href="https://benavt.github.io/cdk2-doc1-afs3/#CDK2_DOC1t"', page)
             self.assertIn('placeholder_nav.js', (output / 'index.html').read_text())
-            self.assertIn('targets/cdk2-doc1t-monomer/', (output / 'placeholder_nav.js').read_text())
+            navigation = (output / 'placeholder_nav.js').read_text()
+            self.assertIn('targets/cdk2-doc1t-monomer/', navigation)
+            self.assertNotIn('First display', navigation)  # Saved targets are drawn by the explorer.
 
     def test_augment_saved_delivery_preserves_source_and_existing_targets(self):
         with tempfile.TemporaryDirectory(dir=ROOT / 'local') as temp:
