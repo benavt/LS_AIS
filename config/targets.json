@@ -14,20 +14,20 @@
       "id": "DOC1Rdimer_CDK2",
       "name": "DOC1R dimer–CDK2",
       "config": "targets/doc1r-cdk2/config/target.json",
-      "data": "doc1-cdk2/data/DOC1Rdimer_CDK2.json.gz",
-      "page": "doc1-cdk2/",
-      "default_view": "leaf",
+      "data": "DOC1Rdimer_CDK2/full-density.json",
+      "page": "./",
+      "default_view": "density",
       "stage": "preliminary"
     },
     {
       "id": "DOC1dimer_CDK2",
       "name": "DOC1 dimer–CDK2",
       "config": "targets/doc1-cdk2/config/target.json",
-      "data": "doc1-cdk2/data/DOC1dimer_CDK2.json.gz",
-      "page": "doc1-cdk2/",
-      "default_view": "leaf",
+      "data": "DOC1dimer_CDK2/full-density.json",
+      "page": "./",
+      "default_view": "density",
       "stage": "preliminary"
     }
   ],
-  "layout": "One GitHub Pages atlas with linked target menus; DOC1/CDK2 results are preliminary pending representatives and sampling."
+  "layout": "One GitHub Pages atlas with linked target menus; DOC1/CDK2 results include energy-selected representatives and Bonsai, with deferred TM grids and sampling still preliminary."
 }
