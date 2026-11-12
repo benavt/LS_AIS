@@ -75,10 +75,10 @@
     "requested_optional_plots": []
   },
   "primary_residue_scope": "A1-298+B1-55",
-  "publication": "private_preview_until_complete_and_reviewed",
+  "publication": "afsample3_public_new_cohort_private",
   "representative_policy": "lowest verified ProteinEBM energy per assigned cluster",
   "schema_version": 1,
-  "status": "scientific_work_in_progress_private",
+  "status": "afsample3_transferred_new_cohort_in_progress_private",
   "cohort_views": [
     {
       "id": "afsample3_saved",
@@ -89,7 +89,7 @@
       "methods": [
         "afsample3"
       ],
-      "status": "verified_saved_external"
+      "status": "verified_saved_transferred"
     },
     {
       "id": "afsample2_bioemu2_new",
