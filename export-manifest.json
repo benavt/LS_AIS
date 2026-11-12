@@ -1,9 +1,10 @@
 {
-  "kind": "public-standard-doc1-cdk2-atlas",
+  "schema_version": 1,
+  "project": "LS_AIS",
+  "input_manifest_sha256": "da615d98f1caffbfb30903edaba4258e4e5b5b0a723f8f6a26471a22bfdefdd8",
   "scientific_execution": false,
-  "source_preview_manifest_sha256": "b33fcce506e7c019e940b3835d2c99acc1f694bc6c12c80f9815be2226f2aacb",
-  "coordinate_transport": "gzip PDB/CIF; original coordinate SHA-256 verified in browser",
-  "model_coordinates": 6072,
+  "renderer": "saved",
+  "exporter_sha256": "d6d7cf715957e00ae59c4015176fe68dd87730ffbd23ae04232d6fa6ad76e1c8",
   "files": [
     {
       "path": ".nojekyll",
@@ -33137,8 +33138,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 18867,
-      "sha256": "3140f2aea48d991a16e69bb3bc7eadbb7232dad897463cd691d4ea085584399c"
+      "bytes": 18915,
+      "sha256": "254351d0d8f82eba6299efed92aaa317485b32aa2387409ac047fca2e652a9c0"
     },
     {
       "path": "layout.js",
@@ -33159,6 +33160,11 @@
       "path": "metrics.js",
       "bytes": 7319,
       "sha256": "7ac2aace555e84b8609931766ab1c0189c2d691bd78e88e7c33eda98d957e2be"
+    },
+    {
+      "path": "placeholder_nav.js",
+      "bytes": 763,
+      "sha256": "ae685f84d1bffc84fc372f1272e3a3ca7316b2813e60db4fe7f6bcf7b3d2da6a"
     },
     {
       "path": "projection-metadata.json",
@@ -33204,6 +33210,16 @@
       "path": "target_context.js",
       "bytes": 3365,
       "sha256": "79fab1903a804dac15096ad2e0910c3ad813fe1d15756cf0fb5ef2212ea037fc"
+    },
+    {
+      "path": "targets/cdk2-doc1-monomer/index.html",
+      "bytes": 1840,
+      "sha256": "bf8ec5e0fd4377791f1a265d2fd175f7a05dec21d1e87fe0cf7ce067e751d753"
+    },
+    {
+      "path": "targets/cdk2-doc1t-monomer/index.html",
+      "bytes": 1787,
+      "sha256": "3637853be53a6da8bdccda70a1cb12365e5c1477ed2fdcbd18a0cf31cb82862b"
     },
     {
       "path": "tm-state-ensembles/HSPH1_12757_homodimer/all/density/S1/disco50.pdb",
