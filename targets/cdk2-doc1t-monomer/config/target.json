@@ -1,0 +1,84 @@
+{
+  "accepted_results": {
+    "afsample3_energy_table_sha256": "7b5f72e75ed7b15576b20e5a0fd29afb7741047d781f334d49ea6879058eb64e",
+    "afsample3_proteinebm_models": 1000
+  },
+  "accession": null,
+  "alternate_residue_scopes": [],
+  "analysis_requested": [
+    "ProteinEBM Model 6 t=0.10 all 5000 models",
+    "full-construct C-alpha distance maps and variance maps",
+    "PCA",
+    "UMAP",
+    "t-SNE",
+    "UMAP KNN",
+    "geometry HDBSCAN",
+    "HDBSCAN-guided structural states",
+    "MCMC50",
+    "DISCO50",
+    "native Bonsai per clustering view",
+    "cluster representative TM similarity heatmaps"
+  ],
+  "chains": [
+    {
+      "description": "CDK2",
+      "id": "A",
+      "residues": 298,
+      "sequence_sha256": "fe22d91e18cd544a85d7c768cd864172200252df906b774d890dc103224f7c8d"
+    },
+    {
+      "description": "DOC1t",
+      "id": "B",
+      "residues": 55,
+      "sequence_sha256": "0ef67d410be485418f52df8c2e913462b880dd097f30257ef8cad89b0170a665"
+    }
+  ],
+  "cohort": {
+    "display_models": 5000,
+    "expected_models": 5000,
+    "fit_models": 5000,
+    "manifest_sha256": "7de0b1d0ed9024305d05d67bdcc9e9c7c9a27e6aa29855db472e962162027133",
+    "methods": [
+      {
+        "id": "afsample3",
+        "models": 1000
+      },
+      {
+        "id": "afsample2",
+        "model_backbones": 5,
+        "models": 3000,
+        "prediction_indices": 200,
+        "weights_versions": {
+          "v1": 1000,
+          "v2": 1000,
+          "v3": 1000
+        }
+      },
+      {
+        "failed_frames_retained": true,
+        "id": "bioemu2",
+        "models": 1000,
+        "native_physicality_passed": 1000,
+        "native_physicality_rejected": 0
+      }
+    ],
+    "snapshot": "2026-11-12",
+    "source_inventory_sha256": {
+      "afsample2": "fef93ef27499cfae704f09f4bb36c635c861e2e64e57b41dfb4763cbed4531dc",
+      "bioemu2": "1f0de173a1ad4d445686f7780a93a742bd458271057d571a384b0a5bf176dc23"
+    }
+  },
+  "id": "CDK2_DOC1t",
+  "name": "CDK2 + truncated DOC1",
+  "organism": null,
+  "presentation": {
+    "afsample2_color_by_weights_version": true,
+    "bioemu2_physicality_labels": true,
+    "requested_optional_plots": []
+  },
+  "primary_residue_scope": "A1-298+B1-55",
+  "publication": "private_preview_until_complete_and_reviewed",
+  "representative_policy": "lowest verified ProteinEBM energy per assigned cluster",
+  "schema_version": 1,
+  "status": "scientific_work_in_progress_private"
+}
