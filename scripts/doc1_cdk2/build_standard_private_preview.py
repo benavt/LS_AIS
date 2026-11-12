@@ -19,6 +19,7 @@ SOURCE = ROOT / 'local/previews/2026-11-11_doc1-cdk2_core_figures_001/site'
 SELECTIONS = ROOT / 'local/plans/2026-11-11_doc1-cdk2-energy-representatives_001/results'
 ROSTERS = ROOT / 'local/previews/2026-11-11_doc1-cdk2_partial_001/inputs'
 SELECTION_PLAN_SHA256 = '539144399567a5bf0ee0411375e3b8259fc0fe3c9aaa0598132f3da4f7246369'
+BONSAI_PLAN_SHA256 = '8af294897bf37685e8410ffc8cd43a5a2f461b9775526ff5152e5185c3742d47'
 TARGETS = ('DOC1Rdimer_CDK2', 'DOC1dimer_CDK2')
 PARTITIONS = {'leaf': ('density', 'HDBSCAN leaf'),
               'eom': ('eom', 'HDBSCAN EOM'),
@@ -348,6 +349,64 @@ def finalize(output, archive):
     manifest_only(output)
 
 
+def attach_bonsai(output, base_site, bonsai_dir):
+    """Attach twelve accepted native Bonsai exports to a fresh private bundle."""
+    if output.exists():
+        raise ValueError('Use a fresh private output directory')
+    source_manifest = json.loads((base_site / 'export-manifest.json').read_text())
+    if source_manifest.get('kind') != 'private-standard-doc1-cdk2-preview':
+        raise ValueError('Bonsai attachment requires a verified standard preview')
+    shutil.copytree(base_site, output, copy_function=os.link)
+    shutil.copy2(base_site.parent / 'required-representatives.json',
+                 output.parent / 'required-representatives.json')
+    coverage = {}
+    for target in TARGETS:
+        for scope in ('full', 'core'):
+            for partition, (view_id, _) in PARTITIONS.items():
+                identity = f'{target}-{scope}-{partition}'
+                selection = json.loads((SELECTIONS / f'{identity}.json').read_text())
+                source = bonsai_dir / identity / 'bonsai.json'
+                bonsai = json.loads(source.read_text())
+                receipt_sha = digest(bonsai_dir / identity / 'acceptance.json')
+                receipt = json.loads((bonsai_dir / identity / 'acceptance.json').read_text())
+                if (bonsai['provenance']['acceptance_sha256'] != receipt_sha or
+                    receipt['status'] != 'validated' or
+                    receipt['plan_sha256'] != BONSAI_PLAN_SHA256 or
+                    bonsai['provenance']['plan_sha256'] != BONSAI_PLAN_SHA256 or
+                    (receipt['view'], receipt['target'], receipt['range'],
+                     receipt['partition']) != (identity, target, scope, partition) or
+                    receipt['selection_sha256'] != digest(SELECTIONS / f'{identity}.json') or
+                    bonsai['provenance']['selection_sha256'] != receipt['selection_sha256'] or
+                    bonsai['provenance']['sketch_sha256'] != receipt['sketch_sha256'] or
+                    len(bonsai['layouts']) != 3 or
+                    len(bonsai['models']) != len(receipt['selected_models'])):
+                    raise ValueError('Bonsai receipt or layout differs: ' + identity)
+                representatives = {group['representative']['model_id']
+                                   for group in selection['clusters']}
+                leaf_models = {row['model'] for row in bonsai['models']}
+                role_models = {row['model'] for row in bonsai['models']
+                               if row['selection_role'] == 'energy_selected_representative'}
+                if (role_models != representatives or len(role_models) != len(representatives)
+                    or len(leaf_models) != len(bonsai['models']) or
+                    leaf_models != {row['model_id'] for row in receipt['selected_models']}):
+                    raise ValueError('Bonsai leaves differ from energy representatives: ' + identity)
+                relative = f'{target}/{scope}-{view_id}-bonsai.json'
+                shutil.copy2(source, output / relative)
+                view_path = output / target / f'{scope}-{view_id}.json'
+                view = json.loads(view_path.read_text())
+                view['bonsai'] = {'file': relative, 'sha256': digest(output / relative),
+                                  'selected_models': len(leaf_models),
+                                  'selection_scope': bonsai['scope']}
+                write_json(view_path, view)
+                coverage[identity] = {'representatives': len(representatives),
+                                      'selected_models': len(leaf_models)}
+    manifest_only(output)
+    write_json(output.parent / 'bonsai-coverage.json', coverage)
+    print(json.dumps({'status': 'bonsai_attached', 'views': len(coverage),
+                      'selected_models': sum(v['selected_models'] for v in coverage.values()),
+                      'output': str(output)}))
+
+
 def manifest_only(output):
     required = json.loads((output.parent / 'required-representatives.json').read_text())
     for row in required['files']:
@@ -379,8 +438,14 @@ if __name__ == '__main__':
                         help='Reviewed HSPH1 atlas site (required for assembly)')
     parser.add_argument('--finalize-with', type=Path)
     parser.add_argument('--manifest-only', action='store_true')
+    parser.add_argument('--attach-bonsai-from', type=Path)
     args = parser.parse_args()
-    if args.manifest_only:
+    if args.attach_bonsai_from:
+        if not args.base_site:
+            parser.error('--base-site is required to attach Bonsai')
+        attach_bonsai(args.output.resolve(), args.base_site.resolve(),
+                      args.attach_bonsai_from.resolve())
+    elif args.manifest_only:
         manifest_only(args.output.resolve())
     elif args.finalize_with:
         finalize(args.output.resolve(), args.finalize_with.resolve())
