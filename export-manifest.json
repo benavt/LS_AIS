@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project": "LS_AIS",
-  "input_manifest_sha256": "86aee16958a5eef359d61897da685bc6f49c1d8f29418c25b127f4292d59b8c0",
+  "input_manifest_sha256": "95ec8ca2e07864940d493561542d31444b59d4534af50dc9ba5972291b88741c",
   "scientific_execution": false,
   "renderer": "saved",
   "exporter_sha256": "d6d7cf715957e00ae59c4015176fe68dd87730ffbd23ae04232d6fa6ad76e1c8",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CDK2_DOC1/density.json",
-      "bytes": 342181,
-      "sha256": "df0d87bfd44b84ddfa0d54ce65724662e86df7b88096c5688d4e8143ef5a3c10"
+      "bytes": 348953,
+      "sha256": "337cc4e5ec1ad27125cfe5b18d2bb9bb3d726e0d807de6fd7f1545ed30140098"
     },
     {
       "path": "CDK2_DOC1/figures/box_summary_3d.png",
@@ -5053,8 +5053,8 @@
     },
     {
       "path": "CDK2_DOC1/primary.json",
-      "bytes": 344018,
-      "sha256": "4c49efda2e327d32f8b77e431e860be11fd296192a9bb640cc2b0fc72f6dfabd"
+      "bytes": 350790,
+      "sha256": "c4df37e79c5e17122745a15af6f5dfeedadc684f3426651aeabc037707e345e1"
     },
     {
       "path": "CDK2_DOC1t/bonsai.json",
@@ -5063,8 +5063,8 @@
     },
     {
       "path": "CDK2_DOC1t/density.json",
-      "bytes": 342255,
-      "sha256": "40d9c28b5dd994bb1f4d98a2fd116ab1249f56d4e808071f54917ece82cdbb57"
+      "bytes": 349038,
+      "sha256": "cbd8f0044104c8a171d6f0ebfcd8544d5d23a151d0fa13822862258acf1b5a35"
     },
     {
       "path": "CDK2_DOC1t/figures/box_summary_3d.png",
@@ -10098,8 +10098,8 @@
     },
     {
       "path": "CDK2_DOC1t/primary.json",
-      "bytes": 347756,
-      "sha256": "97d5e58d0b4b5c47a365223a7b724b29c0260e58b7a9d8a15f9ddcf948f58507"
+      "bytes": 354539,
+      "sha256": "3891e11065dc2874e829f98d8c9bad8ee2436b3633f97f0370d0388d28ede878"
     },
     {
       "path": "DOC1Rdimer_CDK2/core-density-bonsai.json",
@@ -43149,7 +43149,17 @@
     {
       "path": "cohort_menu.js",
       "bytes": 1467,
-      "sha256": "c3ef5b89c5dac5b8857c9c95dc9bea7b8ac21daa2b2f7575668f01508afe1343"
+      "sha256": "fac5f7ece1a1eb608a5b7e6cb497466b5a9db0ff6a556a1c929b0f8ce6ff9d28"
+    },
+    {
+      "path": "downloads/CDK2_DOC1-dockq-vs-0865.csv.gz",
+      "bytes": 222565,
+      "sha256": "31ca9858684d9cb9e2c71c6ebe13a8aa9ef07a88c03c394fc531f3170cab5fc5"
+    },
+    {
+      "path": "downloads/CDK2_DOC1t-dockq-vs-0865.csv.gz",
+      "bytes": 223666,
+      "sha256": "afeacfd6507bdb72ca0bbbdb2e4ffe7867b2f684ae3c91e3250cf530ff7e6d19"
     },
     {
       "path": "downloads/DOC1Rdimer_CDK2-core-geometry-memberships.csv.gz",
@@ -43248,8 +43258,8 @@
     },
     {
       "path": "ls_atlas.js",
-      "bytes": 770,
-      "sha256": "5b1e0913513362593da2b80caa9961337c59048d591044a9efefbc514bcb6902"
+      "bytes": 820,
+      "sha256": "f771fc0f34467a01877d6e1355d66c55f6293c59878217c8f21cd896c2aa797a"
     },
     {
       "path": "metric-overlays.json",
