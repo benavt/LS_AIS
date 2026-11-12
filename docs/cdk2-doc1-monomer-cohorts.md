@@ -29,3 +29,17 @@ similarities, and the approved MCMC/DISCO sampling results. Record each item as
 accepted or missing in the target/view ledger; a placeholder cannot imply it
 has been calculated. The existing AFsample3 publication remains an immutable
 saved source.
+
+## 0865 DockQ metric
+
+DockQ v2.1.4 scored all 9,999 other 1:1 models against
+`CDK2_DOC1__afsample3__0865`; the reference has a self-score of 1.0.
+The accepted full table has SHA-256
+`fc321f809ab9977948bf49a70bd6abfd3334ce3a681ad8ca531293f28be2b62f`.
+The comparison uses fixed CDK2/DOC1 chain mapping and native residue numbers.
+Full DOC1 uses the 115-residue reference arm; DOC1t uses its corresponding
+55-residue reference scope (full DOC1 residues 61–115). Those scores must be
+labeled separately. The AFsample3 views expose DockQ as a color metric; the
+target downloads include every model, including AFsample2 weights v1/v2/v3
+and BioEMU2 physicality labels. The pending 4,000-model cohort remains a
+separate view and is not represented as a completed atlas.
