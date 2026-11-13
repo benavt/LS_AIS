@@ -43,12 +43,24 @@ The joint supplement ledger currently reads:
 | Energy-selected representatives and verified native coordinates | Accepted; physicality flags shown | Accepted |
 | Native Bonsai | Accepted in `2026-11-13_cdk2-doc1-monomer-joint-energy-bonsai_003`; leaf/EOM/KNN viewer exports and selected coordinates verified | Accepted from the same run; leaf/EOM/KNN viewer exports and selected coordinates verified |
 | Representative TM grid | Accepted in `2026-11-13_cdk2-doc1-monomer-joint-representative-tm-grid_001`; 51×51 leaf plus EOM/KNN | Accepted from the same run; 59×59 leaf plus EOM/KNN |
-| State discovery, MCMC50/DISCO50 | State discovery approved and running; sampling not yet accepted | State discovery approved and pending serial execution; sampling not yet accepted |
+| State discovery, MCMC50/DISCO50 | State discovery accepted privately; sampling not yet accepted | State discovery pending serial execution; sampling not yet accepted |
 | Private atlas view and browser validation | Verified 5,000-model joint view, AFsample3 cohort switch, three clustering views, AFsample2 structure, Bonsai selection, TM map, and downloads | Verified 5,000-model joint view, Bonsai structure, and supplemental maps |
 
 The atlas export must label the full DOC1 BioEMU2 physicality failures and
 AFsample2 weight versions, and omit optional 3-D box and residue-pair detail
 plots. Do not treat this ledger as acceptance for missing scientific work.
+
+The private `CDK2_DOC1` state-discovery receipt
+`54c0f8f9a61850717c9f1314e099d53353f0e7b6c6b7780619fcb047858bada3`
+is accepted for the fixed-chain 1:1 complex. The three discovered anchors cover
+2,103 of 2,304 **leaf-cluster proxy-weighted models** (91.3%) at TM ≥ 0.70;
+that proxy measures anchor-discovery coverage, not full-cohort state membership.
+Scoring all 5,000 models against those anchors at the same cutoff assigned
+3,068 to supported S1, 881 to supported S2, and 9 to unsupported S3; 1,042
+fell below cutoff. With the same anchors, the sensitivity check assigned 4,998
+models at TM ≥ 0.60, but only 20 at TM ≥ 0.80, with no supported state at the
+stricter cutoff. These are private accepted calculations, not a publication
+claim. `CDK2_DOC1t` state discovery and MCMC50/DISCO50 remain pending.
 
 The geometry, projection, UMAP KNN/HDBSCAN, Bonsai, and representative TM
 plans were approved and accepted on Mimas. The private successor bundle has
@@ -73,5 +85,9 @@ Full DOC1 uses the 115-residue reference arm; DOC1t uses its corresponding
 55-residue reference scope (full DOC1 residues 61–115). Those scores must be
 labeled separately. The AFsample3 views expose DockQ as a color metric; the
 target downloads include every model, including AFsample2 weights v1/v2/v3
-and BioEMU2 physicality labels. The accepted 4,000-model precursor remains a
+and BioEMU2 physicality labels. The next private joint 5,000-model export is
+prepared to expose the same receipt-backed scores as a color metric, with
+separate reference scopes and native-coordinate hashes checked against the
+accepted joint rosters.
+The accepted 4,000-model precursor remains a
 scientific input to the separate joint 5,000-model view; it is not an extra menu entry.

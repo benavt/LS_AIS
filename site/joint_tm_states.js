@@ -95,7 +95,46 @@ function validate(p,entry,target,data,helpers){
   Array.isArray(m.unsupported_states)&&
   m.unsupported_states.length+p.states.length<=3,
   'Joint state unsupported or uncovered membership accounting differs.');
+ const d=p.state_diagnostics,proxy=d?.proxy,levels=d?.sensitivity;
+ need(proxy&&Number.isFinite(proxy.covered_mass)&&
+  Number.isFinite(proxy.total_mass)&&proxy.total_mass>0&&
+  proxy.covered_mass>=0&&proxy.covered_mass<=proxy.total_mass&&
+  Number.isInteger(proxy.leaf_unassigned_models)&&
+  proxy.total_mass+proxy.leaf_unassigned_models===n&&
+  Math.abs(proxy.coverage-proxy.covered_mass/proxy.total_mass)<1e-12&&
+  ['coverage_target_reached','partial_coverage'].includes(proxy.status)&&
+  Array.isArray(levels)&&levels.length===3&&
+  JSON.stringify(levels.map(row=>row.cutoff))===JSON.stringify([.6,.7,.8])&&
+  typeof d.interpretation==='string'&&d.interpretation.includes('not the anchors'),
+  'Joint proxy or sensitivity source differs.');
+ const stateCounts=new Map([...p.states.map(row=>[row.id,row.members.length]),
+  ...m.unsupported_states.map(row=>[row.id,row.count])]);
+ for(const row of levels){
+  need(Number.isInteger(row.assigned_models)&&Number.isInteger(row.below_cutoff_models)&&
+   row.assigned_models+row.below_cutoff_models===n&&
+   Array.isArray(row.states)&&row.states.length===stateCounts.size&&
+   row.states.every((state,i)=>state.id==='S'+(i+1)&&
+    Number.isInteger(state.count)&&state.count>=0&&
+    state.supported===(state.count>=50))&&
+   row.states.reduce((sum,state)=>sum+state.count,0)===row.assigned_models&&
+   row.supported_states===row.states.filter(state=>state.supported).length,
+   'Joint cutoff sensitivity accounting differs.');
+ }
+ const nominal=levels[1];
+ need(nominal.assigned_models===m.tm_assigned_models&&
+  nominal.below_cutoff_models===m.uncovered_models&&
+  nominal.states.every(state=>stateCounts.get(state.id)===state.count),
+  'Joint nominal-cutoff sensitivity differs from saved states.');
  return p;
 }
-root.AISJointTMStates={validate};
+function coverageNote(p){
+ const d=p.state_diagnostics,proxy=d.proxy,levels=d.sensitivity;
+ const m=p.membership_coverage;
+ const cutoff=levels.map(row=>
+  `TM ≥ ${row.cutoff.toFixed(2)}: ${row.assigned_models.toLocaleString()}/5,000 assigned, ${row.supported_states} supported`).join('; ');
+ return `${p.states.length} supported full-cohort states at TM ≥ 0.70: ${p.coverage.assigned_models.toLocaleString()}/5,000 models in supported states; ${m.unsupported_state_models.toLocaleString()} in undersized states; ${m.uncovered_models.toLocaleString()} below cutoff. `+
+  `Discovery leaf-cluster proxy mass: ${proxy.covered_mass.toLocaleString()}/${proxy.total_mass.toLocaleString()} (${(100*proxy.coverage).toFixed(1)}%) covered; these discovery weights are not full-cohort TM assignments. `+
+  `Fixed-anchor cutoff sensitivity (no rediscovery): ${cutoff}.`;
+}
+root.AISJointTMStates={validate,coverageNote};
 })(typeof window!=='undefined'?window:globalThis);

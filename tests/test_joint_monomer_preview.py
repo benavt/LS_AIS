@@ -1,6 +1,8 @@
 """Presentation-only checks for the joint monomer atlas adapter."""
 
 import importlib.util
+import copy
+import csv
 import gzip
 import hashlib
 import json
@@ -21,6 +23,59 @@ SPEC.loader.exec_module(joint)
 
 
 class JointPreviewTests(unittest.TestCase):
+    def test_joint_dockq_is_bound_to_saved_manifest_roster_and_scope(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            stage = Path(temporary)
+            (stage / 'downloads').mkdir()
+            for target, scope in [('CDK2_DOC1', 'full_115'),
+                                  ('CDK2_DOC1t', 'doc1t_55')]:
+                (stage / target).mkdir()
+                rows = []
+                for i in range(5000):
+                    model = (joint.DOCKQ_REFERENCE if target == 'CDK2_DOC1' and i == 865
+                             else f'{target}__m{i:04d}')
+                    rows.append(dict(model_id=model, method='afsample3',
+                                     weights_version='', native_physicality_status='not_assessed',
+                                     native_sha256=(joint.DOCKQ_REFERENCE_SHA if i == 865 and
+                                         target == 'CDK2_DOC1' else f'{i:064x}')))
+                scores = [1.0 if row['model_id'] == joint.DOCKQ_REFERENCE else .02
+                          for row in rows]
+                (stage / target / 'primary.json').write_text(json.dumps(dict(
+                    models=[row['model_id'] for row in rows[:1000]],
+                    schemes=[dict(key='dockq_vs_0865', values=scores[:1000])],
+                    provenance=dict(dockq_vs_0865=dict(
+                        reference=joint.DOCKQ_REFERENCE,
+                        reference_native_sha256=joint.DOCKQ_REFERENCE_SHA,
+                        reference_scope=scope,
+                        all_other_scores_sha256=joint.DOCKQ_SCORES_SHA,
+                        accepted_plan_sha256=joint.DOCKQ_PLAN_SHA)))))
+                name = f'downloads/{target}-dockq-vs-0865.csv.gz'
+                fields = ['target', 'model_id', 'method', 'weights_version',
+                          'physicality_status', 'native_sha256', 'reference_id',
+                          'reference_scope', 'dockq', 'status']
+                with gzip.open(stage / name, 'wt', newline='') as stream:
+                    writer = csv.DictWriter(stream, fieldnames=fields)
+                    writer.writeheader()
+                    for row, score in zip(rows, scores):
+                        writer.writerow(dict(target=target, model_id=row['model_id'],
+                            method=row['method'], weights_version='',
+                            physicality_status='', native_sha256=row['native_sha256'],
+                            reference_id=joint.DOCKQ_REFERENCE,
+                            reference_scope=scope, dockq=score,
+                            status=('reference_self' if score == 1 else 'scored')))
+                source = {name: dict(sha256=joint.digest(stage / name),
+                                     bytes=(stage / name).stat().st_size)}
+                accepted = joint.accepted_dockq(stage, target, rows, source)
+                self.assertEqual(accepted[1], scores)
+                self.assertEqual(accepted[2], scope)
+                tampered = [dict(row) for row in rows]
+                tampered[0]['native_sha256'] = 'f' * 64
+                with self.assertRaisesRegex(ValueError, 'native hash differs'):
+                    joint.accepted_dockq(stage, target, tampered, source)
+                source[name]['sha256'] = '0' * 64
+                with self.assertRaisesRegex(ValueError, 'verified source manifest'):
+                    joint.accepted_dockq(stage, target, rows, source)
+
     def test_joint_sampling_prior_paths_keep_distinct_panels(self):
         primary = joint.joint_panel_path('CDK2_DOC1', 'UMAP_KNN', 'S1', 'mcmc50')
         density = joint.joint_panel_path('CDK2_DOC1', 'HDBSCAN_leaf', 'S1', 'mcmc50')
@@ -66,8 +121,22 @@ class JointPreviewTests(unittest.TestCase):
                               states=[state_group],
                               unassigned_indices=list(range(50, 5000)),
                               unassigned_models=4950, assigned_models=50)
+            relaxed = copy.deepcopy(membership)
+            relaxed.update(cutoff=.6, labels=['S1'] * 5000,
+                           unassigned_indices=[], unassigned_models=0,
+                           assigned_models=5000)
+            relaxed['states'][0].update(count=5000, indices=list(range(5000)))
+            strict = copy.deepcopy(membership)
+            strict['cutoff'] = .8
             state_data = dict(status='validated', target='CDK2_DOC1', models=names,
                               anchors=[names[0]], membership=membership,
+                              sensitivity=[relaxed, membership, strict],
+                              discovery=dict(anchors=[names[0]], cutoff=.7,
+                                coverage_target=.9, max_states=3,
+                                total_proxy_mass=50, covered_proxy_mass=50,
+                                residual_proxy_mass=0, proxy_coverage=1,
+                                status='coverage_target_reached'),
+                              leaf_cluster_proxy_models=50,
                               leaf_representatives_sha256=joint.digest(
                                   root / 'supplement/representatives-leaf.json'),
                               leaf_bonsai_receipt_sha256=joint.BONSAI_RECEIPTS['CDK2_DOC1']['leaf'],
@@ -84,6 +153,8 @@ class JointPreviewTests(unittest.TestCase):
                 status='validated', target='CDK2_DOC1', models=5000,
                 plan_sha256='a' * 64, scope='fixed-chain whole 1:1 complex; no chain swapping',
                 anchors=[names[0]], supported_states=1, unassigned_models=4950,
+                leaf_cluster_proxy_models=50,
+                leaf_cluster_proxy_unassigned_models=4950,
                 files=state_files)))
             state_sha = joint.digest(root / 'states/acceptance.json')
             conditions, sample_files = [], {}
@@ -124,6 +195,9 @@ class JointPreviewTests(unittest.TestCase):
                 sample_sha, 'a' * 64, 'b' * 64)
             self.assertEqual(len(result[3]), 1)
             self.assertEqual(set(result[4]), {'S1_UMAP_KNN', 'S1_HDBSCAN_leaf'})
+            self.assertEqual(result[5]['proxy']['total_mass'], 50)
+            self.assertEqual([row['assigned_models'] for row in
+                              result[5]['sensitivity']], [5000, 50, 50])
             self.assertNotEqual(result[4]['S1_UMAP_KNN']['mcmc50'][2],
                                 result[4]['S1_HDBSCAN_leaf']['mcmc50'][2])
             (root / 'sampling/S1_UMAP_KNN/mcmc50.pdb').write_text('changed')
@@ -298,7 +372,7 @@ class JointPreviewTests(unittest.TestCase):
             groups = joint.verified_representatives(folder, 'CDK2_DOC1', 'leaf', labels, rows)
             projections = {name: {'xy': [[0, 0]] * 5000} for name in
                            ('pca', 'umap', 'tsne')}
-            payload = joint.view_payload('CDK2_DOC1', 'leaf', rows,
+            args = ('CDK2_DOC1', 'leaf', rows,
                 ['BioEMU2'] * 5000, labels, {'leaf': np.ones(5000)}, projections,
                 {'chain_lengths': [298, 115]}, groups,
                 {'m0': dict(file='CDK2_DOC1/joint-models/m0.pdb.gz', format='pdb')},
@@ -306,10 +380,22 @@ class JointPreviewTests(unittest.TestCase):
                 'b' * 64, {'rejected': 1},
                 {'file': 'CDK2_DOC1/joint-density-bonsai.json',
                  'sha256': 'c' * 64, 'fit_receipt_sha256': 'd' * 64}, {})
+            dockq = ('downloads/CDK2_DOC1-dockq-vs-0865.csv.gz',
+                     [.02] * 5000, 'full_115', 'e' * 64)
+            payload = joint.view_payload(*args, dockq=dockq)
+            ready = joint.view_payload(*args, dockq=dockq, state_ready=True)
             self.assertIn('flagged native physicality failure',
                           payload['representatives'][0]['method'])
             self.assertIn('not a structural medoid', payload['representative_kind'])
             self.assertEqual(payload['schemes'][2]['values'][0], -3.0)
+            self.assertEqual(next(s for s in payload['schemes']
+                                  if s['key'] == 'dockq_vs_0865')['values'][0], .02)
+            self.assertIn('validated structural states',
+                          payload['provenance']['unavailable'])
+            self.assertNotIn('validated structural states',
+                             ready['provenance']['unavailable'])
+            self.assertIn('MCMC50/DISCO50 sampling panels are available',
+                          ready['clustering_method_note'])
             serialized = json.dumps(payload)
             self.assertNotIn('/scratch/', serialized)
             self.assertNotIn('native_path', serialized)
@@ -380,6 +466,7 @@ class JointPreviewTests(unittest.TestCase):
             html = '<script defer src="tm_states.js"></script>'
             script = ('[1,2].includes(catalog?.schema_version)\n'
                       'function validatePayload(p,entry,target,data){\n'
+                      'function coverageNote(p){\n'
                       " details+=s.method==='mcmc50'?\n"
                       'The saved PDB downloads preserve the native full-dimer pose. '
                       'On-screen filters and colors never change downloaded files.')
@@ -392,6 +479,8 @@ class JointPreviewTests(unittest.TestCase):
             self.assertEqual((root / 'states-source.js').read_text(), script)
             self.assertIn('joint_tm_states.js', (stage / 'index.html').read_text())
             self.assertIn('schema_version===3', (stage / 'tm_states.js').read_text())
+            self.assertIn('AISJointTMStates.coverageNote',
+                          (stage / 'tm_states.js').read_text())
             self.assertTrue((stage / 'joint_tm_states.js').is_file())
 
     def test_afsample2_display_copy_preserves_native_download_and_atom_fields(self):

@@ -37,6 +37,12 @@ const payload = {
   flags: {incomplete_coverage: true, short_core: false},
   membership_coverage: {tm_assigned_models: 50, uncovered_models: 4950,
     unsupported_state_models: 0, unsupported_states: []},
+  state_diagnostics: {proxy: {covered_mass: 40, total_mass: 100,
+      coverage: .4, status: 'partial_coverage', leaf_unassigned_models: 4900},
+    sensitivity: [.6, .7, .8].map(cutoff => ({cutoff, assigned_models: 50,
+      below_cutoff_models: 4950, supported_states: 1,
+      states: [{id: 'S1', count: 50, supported: true}]})),
+    interpretation: 'Proxy mass guided discovery; fixed-anchor sensitivity changes membership cutoff, not the anchors.'},
 };
 const entry = {effective_scope_id: 'joint-full-complex', source_data_sha256: source,
   state_count: 1, available: true, short_core: false, incomplete_coverage: true};
@@ -53,6 +59,18 @@ assert.notEqual(payload.states[0].selections.joint.primary.mcmc50.ensemble.sha25
   payload.states[0].selections.joint.density.mcmc50.ensemble.sha256);
 assert.equal(payload.states[0].selections.joint.eom.mcmc50.ensemble.sha256,
   payload.states[0].selections.joint.density.mcmc50.ensemble.sha256);
+const note = globalThis.AISJointTMStates.coverageNote(payload);
+assert.match(note, /Discovery leaf-cluster proxy mass: 40\/100/);
+assert.match(note, /these discovery weights are not full-cohort TM assignments/);
+assert.match(note, /Fixed-anchor cutoff sensitivity \(no rediscovery\)/);
+const badProxy = structuredClone(payload);
+badProxy.state_diagnostics.proxy.covered_mass = 60;
+assert.throws(() => globalThis.AISJointTMStates.validate(badProxy, entry, target, data, helpers),
+  /proxy or sensitivity source/);
+const badSensitivity = structuredClone(payload);
+badSensitivity.state_diagnostics.sensitivity[1].states[0].count = 49;
+assert.throws(() => globalThis.AISJointTMStates.validate(badSensitivity, entry, target, data, helpers),
+  /cutoff sensitivity accounting/);
 const changed = structuredClone(payload);
 changed.states[0].members[0].tm_score = .6;
 assert.throws(() => globalThis.AISJointTMStates.validate(changed, entry, target, data, helpers),

@@ -51,6 +51,10 @@ METHOD_COLORS = {'AFsample2 · v1 weights': '#3454a4',
                  'AFsample2 · v2 weights': '#477bc0',
                  'AFsample2 · v3 weights': '#75a8d0',
                  'AFsample3': '#d98b35', 'BioEMU2': '#8b56aa'}
+DOCKQ_REFERENCE = 'CDK2_DOC1__afsample3__0865'
+DOCKQ_REFERENCE_SHA = '5503da4081c1e0d6483a54da3c22d93a13abe84d03d22de9ec2f5e43c6997c17'
+DOCKQ_SCORES_SHA = 'fc321f809ab9977948bf49a70bd6abfd3334ce3a681ad8ca531293f28be2b62f'
+DOCKQ_PLAN_SHA = 'df4aa04eb8b422a38bb041281097693e38782e3698d22a55db3b2a02c7f5b1ef'
 
 
 def digest(path):
@@ -75,6 +79,72 @@ def write(path, value):
     temporary = path.with_name(path.name + '.new')
     temporary.write_text(json.dumps(value, separators=(',', ':'), allow_nan=False) + '\n')
     temporary.replace(path)  # The saved source may be hard-linked into the stage.
+
+
+def accepted_dockq(stage, target, rows, source_files):
+    """Bind saved DockQ values to every joint model and its native coordinate."""
+    relative = f'downloads/{target}-dockq-vs-0865.csv.gz'
+    source = source_files.get(relative)
+    path = Path(stage) / relative
+    require(source and source['sha256'] == digest(path) and
+            source['bytes'] == path.stat().st_size,
+            'Saved DockQ download is not bound to the verified source manifest')
+    with gzip.open(path, 'rt', newline='') as stream:
+        reader = csv.DictReader(stream)
+        require(reader.fieldnames == ['target', 'model_id', 'method',
+                'weights_version', 'physicality_status', 'native_sha256',
+                'reference_id', 'reference_scope', 'dockq', 'status'],
+                'Saved DockQ download columns differ')
+        dockq = list(reader)
+    lookup = {row['model_id']: row for row in dockq}
+    require(len(dockq) == len(lookup) == len(rows) == 5000 and
+            set(lookup) == {row['model_id'] for row in rows},
+            'Saved DockQ cohort differs from the accepted joint roster')
+    scope = 'full_115' if target == 'CDK2_DOC1' else 'doc1t_55'
+    values = []
+    self_count = 0
+    for row in rows:
+        item = lookup[row['model_id']]
+        is_self = target == 'CDK2_DOC1' and row['model_id'] == DOCKQ_REFERENCE
+        status = 'reference_self' if is_self else 'scored'
+        if is_self:
+            self_count += 1
+        try:
+            score = float(item['dockq'])
+        except (ValueError, TypeError):
+            raise ValueError('Saved DockQ score is not numeric') from None
+        require(item['target'] == target and
+                item['reference_id'] == DOCKQ_REFERENCE and
+                item['reference_scope'] == scope and
+                item['native_sha256'] == row['native_sha256'] and
+                item['method'] == row['method'] and
+                item['weights_version'] == row['weights_version'] and
+                item['physicality_status'] ==
+                    ('' if row['native_physicality_status'] == 'not_assessed'
+                     else row['native_physicality_status']) and
+                item['status'] == status and
+                np.isfinite(score) and 0 <= score <= 1 and
+                (not is_self or
+                 (score == 1 and row['native_sha256'] == DOCKQ_REFERENCE_SHA)),
+                'Saved DockQ score, scope, method or native hash differs')
+        values.append(score)
+    require(self_count == (1 if target == 'CDK2_DOC1' else 0),
+            'Saved DockQ reference self-control differs')
+    af3 = read(Path(stage) / target / 'primary.json')
+    prior = next((item for item in af3['schemes']
+                  if item['key'] == 'dockq_vs_0865'), None)
+    provenance = af3['provenance']['dockq_vs_0865']
+    by_model = dict(zip((row['model_id'] for row in rows), values))
+    require(provenance['reference'] == DOCKQ_REFERENCE and
+            provenance['reference_native_sha256'] == DOCKQ_REFERENCE_SHA and
+            provenance['reference_scope'] == scope and
+            provenance['all_other_scores_sha256'] == DOCKQ_SCORES_SHA and
+            provenance['accepted_plan_sha256'] == DOCKQ_PLAN_SHA and
+            prior and len(af3['models']) == len(prior['values']) == 1000 and
+            all(prior['values'][i] == by_model[model]
+                for i, model in enumerate(af3['models'])),
+            'Saved AFsample3 DockQ view differs from joint scores')
+    return relative, values, scope, source['sha256']
 
 
 def omit_optional_plots(stage):
@@ -402,7 +472,8 @@ def copy_representatives(stage, target, selections, rows, coordinate_root,
 
 def view_payload(target, view, rows, methods, labels, strengths, projections,
                  supplement, selection, coordinates, downloads, joint_sha, supplement_sha,
-                 physicality, bonsai, bonsai_models, tm_grid=None):
+                 physicality, bonsai, bonsai_models, tm_grid=None, dockq=None,
+                 state_ready=False):
     names = [row['model_id'] for row in rows]
     cluster_names = [cluster_label(view, label) for label in labels]
     palette = {label: color(label) for label in set(cluster_names)}
@@ -438,6 +509,14 @@ def view_payload(target, view, rows, methods, labels, strengths, projections,
         schemes.append(dict(key='hdbscan_strength', name='HDBSCAN membership strength',
                             type='continuous', values=strengths[view].tolist(),
                             colorscale='Viridis', range=[0, 1], unavailable=False))
+    require(dockq is not None and len(dockq[1]) == len(rows) == 5000,
+            'Joint view requires the accepted full-cohort DockQ metric')
+    dockq_file, dockq_values, dockq_scope, dockq_sha = dockq
+    label = 'full DOC1' if target == 'CDK2_DOC1' else 'DOC1t · reference DOC1 61–115'
+    schemes.append(dict(key='dockq_vs_0865', name='DockQ vs 0865 · ' + label,
+                        short_name='DockQ vs 0865', type='continuous',
+                        values=dockq_values, colorscale='Viridis', range=[0, 1],
+                        unavailable=False))
     note = ('DOC1t EOM seed diagnostic is unstable: seed 42 found 39 clusters; '
             'seeds 7 and 123 found 21 and 55. Treat EOM groups as exploratory.'
             if target == 'CDK2_DOC1t' and view == 'eom' else '')
@@ -467,16 +546,18 @@ def view_payload(target, view, rows, methods, labels, strengths, projections,
                            'Full construct A1–298 + B1–55') +
                           '; all residues retained; 5,000 models fit and displayed.',
                 clustering_method_note=('Accepted full-construct 4,096-D all-pair sketch, 2-D/10-D '
-                    'UMAP, UMAP KNN and 10-D HDBSCAN (leaf/EOM), seed 42. ProteinEBM is an overlay, '
-                    'not a fit feature. BioEMU2 native physicality flags are retained. '
+                    'UMAP, UMAP KNN and 10-D HDBSCAN (leaf/EOM), seed 42. ProteinEBM and '
+                    '0865-reference DockQ are overlays, '
+                    'not fit features. BioEMU2 native physicality flags are retained. '
                     'Bonsai uses accepted native trees of energy-selected representatives '
                     'and explicit unassigned examples. ' +
                     ('Exact whole-complex TM similarity compares one energy-selected '
                      'representative per cluster. ' if tm_grid is not None else
                      'Between-cluster TM similarity is pending. ') +
-                    'Validated structural state '
-                    'assignments and MCMC/DISCO sampling '
-                    'are pending for this joint cohort. ' + note),
+                    ('Accepted fixed-chain structural state assignments and '
+                     'MCMC50/DISCO50 sampling panels are available. ' if state_ready else
+                     'Validated structural state assignments and MCMC/DISCO sampling '
+                     'are pending for this joint cohort. ') + note),
                 provenance=dict(joint_fit_receipt_sha256=joint_sha,
                                 supplement_receipt_sha256=supplement_sha,
                                 bonsai_fit_receipt_sha256=bonsai['fit_receipt_sha256'],
@@ -485,9 +566,19 @@ def view_payload(target, view, rows, methods, labels, strengths, projections,
                                 method_counts=dict.fromkeys(METHODS, 1000),
                                 bioemu2_physicality_counts=physicality,
                                 energy='accepted ProteinEBM Model 6, t=0.10, full complex',
+                                dockq_vs_0865=dict(reference=DOCKQ_REFERENCE,
+                                    reference_native_sha256=DOCKQ_REFERENCE_SHA,
+                                    reference_scope=dockq_scope,
+                                    all_other_scores_sha256=DOCKQ_SCORES_SHA,
+                                    accepted_plan_sha256=DOCKQ_PLAN_SHA,
+                                    saved_download_sha256=dockq_sha,
+                                    total_target_models=5000,
+                                    software='DockQ 2.1.4', chain_mapping='AB:AB',
+                                    sequence_alignment=False),
                                 unavailable=([] if tm_grid is not None else
                                              ['between-cluster TM similarity']) +
-                                            ['MCMC/DISCO sampling', 'validated structural states']))
+                                            ([] if state_ready else
+                                             ['MCMC/DISCO sampling', 'validated structural states'])))
     if tm_grid is not None:
         grid, csv_path, grid_sha, csv_sha = tm_grid
         payload['medoid_tm'] = dict(
@@ -502,6 +593,7 @@ def view_payload(target, view, rows, methods, labels, strengths, projections,
         payload['native_data_links'] = dict(representative_tm_grid=csv_path)
         payload['provenance']['tm_grid_json_sha256'] = grid_sha
         payload['provenance']['tm_grid_csv_sha256'] = csv_sha
+    payload.setdefault('native_data_links', {})['dockq'] = dockq_file
     return payload
 
 
@@ -609,7 +701,7 @@ def add_range_catalogs(stage, target, views, supplement):
 
 def build_view_set(stage, target, joint_folder, joint_sha, supplement_folder,
                    supplement_sha, coordinate_root, bonsai_root, tm_folder,
-                   tm_receipt_sha, *, state_ready=False):
+                   tm_receipt_sha, source_files, *, state_ready=False):
     joint = accepted(joint_folder, joint_sha, target, 'joint')
     supplement = accepted(supplement_folder, supplement_sha, target, 'supplement')
     require(supplement['joint_fit_acceptance_sha256'] == joint_sha and
@@ -617,6 +709,7 @@ def build_view_set(stage, target, joint_folder, joint_sha, supplement_folder,
                                        else 'A1-298+B1-55'),
             'Supplement and joint fit scopes differ')
     rows, groups = roster(joint_folder, joint)
+    dockq = accepted_dockq(stage, target, rows, source_files)
     xy, labels, strengths = view_arrays(joint_folder, joint)
     if target == 'CDK2_DOC1t':
         eom_seeds = {row['seed']: row['clusters'] for row in joint['hdbscan_fits']
@@ -698,12 +791,63 @@ def build_view_set(stage, target, joint_folder, joint_sha, supplement_folder,
                                str(csv_path.relative_to(stage)), joint_sha, supplement_sha,
                                supplement['bioemu2_physicality_counts'], bonsai_descriptor,
                                {model: bonsai_models[model] for model in selected},
-                               tm_display)
+                               tm_display, dockq, state_ready=state_ready)
         payload['provenance']['tm_grid_receipt_sha256'] = tm_receipt_sha
         if state_ready:
             payload['model_sha256'] = [row['native_sha256'] for row in rows]
         write(stage / target / f'joint-{view_id}.json', payload)
     add_range_catalogs(stage, target, VIEWS, supplement)
+
+
+def joint_state_diagnostics(states, receipt):
+    """Summarize accepted proxy discovery and fixed-anchor cutoff sensitivity."""
+    membership = states['membership']
+    discovery = states['discovery']
+    total = discovery['total_proxy_mass']
+    covered = discovery['covered_proxy_mass']
+    require(discovery['anchors'] == states['anchors'] and
+            discovery['cutoff'] == membership['cutoff'] == .7 and
+            discovery['coverage_target'] == .9 and
+            discovery['max_states'] == 3 and
+            discovery['status'] in ('coverage_target_reached', 'partial_coverage') and
+            total == states['leaf_cluster_proxy_models'] ==
+                receipt['leaf_cluster_proxy_models'] and
+            total + receipt['leaf_cluster_proxy_unassigned_models'] == 5000 and
+            0 <= covered <= total and total > 0 and
+            abs(discovery['proxy_coverage'] - covered / total) < 1e-12 and
+            abs(discovery['residual_proxy_mass'] - (total - covered)) < 1e-8,
+            'Saved leaf-proxy discovery differs from accepted source')
+    sensitivity = states['sensitivity']
+    require([row['cutoff'] for row in sensitivity] == [.6, .7, .8] and
+            sensitivity[1] == membership,
+            'Saved fixed-anchor cutoff sensitivity differs from membership')
+    summaries = []
+    for row in sensitivity:
+        groups = row['states']
+        require(row['anchors'] == states['anchors'] and
+                row['min_state_size'] == 50 and
+                len(row['labels']) == len(row['best_tm']) == 5000 and
+                row['best_tm'] == membership['best_tm'] and
+                row['assigned_models'] + row['unassigned_models'] == 5000 and
+                sum(group['count'] for group in groups) == row['assigned_models'] and
+                [group['id'] for group in groups] ==
+                    ['S' + str(i) for i in range(1, len(states['anchors']) + 1)] and
+                all(group['count'] == len(group['indices']) and
+                    group['supported'] == (group['count'] >= 50)
+                    for group in groups),
+                'Saved cutoff sensitivity accounting differs')
+        summaries.append(dict(cutoff=row['cutoff'],
+            assigned_models=row['assigned_models'],
+            below_cutoff_models=row['unassigned_models'],
+            supported_states=sum(group['supported'] for group in groups),
+            states=[dict(id=group['id'], count=group['count'],
+                         supported=group['supported']) for group in groups]))
+    return dict(proxy=dict(covered_mass=covered, total_mass=total,
+                           coverage=discovery['proxy_coverage'],
+                           status=discovery['status'],
+                           leaf_unassigned_models=receipt['leaf_cluster_proxy_unassigned_models']),
+                sensitivity=summaries,
+                interpretation='Proxy mass guided anchor discovery; fixed-anchor TM membership was measured across all 5,000 models. Sensitivity changes only the membership cutoff, not the anchors.')
 
 
 def checked_joint_state_inputs(target, joint_folder, joint_sha, supplement_folder,
@@ -736,6 +880,7 @@ def checked_joint_state_inputs(target, joint_folder, joint_sha, supplement_folde
             'Accepted sampling summary differs')
     states = read(state_folder / 'states.json')
     sampling = read(sampling_folder / 'sampling-summary.json')
+    diagnostics = joint_state_diagnostics(states, state_receipt)
     joint = accepted(joint_folder, joint_sha, target, 'joint')
     rows, _ = roster(joint_folder, joint)
     names = [row['model_id'] for row in rows]
@@ -838,7 +983,7 @@ def checked_joint_state_inputs(target, joint_folder, joint_sha, supplement_folde
                     'Saved panel coordinate hash or size differs: ' + relative)
             selected[method] = (model_ids, source, item['pdb_sha256'])
         panels[condition] = selected
-    return states, sampling, rows, supported, panels
+    return states, sampling, rows, supported, panels, diagnostics
 
 
 def joint_panel_path(target, prior, state_id, method):
@@ -864,7 +1009,7 @@ def add_joint_states(stage, inputs, tm_inputs, state_inputs, state_plan_sha,
         joint_folder, joint_sha, supplement_folder, _ = inputs[target]
         tm_folder, _ = tm_inputs[target]
         state_folder, state_sha, sampling_folder, sampling_sha = state_inputs[target]
-        states, sampling, rows, supported, panels = checked_joint_state_inputs(
+        states, sampling, rows, supported, panels, diagnostics = checked_joint_state_inputs(
             target, joint_folder, joint_sha, supplement_folder, tm_folder,
             state_folder, state_sha, sampling_folder, sampling_sha,
             state_plan_sha, sampling_plan_sha)
@@ -943,6 +1088,7 @@ def add_joint_states(stage, inputs, tm_inputs, state_inputs, state_plan_sha,
                             uncovered_models=states['membership']['unassigned_models'],
                             unsupported_state_models=sum(row['count'] for row in unsupported),
                             unsupported_states=unsupported),
+                       state_diagnostics=diagnostics,
                        flags=dict(incomplete_coverage=count<5000, short_core=False),
                        discovery_scope=states['discovery_scope'],
                        interpretation=sampling['interpretation'])
@@ -980,6 +1126,8 @@ def patch_joint_state_browser(stage):
         ('function validatePayload(p,entry,target,data){',
          'function validatePayload(p,entry,target,data){\n'
          ' if(p?.schema_version===3)return root.AISJointTMStates.validate(p,entry,target,data,{sourceBinding,sha256});'),
+        ('function coverageNote(p){',
+         'function coverageNote(p){if(p?.schema_version===3)return root.AISJointTMStates.coverageNote(p);'),
     )
     for old, new in changes:
         require(body.count(old) == 1, 'Saved state validator seam differs')
@@ -1011,6 +1159,7 @@ def assemble(base, inputs, coordinate_roots, bonsai_root, tm_inputs, output,
     source = read(base / 'export-manifest.json')
     require(source.get('project') == 'LS_AIS', 'Saved source is not LS_AIS')
     old = {row['path'] for row in source['files']}
+    source_files = {row['path']: row for row in source['files']}
     require({f'{target}/primary.json' for target in TARGETS} <= old and
             not any('/joint-' in name for name in old),
             'Saved monomer source is incomplete or already augmented')
@@ -1031,7 +1180,8 @@ def assemble(base, inputs, coordinate_roots, bonsai_root, tm_inputs, output,
         menu_new.replace(menu_destination)
         for target in TARGETS:
             build_view_set(stage, target, *inputs[target], coordinate_roots[target],
-                           bonsai_root, *tm_inputs[target], state_ready=state_inputs is not None)
+                           bonsai_root, *tm_inputs[target], source_files,
+                           state_ready=state_inputs is not None)
         if state_inputs is not None:
             add_joint_states(stage, inputs, tm_inputs, state_inputs,
                              state_plan_sha, sampling_plan_sha)
