@@ -161,6 +161,18 @@ class JointPreviewTests(unittest.TestCase):
             for prior in ('UMAP_KNN', 'HDBSCAN_leaf'):
                 condition = 'S1_' + prior
                 (root / 'sampling' / condition).mkdir()
+                diagnostic_path = root / 'sampling' / condition / 'diagnostics.json'
+                metric = dict(status='computed', n_chains=4, n_draws=9000,
+                              rhat=(1.01 if prior == 'UMAP_KNN' else 1.02),
+                              ess_bulk=350.0)
+                diagnostic_path.write_text(json.dumps(dict(
+                    native=dict(panel_mean_energy=metric, panel_log_weight=metric),
+                    MCMC_inclusion_RMSE=.01, expected_panel_mean_energy=100.0,
+                    exact_inclusion_marginal_sum=50.0, retained_panels=36000,
+                    physicality_rejected_in_pool=0,
+                    completion_is_not_convergence=True,
+                    poor_mixing_extension=False)))
+                sample_files[condition + '/diagnostics.json'] = joint.digest(diagnostic_path)
                 exports = []
                 for kind in ('MCMC50', 'DISCO50'):
                     filename = kind.lower() + '.pdb'
@@ -200,6 +212,17 @@ class JointPreviewTests(unittest.TestCase):
                               result[5]['sensitivity']], [5000, 50, 50])
             self.assertNotEqual(result[4]['S1_UMAP_KNN']['mcmc50'][2],
                                 result[4]['S1_HDBSCAN_leaf']['mcmc50'][2])
+            self.assertEqual(result[4]['S1_UMAP_KNN']['diagnostics'][2]
+                             ['panel_mean_energy']['rhat'], 1.01)
+            diagnostic_path = root / 'sampling/S1_UMAP_KNN/diagnostics.json'
+            diagnostic_original = diagnostic_path.read_bytes()
+            diagnostic_path.write_text('changed')
+            with self.assertRaisesRegex(ValueError, 'MCMC diagnostic hash'):
+                joint.checked_joint_state_inputs('CDK2_DOC1', root / 'joint',
+                    joint.digest(root / 'joint/acceptance.json'), root / 'supplement',
+                    root / 'tm', root / 'states', state_sha, root / 'sampling',
+                    sample_sha, 'a' * 64, 'b' * 64)
+            diagnostic_path.write_bytes(diagnostic_original)
             (root / 'sampling/S1_UMAP_KNN/mcmc50.pdb').write_text('changed')
             with self.assertRaisesRegex(ValueError, 'panel coordinate hash'):
                 joint.checked_joint_state_inputs('CDK2_DOC1', root / 'joint',
@@ -467,6 +490,7 @@ class JointPreviewTests(unittest.TestCase):
             script = ('[1,2].includes(catalog?.schema_version)\n'
                       'function validatePayload(p,entry,target,data){\n'
                       'function coverageNote(p){\n'
+                      ' let details=\n'
                       " details+=s.method==='mcmc50'?\n"
                       'The saved PDB downloads preserve the native full-dimer pose. '
                       'On-screen filters and colors never change downloaded files.')
@@ -480,6 +504,8 @@ class JointPreviewTests(unittest.TestCase):
             self.assertIn('joint_tm_states.js', (stage / 'index.html').read_text())
             self.assertIn('schema_version===3', (stage / 'tm_states.js').read_text())
             self.assertIn('AISJointTMStates.coverageNote',
+                          (stage / 'tm_states.js').read_text())
+            self.assertIn('exact-control panels; inclusion RMSE',
                           (stage / 'tm_states.js').read_text())
             self.assertTrue((stage / 'joint_tm_states.js').is_file())
 

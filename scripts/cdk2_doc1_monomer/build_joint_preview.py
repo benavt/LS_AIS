@@ -850,6 +850,40 @@ def joint_state_diagnostics(states, receipt):
                 interpretation='Proxy mass guided anchor discovery; fixed-anchor TM membership was measured across all 5,000 models. Sensitivity changes only the membership cutoff, not the anchors.')
 
 
+def accepted_condition_diagnostics(source, expected_sha, controls, pool_size):
+    """Read one receipt-hashed MCMC diagnostic without recomputing its metrics."""
+    require(digest(source) == expected_sha and Path(source).stat().st_size <= 2**20,
+            'Accepted MCMC diagnostic hash or size differs')
+    saved = read(source)
+    native = saved['native']
+    metrics = {name: native[name] for name in
+               ('panel_mean_energy', 'panel_log_weight')}
+    require(controls == 20 and saved['retained_panels'] == 36000 and
+            saved['completion_is_not_convergence'] is True and
+            saved['poor_mixing_extension'] is False and
+            isinstance(saved['physicality_rejected_in_pool'], int) and
+            0 <= saved['physicality_rejected_in_pool'] <= pool_size and
+            np.isfinite(saved['MCMC_inclusion_RMSE']) and
+            0 <= saved['MCMC_inclusion_RMSE'] <= 1 and
+            np.isfinite(saved['expected_panel_mean_energy']) and
+            abs(saved['exact_inclusion_marginal_sum'] - 50) < 1e-6 and
+            all(metric['status'] == 'computed' and
+                metric['n_chains'] == 4 and metric['n_draws'] == 9000 and
+                np.isfinite(metric['rhat']) and metric['rhat'] >= 1 and
+                np.isfinite(metric['ess_bulk']) and metric['ess_bulk'] > 0
+                for metric in metrics.values()),
+            'Accepted MCMC diagnostic policy or values differ')
+    return dict(panel_mean_energy=metrics['panel_mean_energy'],
+                panel_log_weight=metrics['panel_log_weight'],
+                exact_control_panels=controls,
+                inclusion_rmse=saved['MCMC_inclusion_RMSE'],
+                retained_panels=saved['retained_panels'],
+                expected_panel_mean_energy=saved['expected_panel_mean_energy'],
+                physicality_rejected_in_pool=saved['physicality_rejected_in_pool'],
+                completion_is_not_convergence=True,
+                poor_mixing_extension=False)
+
+
 def checked_joint_state_inputs(target, joint_folder, joint_sha, supplement_folder,
                                tm_folder, state_folder, state_sha,
                                sampling_folder, sampling_sha,
@@ -962,7 +996,11 @@ def checked_joint_state_inputs(target, joint_folder, joint_sha, supplement_folde
                 record['controls'] == 20 and
                 {item['kind'] for item in record['exports']} == {'MCMC50', 'DISCO50'},
                 'Saved sampling policy or export inventory differs')
-        selected = {}
+        diagnostic_source = sampling_folder / condition / 'diagnostics.json'
+        diagnostic_sha = sample_receipt['files'][condition + '/diagnostics.json']
+        diagnostic = accepted_condition_diagnostics(
+            diagnostic_source, diagnostic_sha, record['controls'], group['count'])
+        selected = {'diagnostics': (diagnostic_source, diagnostic_sha, diagnostic)}
         for item in record['exports']:
             kind = item['kind']
             method = kind.lower()
@@ -1036,6 +1074,19 @@ def add_joint_states(stage, inputs, tm_inputs, state_inputs, state_plan_sha,
                                 ('eom', 'HDBSCAN_leaf')]:
                 condition = state['id'] + '_' + prior
                 selection = {'prior': prior}
+                diagnostic_source, diagnostic_sha, diagnostic = panels[condition]['diagnostics']
+                diagnostic_relative = (f'tm-state-diagnostics/{target}/joint/' +
+                                       f'{"primary" if prior == "UMAP_KNN" else "density"}/' +
+                                       f'{state["id"]}.json')
+                diagnostic_destination = Path(stage) / diagnostic_relative
+                diagnostic_destination.parent.mkdir(parents=True, exist_ok=True)
+                if not diagnostic_destination.exists():
+                    shutil.copyfile(diagnostic_source, diagnostic_destination)
+                require(digest(diagnostic_destination) == diagnostic_sha,
+                        'Copied MCMC diagnostic differs')
+                selection['diagnostics'] = dict(**diagnostic, file=diagnostic_relative,
+                                                sha256=diagnostic_sha,
+                                                bytes=diagnostic_destination.stat().st_size)
                 for method in ('mcmc50', 'disco50'):
                     ids, source, sha = panels[condition][method]
                     relative = joint_panel_path(target, prior, state['id'], method)
@@ -1132,6 +1183,10 @@ def patch_joint_state_browser(stage):
     for old, new in changes:
         require(body.count(old) == 1, 'Saved state validator seam differs')
         body = body.replace(old, new, 1)
+    note_seam = ' let details='
+    require(body.count(note_seam) == 1, 'Saved state diagnostic note seam differs')
+    body = body.replace(note_seam,
+        " if(payload.schema_version===3&&s.method==='mcmc50'&&chosen.length===1){const d=chosen[0].selections[b.range_id][b.view_id].diagnostics;note+=` ${d.exact_control_panels} exact-control panels; inclusion RMSE ${d.inclusion_rmse.toFixed(4)}. Completion does not establish convergence.`;}\n" + note_seam, 1)
     # The legacy ternary above remains intact; add a joint-specific note before it.
     anchor = " details+=s.method==='mcmc50'?"
     require(body.count(anchor) == 1, 'Saved state sampling detail seam differs')

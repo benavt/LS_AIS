@@ -67,6 +67,28 @@ function validate(p,entry,target,data,helpers){
    const choice=state.selections?.joint?.[view];
    need(choice?.prior===p.selection_prior.per_view[view],
     'Joint state fine-view prior differs.');
+   const diagnostic=choice.diagnostics;
+   const directory=view==='primary'?'primary':'density';
+   need(diagnostic?.file===`tm-state-diagnostics/${p.target}/joint/${directory}/${state.id}.json`&&
+    hash(diagnostic.sha256)&&Number.isInteger(diagnostic.bytes)&&
+    diagnostic.bytes>0&&diagnostic.bytes<=1048576&&
+    diagnostic.exact_control_panels===20&&
+    diagnostic.retained_panels===36000&&
+    Number.isFinite(diagnostic.inclusion_rmse)&&
+    diagnostic.inclusion_rmse>=0&&diagnostic.inclusion_rmse<=1&&
+    Number.isFinite(diagnostic.expected_panel_mean_energy)&&
+    Number.isInteger(diagnostic.physicality_rejected_in_pool)&&
+    diagnostic.physicality_rejected_in_pool>=0&&
+    diagnostic.physicality_rejected_in_pool<=state.members.length&&
+    diagnostic.completion_is_not_convergence===true&&
+    diagnostic.poor_mixing_extension===false&&
+    ['panel_mean_energy','panel_log_weight'].every(key=>{
+     const metric=diagnostic[key];return metric?.status==='computed'&&
+      metric.n_chains===4&&metric.n_draws===9000&&
+      Number.isFinite(metric.rhat)&&metric.rhat>=1&&
+      Number.isFinite(metric.ess_bulk)&&metric.ess_bulk>0;
+    }),
+    'Joint state MCMC diagnostic differs.');
    for(const method of ['mcmc50','disco50']){
     const panel=choice[method];
     need(unique(panel?.indices,n,50)&&

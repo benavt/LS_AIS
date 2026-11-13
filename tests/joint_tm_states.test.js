@@ -13,6 +13,17 @@ const panels = view => Object.fromEntries(['mcmc50', 'disco50'].map(method => [m
   ensemble: {file: `tm-state-ensembles/CDK2_DOC1/joint/${view === 'primary' ? 'primary' : 'density'}/S1/${method}.pdb`,
     sha256: (view === 'primary' ? 'd' : '2').repeat(64), bytes: 100},
 }]));
+const diagnostics = view => ({
+  file: `tm-state-diagnostics/CDK2_DOC1/joint/${view === 'primary' ? 'primary' : 'density'}/S1.json`,
+  sha256: (view === 'primary' ? '3' : '4').repeat(64), bytes: 100,
+  panel_mean_energy: {status: 'computed', n_chains: 4, n_draws: 9000,
+    rhat: view === 'primary' ? 1.01 : 1.02, ess_bulk: 350},
+  panel_log_weight: {status: 'computed', n_chains: 4, n_draws: 9000,
+    rhat: 1.01, ess_bulk: 320},
+  exact_control_panels: 20, inclusion_rmse: .01, retained_panels: 36000,
+  expected_panel_mean_energy: 100, physicality_rejected_in_pool: 0,
+  completion_is_not_convergence: true, poor_mixing_extension: false,
+});
 const views = Object.fromEntries(['primary', 'density', 'eom'].map(view => [view,
   {source_data_sha256: source}]));
 const payload = {
@@ -32,7 +43,8 @@ const payload = {
   states: [{id: 'S1', representative: {index: 0, model: models[0]},
     members: models.slice(0, 50).map((model, index) => ({index, model, tm_score: .8})),
     selections: {joint: Object.fromEntries(['primary', 'density', 'eom'].map(view =>
-      [view, {prior: view === 'primary' ? 'UMAP_KNN' : 'HDBSCAN_leaf', ...panels(view)}]))}}],
+      [view, {prior: view === 'primary' ? 'UMAP_KNN' : 'HDBSCAN_leaf',
+        diagnostics: diagnostics(view), ...panels(view)}]))}}],
   coverage: {assigned_models: 50, unassigned_models: 4950},
   flags: {incomplete_coverage: true, short_core: false},
   membership_coverage: {tm_assigned_models: 50, uncovered_models: 4950,
@@ -59,6 +71,12 @@ assert.notEqual(payload.states[0].selections.joint.primary.mcmc50.ensemble.sha25
   payload.states[0].selections.joint.density.mcmc50.ensemble.sha256);
 assert.equal(payload.states[0].selections.joint.eom.mcmc50.ensemble.sha256,
   payload.states[0].selections.joint.density.mcmc50.ensemble.sha256);
+assert.notEqual(payload.states[0].selections.joint.primary.diagnostics.sha256,
+  payload.states[0].selections.joint.density.diagnostics.sha256);
+const badDiagnostic = structuredClone(payload);
+badDiagnostic.states[0].selections.joint.primary.diagnostics.inclusion_rmse = -1;
+assert.throws(() => globalThis.AISJointTMStates.validate(badDiagnostic, entry, target, data, helpers),
+  /MCMC diagnostic differs/);
 const note = globalThis.AISJointTMStates.coverageNote(payload);
 assert.match(note, /Discovery leaf-cluster proxy mass: 40\/100/);
 assert.match(note, /these discovery weights are not full-cohort TM assignments/);
