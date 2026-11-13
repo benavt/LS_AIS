@@ -1,14 +1,16 @@
 # CDK2–DOC1 monomer cohorts
 
-`CDK2_DOC1` and `CDK2_DOC1t` each have two distinct atlas cohorts. The saved
-AFsample3 cohort is transferred into the LS_AIS explorer. The second cohort
-appears as a disabled, clearly labeled choice in each target's Model cohort
-dropdown until its atlas assets pass.
+`CDK2_DOC1` and `CDK2_DOC1t` each have a saved AFsample3 atlas cohort and a
+joint AFsample2/3 + BioEMU2 cohort. The 4,000-model AFsample2 + BioEMU2 fit is
+an accepted precursor to the joint 5,000-model fit; it is not a separate atlas
+menu choice. The Model cohort dropdown enables a joint view only when its
+verified private export is present.
 
 | Cohort | Models per target | Current evidence |
 | --- | ---: | --- |
 | Saved AFsample3 | 1,000 | Transferred into LS_AIS from the immutable [AFsample3 publication](https://benavt.github.io/cdk2-doc1-afs3/) at commit `d672ba45d8a7723ac07041f41410b1150a2b33e6`; all transferred assets match the published manifest. ProteinEBM tables also match the accepted local hashes. |
-| New AFsample2 + BioEMU2 | 4,000 | 3,000 AFsample2 models (1,000 each from multimer weights v1/v2/v3) and 1,000 BioEMU2 frames. The full-cohort UMAP KNN and HDBSCAN fits are accepted on Mimas; their atlas views and required supplements are pending. |
+| AFsample2 + BioEMU2 precursor | 4,000 | 3,000 AFsample2 models (1,000 each from multimer weights v1/v2/v3) and 1,000 BioEMU2 frames. Its accepted geometry and sketches feed the joint fit. |
+| Joint AFsample2 + AFsample3 + BioEMU2 | 5,000 | The accepted full-construct fit adds the 1,000 saved AFsample3 models to the precursor. UMAP KNN, HDBSCAN leaf/EOM, PCA, t-SNE, median/variance maps and energy-selected representatives are accepted. Bonsai, representative TM and sampling are tracked below. |
 
 The new cohort must be fit and displayed separately from the transferred AFsample3
 cohort, using complete two-chain scopes `A1-298+B1-115` and `A1-298+B1-55`.
@@ -17,11 +19,42 @@ the truncated target's 1,000 BioEMU2 frames passed that check. Show those labels
 in the model browser, downloads and clustering diagnostics. Do not present the
 flagged frames as validated native structures.
 
-The geometry, projection and UMAP KNN/HDBSCAN plan was approved and its
-full-cohort fit accepted on Mimas. Add the resulting views only after
-assignments, representative structures, diagnostics,
-and required atlas supplements pass their own acceptance checks. The successor
-delivery must show PCA, UMAP and t-SNE, ProteinEBM color and downloads, separate
+## Joint 5,000-model successor
+
+The user selected AFsample2/3 + BioEMU2 after the inventory found no verified
+1:1 AFsample1 cohort. The joint fit is recorded under Mimas run
+`2026-11-13_cdk2-doc1-monomer-joint-full-clustering_001`, exact plan SHA-256
+`7b824af271fe9b31e4aa0cba4559e447d2f405a7b53e00096f49980f46b0377c`.
+Both targets have 5,000 unique models: 1,000 each from AFsample2 weights v1,
+v2, and v3, 1,000 AFsample3, and 1,000 BioEMU2. All 5,000 have accepted
+ProteinEBM Model 6 t=0.10 energy. The fit has 2-D/10-D UMAP, UMAP KNN, and
+HDBSCAN leaf/EOM labels with seed diagnostics. The full DOC1 leaf view has 51
+assigned clusters and 2,696 unassigned models; DOC1t has 59 and 2,070.
+DOC1t EOM varies across diagnostic seeds and needs a visible stability note.
+
+The saved AFsample3-only views remain separate. The joint private view uses
+its own 5,000-model analyses; it does not relabel 1,000-model supplements.
+The joint supplement ledger currently reads:
+
+| Asset | CDK2_DOC1 | CDK2_DOC1t |
+| --- | --- | --- |
+| Native roster, ProteinEBM, UMAP, KNN/HDBSCAN | Accepted | Accepted |
+| Joint PCA/t-SNE and Cα median/variance maps | Accepted, plan `66750dcf…` | Accepted, plan `66750dcf…` |
+| Energy-selected representatives and verified native coordinates | Accepted; physicality flags shown | Accepted |
+| Native Bonsai | Accepted in `2026-11-13_cdk2-doc1-monomer-joint-energy-bonsai_003`; leaf/EOM/KNN viewer exports and selected coordinates verified | Accepted from the same run; leaf/EOM/KNN viewer exports and selected coordinates verified |
+| Representative TM grid | Accepted in `2026-11-13_cdk2-doc1-monomer-joint-representative-tm-grid_001`; 51×51 leaf plus EOM/KNN | Accepted from the same run; 59×59 leaf plus EOM/KNN |
+| State discovery, MCMC50/DISCO50 | State discovery approved and running; sampling not yet accepted | State discovery approved and pending serial execution; sampling not yet accepted |
+| Private atlas view and browser validation | Verified 5,000-model joint view, AFsample3 cohort switch, three clustering views, AFsample2 structure, Bonsai selection, TM map, and downloads | Verified 5,000-model joint view, Bonsai structure, and supplemental maps |
+
+The atlas export must label the full DOC1 BioEMU2 physicality failures and
+AFsample2 weight versions, and omit optional 3-D box and residue-pair detail
+plots. Do not treat this ledger as acceptance for missing scientific work.
+
+The geometry, projection, UMAP KNN/HDBSCAN, Bonsai, and representative TM
+plans were approved and accepted on Mimas. The private successor bundle has
+manifest SHA-256 `06f87aeb65bb7b4c06b120fd7ff4b2cac374394182481815386fe4a0c5d167ba`.
+Its joint views name state discovery and MCMC/DISCO sampling as pending.
+The complete successor must show PCA, UMAP and t-SNE, ProteinEBM color and downloads, separate
 AFsample2 v1/v2/v3 labels, BioEMU2 physicality labels, per-cluster low-energy
 representatives, Cα distance and variance maps, Bonsai, representative TM
 similarities, and the approved MCMC/DISCO sampling results. Record each item as
@@ -40,5 +73,5 @@ Full DOC1 uses the 115-residue reference arm; DOC1t uses its corresponding
 55-residue reference scope (full DOC1 residues 61–115). Those scores must be
 labeled separately. The AFsample3 views expose DockQ as a color metric; the
 target downloads include every model, including AFsample2 weights v1/v2/v3
-and BioEMU2 physicality labels. The pending 4,000-model cohort remains a
-separate view and is not represented as a completed atlas.
+and BioEMU2 physicality labels. The accepted 4,000-model precursor remains a
+scientific input to the separate joint 5,000-model view; it is not an extra menu entry.
