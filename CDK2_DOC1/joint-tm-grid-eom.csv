@@ -1,0 +1,4 @@
+cluster_a,cluster_b,model_a,model_b,tm_bidirectional_average,score_source
+0,1,CDK2_DOC1__afsample2__v1__model5__pred039,CDK2_DOC1__afsample3__0270,0.72509,new_native_bidirectional
+0,2,CDK2_DOC1__afsample2__v1__model5__pred039,CDK2_DOC1__afsample3__0442,0.65942,new_native_bidirectional
+1,2,CDK2_DOC1__afsample3__0270,CDK2_DOC1__afsample3__0442,0.66796,new_native_bidirectional

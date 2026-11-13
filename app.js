@@ -52,11 +52,11 @@ async function chooseMedoidPair(left,right,value){
  pairSelecting=true;try{await choose(left)}finally{pairSelecting=false}
  const active=()=>serial===pairSerial&&current===data&&selected===left;
  if(!active())return;
- $('pairSection').hidden=false;$('pairSection').open=true;$('pairScore').textContent=`${left} versus ${right} · TM similarity ${value.toFixed(4)} · medoids of the displayed ensembles`;
+ $('pairSection').hidden=false;$('pairSection').open=true;$('pairScore').textContent=`${left} versus ${right} · TM similarity ${value.toFixed(4)} · energy-selected cluster representatives`;
  if(!pairViewers.length)pairViewers=[AtlasStructureRenderer.createViewer($('pairLeft'),{backgroundColor:'white'}),AtlasStructureRenderer.createViewer($('pairRight'),{backgroundColor:'white'})];
  for(const [i,label]of [left,right].entries()){
   const c=current.representatives.find(x=>x.cluster===label);if(!c)throw Error('Missing medoid descriptor');let text=c.coordinate_text;
-  if(!text){const r=await fetch(c.file,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Medoid file unavailable');text=await r.text();c.coordinate_text=text}
+  if(!text)text=await savedCoordinate(c);
   if(!active())return;const v=pairViewers[i];v.removeAllModels();v._aisModels=[canonicalizeAtlasModel(v.addModel(text,c.format),data.model_chain_maps?.[c.model])];v._aisDescriptor=c;styleSavedStructure(v,c.color);v.resize();fitVisibleStructure(v);
  }
  frameMedoidPair();refreshSupplementary();
@@ -469,6 +469,12 @@ async function drawViolins(){
  $('violinPdf').hidden=!data.violin_pdf;if(data.violin_pdf)$('violinPdf').href=data.violin_pdf;
 }
 function showProjection(){if(window.AtlasExplorer)window.AtlasExplorer.feature($('projection').value);}
+function bonsaiModelDescriptor(current,index){
+ const model=current.models[index],saved=current.bonsai_models?.[model];if(!saved)return null;
+ const label=current.clusters[index],palette=current.schemes.find(s=>s.key==='clusters')?.colors||{};
+ if(saved.model!==model||!saved.file||!saved.sha256)throw Error('Bonsai model coordinate descriptor differs.');
+ return {...saved,cluster:label,count:current.clusters.filter(value=>value===label).length,color:palette[label]||'#808080',exact_model_index:index};
+}
 function pointModelDescriptor(current,index){
  if(!Number.isInteger(index)||index<0||index>=current.models.length)throw Error('Invalid selected model index.');
  if(!Array.isArray(current.model_files)||!Array.isArray(current.model_sha256)||current.model_files.length!==current.models.length||current.model_sha256.length!==current.models.length)throw Error('Exact model files and original hashes are unavailable for this analysis.');
@@ -485,20 +491,20 @@ function representativeDownloadLinks(cluster){
 }
 async function savedCoordinate(descriptor){
  if(descriptor.coordinate_text)return descriptor.coordinate_text;
- const response=await fetch(descriptor.file,{cache:'no-cache',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('HTTP '+response.status);
+ const display=descriptor.display_file||descriptor.file;const response=await fetch(display,{cache:'no-cache',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('HTTP '+response.status);
  let bytes=new Uint8Array(await response.arrayBuffer());
- if(descriptor.file.endsWith('.pdb.gz')||descriptor.file.endsWith('.cif.gz')){
+ if(display.endsWith('.pdb.gz')||display.endsWith('.cif.gz')){
   if(typeof DecompressionStream==='undefined')throw Error('This browser cannot decompress saved coordinate files.');
   bytes=new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
  }
  if(descriptor.sha256&&globalThis.crypto?.subtle){
   const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');
-  if(digest!==descriptor.sha256)throw Error('Original coordinate hash does not match the selected model.');
+  if(digest!==(descriptor.display_sha256||descriptor.sha256))throw Error('Display coordinate hash does not match the selected model.');
  }
  const text=new TextDecoder().decode(bytes);descriptor.coordinate_text=text;return text;
 }
 async function choose(label,modelIndex=null){
- const current=data,exact=modelIndex!==null,cluster=exact?pointModelDescriptor(current,modelIndex):current.representatives.find(x=>x.cluster===label);
+ const current=data,exact=modelIndex!==null,cluster=exact?(bonsaiModelDescriptor(current,modelIndex)||pointModelDescriptor(current,modelIndex)):current.representatives.find(x=>x.cluster===label);
  if(exact&&cluster.cluster!==label)throw Error('The selected point and cluster identity differ.');
  if(structureViewAnchor&&viewer._aisDescriptor)structureViewAnchor.activeCamera=structureCamera();
  const serial=++loadSerial;
@@ -554,7 +560,8 @@ function prepareRangeAnalysis(raw,range){
  const current={...raw,range_id:range.id,range_name:range.name};
  current.views=(raw.views||[]).map(view=>({...view,data:rangeAssetPath(view.data,range)}));
  if(Array.isArray(raw.model_files))current.model_files=raw.model_files.map(path=>rangeAssetPath(path,range));
- current.representatives=raw.representatives.map(row=>{const out={...row};for(const key of ['file','ensemble_file','ensemble_pse'])if(out[key])out[key]=rangeAssetPath(out[key],range);if(Array.isArray(row.ensemble_members))out.ensemble_members=row.ensemble_members.map(member=>({...member,file:rangeAssetPath(member.file,range)}));for(const key of ['aligned_medoid','ensemble_metadata'])if(row[key])out[key]={...row[key],file:rangeAssetPath(row[key].file,range)};return out});
+ if(raw.bonsai_models)current.bonsai_models=Object.fromEntries(Object.entries(raw.bonsai_models).map(([model,row])=>[model,{...row,file:rangeAssetPath(row.file,range),display_file:row.display_file?rangeAssetPath(row.display_file,range):undefined}]));
+ current.representatives=raw.representatives.map(row=>{const out={...row};for(const key of ['file','display_file','ensemble_file','ensemble_pse'])if(out[key])out[key]=rangeAssetPath(out[key],range);if(Array.isArray(row.ensemble_members))out.ensemble_members=row.ensemble_members.map(member=>({...member,file:rangeAssetPath(member.file,range)}));for(const key of ['aligned_medoid','ensemble_metadata'])if(row[key])out[key]={...row[key],file:rangeAssetPath(row[key].file,range)};return out});
  current.heatmaps=(raw.heatmaps||[]).map(row=>({...row,file:rangeAssetPath(row.file,range)}));
  if(raw.bonsai)current.bonsai={...raw.bonsai,file:rangeAssetPath(raw.bonsai.file,range)};
  if(raw.medoid_tm)current.medoid_tm={...raw.medoid_tm,csv:rangeAssetPath(raw.medoid_tm.csv,range)};
@@ -573,7 +580,7 @@ function preferredSavedView(views,requested){
 async function savedViewSelection(target,range,requested){
  // A curated catalog is resolved before fetching: retired URLs never load a hidden analysis.
  if(Array.isArray(range.views)){
-  const views=savedClusteringViews(range.views.filter(view=>['primary','density'].includes(view.id)));
+  const views=savedClusteringViews(range.views.filter(view=>['primary','density','eom'].includes(view.id)));
   const available=view=>view?.available!==false&&typeof view?.data==='string'&&!!view.data;
   const primary=views.find(view=>view.id==='primary'&&available(view));
   if(!primary)throw Error('The curated range has no verified Primary analysis.');
@@ -690,7 +697,7 @@ async function drawBonsai(){
  const serial=++bonsaiSerial,current=data;$('bonsaiPanel').hidden=!current.bonsai;if($('bonsaiDetails'))$('bonsaiDetails').hidden=!current.bonsai;if(!current.bonsai)return;
  if(!current.bonsaiPayload){const response=await fetch(current.bonsai.file,{cache:'no-cache'});if(!response.ok)throw Error('Saved Bonsai layout unavailable');const bytes=await response.arrayBuffer(),digest=globalThis.crypto?.subtle?Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join(''):typeof AISExplorerTMStates!=='undefined'?AISExplorerTMStates.sha256(new Uint8Array(bytes)):null;if(digest!==null&&digest!==current.bonsai.sha256)throw Error('Saved Bonsai layout hash mismatch');current.bonsaiPayload=JSON.parse(new TextDecoder().decode(bytes));}
  if(serial!==bonsaiSerial||data!==current)return;
- if(!bonsaiPanel)bonsaiPanel=BonsaiEnsemble.create($('bonsai'),{onChoose:(cluster,model)=>choose(cluster,data.model_files?data.models.indexOf(model):null).catch(fail),detailsHref:'#bonsaiDetails'});
+ if(!bonsaiPanel)bonsaiPanel=BonsaiEnsemble.create($('bonsai'),{onChoose:(cluster,model)=>choose(cluster,data.bonsai_models?.[model]?data.models.indexOf(model):data.model_files?data.models.indexOf(model):null).catch(fail),detailsHref:'#bonsaiDetails'});
  const representatives=current.representatives.filter(c=>visibleCluster(c.cluster));
  if($('bonsaiStructureDetails'))$('bonsaiStructureDetails').textContent=current.model_files?'Select any Bonsai point to inspect that exact original model, including HDBSCAN unassigned models. Download each cluster representative from the cluster table.':representatives.some(row=>row.ensemble_file||row.ensemble_text)?'Use Structure view to switch between Representative and Comparison ensemble.':'The 3D viewer shows the saved cluster representative; coordinate ensembles are unavailable for this result.';
  const models=current.bonsaiPayload.models.filter(r=>visibleCluster(current.clusters[current.models.indexOf(r.model)])),key=models.map(r=>r.model).join('\0');if(current.filteredBonsai?.key!==key)current.filteredBonsai={key,payload:{...current.bonsaiPayload,models}};const filtered=current.filteredBonsai.payload;bonsaiPanel.update({...current,representatives},filtered,scheme(),$('pca'),hiddenProjectionCategories,effectiveSelectionHighlight().active?new Set(effectiveSelectionHighlight().orderedIndices.map(i=>current.models[i])):null);if(selected)bonsaiPanel.select(selected);observeTMStateBonsai();

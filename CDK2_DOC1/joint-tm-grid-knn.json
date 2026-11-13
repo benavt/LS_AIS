@@ -1,0 +1,50 @@
+{
+  "target": "CDK2_DOC1",
+  "view": "knn",
+  "method": "fixed-chain whole-complex bidirectional average-length USalign TM",
+  "representative_kind": "lowest accepted ProteinEBM Model 6 t=0.10 energy",
+  "models_fit": 5000,
+  "chains": [
+    "CDK2 A",
+    "DOC1 B"
+  ],
+  "residues": 413,
+  "representatives_source_sha256": "c2764ba011b350fe5f8eb82c1014a44d793e3817a6dd456524d62c1330e4fd44",
+  "groups": [
+    {
+      "cluster": 0,
+      "size": 2007,
+      "representative": {
+        "model_id": "CDK2_DOC1__afsample2__v1__model5__pred039",
+        "native_sha256": "32f100c1a2ef17c17f90c7c213ade32860f21e7903b30f139d641b5be697f44c",
+        "method": "afsample2",
+        "weights_version": "v1",
+        "native_physicality_status": "",
+        "energy_t010": 11815.0244140625
+      }
+    },
+    {
+      "cluster": 1,
+      "size": 2993,
+      "representative": {
+        "model_id": "CDK2_DOC1__afsample3__0270",
+        "native_sha256": "f6dd30d9e5fd85f87111f0883be8359cd0007182541a8bc3da1acc371ca9f94e",
+        "method": "afsample3",
+        "weights_version": "",
+        "native_physicality_status": "not_assessed",
+        "energy_t010": 11925.5595703125
+      }
+    }
+  ],
+  "matrix": [
+    [
+      1.0,
+      0.72509
+    ],
+    [
+      0.72509,
+      1.0
+    ]
+  ],
+  "unassigned_count": 0
+}

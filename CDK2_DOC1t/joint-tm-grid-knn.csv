@@ -1,0 +1,2 @@
+cluster_a,cluster_b,model_a,model_b,tm_bidirectional_average,score_source
+0,1,CDK2_DOC1t__bioemu2__0680,CDK2_DOC1t__afsample2__v1__model1__pred142,0.7585,new_native_bidirectional
