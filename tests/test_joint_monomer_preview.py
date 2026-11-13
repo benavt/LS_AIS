@@ -21,6 +21,118 @@ SPEC.loader.exec_module(joint)
 
 
 class JointPreviewTests(unittest.TestCase):
+    def test_joint_sampling_prior_paths_keep_distinct_panels(self):
+        primary = joint.joint_panel_path('CDK2_DOC1', 'UMAP_KNN', 'S1', 'mcmc50')
+        density = joint.joint_panel_path('CDK2_DOC1', 'HDBSCAN_leaf', 'S1', 'mcmc50')
+        self.assertEqual(primary,
+                         'tm-state-ensembles/CDK2_DOC1/joint/primary/S1/mcmc50.pdb')
+        self.assertEqual(density,
+                         'tm-state-ensembles/CDK2_DOC1/joint/density/S1/mcmc50.pdb')
+        self.assertNotEqual(primary, density)
+
+    def test_joint_state_inputs_require_accepted_hashes_and_panel_membership(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for name in ('joint', 'supplement', 'tm', 'states', 'sampling'):
+                (root / name).mkdir()
+            rows = []
+            for i in range(5000):
+                method = list(joint.METHODS)[i // 1000]
+                rows.append(dict(index=i, model_id=f'm{i:04d}',
+                                 native_sha256=f'{i:064x}',
+                                 method=('afsample2' if method.startswith('afsample2_')
+                                         else method),
+                                 weights_version=(method.rsplit('_', 1)[-1]
+                                                  if method.startswith('afsample2_') else ''),
+                                 native_physicality_status='passed',
+                                 energy_t010=float(i)))
+            names = [row['model_id'] for row in rows]
+            (root / 'joint/model-index.jsonl').write_text(''.join(
+                json.dumps(row) + '\n' for row in rows))
+            joint_receipt = dict(status='validated', target='CDK2_DOC1',
+                                 models=5000, plan_sha256=joint.JOINT_PLAN_SHA,
+                                 model_index_sha256=joint.digest(root / 'joint/model-index.jsonl'),
+                                 method_counts=dict.fromkeys(joint.METHODS, 1000))
+            (root / 'joint/acceptance.json').write_text(json.dumps(joint_receipt))
+            (root / 'supplement/representatives-leaf.json').write_text('{}')
+            (root / 'tm/acceptance.json').write_text(json.dumps(
+                {'files': {'tm-grid-leaf.json': 'f' * 64}}))
+            state_group = dict(id='S1', anchor=names[0], count=50,
+                               indices=list(range(50)), representative=names[0],
+                               supported=True, eligible_for_sampling=True)
+            membership = dict(anchors=[names[0]], cutoff=.7, min_state_size=50,
+                              labels=['S1'] * 50 + [None] * 4950,
+                              best_tm=[.8] * 50 + [.6] * 4950,
+                              states=[state_group],
+                              unassigned_indices=list(range(50, 5000)),
+                              unassigned_models=4950, assigned_models=50)
+            state_data = dict(status='validated', target='CDK2_DOC1', models=names,
+                              anchors=[names[0]], membership=membership,
+                              leaf_representatives_sha256=joint.digest(
+                                  root / 'supplement/representatives-leaf.json'),
+                              leaf_bonsai_receipt_sha256=joint.BONSAI_RECEIPTS['CDK2_DOC1']['leaf'],
+                              tm_grid_leaf_sha256='f' * 64)
+            (root / 'states/states.json').write_text(json.dumps(state_data))
+            np.save(root / 'states/member-anchor-tm.npy',
+                    np.array(membership['best_tm'], dtype=float)[:, None])
+            (root / 'states/poses.jsonl').write_text(''.join(json.dumps(dict(
+                index=i, model_id=names[i], native_sha256=rows[i]['native_sha256']))
+                + '\n' for i in range(5000)))
+            state_files = {name: joint.digest(root / 'states' / name) for name in
+                           ('states.json', 'member-anchor-tm.npy', 'poses.jsonl')}
+            (root / 'states/acceptance.json').write_text(json.dumps(dict(
+                status='validated', target='CDK2_DOC1', models=5000,
+                plan_sha256='a' * 64, scope='fixed-chain whole 1:1 complex; no chain swapping',
+                anchors=[names[0]], supported_states=1, unassigned_models=4950,
+                files=state_files)))
+            state_sha = joint.digest(root / 'states/acceptance.json')
+            conditions, sample_files = [], {}
+            for prior in ('UMAP_KNN', 'HDBSCAN_leaf'):
+                condition = 'S1_' + prior
+                (root / 'sampling' / condition).mkdir()
+                exports = []
+                for kind in ('MCMC50', 'DISCO50'):
+                    filename = kind.lower() + '.pdb'
+                    path = root / 'sampling' / condition / filename
+                    path.write_text(f'REMARK {prior} {kind}\nMODEL        1\nENDMDL\n')
+                    sample_files[condition + '/' + filename] = joint.digest(path)
+                    exports.append(dict(kind=kind, state='S1', prior=prior,
+                        models=50, model_ids=names[:50], pdb_file=filename,
+                        pdb_sha256=joint.digest(path),
+                        members=[dict(model_id=names[i],
+                            native_sha256=rows[i]['native_sha256']) for i in range(50)]))
+                conditions.append(dict(condition=condition, state='S1', prior=prior,
+                    pool_models=50, production_chain=0, production_iteration=10000,
+                    controls=20, exports=exports))
+            summary = dict(status='validated', target='CDK2_DOC1', models=5000,
+                           state_receipt_sha256=state_sha, supported_state_count=1,
+                           unassigned_models=4950, conditions=conditions,
+                           exact_control_panels=40,
+                           exported_coordinate_instances=200)
+            (root / 'sampling/sampling-summary.json').write_text(json.dumps(summary))
+            sample_files['sampling-summary.json'] = joint.digest(
+                root / 'sampling/sampling-summary.json')
+            (root / 'sampling/acceptance.json').write_text(json.dumps(dict(
+                status='validated', target='CDK2_DOC1', models=5000,
+                plan_sha256='b' * 64, publication_held=True,
+                supported_states=1, conditions=2, exact_control_panels=40,
+                exported_coordinate_instances=200, files=sample_files)))
+            sample_sha = joint.digest(root / 'sampling/acceptance.json')
+            result = joint.checked_joint_state_inputs('CDK2_DOC1', root / 'joint',
+                joint.digest(root / 'joint/acceptance.json'), root / 'supplement',
+                root / 'tm', root / 'states', state_sha, root / 'sampling',
+                sample_sha, 'a' * 64, 'b' * 64)
+            self.assertEqual(len(result[3]), 1)
+            self.assertEqual(set(result[4]), {'S1_UMAP_KNN', 'S1_HDBSCAN_leaf'})
+            self.assertNotEqual(result[4]['S1_UMAP_KNN']['mcmc50'][2],
+                                result[4]['S1_HDBSCAN_leaf']['mcmc50'][2])
+            (root / 'sampling/S1_UMAP_KNN/mcmc50.pdb').write_text('changed')
+            with self.assertRaisesRegex(ValueError, 'panel coordinate hash'):
+                joint.checked_joint_state_inputs('CDK2_DOC1', root / 'joint',
+                    joint.digest(root / 'joint/acceptance.json'), root / 'supplement',
+                    root / 'tm', root / 'states', state_sha, root / 'sampling',
+                    sample_sha, 'a' * 64, 'b' * 64)
+
     def test_tm_grid_is_bound_to_accepted_representatives_and_labels(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -259,6 +371,28 @@ class JointPreviewTests(unittest.TestCase):
             self.assertIn('Representative method', shown)
             self.assertIn('Selected representative pair', shown)
             self.assertIn('Download representative TM matrix CSV', shown)
+
+    def test_optional_joint_state_browser_patch_preserves_saved_source(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            stage = root / 'stage'
+            stage.mkdir()
+            html = '<script defer src="tm_states.js"></script>'
+            script = ('[1,2].includes(catalog?.schema_version)\n'
+                      'function validatePayload(p,entry,target,data){\n'
+                      " details+=s.method==='mcmc50'?\n"
+                      'The saved PDB downloads preserve the native full-dimer pose. '
+                      'On-screen filters and colors never change downloaded files.')
+            (root / 'index-source.html').write_text(html)
+            (root / 'states-source.js').write_text(script)
+            os.link(root / 'index-source.html', stage / 'index.html')
+            os.link(root / 'states-source.js', stage / 'tm_states.js')
+            joint.patch_joint_state_browser(stage)
+            self.assertEqual((root / 'index-source.html').read_text(), html)
+            self.assertEqual((root / 'states-source.js').read_text(), script)
+            self.assertIn('joint_tm_states.js', (stage / 'index.html').read_text())
+            self.assertIn('schema_version===3', (stage / 'tm_states.js').read_text())
+            self.assertTrue((stage / 'joint_tm_states.js').is_file())
 
     def test_afsample2_display_copy_preserves_native_download_and_atom_fields(self):
         with tempfile.TemporaryDirectory() as temporary:

@@ -609,7 +609,7 @@ def add_range_catalogs(stage, target, views, supplement):
 
 def build_view_set(stage, target, joint_folder, joint_sha, supplement_folder,
                    supplement_sha, coordinate_root, bonsai_root, tm_folder,
-                   tm_receipt_sha):
+                   tm_receipt_sha, *, state_ready=False):
     joint = accepted(joint_folder, joint_sha, target, 'joint')
     supplement = accepted(supplement_folder, supplement_sha, target, 'supplement')
     require(supplement['joint_fit_acceptance_sha256'] == joint_sha and
@@ -700,11 +700,306 @@ def build_view_set(stage, target, joint_folder, joint_sha, supplement_folder,
                                {model: bonsai_models[model] for model in selected},
                                tm_display)
         payload['provenance']['tm_grid_receipt_sha256'] = tm_receipt_sha
+        if state_ready:
+            payload['model_sha256'] = [row['native_sha256'] for row in rows]
         write(stage / target / f'joint-{view_id}.json', payload)
     add_range_catalogs(stage, target, VIEWS, supplement)
 
 
-def assemble(base, inputs, coordinate_roots, bonsai_root, tm_inputs, output):
+def checked_joint_state_inputs(target, joint_folder, joint_sha, supplement_folder,
+                               tm_folder, state_folder, state_sha,
+                               sampling_folder, sampling_sha,
+                               state_plan_sha, sampling_plan_sha):
+    """Read accepted state/panel outputs; never infer or calculate a state."""
+    require(all(re.fullmatch(r'[a-f0-9]{64}', value) for value in
+                (state_sha, sampling_sha, state_plan_sha, sampling_plan_sha)),
+            'Exact state and sampling plan/receipt hashes are required')
+    state_folder, sampling_folder = Path(state_folder), Path(sampling_folder)
+    require(digest(state_folder / 'acceptance.json') == state_sha and
+            digest(sampling_folder / 'acceptance.json') == sampling_sha,
+            'Accepted state or sampling receipt hash differs')
+    state_receipt = read(state_folder / 'acceptance.json')
+    sample_receipt = read(sampling_folder / 'acceptance.json')
+    require(state_receipt['status'] == sample_receipt['status'] == 'validated' and
+            state_receipt['target'] == sample_receipt['target'] == target and
+            state_receipt['models'] == sample_receipt['models'] == 5000 and
+            state_receipt['plan_sha256'] == state_plan_sha and
+            sample_receipt['plan_sha256'] == sampling_plan_sha and
+            sample_receipt['publication_held'] is True and
+            state_receipt['scope'] == 'fixed-chain whole 1:1 complex; no chain swapping',
+            'State/sampling accepted identity or scope differs')
+    for name in ('states.json', 'member-anchor-tm.npy', 'poses.jsonl'):
+        require(digest(state_folder / name) == state_receipt['files'][name],
+                'Accepted state artifact differs: ' + name)
+    require(digest(sampling_folder / 'sampling-summary.json') ==
+            sample_receipt['files']['sampling-summary.json'],
+            'Accepted sampling summary differs')
+    states = read(state_folder / 'states.json')
+    sampling = read(sampling_folder / 'sampling-summary.json')
+    joint = accepted(joint_folder, joint_sha, target, 'joint')
+    rows, _ = roster(joint_folder, joint)
+    names = [row['model_id'] for row in rows]
+    by_id = {name: (i, rows[i]) for i, name in enumerate(names)}
+    membership = states['membership']
+    groups = membership['states']
+    supported = [group for group in groups if group['supported']]
+    require(states['status'] == sampling['status'] == 'validated' and
+            states['target'] == sampling['target'] == target and
+            states['models'] == names and
+            sampling['models'] == 5000 and
+            states['anchors'] == state_receipt['anchors'] and
+            len(states['anchors']) in (1, 2, 3) and
+            membership['anchors'] == states['anchors'] and
+            membership['cutoff'] == 0.7 and
+            membership['min_state_size'] == 50 and
+            len(membership['labels']) == len(membership['best_tm']) == 5000 and
+            membership['assigned_models'] + membership['unassigned_models'] == 5000 and
+            state_receipt['supported_states'] == sampling['supported_state_count'] ==
+                sample_receipt['supported_states'] == len(supported) and
+            state_receipt['unassigned_models'] == sampling['unassigned_models'] ==
+                membership['unassigned_models'] and
+            sampling['state_receipt_sha256'] == state_sha and
+            states['leaf_representatives_sha256'] ==
+                digest(Path(supplement_folder) / 'representatives-leaf.json') and
+            states['leaf_bonsai_receipt_sha256'] == BONSAI_RECEIPTS[target]['leaf'] and
+            states['tm_grid_leaf_sha256'] ==
+                read(Path(tm_folder) / 'acceptance.json')['files']['tm-grid-leaf.json'],
+            'Accepted state membership or source links differ')
+    scores = checked_array(state_folder / 'member-anchor-tm.npy',
+                           state_receipt['files']['member-anchor-tm.npy'],
+                           (5000, len(states['anchors'])))
+    require(np.all((scores >= 0) & (scores <= 1)) and
+            np.allclose(scores.max(axis=1), membership['best_tm'], atol=1e-10, rtol=0),
+            'Saved member-anchor TM values differ from accepted membership')
+    seen = set()
+    for group in groups:
+        indices = group['indices']
+        require(group['id'] in {'S1', 'S2', 'S3'} and
+                group['anchor'] == states['anchors'][int(group['id'][1:]) - 1] and
+                group['representative'] == group['anchor'] and
+                group['count'] == len(indices) == len(set(indices)) and
+                group['supported'] == (group['count'] >= 50) and
+                group['eligible_for_sampling'] == group['supported'] and
+                all(type(i) is int and 0 <= i < 5000 and i not in seen and
+                    membership['labels'][i] == group['id'] and
+                    membership['best_tm'][i] >= .7 for i in indices),
+                'Saved state support or member indices differ')
+        seen.update(indices)
+    require(len(seen) == membership['assigned_models'] and
+            set(membership['unassigned_indices']) == set(range(5000)) - seen and
+            all(membership['labels'][i] is None for i in membership['unassigned_indices']),
+            'Saved state assignment accounting differs')
+    poses = [json.loads(line) for line in (state_folder / 'poses.jsonl').read_text().splitlines()]
+    require(len(poses) == 5000 and all(pose['index'] == i and
+            pose['model_id'] == names[i] and
+            pose['native_sha256'] == rows[i]['native_sha256'] for i, pose in enumerate(poses)),
+            'Saved state pose order or native identity differs')
+    condition_by_key = {record['condition']: record for record in sampling['conditions']}
+    expected_conditions = {group['id'] + '_' + prior for group in supported
+                           for prior in ('UMAP_KNN', 'HDBSCAN_leaf')}
+    require(set(condition_by_key) == expected_conditions and
+            len(sampling['conditions']) == sample_receipt['conditions'] ==
+                2 * len(supported) and
+            sampling['exact_control_panels'] == sample_receipt['exact_control_panels'] ==
+                20 * len(expected_conditions) and
+            sampling['exported_coordinate_instances'] ==
+                sample_receipt['exported_coordinate_instances'] ==
+                100 * len(expected_conditions),
+            'Accepted sampling conditions or panel counts differ')
+    panels = {}
+    for condition, record in condition_by_key.items():
+        state_id, prior = condition.split('_', 1)
+        group = next(group for group in supported if group['id'] == state_id)
+        require(record['state'] == state_id and record['prior'] == prior and
+                record['pool_models'] == group['count'] and
+                record['production_chain'] == 0 and
+                record['production_iteration'] == 10000 and
+                record['controls'] == 20 and
+                {item['kind'] for item in record['exports']} == {'MCMC50', 'DISCO50'},
+                'Saved sampling policy or export inventory differs')
+        selected = {}
+        for item in record['exports']:
+            kind = item['kind']
+            method = kind.lower()
+            model_ids = item['model_ids']
+            require(item['state'] == state_id and item['prior'] == prior and
+                    item['models'] == len(model_ids) == len(set(model_ids)) == 50 and
+                    set(model_ids) <= {names[i] for i in group['indices']} and
+                    item['pdb_file'] == method + '.pdb' and
+                    len(item['members']) == 50 and
+                    all(member['model_id'] == name and
+                        member['native_sha256'] == by_id[name][1]['native_sha256']
+                        for member, name in zip(item['members'], model_ids)),
+                    'Saved 50-model panel identity or state membership differs')
+            source = sampling_folder / condition / item['pdb_file']
+            relative = condition + '/' + item['pdb_file']
+            require(sample_receipt['files'][relative] == item['pdb_sha256'] ==
+                    digest(source) and source.stat().st_size <= 64 * 2**20,
+                    'Saved panel coordinate hash or size differs: ' + relative)
+            selected[method] = (model_ids, source, item['pdb_sha256'])
+        panels[condition] = selected
+    return states, sampling, rows, supported, panels
+
+
+def joint_panel_path(target, prior, state_id, method):
+    directory = {'UMAP_KNN': 'primary', 'HDBSCAN_leaf': 'density'}[prior]
+    return f'tm-state-ensembles/{target}/joint/{directory}/{state_id}/{method}.pdb'
+
+
+def add_joint_states(stage, inputs, tm_inputs, state_inputs, state_plan_sha,
+                     sampling_plan_sha):
+    require(state_plan_sha and sampling_plan_sha and
+            set(state_inputs) == set(TARGETS),
+            'Both targets and exact approved state/sampling plans are required')
+    catalog_path = Path(stage) / 'tm-states.json'
+    catalog = read(catalog_path)
+    require(catalog['kind'] == 'tm_state_selection_catalog' and
+            catalog['schema_version'] in (1, 2) and
+            not any(target in catalog['targets'] for target in TARGETS),
+            'Saved state catalog differs or joint targets already exist')
+    catalog['schema_version'] = 3
+    ranges = read(Path(stage) / 'residue-ranges.json')['targets']
+    scopes = read(Path(stage) / 'clustering-residues.json')['targets']
+    for target in TARGETS:
+        joint_folder, joint_sha, supplement_folder, _ = inputs[target]
+        tm_folder, _ = tm_inputs[target]
+        state_folder, state_sha, sampling_folder, sampling_sha = state_inputs[target]
+        states, sampling, rows, supported, panels = checked_joint_state_inputs(
+            target, joint_folder, joint_sha, supplement_folder, tm_folder,
+            state_folder, state_sha, sampling_folder, sampling_sha,
+            state_plan_sha, sampling_plan_sha)
+        names = [row['model_id'] for row in rows]
+        lookup = {name: i for i, name in enumerate(names)}
+        model_hash = hashlib.sha256(json.dumps(names, separators=(',', ':')).encode()).hexdigest()
+        lengths = [298, 115 if target == 'CDK2_DOC1' else 55]
+        positions = list(range(1, sum(lengths) + 1))
+        mask_hash = hashlib.sha256(json.dumps(positions, separators=(',', ':')).encode()).hexdigest()
+        sequence_hash = scopes[target]['views']['whole']['sequence_sha256']
+        joint_range = next(item for item in ranges[target]['residue_ranges'] if item['id'] == 'joint')
+        views = {item['id']: item for item in joint_range['views']}
+        require(set(views) == {'primary', 'density', 'eom'} and
+                all(views[view]['source_data_sha256'] == digest(Path(stage) / views[view]['data'])
+                    for view in views), 'Joint state view hashes differ from saved catalog')
+        output_states = []
+        for state in supported:
+            members = [dict(index=i, model=names[i],
+                            tm_score=states['membership']['best_tm'][i],
+                            sha256=rows[i]['native_sha256']) for i in state['indices']]
+            selections = {'joint': {}}
+            for view, prior in [('primary', 'UMAP_KNN'),
+                                ('density', 'HDBSCAN_leaf'),
+                                ('eom', 'HDBSCAN_leaf')]:
+                condition = state['id'] + '_' + prior
+                selection = {'prior': prior}
+                for method in ('mcmc50', 'disco50'):
+                    ids, source, sha = panels[condition][method]
+                    relative = joint_panel_path(target, prior, state['id'], method)
+                    destination = Path(stage) / relative
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    if not destination.exists():
+                        shutil.copyfile(source, destination)
+                    require(digest(destination) == sha, 'Copied state panel differs')
+                    selection[method] = dict(indices=[lookup[name] for name in ids],
+                                             models=ids,
+                                             ensemble=dict(file=relative, sha256=sha,
+                                                           bytes=destination.stat().st_size))
+                selections['joint'][view] = selection
+            output_states.append(dict(id=state['id'],
+                                      representative=dict(index=lookup[state['anchor']],
+                                                          model=state['anchor']),
+                                      members=members, selections=selections))
+        count = sum(state['count'] for state in supported)
+        unsupported = [dict(id=state['id'], representative=state['anchor'],
+                            count=state['count']) for state in
+                       states['membership']['states'] if not state['supported']]
+        payload = dict(schema_version=3, kind='tm_state_selection_payload',
+                       target=target, effective_scope_id='joint-full-complex',
+                       models=names, model_order_sha256=model_hash,
+                       model_sha256=[row['native_sha256'] for row in rows],
+                       sequence_sha256=sequence_hash, chain='A,B',
+                       chains=[dict(chain='AB'[i], residues=length) for i, length in
+                               enumerate(lengths)], construct_residues=sum(lengths),
+                       canonical_positions=positions, mask_sha256=mask_hash,
+                       tm_threshold=.7,
+                       run=dict(plan_sha256=state_plan_sha,
+                                state_receipt_sha256=state_sha,
+                                sampling_plan_sha256=sampling_plan_sha,
+                                sampling_receipt_sha256=sampling_sha,
+                                source_commit='f3063757460303e1a4a4ba0b3629fe81776c58c4'),
+                       selection_prior=dict(conditioning_t=.1, alpha=.5,
+                            tau_iqr_multiplier=1, subset_law='product-weight',
+                            subset_size=50, production_chain=0,
+                            production_iteration=10000,
+                            per_view=dict(primary='UMAP_KNN',
+                                          density='HDBSCAN_leaf', eom='HDBSCAN_leaf')),
+                       ranges={'joint': dict(effective_scope_id='joint-full-complex',
+                            views={view: dict(source_data_sha256=entry['source_data_sha256'])
+                                   for view, entry in views.items()})},
+                       states=output_states,
+                       coverage=dict(assigned_models=count,
+                                     unassigned_models=5000-count),
+                       membership_coverage=dict(
+                            tm_assigned_models=states['membership']['assigned_models'],
+                            uncovered_models=states['membership']['unassigned_models'],
+                            unsupported_state_models=sum(row['count'] for row in unsupported),
+                            unsupported_states=unsupported),
+                       flags=dict(incomplete_coverage=count<5000, short_core=False),
+                       discovery_scope=states['discovery_scope'],
+                       interpretation=sampling['interpretation'])
+        relative = f'tm-states/{target}/joint-full-complex.json'
+        destination = Path(stage) / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        write(destination, payload)
+        catalog['targets'][target] = dict(model_count=5000,
+            model_order_sha256=model_hash, sequence_sha256=sequence_hash,
+            ranges={'joint': dict(effective_scope_id='joint-full-complex',
+                views={view: dict(file=relative, sha256=digest(destination),
+                    state_count=len(output_states), available=True,
+                    short_core=False, incomplete_coverage=count<5000,
+                    source_data_sha256=entry['source_data_sha256'])
+                    for view, entry in views.items()})})
+    write(catalog_path, catalog)
+
+
+def patch_joint_state_browser(stage):
+    """Add the joint schema validator without changing legacy HSPH1 validation."""
+    html = Path(stage) / 'index.html'
+    body = html.read_text()
+    needle = '<script defer src="tm_states.js"></script>'
+    require(body.count(needle) == 1, 'Saved state script seam differs')
+    temporary = html.with_name(html.name + '.new')
+    temporary.write_text(body.replace(needle,
+        '<script defer src="joint_tm_states.js"></script>' + needle, 1))
+    temporary.replace(html)
+    shutil.copyfile(ROOT / 'site/joint_tm_states.js', Path(stage) / 'joint_tm_states.js')
+    script = Path(stage) / 'tm_states.js'
+    body = script.read_text()
+    changes = (
+        ('[1,2].includes(catalog?.schema_version)',
+         '[1,2,3].includes(catalog?.schema_version)'),
+        ('function validatePayload(p,entry,target,data){',
+         'function validatePayload(p,entry,target,data){\n'
+         ' if(p?.schema_version===3)return root.AISJointTMStates.validate(p,entry,target,data,{sourceBinding,sha256});'),
+    )
+    for old, new in changes:
+        require(body.count(old) == 1, 'Saved state validator seam differs')
+        body = body.replace(old, new, 1)
+    # The legacy ternary above remains intact; add a joint-specific note before it.
+    anchor = " details+=s.method==='mcmc50'?"
+    require(body.count(anchor) == 1, 'Saved state sampling detail seam differs')
+    body = body.replace(anchor,
+        " if(payload.schema_version===3)details='Fixed-chain whole-complex TM states; each saved 50-model PDB uses one rigid alignment to its state anchor. The MCMC50 and DISCO50 panels are exploratory coverage selections, not equilibrium populations. ';\n" + anchor, 1)
+    old = 'The saved PDB downloads preserve the native full-dimer pose. On-screen filters and colors never change downloaded files.'
+    new = "'+(payload.schema_version===3?'The saved PDB downloads are full-atom 1:1 complexes aligned to their state anchor. ':'The saved PDB downloads preserve the native full-dimer pose. ')+'On-screen filters and colors never change downloaded files."
+    require(body.count(old) == 1, 'Saved state panel pose description seam differs')
+    body = body.replace(old, new, 1)
+    temporary = script.with_name(script.name + '.new')
+    temporary.write_text(body)
+    temporary.replace(script)
+
+
+def assemble(base, inputs, coordinate_roots, bonsai_root, tm_inputs, output,
+             state_inputs=None, state_plan_sha=None, sampling_plan_sha=None):
     sys.path.insert(0, str(ROOT / 'scripts'))
     from build_private_atlas import copy_verified_file
     from src.analysis.atlas_presentation import validate_views
@@ -736,7 +1031,11 @@ def assemble(base, inputs, coordinate_roots, bonsai_root, tm_inputs, output):
         menu_new.replace(menu_destination)
         for target in TARGETS:
             build_view_set(stage, target, *inputs[target], coordinate_roots[target],
-                           bonsai_root, *tm_inputs[target])
+                           bonsai_root, *tm_inputs[target], state_ready=state_inputs is not None)
+        if state_inputs is not None:
+            add_joint_states(stage, inputs, tm_inputs, state_inputs,
+                             state_plan_sha, sampling_plan_sha)
+            patch_joint_state_browser(stage)
         names = {str(path.relative_to(stage)) for path in stage.rglob('*') if path.is_file()}
         validate_views(stage, names)
         validate_views(stage, names, selected_views={
@@ -747,12 +1046,16 @@ def assemble(base, inputs, coordinate_roots, bonsai_root, tm_inputs, output):
                      sha256=digest(stage / name)) for name in sorted(names)]
         require(sum(row['bytes'] for row in rows) <= 2 * 2**30,
                 'Private atlas exceeds the 2 GiB preview ceiling')
-        manifest.write_text(json.dumps(dict(schema_version=1, project='LS_AIS',
+        manifest_data = dict(schema_version=1, project='LS_AIS',
             renderer='saved', source_export_sha256=digest(base / 'export-manifest.json'),
             joint_fit_plan_sha256=JOINT_PLAN_SHA,
             supplement_plan_sha256=SUPPLEMENT_PLAN_SHA,
             bonsai_plan_sha256=BONSAI_PLAN_SHA,
-            tm_grid_plan_sha256=TM_PLAN_SHA, files=rows), indent=2) + '\n')
+            tm_grid_plan_sha256=TM_PLAN_SHA, files=rows)
+        if state_inputs is not None:
+            manifest_data.update(state_plan_sha256=state_plan_sha,
+                                 sampling_plan_sha256=sampling_plan_sha)
+        manifest.write_text(json.dumps(manifest_data, indent=2) + '\n')
         record = export(manifest, stage, output)
         (output.parent / 'private-manifest.json').write_bytes(manifest.read_bytes())
         (output.parent / 'delivery-manifest.json').write_text(json.dumps(record, indent=2) + '\n')
@@ -771,12 +1074,19 @@ if __name__ == '__main__':
         parser.add_argument(f'--{key}-coordinates', type=Path, required=True)
         parser.add_argument(f'--{key}-tm', type=Path, required=True)
         parser.add_argument(f'--{key}-tm-sha256', required=True)
+        parser.add_argument(f'--{key}-states', type=Path)
+        parser.add_argument(f'--{key}-states-sha256')
+        parser.add_argument(f'--{key}-sampling', type=Path)
+        parser.add_argument(f'--{key}-sampling-sha256')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--bonsai-root', type=Path, required=True)
+    parser.add_argument('--joint-state-plan-sha256')
+    parser.add_argument('--joint-sampling-plan-sha256')
     args = parser.parse_args()
     inputs = {}
     roots = {}
     tm_inputs = {}
+    state_inputs = {}
     for target in TARGETS:
         key = target.lower().replace('_', '-')
         inputs[target] = (getattr(args, key.replace('-', '_') + '_joint'),
@@ -786,4 +1096,17 @@ if __name__ == '__main__':
         roots[target] = getattr(args, key.replace('-', '_') + '_coordinates')
         tm_inputs[target] = (getattr(args, key.replace('-', '_') + '_tm'),
                              getattr(args, key.replace('-', '_') + '_tm_sha256'))
-    assemble(args.base, inputs, roots, args.bonsai_root, tm_inputs, args.output)
+        values = tuple(getattr(args, key.replace('-', '_') + suffix) for suffix in
+                       ('_states', '_states_sha256', '_sampling', '_sampling_sha256'))
+        if any(value is not None for value in values):
+            require(all(value is not None for value in values),
+                    'State/sampling target inputs must be complete')
+            state_inputs[target] = values
+    optional = [bool(state_inputs), bool(args.joint_state_plan_sha256),
+                bool(args.joint_sampling_plan_sha256)]
+    require(not any(optional) or
+            (all(optional) and set(state_inputs) == set(TARGETS)),
+            'Both target state/sampling inputs and approved plan hashes are required')
+    assemble(args.base, inputs, roots, args.bonsai_root, tm_inputs, args.output,
+             state_inputs or None, args.joint_state_plan_sha256,
+             args.joint_sampling_plan_sha256)
