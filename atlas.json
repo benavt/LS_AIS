@@ -12,14 +12,14 @@
       "residue_ranges": [
         {
           "id": "all",
-          "name": "A1\u2013126 + B1\u2013126 + C1\u2013298",
+          "name": "A1–126 + B1–126 + C1–298",
           "available": true,
           "data": "DOC1Rdimer_CDK2/full-density.json",
           "default_view": "density"
         },
         {
           "id": "core",
-          "name": "A65\u2013126 + B65\u2013126 + C1\u2013298",
+          "name": "A65–126 + B65–126 + C1–298",
           "available": true,
           "data": "DOC1Rdimer_CDK2/core-density.json",
           "default_view": "density"
@@ -33,14 +33,14 @@
       "residue_ranges": [
         {
           "id": "all",
-          "name": "A1\u2013115 + B1\u2013115 + C1\u2013298",
+          "name": "A1–115 + B1–115 + C1–298",
           "available": true,
           "data": "DOC1dimer_CDK2/full-density.json",
           "default_view": "density"
         },
         {
           "id": "core",
-          "name": "A60\u2013115 + B60\u2013115 + C1\u2013298",
+          "name": "A60–115 + B60–115 + C1–298",
           "available": true,
           "data": "DOC1dimer_CDK2/core-density.json",
           "default_view": "density"
@@ -50,12 +50,22 @@
     {
       "id": "CDK2_DOC1",
       "data": "CDK2_DOC1/primary.json",
-      "label": "CDK2\u2013DOC1 monomer"
+      "label": "CDK2–DOC1 monomer"
     },
     {
       "id": "CDK2_DOC1t",
       "data": "CDK2_DOC1t/primary.json",
-      "label": "CDK2\u2013DOC1t monomer"
+      "label": "CDK2–DOC1t monomer"
+    },
+    {
+      "id": "CDK2_DOC1R",
+      "label": "CDK2–DOC1R monomer",
+      "data": "CDK2_DOC1R/all-density.json"
+    },
+    {
+      "id": "CDK2_MONOMER",
+      "label": "CDK2 monomer",
+      "data": "CDK2_MONOMER/all-density.json"
     }
   ]
 }

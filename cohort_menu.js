@@ -1,7 +1,11 @@
 (() => {
   const monomers = {'CDK2_DOC1': 'CDK2–DOC1 monomer',
-                    'CDK2_DOC1t': 'CDK2–DOC1t monomer'};
-  const cohort = range => ['joint', 'core-joint'].includes(range) ? 'joint' : 'afsample3';
+                    'CDK2_DOC1t': 'CDK2–DOC1t monomer',
+                    'CDK2_DOC1R': 'CDK2–DOC1R monomer',
+                    'CDK2_MONOMER': 'CDK2 monomer'};
+  const cohort = range => ['collaborator', 'combined'].includes(range) ? range :
+    ['joint', 'core-joint'].includes(range) ? 'joint' : 'afsample3';
+  const single = {CDK2_DOC1R: 'Collaborator AF3 · 3,435 models', CDK2_MONOMER: 'Collaborator AF3 · 284 models'};
   const trimmed = range => ['core-afsample3', 'core-joint'].includes(range);
   const full = range => ['all', 'joint'].includes(range);
   function menu() {
@@ -17,14 +21,12 @@
     select.id = 'cohortView';
     select.style.maxWidth = '100%';
     select.setAttribute('aria-label', 'Model cohort');
-    select.add(new Option('AFSample3 · 1,000 models', 'afsample3'));
-    select.add(new Option('Combined methods · 5,000 models', 'joint'));
     select.addEventListener('change', () => {
       const range = document.getElementById('residueRange');
       const candidates = [...(range?.options || [])].filter(
         item => cohort(item.value) === select.value && !item.disabled);
       const option = candidates.find(item => trimmed(item.value) === trimmed(range.value))
-        || candidates.find(item => full(item.value));
+        || candidates.find(item => full(item.value)) || candidates[0];
       if (!option) return;
       range.value = option.value;
       range.dispatchEvent(new Event('change', {bubbles: true}));
@@ -42,9 +44,17 @@
     const monomer = Object.hasOwn(monomers, target);
     const range = document.getElementById('residueRange');
     const select = label.querySelector('select');
-    const joint = [...select.options].find(option => option.value === 'joint');
-    joint.disabled = ![...(range?.options || [])].some(option => option.value === 'joint' && !option.disabled);
-    joint.textContent = 'Combined methods · 5,000 models' + (joint.disabled ? ' — unavailable' : '');
+    const available = new Set([...range.options].filter(o => !o.disabled).map(o => cohort(o.value)));
+    const choices = single[target] ? [['afsample3', single[target]]] :
+      [['afsample3', 'AFSample3 · 1,000 models'], ['joint', 'Combined methods · 5,000 models']];
+    if (target === 'CDK2_DOC1') choices.push(['collaborator', 'Collaborator AF3 · 910 models'],
+      ['combined', 'Existing and collaborator models · 5,910 models']);
+    select.replaceChildren(...choices.map(([id, text]) => {
+      const option = new Option(text + (available.has(id) ? '' : ' — unavailable'), id);
+      option.disabled = !available.has(id);
+      return option;
+    }));
+    select.disabled = !!single[target];
     select.value = cohort(currentRange.id);
     label.hidden = !monomer;
     if (target === 'CDK2_DOC1') {
@@ -61,7 +71,7 @@
       document.getElementById('residueRangeNote').after(note);
     }
     note.replaceChildren();
-    note.hidden = target !== 'CDK2_DOC1';
+    note.hidden = target !== 'CDK2_DOC1' || !!current.coordinates_private;
     if (!note.hidden && current.core_results) {
       const a = document.createElement('a');
       a.href = current.core_results.comparison;

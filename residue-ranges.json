@@ -661,6 +661,80 @@
               "source_data_sha256": "ac27dfc76a1b3093a75a6ea705a43664b83c92add07e6eb095721b168a1830be"
             }
           ]
+        },
+        {
+          "id": "collaborator",
+          "name": "Collaborator AF3 models · 910 models",
+          "available": true,
+          "data": "CDK2_DOC1/collaborator-density.json",
+          "asset_root": "",
+          "default_view": "density",
+          "views": [
+            {
+              "id": "density",
+              "name": "HDBSCAN leaf",
+              "available": true,
+              "data": "CDK2_DOC1/collaborator-density.json",
+              "source_view_id": "density",
+              "source_data_sha256": "971c82d800844cc97a1d9afe23c1e2397b4ce3d5c7494eb8898328e7fbf2adb3",
+              "asset_root": ""
+            },
+            {
+              "id": "primary",
+              "name": "UMAP KNN",
+              "available": true,
+              "data": "CDK2_DOC1/collaborator-primary.json",
+              "source_view_id": "primary",
+              "source_data_sha256": "5d84e1edfa4010433567cf94436a21761a08496c9e466cee78428951217cb029",
+              "asset_root": ""
+            },
+            {
+              "id": "eom",
+              "name": "HDBSCAN EOM · diagnostic",
+              "available": true,
+              "data": "CDK2_DOC1/collaborator-eom.json",
+              "source_view_id": "eom",
+              "source_data_sha256": "218d5d311d477eba7942ef96d98045cfbb2bde4cafcf397986b509b2ad5022a2",
+              "asset_root": ""
+            }
+          ]
+        },
+        {
+          "id": "combined",
+          "name": "Combined existing + collaborator · 5,910 models",
+          "available": true,
+          "data": "CDK2_DOC1/combined-density.json",
+          "asset_root": "",
+          "default_view": "density",
+          "views": [
+            {
+              "id": "density",
+              "name": "HDBSCAN leaf",
+              "available": true,
+              "data": "CDK2_DOC1/combined-density.json",
+              "source_view_id": "density",
+              "source_data_sha256": "19009349f2213ddfc3082b5321a222a6ff051fe4182bfba5d8a61d5c364a0245",
+              "asset_root": ""
+            },
+            {
+              "id": "primary",
+              "name": "UMAP KNN",
+              "available": true,
+              "data": "CDK2_DOC1/combined-primary.json",
+              "source_view_id": "primary",
+              "source_data_sha256": "558b7ed74de17b02ed6aaacad7bc599f08c6fccd47f2091f2a903a9ab29f55af",
+              "asset_root": ""
+            },
+            {
+              "id": "eom",
+              "name": "HDBSCAN EOM · diagnostic",
+              "available": true,
+              "data": "CDK2_DOC1/combined-eom.json",
+              "source_view_id": "eom",
+              "source_data_sha256": "186b02768004b2923e14d898130d23568ed970fcb6ea49e0e21838583ab6aa22",
+              "asset_root": ""
+            }
+          ]
         }
       ]
     },
@@ -707,6 +781,88 @@
               "data": "CDK2_DOC1t/joint-eom.json",
               "source_view_id": "eom",
               "source_data_sha256": "eb742e8f24504e6e2ab50c5f819d8d2e0ceb432a3d20e618de4779cc35fd8b5d",
+              "asset_root": ""
+            }
+          ]
+        }
+      ]
+    },
+    "CDK2_DOC1R": {
+      "residue_ranges": [
+        {
+          "id": "all",
+          "name": "Collaborator AF3 models · 3,435 models",
+          "available": true,
+          "data": "CDK2_DOC1R/all-density.json",
+          "asset_root": "",
+          "default_view": "density",
+          "views": [
+            {
+              "id": "density",
+              "name": "HDBSCAN leaf",
+              "available": true,
+              "data": "CDK2_DOC1R/all-density.json",
+              "source_view_id": "density",
+              "source_data_sha256": "44eaa9684202a35cfcc41d6b651a230d9d7edcd6c3c95b67b1e9baba40ed6e2f",
+              "asset_root": ""
+            },
+            {
+              "id": "primary",
+              "name": "UMAP KNN",
+              "available": true,
+              "data": "CDK2_DOC1R/all-primary.json",
+              "source_view_id": "primary",
+              "source_data_sha256": "ad85f8bf87ade0f5b68a6bdf28501366da8008afa09d20f8138b397caa684f88",
+              "asset_root": ""
+            },
+            {
+              "id": "eom",
+              "name": "HDBSCAN EOM · diagnostic",
+              "available": true,
+              "data": "CDK2_DOC1R/all-eom.json",
+              "source_view_id": "eom",
+              "source_data_sha256": "6abdb9bcfc391581169e987423ac8c021326d4117160756d014291f06ad2d9cb",
+              "asset_root": ""
+            }
+          ]
+        }
+      ]
+    },
+    "CDK2_MONOMER": {
+      "residue_ranges": [
+        {
+          "id": "all",
+          "name": "Collaborator AF3 models · 284 models",
+          "available": true,
+          "data": "CDK2_MONOMER/all-density.json",
+          "asset_root": "",
+          "default_view": "density",
+          "views": [
+            {
+              "id": "density",
+              "name": "HDBSCAN leaf",
+              "available": true,
+              "data": "CDK2_MONOMER/all-density.json",
+              "source_view_id": "density",
+              "source_data_sha256": "2693b3094e881d6436b12c9b21a1f74b12c768034bbd4af86be15e1964f74271",
+              "asset_root": ""
+            },
+            {
+              "id": "primary",
+              "name": "UMAP KNN",
+              "available": true,
+              "data": "CDK2_MONOMER/all-primary.json",
+              "source_view_id": "primary",
+              "source_data_sha256": "80f9a6c5445245aa11bd00daaa8ad999cbd5f63f8c8c82dc337f11c27c444948",
+              "asset_root": ""
+            },
+            {
+              "id": "eom",
+              "name": "HDBSCAN EOM · diagnostic",
+              "available": true,
+              "data": "CDK2_MONOMER/all-eom.json",
+              "source_view_id": "eom",
+              "source_data_sha256": "4327734b18c19681e248aedd2ef528a272815c97ead70b268d79c27d71f945e7",
               "asset_root": ""
             }
           ]

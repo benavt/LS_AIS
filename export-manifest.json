@@ -17,6 +17,126 @@
       "sha256": "92ceee67e6dd96efecf79dca9beea4ca8e2ddff6c02ef63e5838c4555d8738bf"
     },
     {
+      "path": "CDK2_DOC1/collaborator-density-bonsai.json",
+      "bytes": 92846,
+      "sha256": "f7c08aad32b638229c55f2814e623ce37eeb90732015224c76eff7b31a54ae82"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-density.json",
+      "bytes": 440537,
+      "sha256": "971c82d800844cc97a1d9afe23c1e2397b4ce3d5c7494eb8898328e7fbf2adb3"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-eom-bonsai.json",
+      "bytes": 61235,
+      "sha256": "eb919fe94e29980e8e52c5eec438c82e53a2e4b633ad7a3843e9134ccf198a38"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-eom.json",
+      "bytes": 468663,
+      "sha256": "218d5d311d477eba7942ef96d98045cfbb2bde4cafcf397986b509b2ad5022a2"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-memberships-and-scores.csv.gz",
+      "bytes": 17232,
+      "sha256": "72da4e276c6f5c2c60c5e0b2a2d9b00e1fef50fb7d8adb418b562e61ec92798b"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-primary-bonsai.json",
+      "bytes": 61958,
+      "sha256": "3b4d2e30d596b86ccaa506ad5e274ee54aa6d54817675ca83e85509839f21aac"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-primary.json",
+      "bytes": 424389,
+      "sha256": "5d84e1edfa4010433567cf94436a21761a08496c9e466cee78428951217cb029"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-tm-density.csv",
+      "bytes": 1270,
+      "sha256": "c070d15edd731ae8ce9c9a867ff933deedab396677ad7b0a99f0cfbdd4e5d6fd"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-tm-eom.csv",
+      "bytes": 147,
+      "sha256": "79ad68164d386906506f243db85f12df280ca615f71c3b5ec8b1728546e689c2"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator-tm-primary.csv",
+      "bytes": 213,
+      "sha256": "2564185bb1c9835d8266993fde6505cb3bdb05c286bce57a687943a8ee20046e"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator/figures/median-ca-distances.png",
+      "bytes": 392433,
+      "sha256": "e0386c1642cddc08211de3e57b79e705c0fa370f0cdbe7feab368a84cfec3e3c"
+    },
+    {
+      "path": "CDK2_DOC1/collaborator/figures/variance-ca-distances.png",
+      "bytes": 199942,
+      "sha256": "f4020d1e21425c9a3cda92015ad789d90a71d8b293d47d52d989be86ec84bf24"
+    },
+    {
+      "path": "CDK2_DOC1/combined-density-bonsai.json",
+      "bytes": 469770,
+      "sha256": "ec11e3cc35510c46e96ccd98d45d6c176a21b9a681920e9983c895c2455e98b2"
+    },
+    {
+      "path": "CDK2_DOC1/combined-density.json",
+      "bytes": 2950579,
+      "sha256": "19009349f2213ddfc3082b5321a222a6ff051fe4182bfba5d8a61d5c364a0245"
+    },
+    {
+      "path": "CDK2_DOC1/combined-eom-bonsai.json",
+      "bytes": 175822,
+      "sha256": "7e654fdbf89c4dadb99dd064ac85545e571030730b15482ca79b9b69d88738c5"
+    },
+    {
+      "path": "CDK2_DOC1/combined-eom.json",
+      "bytes": 3085600,
+      "sha256": "186b02768004b2923e14d898130d23568ed970fcb6ea49e0e21838583ab6aa22"
+    },
+    {
+      "path": "CDK2_DOC1/combined-memberships-and-scores.csv.gz",
+      "bytes": 82156,
+      "sha256": "393f8f0e83243fb14fed39f3cb9461f38d3198bb36f394b5ca0e41dbe8efcb70"
+    },
+    {
+      "path": "CDK2_DOC1/combined-primary-bonsai.json",
+      "bytes": 68416,
+      "sha256": "4db349bf57c7248622afb6827b8eb53f9978a44807384fe641f8ba5f29e882f4"
+    },
+    {
+      "path": "CDK2_DOC1/combined-primary.json",
+      "bytes": 2816753,
+      "sha256": "558b7ed74de17b02ed6aaacad7bc599f08c6fccd47f2091f2a903a9ab29f55af"
+    },
+    {
+      "path": "CDK2_DOC1/combined-tm-density.csv",
+      "bytes": 34147,
+      "sha256": "c16db7188928688a87db0d95c90953dbdeacdb00bd663999cdd5a4ee06335603"
+    },
+    {
+      "path": "CDK2_DOC1/combined-tm-eom.csv",
+      "bytes": 5843,
+      "sha256": "a166a8353af2d4f634ff528cbcb2c0f226cdf1dfad9f3df5fad323bc7e2da7fe"
+    },
+    {
+      "path": "CDK2_DOC1/combined-tm-primary.csv",
+      "bytes": 136,
+      "sha256": "afea998d9a3a65117644b5e537afccae323f3b3dc63c98fc757be1e3464ecf59"
+    },
+    {
+      "path": "CDK2_DOC1/combined/figures/median-ca-distances.png",
+      "bytes": 396311,
+      "sha256": "f66c2744709f9583f7437114780e2aaa613548b2c280577b5826c9f885f1df0b"
+    },
+    {
+      "path": "CDK2_DOC1/combined/figures/variance-ca-distances.png",
+      "bytes": 241170,
+      "sha256": "a147f9366b6f6f8db131f201a3f1c8e02156d02d2693380c1ec1037e6ce902af"
+    },
+    {
       "path": "CDK2_DOC1/core-afsample3-comparison.json",
       "bytes": 2602,
       "sha256": "2e13b2adb32741a7837c34d055abab3d103cc4ece413d61f6fe6811afe531a7b"
@@ -5675,6 +5795,66 @@
       "path": "CDK2_DOC1/primary.json",
       "bytes": 350700,
       "sha256": "bd53182507ddc9a54446e3662761368a366053147fd6d37ce40a2efb80704ada"
+    },
+    {
+      "path": "CDK2_DOC1R/all-density-bonsai.json",
+      "bytes": 209991,
+      "sha256": "211aea4eb4e498bc0af48d52439659c6c8fa45e1a759891f5315f89ab0e7ed24"
+    },
+    {
+      "path": "CDK2_DOC1R/all-density.json",
+      "bytes": 1719011,
+      "sha256": "44eaa9684202a35cfcc41d6b651a230d9d7edcd6c3c95b67b1e9baba40ed6e2f"
+    },
+    {
+      "path": "CDK2_DOC1R/all-eom-bonsai.json",
+      "bytes": 64894,
+      "sha256": "d1a9eb4a2314d46b41a495a8e462c857b0e8ec026651536971842280692e8eb1"
+    },
+    {
+      "path": "CDK2_DOC1R/all-eom.json",
+      "bytes": 1831990,
+      "sha256": "6abdb9bcfc391581169e987423ac8c021326d4117160756d014291f06ad2d9cb"
+    },
+    {
+      "path": "CDK2_DOC1R/all-memberships-and-scores.csv.gz",
+      "bytes": 71343,
+      "sha256": "663e8bb40e9faa290f0ce734625d12eb39e23cd450946a8d3e00781540e211fb"
+    },
+    {
+      "path": "CDK2_DOC1R/all-primary-bonsai.json",
+      "bytes": 65605,
+      "sha256": "9c9bd3e7fad19c5af7e9b4019ae4aa74ae73d26ea7960f12cfc173dcaad1b9ea"
+    },
+    {
+      "path": "CDK2_DOC1R/all-primary.json",
+      "bytes": 1660782,
+      "sha256": "ad85f8bf87ade0f5b68a6bdf28501366da8008afa09d20f8138b397caa684f88"
+    },
+    {
+      "path": "CDK2_DOC1R/all-tm-density.csv",
+      "bytes": 7474,
+      "sha256": "a08f3af893e79745b11723f886ab6825eb7f9b1710b9856e5f1c33341456f3e2"
+    },
+    {
+      "path": "CDK2_DOC1R/all-tm-eom.csv",
+      "bytes": 472,
+      "sha256": "ac7f28b79edef5a7a8858303475413d6db41e5cf541205664a8724b0c767a39b"
+    },
+    {
+      "path": "CDK2_DOC1R/all-tm-primary.csv",
+      "bytes": 79,
+      "sha256": "3342ab4953053771a62cbfa0cdcac5b1a749a3f4ba1f02204b42cb7064085e91"
+    },
+    {
+      "path": "CDK2_DOC1R/all/figures/median-ca-distances.png",
+      "bytes": 407446,
+      "sha256": "9bcf4f257837189227b58d2cc41d4f02a9568a8b5d83a967ecaa190a09617b84"
+    },
+    {
+      "path": "CDK2_DOC1R/all/figures/variance-ca-distances.png",
+      "bytes": 231744,
+      "sha256": "d2f7e7c224207ac439bbc262b60ecfb405b6c0e42e82ade6ed346dc9627653c5"
     },
     {
       "path": "CDK2_DOC1t/bonsai.json",
@@ -11365,6 +11545,66 @@
       "path": "CDK2_DOC1t/primary.json",
       "bytes": 354449,
       "sha256": "c450c16531f8c915c3b30fb1e40eccd5c2921520d6354d60d7bd9e1392a8aa45"
+    },
+    {
+      "path": "CDK2_MONOMER/all-density-bonsai.json",
+      "bytes": 69778,
+      "sha256": "0780d035baecccb4e6abc3bb92e887b913e949d6f4e3c301b0a3a16463258bb7"
+    },
+    {
+      "path": "CDK2_MONOMER/all-density.json",
+      "bytes": 143684,
+      "sha256": "2693b3094e881d6436b12c9b21a1f74b12c768034bbd4af86be15e1964f74271"
+    },
+    {
+      "path": "CDK2_MONOMER/all-eom-bonsai.json",
+      "bytes": 67268,
+      "sha256": "06d3fe2b392010d9e3334a8f28e154f9794127c74ce5d8a9cfeefd961c8b0d40"
+    },
+    {
+      "path": "CDK2_MONOMER/all-eom.json",
+      "bytes": 152428,
+      "sha256": "4327734b18c19681e248aedd2ef528a272815c97ead70b268d79c27d71f945e7"
+    },
+    {
+      "path": "CDK2_MONOMER/all-memberships-and-scores.csv.gz",
+      "bytes": 5034,
+      "sha256": "731bd360b75706e127cc452e2ef764e365437b62b86073472921ee321ef9474e"
+    },
+    {
+      "path": "CDK2_MONOMER/all-primary-bonsai.json",
+      "bytes": 67268,
+      "sha256": "74fbbb5dc027c6613fa8cc7d4c3fb7e82e142341919ac33f81cf0a5bacde3d4a"
+    },
+    {
+      "path": "CDK2_MONOMER/all-primary.json",
+      "bytes": 138525,
+      "sha256": "80f9a6c5445245aa11bd00daaa8ad999cbd5f63f8c8c82dc337f11c27c444948"
+    },
+    {
+      "path": "CDK2_MONOMER/all-tm-density.csv",
+      "bytes": 245,
+      "sha256": "6dca24433969cd059da4c63858a78b8fbc5430e1791ff7eefeefae094d2e256d"
+    },
+    {
+      "path": "CDK2_MONOMER/all-tm-eom.csv",
+      "bytes": 147,
+      "sha256": "a104659cd1e9a906625a120d95b08240d5fdddecfb62824f2c00fda72b942a0d"
+    },
+    {
+      "path": "CDK2_MONOMER/all-tm-primary.csv",
+      "bytes": 79,
+      "sha256": "1c8e6e3c8e2349097e8c35377aba6b6ff5823194fe8e80122fbfd9eeba10489e"
+    },
+    {
+      "path": "CDK2_MONOMER/all/figures/median-ca-distances.png",
+      "bytes": 277869,
+      "sha256": "d8d845ad553175dcf6e5bb3d89f5cdc2dc29438668f5d3763abfd1f9b02860ee"
+    },
+    {
+      "path": "CDK2_MONOMER/all/figures/variance-ca-distances.png",
+      "bytes": 115161,
+      "sha256": "bed8086b16462ee0a239d303943aec11f5662d675314c3a39d3c82dcaf1a3113"
     },
     {
       "path": "DOC1Rdimer_CDK2/core-density-bonsai.json",
@@ -44368,8 +44608,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 89055,
-      "sha256": "08a0d6c426d5123ba0756122562be0f414ca2c7c71536c05e1291b3176a08f77"
+      "bytes": 94736,
+      "sha256": "8b9108fad440a32c244a7133da985c85652038d9be435421c7c79d9e43abb17d"
     },
     {
       "path": "assets/3Dmol-min.js",
@@ -44393,18 +44633,18 @@
     },
     {
       "path": "atlas.json",
-      "bytes": 1627,
-      "sha256": "544f03f06fb442d386ce5ba26698e1cc1726c7b6336aec0fcdfb95e92951f54d"
+      "bytes": 1825,
+      "sha256": "3245ad0a97328d42e42960ba773e4a878641daadb5738aaba78b639e0a358aff"
     },
     {
       "path": "clustering-residues.json",
-      "bytes": 279374,
-      "sha256": "64166dedea364983285f7e3e21f23530a934396b870853baf4deb76a72fc5f2b"
+      "bytes": 383944,
+      "sha256": "5830c1f54a7307ea57310b986627f998e01636b00f0b65e32506e807ddb91391"
     },
     {
       "path": "cohort_menu.js",
-      "bytes": 3577,
-      "sha256": "f44080ed4b2ec0fd48b630b63bdef3eeabc4cd912dadaa0ee3491f30b1165a4a"
+      "bytes": 4178,
+      "sha256": "1bd0bdcf589f89fae5cb7d9f7ce0897c94caf148b22a80cbca492b8bf68e19e0"
     },
     {
       "path": "downloads/CDK2_DOC1-dockq-vs-0865.csv.gz",
@@ -44538,8 +44778,8 @@
     },
     {
       "path": "residue-ranges.json",
-      "bytes": 18074,
-      "sha256": "decfed0cb287bcc8c6b707f7cc57525a6e1de1f6c1e2001a2bbf321638ddc39b"
+      "bytes": 23723,
+      "sha256": "54aa8dd89cacdadc550efb1f90dbdcdd90bc7df82dc022f82f733cafc41a8ede"
     },
     {
       "path": "responsive.js",
@@ -44771,5 +45011,10 @@
     "target": "CDK2_DOC1",
     "baseline_commit": "bdba9c842e026f5ad664ac9676c399c048d14fb2",
     "clustering_plan_sha256": "d786c1a2b7f949a34abe39c6e993f7555fefa9b054ce5cf94cec7922115a9548"
+  },
+  "collaborator_release": {
+    "baseline_commit": "97072d8beb77f8c9c9895372cd72cd21f9e8a6b2",
+    "preview_manifest_sha256": "3e9c02017fd7eeb84da796a32b9912856e45533ddaf056515ee9973f14c16931",
+    "coordinates_in_new_assets": false
   }
 }

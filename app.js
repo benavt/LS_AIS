@@ -379,7 +379,7 @@ function traces(method){
   const indices=data.models.map((_,i)=>i),selected=effectiveSelectionHighlight();
   return [{type:'scattergl',mode:'markers',name:'All categories',
    x:xy.map(p=>p[0]),y:xy.map(p=>p[1]),customdata:indices,
-   text:indices.map(i=>`${escapeText(data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])}`),
+   text:indices.map(i=>`${escapeText(data.model_filenames?.[i]||data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])+privatePointMeta(data,i)}`),
    hovertemplate:'%{text}<extra></extra>',
    marker:{size:4.5,color:indices.map(i=>s.colors[String(s.values[i]??'Unspecified')]||'#808080'),
     opacity:indices.map(i=>visibleCluster(data.clusters[i])?(selected.active?(selected.indices.has(i)?.85:.09):.7):.06)},
@@ -388,7 +388,7 @@ function traces(method){
  for(const [label,indices] of groups){const numeric=s.type==='continuous'&&label==='valid',plain=!familyPrefix&&!chosenClusters&&!effectiveSelectionHighlight().active,marker={size:4.5,opacity:plain?.7:indices.map(i=>visibleCluster(data.clusters[i])?(effectiveSelectionHighlight().active?(effectiveSelectionHighlight().indices.has(i) ? .85 : .09):.7):.06)};
   if(numeric)Object.assign(marker,{color:indices.map(i=>s.values[i]),colorscale:s.colorscale,cmin:s.range?.[0],cmax:s.range?.[1],showscale:false,colorbar:{title:{text:s.short_name||s.name},thickness:10,len:.7}});
   else marker.color=s.type==='continuous'?'#808080':s.colors[label]||'#808080';
-  out.push({type:data.models.length>10000?'scattergl':'scatter',mode:'markers',name:label==='valid'?s.name:label,x:indices.map(i=>xy[i][0]),y:indices.map(i=>xy[i][1]),customdata:indices,text:indices.map(i=>`${escapeText(data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])}${numeric?'<br>'+s.name+': '+s.values[i].toFixed(2):''}`),hovertemplate:'%{text}<extra></extra>',marker,meta:{legendKey:label,numeric},visible:hiddenProjectionCategories.has(label)?'legendonly':true,showlegend:false});
+  out.push({type:data.models.length>10000?'scattergl':'scatter',mode:'markers',name:label==='valid'?s.name:label,x:indices.map(i=>xy[i][0]),y:indices.map(i=>xy[i][1]),customdata:indices,text:indices.map(i=>`${escapeText(data.model_filenames?.[i]||data.models[i])}<br>${escapeText(data.clusters[i])}<br>${escapeText(data.methods[i])+privatePointMeta(data,i)}${numeric?'<br>'+s.name+': '+s.values[i].toFixed(2):''}`),hovertemplate:'%{text}<extra></extra>',marker,meta:{legendKey:label,numeric},visible:hiddenProjectionCategories.has(label)?'legendonly':true,showlegend:false});
  }if(s.type==='continuous')out.sort((a,b)=>Number(a.meta.numeric)-Number(b.meta.numeric));return out;
 }
 function projectionLegendTraces(){
@@ -436,7 +436,7 @@ async function drawProjections(){
  legend.on('plotly_legenddoubleclick',event=>changeProjectionCategory(event,true));
 
  }
- await Promise.all(['pca','umap','tsne'].map(async method=>{const p=data.projections[method],axes=projectionAxisTitles(method,p);await AtlasResponsive.react($(method),selectionProjectionTraces(method),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:52,r:25,t:16,b:58},showlegend:false,hovermode:'closest',font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{title:{text:axes[0]},zeroline:false,gridcolor:'#edf1f2'},yaxis:{title:{text:axes[1]},zeroline:false,gridcolor:'#edf1f2'},uirevision:data.target+'-'+(data.range_id||'all')+'-'+(data.view_id||'whole')+'-'+method},{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d']});$(method).removeAllListeners('plotly_click');$(method).on('plotly_click',e=>{const i=e.points[0].customdata;if(Number.isInteger(i)&&i>=0&&i<data.models.length)(data.model_files||data.public_point_examples?.[data.models[i]]?choose(data.clusters[i],i):choose(data.clusters[i])).catch(fail)})}));
+ await Promise.all(['pca','umap','tsne'].map(async method=>{const p=data.projections[method],axes=projectionAxisTitles(method,p);await AtlasResponsive.react($(method),selectionProjectionTraces(method),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:52,r:25,t:16,b:58},showlegend:false,hovermode:'closest',font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{title:{text:axes[0]},zeroline:false,gridcolor:'#edf1f2'},yaxis:{title:{text:axes[1]},zeroline:false,gridcolor:'#edf1f2'},uirevision:data.target+'-'+(data.range_id||'all')+'-'+(data.view_id||'whole')+'-'+method},{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d']});$(method).removeAllListeners('plotly_click');$(method).on('plotly_click',e=>{const i=e.points[0].customdata;if(Number.isInteger(i)&&i>=0&&i<data.models.length)(data.model_files||data.coordinates_private||data.public_point_examples?.[data.models[i]]?choose(data.clusters[i],i):choose(data.clusters[i])).catch(fail)})}));
  updateTMStateControls();updateSelectionControls();showProjection();
 }
 async function draw(){
@@ -503,8 +503,42 @@ async function savedCoordinate(descriptor){
  }
  const text=new TextDecoder().decode(bytes);descriptor.coordinate_text=text;return text;
 }
+function privatePointMeta(current,index){
+ if(!current.coordinates_private)return '';
+ const fields=[];
+ const state=current.schemes.find(row=>row.key==='structural_state')?.values?.[index];
+ if(state)fields.push('Structural state: '+state);
+ if(current.source_classes?.[index])fields.push('Source class: '+current.source_classes[index]);
+ if(current.source_has_clash?.[index])fields.push('Supplied clash flag: '+current.source_has_clash[index]);
+ if(current.native_physicality_status?.[index])fields.push('Physicality: '+current.native_physicality_status[index]);
+ return fields.map(value=>'<br>'+escapeText(value)).join('');
+}
+function choosePrivateMetadata(label,modelIndex=null){
+ const current=data,exact=modelIndex!==null;
+ if(exact&&(!Number.isInteger(modelIndex)||modelIndex<0||modelIndex>=current.models.length||current.clusters[modelIndex]!==label))throw Error('Selected private point differs from the current cluster.');
+ const rep=current.representatives.find(row=>row.cluster===label);
+ const index=exact?modelIndex:(rep?current.models.indexOf(rep.model):-1);
+ clearStructure(label+' · coordinates private','Collaborator coordinates are not available in this atlas.');
+ selected=label;selectedModelIndex=exact?modelIndex:null;$('clusterSelect').value=label;
+ for(const tr of $('clusterRows').children){const active=tr.dataset.cluster===label;tr.classList.toggle('selected',active);tr.setAttribute('aria-selected',String(active))}
+ if(bonsaiPanel&&current.bonsai)bonsaiPanel.select(label);
+ if(index>=0){
+  const name=current.model_filenames?.[index]||current.models[index];
+  const score=current.schemes.find(row=>row.key==='protein_ebm_energy_t10')?.values[index];
+  const energy=Number.isFinite(score)?' · ProteinEBM t=0.10: '+score.toFixed(3):'';
+  const physicality=current.native_physicality_status?.[index];
+  $('modelTitle').textContent=(exact?name:label+' representative · '+name)+' · coordinates private';
+  $('modelInfo').textContent=current.methods[index]+' · '+label+energy+(physicality?' · '+physicality:'');
+  for(const method of ['pca','umap','tsne']){
+   const xy=current.projections[method]?.xy?.[index];
+   if(Array.isArray(xy)&&xy.every(Number.isFinite))AtlasResponsive.relayout($(method),{annotations:[{x:xy[0],y:xy[1],text:name,showarrow:true,arrowhead:2,ax:25,ay:-30,font:{size:11,color:'#153f4d'},bgcolor:'#ffffffdd'}]});
+  }
+ }else $('modelInfo').textContent='No assigned representative; collaborator coordinates are private.';
+}
 async function choose(label,modelIndex=null){
- const current=data,exact=modelIndex!==null,cluster=exact?(bonsaiModelDescriptor(current,modelIndex)||pointModelDescriptor(current,modelIndex)):current.representatives.find(x=>x.cluster===label);
+ const current=data;
+ if(current.coordinates_private)return choosePrivateMetadata(label,modelIndex);
+ const exact=modelIndex!==null,cluster=exact?(bonsaiModelDescriptor(current,modelIndex)||pointModelDescriptor(current,modelIndex)):current.representatives.find(x=>x.cluster===label);
  if(exact&&cluster.cluster!==label)throw Error('The selected point and cluster identity differ.');
  if(structureViewAnchor&&viewer._aisDescriptor)structureViewAnchor.activeCamera=structureCamera();
  const serial=++loadSerial;
@@ -620,6 +654,39 @@ function clearStructure(title='Select a cluster',note=''){
  updateStructureViewControls();
  for(const tr of $('clusterRows').children){tr.classList.remove('selected');tr.setAttribute('aria-selected','false')}
 }
+function renderPrivatePosePanel(current){
+ let section=document.getElementById('privatePosePanel');
+ if(!section){
+  section=document.createElement('details');section.id='privatePosePanel';section.className='figure-panel supplementary-panel';
+  const title=document.createElement('summary');title.textContent='Structural states and MCMC/DISCO panels';section.append(title);
+  const content=document.createElement('div');content.className='panel-body';content.id='privatePoseContent';section.append(content);
+  document.getElementById('distanceMaps').after(section);
+ }
+ section.hidden=!current.pose_states;if(section.hidden)return;
+ const content=document.getElementById('privatePoseContent');content.replaceChildren();
+ const summary=document.createElement('p');const states=current.pose_states;
+ summary.textContent=states.protocol+' · '+states.assigned.toLocaleString()+'/'+current.models.length.toLocaleString()+' assigned. '+states.sampling_note;
+ content.append(summary);
+ const counts=document.createElement('p');counts.textContent=Object.entries(states.counts).sort((a,b)=>a[0].localeCompare(b[0])).map(([id,n])=>id+': '+n.toLocaleString()).join(' · ');content.append(counts);
+ if(!current.sampling_panels?.length)return;
+ const controls=document.createElement('div');controls.className='explorer-controls';
+ const label=document.createElement('label');label.textContent='Saved panel ';
+ const choice=document.createElement('select');choice.setAttribute('aria-label','Saved MCMC or DISCO panel');
+ for(const [i,panel] of current.sampling_panels.entries()){
+  const option=document.createElement('option');option.value=String(i);option.textContent=panel.state+' · '+panel.prior+' · '+panel.method;choice.append(option);
+ }
+ label.append(choice);controls.append(label);
+ const button=document.createElement('button');button.type='button';button.textContent='Color selected 50';controls.append(button);content.append(controls);
+ const note=document.createElement('p');note.className='hint';content.append(note);
+ const scheme={key:'saved_sampling_panel',name:'Saved MCMC50/DISCO50 panel',type:'categorical',values:[],colors:{Selected:'#d43735',Other:'#aeb9c2'}};
+ current.schemes.push(scheme);
+ function update(){const panel=current.sampling_panels[Number(choice.value)],set=new Set(panel.models);
+  scheme.values=current.models.map(model=>set.has(model)?'Selected':'Other');
+  note.textContent=panel.method+' · '+panel.state+' · '+panel.prior+' prior · 50 distinct eligible models; plots and filenames only, no coordinate export.';
+  if(document.getElementById('color').value==='saved_sampling_panel')scheduleDraw().catch(fail);
+ }
+ choice.onchange=update;button.onclick=()=>{document.getElementById('color').value='saved_sampling_panel';scheduleDraw().catch(fail)};update();
+}
 async function load(target,viewId='',rangeId='all'){
  const request=++targetRequest;++loadSerial;++pairSerial;clearSamplingHighlight();clearTMStateHighlight();setAnalysisLoading(true);try{
  configureEnsembleDownloads();
@@ -628,7 +695,7 @@ async function load(target,viewId='',rangeId='all'){
  notifyInspectedStructure();
  const found=atlas.targets.find(x=>x.id===target)||atlas.targets[0],ranges=savedResidueRanges(found),range=ranges.find(r=>r.id===rangeId&&availableResidueRange(r))||ranges.find(r=>r.id==='all'&&availableResidueRange(r));
  if(!range)throw Error('No verified residue-range analysis is available for this target.');
- const {base,loaded,view}=await savedViewSelection(found,range,viewId);if(request!==targetRequest)return;const withFigures=figureSupplementLoader?await figureSupplementLoader.enrich(loaded):loaded;const [enriched,highlightResult,tmResult]=await Promise.all([metricOverlayLoader?metricOverlayLoader.enrich(withFigures):withoutUnavailableRefolds(withFigures),selectionLoader?selectionLoader.load(loaded):{status:'unavailable',payload:null,note:'No saved selection highlights are available for this analysis.'},tmStateLoader?tmStateLoader.load(loaded):{status:'unavailable',payload:null,note:'No completed TM-state subsets are available for this analysis.'}]);if(request!==targetRequest)return;return await (renderQueue=renderQueue.catch(()=>{}).then(async()=>{if(request!==targetRequest)return;data=enriched;selectionResult=highlightResult;selectionPayload=highlightResult.payload;tmStateResult=tmResult;tmStatePayload=tmResult.payload;selected=null;selectedModelIndex=null;if(data.visible_view_policy&&(view.id!==viewId||range.id!==rangeId||found.id!==target))window.history?.replaceState(null,'','#'+analysisHash(found.id,range.id,view.id));configureResidueRangeControls(found,range,rangeId);configureRefinementControls();configureStructureControls();configureModelMode();window.dispatchEvent(new CustomEvent('atlas:cohort',{detail:{current:data,base,range}}));
+ const {base,loaded,view}=await savedViewSelection(found,range,viewId);if(request!==targetRequest)return;const withFigures=figureSupplementLoader?await figureSupplementLoader.enrich(loaded):loaded;const [enriched,highlightResult,tmResult]=await Promise.all([metricOverlayLoader?metricOverlayLoader.enrich(withFigures):withoutUnavailableRefolds(withFigures),selectionLoader?selectionLoader.load(loaded):{status:'unavailable',payload:null,note:'No saved selection highlights are available for this analysis.'},tmStateLoader?tmStateLoader.load(loaded):{status:'unavailable',payload:null,note:'No completed TM-state subsets are available for this analysis.'}]);if(request!==targetRequest)return;return await (renderQueue=renderQueue.catch(()=>{}).then(async()=>{if(request!==targetRequest)return;data=enriched;renderPrivatePosePanel(data);selectionResult=highlightResult;selectionPayload=highlightResult.payload;tmStateResult=tmResult;tmStatePayload=tmResult.payload;selected=null;selectedModelIndex=null;if(data.visible_view_policy&&(view.id!==viewId||range.id!==rangeId||found.id!==target))window.history?.replaceState(null,'','#'+analysisHash(found.id,range.id,view.id));configureResidueRangeControls(found,range,rangeId);configureRefinementControls();configureStructureControls();configureModelMode();window.dispatchEvent(new CustomEvent('atlas:cohort',{detail:{current:data,base,range}}));
  const previousColor=$('color').value,requestedColor=new URLSearchParams(location.search).get('color');
  $('analysisViewLabel').hidden=false;$('analysisView').replaceChildren(...(base.views||[]).map(x=>Object.assign(document.createElement('option'),{value:x.id,textContent:x.name+(x.available===false?' — '+(x.status||'awaiting verified results'):''),disabled:x.available===false})));$('analysisView').value=view?.id||'whole';
  $('title').textContent=data.target_label||data.target;$('summary').textContent=`${data.models.length.toLocaleString()} models · ${data.representatives.length} clusters${data.clusters.some(x=>isUnassignedCluster(x))?' · '+data.clusters.filter(x=>isUnassignedCluster(x)).length.toLocaleString()+' unassigned':''}`;
@@ -687,7 +754,7 @@ async function drawMedoidTM(){
  // Reserve the rendered plot height in document flow, including after subset changes.
  $('medoidTM').style.height=height+'px';
  await AtlasResponsive.react($('medoidTM'),[{type:'heatmap',z:grid.matrix,x:grid.labels,y:grid.labels,zmin:0,zmax:1,colorscale:'Plasma',text:grid.matrix.map(row=>row.map(v=>Number.isFinite(v)?v.toFixed(2):'')),texttemplate:n<=15?'%{text}':'',colorbar:{title:{text:'TM similarity'}},hovertemplate:'%{y} / %{x}<br>TM: %{z:.4f}<extra></extra>'}],{paper_bgcolor:'#fff',margin:{l:85,r:30,t:20,b:100},font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{tickangle:-55},yaxis:{autorange:'reversed',scaleanchor:'x'},height},{responsive:true,displaylogo:false,toImageButtonOptions:{format:'svg',filename:data.target+'_'+(data.range_id||'all')+'_'+data.view_id+'_medoid_TM'}});
- $('medoidTM').removeAllListeners('plotly_click');$('medoidTM').on('plotly_click',e=>{const point=e.points[0];if(Number.isFinite(point.z))chooseMedoidPair(point.y,point.x,point.z).catch(fail)});
+ $('medoidTM').removeAllListeners('plotly_click');$('medoidTM').on('plotly_click',e=>{const point=e.points[0];if(!data.coordinates_private&&Number.isFinite(point.z))chooseMedoidPair(point.y,point.x,point.z).catch(fail)});
 }
 
 let bonsaiPanel=null,bonsaiSerial=0,tmBonsaiObserver=null;
@@ -697,9 +764,9 @@ async function drawBonsai(){
  const serial=++bonsaiSerial,current=data;$('bonsaiPanel').hidden=!current.bonsai;if($('bonsaiDetails'))$('bonsaiDetails').hidden=!current.bonsai;if(!current.bonsai)return;
  if(!current.bonsaiPayload){const response=await fetch(current.bonsai.file,{cache:'no-cache'});if(!response.ok)throw Error('Saved Bonsai layout unavailable');const bytes=await response.arrayBuffer(),digest=globalThis.crypto?.subtle?Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join(''):typeof AISExplorerTMStates!=='undefined'?AISExplorerTMStates.sha256(new Uint8Array(bytes)):null;if(digest!==null&&digest!==current.bonsai.sha256)throw Error('Saved Bonsai layout hash mismatch');current.bonsaiPayload=JSON.parse(new TextDecoder().decode(bytes));}
  if(serial!==bonsaiSerial||data!==current)return;
- if(!bonsaiPanel)bonsaiPanel=BonsaiEnsemble.create($('bonsai'),{onChoose:(cluster,model)=>choose(cluster,data.bonsai_models?.[model]?data.models.indexOf(model):data.model_files?data.models.indexOf(model):null).catch(fail),detailsHref:'#bonsaiDetails'});
+ if(!bonsaiPanel)bonsaiPanel=BonsaiEnsemble.create($('bonsai'),{onChoose:(cluster,model)=>choose(cluster,data.coordinates_private||data.bonsai_models?.[model]||data.model_files?data.models.indexOf(model):null).catch(fail),detailsHref:'#bonsaiDetails'});
  const representatives=current.representatives.filter(c=>visibleCluster(c.cluster));
- if($('bonsaiStructureDetails'))$('bonsaiStructureDetails').textContent=current.model_files?'Select any Bonsai point to inspect that exact original model, including HDBSCAN unassigned models. Download each cluster representative from the cluster table.':representatives.some(row=>row.ensemble_file||row.ensemble_text)?'Use Structure view to switch between Representative and Comparison ensemble.':'The 3D viewer shows the saved cluster representative; coordinate ensembles are unavailable for this result.';
+ if($('bonsaiStructureDetails'))$('bonsaiStructureDetails').textContent=current.coordinates_private?'Bonsai points show model filenames, cluster labels, energies, and methods; collaborator coordinates are private.':current.model_files?'Select any Bonsai point to inspect that exact original model, including HDBSCAN unassigned models. Download each cluster representative from the cluster table.':representatives.some(row=>row.ensemble_file||row.ensemble_text)?'Use Structure view to switch between Representative and Comparison ensemble.':'The 3D viewer shows the saved cluster representative; coordinate ensembles are unavailable for this result.';
  const models=current.bonsaiPayload.models.filter(r=>visibleCluster(current.clusters[current.models.indexOf(r.model)])),key=models.map(r=>r.model).join('\0');if(current.filteredBonsai?.key!==key)current.filteredBonsai={key,payload:{...current.bonsaiPayload,models}};const filtered=current.filteredBonsai.payload;bonsaiPanel.update({...current,representatives},filtered,scheme(),$('pca'),hiddenProjectionCategories,effectiveSelectionHighlight().active?new Set(effectiveSelectionHighlight().orderedIndices.map(i=>current.models[i])):null);if(selected)bonsaiPanel.select(selected);observeTMStateBonsai();
 }
 
