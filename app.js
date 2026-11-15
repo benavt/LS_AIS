@@ -436,7 +436,7 @@ async function drawProjections(){
  legend.on('plotly_legenddoubleclick',event=>changeProjectionCategory(event,true));
 
  }
- await Promise.all(['pca','umap','tsne'].map(async method=>{const p=data.projections[method],axes=projectionAxisTitles(method,p);await AtlasResponsive.react($(method),selectionProjectionTraces(method),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:52,r:25,t:16,b:58},showlegend:false,hovermode:'closest',font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{title:{text:axes[0]},zeroline:false,gridcolor:'#edf1f2'},yaxis:{title:{text:axes[1]},zeroline:false,gridcolor:'#edf1f2'},uirevision:data.target+'-'+(data.range_id||'all')+'-'+(data.view_id||'whole')+'-'+method},{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d']});$(method).removeAllListeners('plotly_click');$(method).on('plotly_click',e=>{const i=e.points[0].customdata;if(Number.isInteger(i)&&i>=0&&i<data.models.length)(data.model_files?choose(data.clusters[i],i):choose(data.clusters[i])).catch(fail)})}));
+ await Promise.all(['pca','umap','tsne'].map(async method=>{const p=data.projections[method],axes=projectionAxisTitles(method,p);await AtlasResponsive.react($(method),selectionProjectionTraces(method),{paper_bgcolor:'#fff',plot_bgcolor:'#fff',margin:{l:52,r:25,t:16,b:58},showlegend:false,hovermode:'closest',font:{family:'Arial, sans-serif',size:11,color:'#344f5b'},xaxis:{title:{text:axes[0]},zeroline:false,gridcolor:'#edf1f2'},yaxis:{title:{text:axes[1]},zeroline:false,gridcolor:'#edf1f2'},uirevision:data.target+'-'+(data.range_id||'all')+'-'+(data.view_id||'whole')+'-'+method},{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d']});$(method).removeAllListeners('plotly_click');$(method).on('plotly_click',e=>{const i=e.points[0].customdata;if(Number.isInteger(i)&&i>=0&&i<data.models.length)(data.model_files||data.public_point_examples?.[data.models[i]]?choose(data.clusters[i],i):choose(data.clusters[i])).catch(fail)})}));
  updateTMStateControls();updateSelectionControls();showProjection();
 }
 async function draw(){
@@ -470,7 +470,7 @@ async function drawViolins(){
 }
 function showProjection(){if(window.AtlasExplorer)window.AtlasExplorer.feature($('projection').value);}
 function bonsaiModelDescriptor(current,index){
- const model=current.models[index],saved=current.bonsai_models?.[model];if(!saved)return null;
+ const model=current.models[index],saved=(current.bonsai_models?.[model]||current.public_point_examples?.[model]);if(!saved)return null;
  const label=current.clusters[index],palette=current.schemes.find(s=>s.key==='clusters')?.colors||{};
  if(saved.model!==model||!saved.file||!saved.sha256)throw Error('Bonsai model coordinate descriptor differs.');
  return {...saved,cluster:label,count:current.clusters.filter(value=>value===label).length,color:palette[label]||'#808080',exact_model_index:index};
@@ -509,7 +509,7 @@ async function choose(label,modelIndex=null){
  if(structureViewAnchor&&viewer._aisDescriptor)structureViewAnchor.activeCamera=structureCamera();
  const serial=++loadSerial;
  if(!cluster){clearStructure(label+' · no representative',isUnassignedCluster(label)?'These models were left unassigned by HDBSCAN. Select an individual plotted point to inspect its exact model.':'No saved representative is available for this group.');return}
- if(!exact&&!cluster.coordinate_text&&!cluster.file){clearStructure(label+' · representative unavailable','Fine-cluster representatives were not exported for this saved range. Use the saved TM-state ensemble PDB/PSE downloads.');return;}
+ if(!exact&&!cluster.coordinate_text&&!cluster.file){clearStructure(label+' · representative unavailable',current.core_results?'No coordinate from this trimmed cluster was already published. Memberships are available in the CSV.':'Fine-cluster representatives were not exported for this saved range. Use the saved TM-state ensemble PDB/PSE downloads.');return;}
  selectedModelIndex=exact?modelIndex:null;
  if(exact)$('modelMode').value='medoid';
  const representativeOption=Array.from($('modelMode').options||[]).find(row=>row.value==='medoid');if(representativeOption)representativeOption.textContent=exact?'Selected point model':'Representative';

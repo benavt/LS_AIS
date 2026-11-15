@@ -1,0 +1,194 @@
+{
+  "model_count": 5000,
+  "residues": "CDK2 A1–298 + DOC1 B60–115",
+  "full_hdbscan_leaf": {
+    "assigned_clusters": 51,
+    "unassigned": 2696
+  },
+  "trimmed_hdbscan_leaf": {
+    "assigned_clusters": 57,
+    "unassigned": 2289
+  },
+  "fidelity": {
+    "comparison_pairs": 124750,
+    "relative_distance_error_median": 0.005178514711754096,
+    "relative_distance_error_p95": 0.016576860746486743,
+    "neighbor_recall_at_15_mean": 0.9734666666666667,
+    "neighbor_recall_at_15_p10": 0.9333333333333333,
+    "passed": true
+  },
+  "full_vs_core": {
+    "knn": {
+      "ari_including_noise": 0.0041736612045724306,
+      "jointly_assigned_models": 5000,
+      "ari_jointly_assigned": 0.0041736612045724306,
+      "noise_status_agreement": 1.0,
+      "old_unassigned": 0,
+      "new_unassigned": 0
+    },
+    "leaf": {
+      "ari_including_noise": 0.05410493832198294,
+      "jointly_assigned_models": 1349,
+      "ari_jointly_assigned": 0.30333337960162304,
+      "noise_status_agreement": 0.5366,
+      "old_unassigned": 2696,
+      "new_unassigned": 2289
+    },
+    "eom": {
+      "ari_including_noise": 0.10129950694000948,
+      "jointly_assigned_models": 3669,
+      "ari_jointly_assigned": 0.15956756199242464,
+      "noise_status_agreement": 0.7338,
+      "old_unassigned": 0,
+      "new_unassigned": 1331
+    }
+  },
+  "seed_agreement": {
+    "leaf": {
+      "7": {
+        "ari_including_noise": 0.638119787113708,
+        "jointly_assigned_models": 2399,
+        "ari_jointly_assigned": 0.9587008437924002,
+        "noise_status_agreement": 0.8588,
+        "old_unassigned": 2289,
+        "new_unassigned": 2207
+      },
+      "123": {
+        "ari_including_noise": 0.6262010912923753,
+        "jointly_assigned_models": 2400,
+        "ari_jointly_assigned": 0.9465679906686844,
+        "noise_status_agreement": 0.8542,
+        "old_unassigned": 2289,
+        "new_unassigned": 2182
+      }
+    },
+    "eom": {
+      "7": {
+        "ari_including_noise": 0.7532642076501009,
+        "jointly_assigned_models": 3521,
+        "ari_jointly_assigned": 0.9895098053543457,
+        "noise_status_agreement": 0.9152,
+        "old_unassigned": 1331,
+        "new_unassigned": 1203
+      },
+      "123": {
+        "ari_including_noise": 0.7411486323804769,
+        "jointly_assigned_models": 3519,
+        "ari_jointly_assigned": 0.9908821717128906,
+        "noise_status_agreement": 0.9096,
+        "old_unassigned": 1331,
+        "new_unassigned": 1179
+      }
+    }
+  },
+  "cluster_sizes": {
+    "knn": {
+      "1": 3401,
+      "0": 1599
+    },
+    "leaf": {
+      "51": 185,
+      "-1": 2289,
+      "56": 103,
+      "41": 132,
+      "52": 31,
+      "28": 41,
+      "37": 87,
+      "24": 40,
+      "27": 30,
+      "21": 62,
+      "50": 16,
+      "32": 21,
+      "55": 25,
+      "42": 21,
+      "54": 49,
+      "49": 19,
+      "23": 51,
+      "44": 29,
+      "22": 41,
+      "9": 60,
+      "43": 50,
+      "30": 104,
+      "31": 50,
+      "46": 60,
+      "33": 65,
+      "2": 50,
+      "29": 59,
+      "45": 18,
+      "34": 50,
+      "38": 59,
+      "35": 28,
+      "47": 39,
+      "39": 28,
+      "40": 28,
+      "53": 49,
+      "48": 24,
+      "4": 66,
+      "14": 67,
+      "15": 35,
+      "8": 50,
+      "10": 33,
+      "6": 58,
+      "13": 34,
+      "0": 41,
+      "3": 19,
+      "7": 84,
+      "36": 18,
+      "5": 17,
+      "1": 83,
+      "11": 19,
+      "12": 31,
+      "26": 22,
+      "17": 41,
+      "16": 28,
+      "19": 25,
+      "25": 19,
+      "20": 87,
+      "18": 30
+    },
+    "eom": {
+      "39": 185,
+      "38": 253,
+      "30": 132,
+      "40": 31,
+      "15": 398,
+      "26": 87,
+      "-1": 1331,
+      "37": 16,
+      "21": 21,
+      "31": 21,
+      "36": 187,
+      "1": 585,
+      "18": 279,
+      "35": 19,
+      "33": 114,
+      "29": 76,
+      "19": 41,
+      "10": 60,
+      "32": 50,
+      "20": 50,
+      "34": 60,
+      "22": 65,
+      "3": 50,
+      "27": 93,
+      "23": 50,
+      "28": 59,
+      "24": 28,
+      "5": 66,
+      "13": 67,
+      "14": 35,
+      "9": 50,
+      "11": 33,
+      "7": 58,
+      "0": 41,
+      "4": 19,
+      "8": 84,
+      "25": 18,
+      "6": 17,
+      "2": 83,
+      "12": 19,
+      "17": 41,
+      "16": 28
+    }
+  }
+}

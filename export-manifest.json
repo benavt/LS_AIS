@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "project": "LS_AIS",
-  "input_manifest_sha256": "a867deb4aa83ed0a43f08abd7716b689317a5e97378ea7d3544d354d1f74adcc",
+  "input_manifest_sha256": "5969fb438940c63a9374981840e07227eb84b27685f36bb6e57e34684ea8b23d",
   "scientific_execution": false,
   "renderer": "saved",
-  "exporter_sha256": "d6d7cf715957e00ae59c4015176fe68dd87730ffbd23ae04232d6fa6ad76e1c8",
+  "exporter_sha256": "b5311927ed4bed88b61719919b8fb2b7e634ebbf48154c26354cf5a225dd418c",
   "files": [
     {
       "path": ".nojekyll",
@@ -15,6 +15,76 @@
       "path": "CDK2_DOC1/bonsai.json",
       "bytes": 14094189,
       "sha256": "92ceee67e6dd96efecf79dca9beea4ca8e2ddff6c02ef63e5838c4555d8738bf"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-comparison.json",
+      "bytes": 2602,
+      "sha256": "2e13b2adb32741a7837c34d055abab3d103cc4ece413d61f6fe6811afe531a7b"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-density.json",
+      "bytes": 373114,
+      "sha256": "130dc9150b7f294f64bbe8e05833d84874159abe385c8780c414b0ddf7510834"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-eom.json",
+      "bytes": 363451,
+      "sha256": "d57df60069e917aa44be346f520ea581468d2c1253989dc999b4a704f6af32f1"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-median.png",
+      "bytes": 322533,
+      "sha256": "dba5eae6108fe28833c96d16177e7566d9a90011773d147f556b571bf8325602"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-memberships.csv",
+      "bytes": 178380,
+      "sha256": "a4d25110c49fbd4053e469f9694c75fdfccc9696f4fe0e303ae7f370c618f68e"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-primary.json",
+      "bytes": 358709,
+      "sha256": "f300ba04f2f4bef37524d31029fa052a062614aaac998ad6d86cb53f4ec4add6"
+    },
+    {
+      "path": "CDK2_DOC1/core-afsample3-variance.png",
+      "bytes": 148516,
+      "sha256": "e3daba4922cbed6963c9160276c03bbb2bcc08eda2bdacddd01ab56c422f4cab"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-comparison.json",
+      "bytes": 4196,
+      "sha256": "b1453272ce866b268d705f0589ca487c832bdc0676130b0694a68a33f7286b62"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-density.json",
+      "bytes": 1890108,
+      "sha256": "2832fe4f106aa3982fbf2ac205996392b6158049fe6f48c2f31ec9e80604b307"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-eom.json",
+      "bytes": 1885805,
+      "sha256": "ac27dfc76a1b3093a75a6ea705a43664b83c92add07e6eb095721b168a1830be"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-median.png",
+      "bytes": 334694,
+      "sha256": "27caacb865b5c77115be2d425673b5f68c7756ac6c8d235b33d82775e451dcd1"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-memberships.csv",
+      "bytes": 1137665,
+      "sha256": "fe10c5c4e79dded4700fd44e2b60c79d5f899e9daa95893a1a0697e9e45ba265"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-primary.json",
+      "bytes": 1818792,
+      "sha256": "e76c9d0002faa063e592306146b3d286baddd45dcb2a3718ebfa4aecbbfa2782"
+    },
+    {
+      "path": "CDK2_DOC1/core-joint-variance.png",
+      "bytes": 191246,
+      "sha256": "14311b3dcec454293a546a3357efb7ed1f704b8c177d2603fefacf48139474fd"
     },
     {
       "path": "CDK2_DOC1/density.json",
@@ -44298,8 +44368,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 88843,
-      "sha256": "1e84fb52dee678702679ea43d0876380f330afc71c30999d5f3eecb4479f00f0"
+      "bytes": 89055,
+      "sha256": "08a0d6c426d5123ba0756122562be0f414ca2c7c71536c05e1291b3176a08f77"
     },
     {
       "path": "assets/3Dmol-min.js",
@@ -44328,13 +44398,13 @@
     },
     {
       "path": "clustering-residues.json",
-      "bytes": 51305,
-      "sha256": "258f9885d8cefa8030ee359b62d509afeabd523a648742c93c6d2e2824b82deb"
+      "bytes": 279374,
+      "sha256": "64166dedea364983285f7e3e21f23530a934396b870853baf4deb76a72fc5f2b"
     },
     {
       "path": "cohort_menu.js",
-      "bytes": 2432,
-      "sha256": "e91b6f250fd78930d99881b34820909d6ff9d848765b793265cf36bad092af9f"
+      "bytes": 3577,
+      "sha256": "f44080ed4b2ec0fd48b630b63bdef3eeabc4cd912dadaa0ee3491f30b1165a4a"
     },
     {
       "path": "downloads/CDK2_DOC1-dockq-vs-0865.csv.gz",
@@ -44468,8 +44538,8 @@
     },
     {
       "path": "residue-ranges.json",
-      "bytes": 5285,
-      "sha256": "46f410fffbaa3c4e4491dab19eedbca1a15f200bb71e26f53be7c25949f7b013"
+      "bytes": 18074,
+      "sha256": "decfed0cb287bcc8c6b707f7cc57525a6e1de1f6c1e2001a2bbf321638ddc39b"
     },
     {
       "path": "responsive.js",
@@ -44696,5 +44766,10 @@
       "bytes": 3,
       "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
     }
-  ]
+  ],
+  "core_release": {
+    "target": "CDK2_DOC1",
+    "baseline_commit": "bdba9c842e026f5ad664ac9676c399c048d14fb2",
+    "clustering_plan_sha256": "d786c1a2b7f949a34abe39c6e993f7555fefa9b054ce5cf94cec7922115a9548"
+  }
 }

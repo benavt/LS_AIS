@@ -1,0 +1,105 @@
+{
+  "model_count": 1000,
+  "residues": "CDK2 A1–298 + DOC1 B60–115",
+  "full_hdbscan_leaf": {
+    "assigned_clusters": 12,
+    "unassigned": 354
+  },
+  "trimmed_hdbscan_leaf": {
+    "assigned_clusters": 16,
+    "unassigned": 431
+  },
+  "fidelity": {
+    "comparison_pairs": 124750,
+    "relative_distance_error_median": 0.005661595964802164,
+    "relative_distance_error_p95": 0.01692523888108867,
+    "neighbor_recall_at_15_mean": 0.9718666666666668,
+    "neighbor_recall_at_15_p10": 0.9333333333333333,
+    "passed": true
+  },
+  "full_vs_core": {
+    "knn": {
+      "ari_including_noise": 0.18159655947290917,
+      "jointly_assigned_models": 1000,
+      "ari_jointly_assigned": 0.18159655947290917,
+      "noise_status_agreement": 1.0,
+      "old_unassigned": 0,
+      "new_unassigned": 0
+    },
+    "leaf": {
+      "ari_including_noise": 0.007129233742919058,
+      "jointly_assigned_models": 355,
+      "ari_jointly_assigned": 0.19321308284817798,
+      "noise_status_agreement": 0.495,
+      "old_unassigned": 354,
+      "new_unassigned": 431
+    }
+  },
+  "seed_agreement": {
+    "leaf": {
+      "7": {
+        "ari_including_noise": 0.5844968557223016,
+        "jointly_assigned_models": 467,
+        "ari_jointly_assigned": 0.9870944271463433,
+        "noise_status_agreement": 0.829,
+        "old_unassigned": 431,
+        "new_unassigned": 464
+      },
+      "123": {
+        "ari_including_noise": 0.6203812363154401,
+        "jointly_assigned_models": 469,
+        "ari_jointly_assigned": 0.9884229207568227,
+        "noise_status_agreement": 0.845,
+        "old_unassigned": 431,
+        "new_unassigned": 476
+      }
+    },
+    "eom": {
+      "7": {
+        "ari_including_noise": 0.9959859878595319,
+        "jointly_assigned_models": 1000,
+        "ari_jointly_assigned": 0.9959859878595319,
+        "noise_status_agreement": 1.0,
+        "old_unassigned": 0,
+        "new_unassigned": 0
+      },
+      "123": {
+        "ari_including_noise": 0.9959859878595319,
+        "jointly_assigned_models": 1000,
+        "ari_jointly_assigned": 0.9959859878595319,
+        "noise_status_agreement": 1.0,
+        "old_unassigned": 0,
+        "new_unassigned": 0
+      }
+    }
+  },
+  "cluster_sizes": {
+    "knn": {
+      "1": 625,
+      "0": 375
+    },
+    "leaf": {
+      "-1": 431,
+      "6": 39,
+      "1": 94,
+      "7": 24,
+      "3": 18,
+      "0": 54,
+      "5": 17,
+      "10": 76,
+      "14": 24,
+      "13": 20,
+      "4": 28,
+      "2": 29,
+      "8": 46,
+      "11": 40,
+      "9": 21,
+      "12": 21,
+      "15": 18
+    },
+    "eom": {
+      "0": 622,
+      "1": 378
+    }
+  }
+}
