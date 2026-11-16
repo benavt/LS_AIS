@@ -23,8 +23,8 @@
     },
     {
       "path": "CDK2_DOC1/collaborator-density.json",
-      "bytes": 440537,
-      "sha256": "971c82d800844cc97a1d9afe23c1e2397b4ce3d5c7494eb8898328e7fbf2adb3"
+      "bytes": 596625,
+      "sha256": "aa1465256fc3205b8a9d256b172df2cd712733cceb09036c02dd03813ca92b4d"
     },
     {
       "path": "CDK2_DOC1/collaborator-eom-bonsai.json",
@@ -33,8 +33,8 @@
     },
     {
       "path": "CDK2_DOC1/collaborator-eom.json",
-      "bytes": 468663,
-      "sha256": "218d5d311d477eba7942ef96d98045cfbb2bde4cafcf397986b509b2ad5022a2"
+      "bytes": 616300,
+      "sha256": "ba74bd2502bd832fbdd10496a0c787df5833531498ace1dee5499869b09363de"
     },
     {
       "path": "CDK2_DOC1/collaborator-memberships-and-scores.csv.gz",
@@ -48,8 +48,8 @@
     },
     {
       "path": "CDK2_DOC1/collaborator-primary.json",
-      "bytes": 424389,
-      "sha256": "5d84e1edfa4010433567cf94436a21761a08496c9e466cee78428951217cb029"
+      "bytes": 579588,
+      "sha256": "21b473f9046fcc5259a2747e7582f8542b6302a1b2b8aae281f6297553aaf3fe"
     },
     {
       "path": "CDK2_DOC1/collaborator-tm-density.csv",
@@ -83,8 +83,8 @@
     },
     {
       "path": "CDK2_DOC1/combined-density.json",
-      "bytes": 2950579,
-      "sha256": "19009349f2213ddfc3082b5321a222a6ff051fe4182bfba5d8a61d5c364a0245"
+      "bytes": 3733023,
+      "sha256": "9992241fefa1e8cc4c13bcca737905efb3864a0f6bba51de3f2ed009155cf86e"
     },
     {
       "path": "CDK2_DOC1/combined-eom-bonsai.json",
@@ -93,8 +93,8 @@
     },
     {
       "path": "CDK2_DOC1/combined-eom.json",
-      "bytes": 3085600,
-      "sha256": "186b02768004b2923e14d898130d23568ed970fcb6ea49e0e21838583ab6aa22"
+      "bytes": 3822194,
+      "sha256": "8e86cd7af0e2db0b3ddf5042c942afd1c5de6fc08552fe61820c7e8102d3d596"
     },
     {
       "path": "CDK2_DOC1/combined-memberships-and-scores.csv.gz",
@@ -108,8 +108,8 @@
     },
     {
       "path": "CDK2_DOC1/combined-primary.json",
-      "bytes": 2816753,
-      "sha256": "558b7ed74de17b02ed6aaacad7bc599f08c6fccd47f2091f2a903a9ab29f55af"
+      "bytes": 3593152,
+      "sha256": "c1900c7c4293c83848cd6ded9094ce95ca9fb077cd0154b105b4ebc1f3333a8f"
     },
     {
       "path": "CDK2_DOC1/combined-tm-density.csv",
@@ -178,13 +178,13 @@
     },
     {
       "path": "CDK2_DOC1/core-combined-density.json",
-      "bytes": 2788842,
-      "sha256": "7f1bfc093f4b0302a88036625c55fa5ee8df4235b2ec2caac97ef33088685461"
+      "bytes": 3616284,
+      "sha256": "52010468452d8e72eb69de066c17d99f64333998afdb65007118647d99b5e25a"
     },
     {
       "path": "CDK2_DOC1/core-combined-eom.json",
-      "bytes": 2788802,
-      "sha256": "141f05e5575b1abdda16b9f2790513ded2842e49f4e207c394e6e07c0b16e873"
+      "bytes": 3610992,
+      "sha256": "46a134ff7e62a7173b2833c787cabca6107ad24c10b6fa503870ab91b2c3bb7a"
     },
     {
       "path": "CDK2_DOC1/core-combined-median.png",
@@ -198,8 +198,8 @@
     },
     {
       "path": "CDK2_DOC1/core-combined-primary.json",
-      "bytes": 2693356,
-      "sha256": "d8860942ffff099b956c3311f2181681980b5f15823e795fdb534a6386bcff12"
+      "bytes": 3506507,
+      "sha256": "7ee46d472e45904b529530bdc8fa99faa9b501af2bfc19ccb72442e4183c0fc7"
     },
     {
       "path": "CDK2_DOC1/core-combined-variance.png",
@@ -5838,8 +5838,8 @@
     },
     {
       "path": "CDK2_DOC1R/all-density.json",
-      "bytes": 1719011,
-      "sha256": "44eaa9684202a35cfcc41d6b651a230d9d7edcd6c3c95b67b1e9baba40ed6e2f"
+      "bytes": 2309805,
+      "sha256": "e4d50bebd14898b7a9be7fb83386f4dc1c898df80622e6ecc0b8d0c3fb06488a"
     },
     {
       "path": "CDK2_DOC1R/all-eom-bonsai.json",
@@ -5848,8 +5848,8 @@
     },
     {
       "path": "CDK2_DOC1R/all-eom.json",
-      "bytes": 1831990,
-      "sha256": "6abdb9bcfc391581169e987423ac8c021326d4117160756d014291f06ad2d9cb"
+      "bytes": 2392240,
+      "sha256": "c9922397bd3c5b6d8756c72269c81193bfd661310097928569325249a45bc4f9"
     },
     {
       "path": "CDK2_DOC1R/all-memberships-and-scores.csv.gz",
@@ -5863,8 +5863,8 @@
     },
     {
       "path": "CDK2_DOC1R/all-primary.json",
-      "bytes": 1660782,
-      "sha256": "ad85f8bf87ade0f5b68a6bdf28501366da8008afa09d20f8138b397caa684f88"
+      "bytes": 2248120,
+      "sha256": "d5aa07fc14b94198472afc2b743ab1c3ff21cb5b543913245279f6b28eaaac99"
     },
     {
       "path": "CDK2_DOC1R/all-tm-density.csv",
@@ -11588,8 +11588,8 @@
     },
     {
       "path": "CDK2_MONOMER/all-density.json",
-      "bytes": 143684,
-      "sha256": "2693b3094e881d6436b12c9b21a1f74b12c768034bbd4af86be15e1964f74271"
+      "bytes": 190116,
+      "sha256": "252acc1aad936f0a640d551ccd1b534fef3acef0f15b1a32f547ef11bc3340f7"
     },
     {
       "path": "CDK2_MONOMER/all-eom-bonsai.json",
@@ -11598,8 +11598,8 @@
     },
     {
       "path": "CDK2_MONOMER/all-eom.json",
-      "bytes": 152428,
-      "sha256": "4327734b18c19681e248aedd2ef528a272815c97ead70b268d79c27d71f945e7"
+      "bytes": 196300,
+      "sha256": "aeec82d11fb5b0d11749f02262663c415659a476c077dcd9009887a53fd7f130"
     },
     {
       "path": "CDK2_MONOMER/all-memberships-and-scores.csv.gz",
@@ -11613,8 +11613,8 @@
     },
     {
       "path": "CDK2_MONOMER/all-primary.json",
-      "bytes": 138525,
-      "sha256": "80f9a6c5445245aa11bd00daaa8ad999cbd5f63f8c8c82dc337f11c27c444948"
+      "bytes": 184697,
+      "sha256": "2683fdd1e6c6b12941f89c8244500aa8c3cc88022f8d7dbd74a86e6f6f96d548"
     },
     {
       "path": "CDK2_MONOMER/all-tm-density.csv",
@@ -44643,8 +44643,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 94834,
-      "sha256": "a5912fd53e4f039f28ad1503fdfa59b9725a3f7df54f8a22a79f9a85ffc81c67"
+      "bytes": 95704,
+      "sha256": "aba186219f4069494396681a842fe9add9f6691c20e040f89c96d3cc7529e5a4"
     },
     {
       "path": "assets/3Dmol-min.js",
@@ -44814,7 +44814,7 @@
     {
       "path": "residue-ranges.json",
       "bytes": 25124,
-      "sha256": "148480ee0ee87bb6d788901e507a44a8f3d34b11a69fc08cf5c408f54f7528f3"
+      "sha256": "80f921e90c19c3b73e830ba6d6add8c895398a120b239bac8dd86cd8b38f1838"
     },
     {
       "path": "responsive.js",
@@ -45059,5 +45059,17 @@
     "fit_plan_sha256": "f4e92c26f948c6cf4cde17a2e05a89576c436813def14cce60ff518adb09cb6a",
     "fit_receipt_sha256": "b342e7723340172bc52aa55966281da711880ad7d730021c70202b14cc84b1df",
     "coordinates_in_new_assets": false
+  },
+  "coordinate_access_release": {
+    "affected_views": 15,
+    "coordinate_repository": "benavt/LS_AIS_COORDINATES",
+    "coordinate_commit": "b13efd10b9a3b8752a8def835256b5947ea94e5e",
+    "coordinate_package_manifest_sha256": "6cdb816a56e2ab6badf01f143450480d634662db45eb32a1a0cf2b652ff920ee",
+    "reviewed_scope_sha256": "03dea4a4efa836be28d3853aea04565a3e87bdb3f1d4abb5fb3199c37ee9c0fa",
+    "scientific_execution": false,
+    "models": {
+      "collaborator": 4629,
+      "existing": 3954
+    }
   }
 }

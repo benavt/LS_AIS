@@ -486,12 +486,18 @@ function pointModelDescriptor(current,index){
 }
 function representativeDownloadLinks(cluster){
  const extension=cluster.file?.endsWith('.pdb.gz')?'pdb.gz':cluster.file?.endsWith('.cif.gz')?'cif.gz':cluster.file?.split('.').at(-1)?.toLowerCase(),format=extension==='pdb.gz'?'PDB.gz':extension==='cif.gz'?'CIF.gz':extension==='mmcif'?'CIF':extension?.toUpperCase();
- const model=cluster.file?'<a download href="'+escapeText(cluster.file)+'" aria-label="Download '+escapeText(cluster.cluster)+' representative '+escapeText(format||'model')+'">Representative '+escapeText(format||'model')+'</a>':'';
+ const model=cluster.file?'<a download href="'+escapeText(atlasModelAssetURL(cluster.file))+'" aria-label="Download '+escapeText(cluster.cluster)+' representative '+escapeText(format||'model')+'">Representative '+escapeText(format||'model')+'</a>':'';
  return model+(cluster.ensemble_file?' · <a download href="'+escapeText(cluster.ensemble_file)+'">Ensemble PDB</a>':'')+(cluster.ensemble_pse?' · <a download href="'+escapeText(cluster.ensemble_pse)+'">Ensemble PSE</a>':'');
+}
+function atlasModelAssetURL(file,current=data){
+ const commit=current?.model_release?.public_asset_commit;
+ if(!commit||!file?.startsWith('coordinate-assets/'))return file;
+ if(!/^[a-f0-9]{40}$/.test(commit)||!/^coordinate-assets\/(?:CDK2_DOC1|CDK2_DOC1R|CDK2_MONOMER)\/[a-f0-9]{2}\/[a-f0-9]{64}\.(?:cif|pdb)\.gz$/.test(file))throw Error('Invalid released coordinate descriptor.');
+ return 'https://raw.githubusercontent.com/benavt/LS_AIS_COORDINATES/'+commit+'/'+file;
 }
 async function savedCoordinate(descriptor){
  if(descriptor.coordinate_text)return descriptor.coordinate_text;
- const display=descriptor.display_file||descriptor.file;const response=await fetch(display,{cache:'no-cache',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('HTTP '+response.status);
+ const display=descriptor.display_file||descriptor.file;const response=await fetch(atlasModelAssetURL(display),{cache:'no-cache',signal:AbortSignal.timeout(data?.model_release?30000:15000)});if(!response.ok)throw Error('HTTP '+response.status);
  let bytes=new Uint8Array(await response.arrayBuffer());
  if(display.endsWith('.pdb.gz')||display.endsWith('.cif.gz')){
   if(typeof DecompressionStream==='undefined')throw Error('This browser cannot decompress saved coordinate files.');
@@ -504,7 +510,7 @@ async function savedCoordinate(descriptor){
  const text=new TextDecoder().decode(bytes);descriptor.coordinate_text=text;return text;
 }
 function privatePointMeta(current,index){
- if(!current.coordinates_private)return '';
+ if(!current.coordinates_private&&!current.model_release)return '';
  const fields=[];
  const state=current.schemes.find(row=>row.key==='structural_state')?.values?.[index];
  if(state)fields.push('Structural state: '+state);
@@ -543,7 +549,7 @@ async function choose(label,modelIndex=null){
  if(structureViewAnchor&&viewer._aisDescriptor)structureViewAnchor.activeCamera=structureCamera();
  const serial=++loadSerial;
  if(!cluster){clearStructure(label+' · no representative',isUnassignedCluster(label)?'These models were left unassigned by HDBSCAN. Select an individual plotted point to inspect its exact model.':'No saved representative is available for this group.');return}
- if(!exact&&!cluster.coordinate_text&&!cluster.file){clearStructure(label+' · representative unavailable',current.core_results?'No coordinate from this trimmed cluster was already published. Memberships are available in the CSV.':'Fine-cluster representatives were not exported for this saved range. Use the saved TM-state ensemble PDB/PSE downloads.');return;}
+ if(!exact&&!cluster.coordinate_text&&!cluster.file){clearStructure(label+' · representative unavailable',current.core_results?'No coordinate is available for this cluster summary. Memberships are available in the CSV.':'Fine-cluster representatives were not exported for this saved range. Use the saved TM-state ensemble PDB/PSE downloads.');return;}
  selectedModelIndex=exact?modelIndex:null;
  if(exact)$('modelMode').value='medoid';
  const representativeOption=Array.from($('modelMode').options||[]).find(row=>row.value==='medoid');if(representativeOption)representativeOption.textContent=exact?'Selected point model':'Representative';
@@ -562,8 +568,8 @@ async function choose(label,modelIndex=null){
  alignStructureToSetView();styleSavedStructure(viewer,cluster.color,ensemble ? .62 : 1);frameSelectedStructure();viewer.spin(spinning);configureEnsembleDownloads(cluster);
  notifyInspectedStructure();
  $('modelTitle').textContent=exact?cluster.model+' · exact selected model':label+' · '+(ensemble?(data.ensemble_kind||'comparison ensemble'):(current.representative_kind||'structural representative'));
- $('modelInfo').textContent=`${cluster.model} · ${cluster.method} · ${label} · ${cluster.count.toLocaleString()} ${cluster.count===1?'model':'models'} in cluster (${population(cluster.count)})${Number.isFinite(referenceSimilarity(cluster))?' · TM (5–95): '+referenceSimilarity(cluster).toFixed(3):''}`;
- if(modelDownloadURL)URL.revokeObjectURL(modelDownloadURL);modelDownloadURL=URL.createObjectURL(new Blob([coordinate],{type:'text/plain'}));$('structure').hidden=false;$('structure').href=cluster.file;$('structure').download=cluster.file.split('/').pop();
+ $('modelInfo').textContent=`${cluster.model} · ${cluster.method} · ${label} · ${cluster.count.toLocaleString()} ${cluster.count===1?'model':'models'} in cluster (${population(cluster.count)})${Number.isFinite(referenceSimilarity(cluster))?' · TM (5–95): '+referenceSimilarity(cluster).toFixed(3):''}`;if(current.model_release){const i=current.models.indexOf(cluster.model);const status=current.native_physicality_status?.[i];if(status&&status!=='not_assessed')$('modelInfo').textContent+=' · Native physicality: '+status;}
+ if(modelDownloadURL)URL.revokeObjectURL(modelDownloadURL);modelDownloadURL=URL.createObjectURL(new Blob([coordinate],{type:'text/plain'}));$('structure').hidden=false;$('structure').href=current.model_release?modelDownloadURL:cluster.file;$('structure').download=current.model_release?(cluster.model+'.'+cluster.format):cluster.file.split('/').pop();
  if(ensembleDownloadURL)URL.revokeObjectURL(ensembleDownloadURL);$('ensemblePdb').hidden=!cluster.ensemble_file;if(cluster.ensemble_file)$('ensemblePdb').href=cluster.ensemble_file;$('ensemblePse').hidden=!cluster.ensemble_pse;
  if(cluster.ensemble_text){ensembleDownloadURL=URL.createObjectURL(new Blob([cluster.ensemble_text],{type:'text/plain'}));$('ensemblePdb').href=cluster.ensemble_file;$('ensemblePdb').download=cluster.ensemble_file.split('/').pop()}if(cluster.ensemble_pse)$('ensemblePse').href=cluster.ensemble_pse;
  for(const method of ['pca','umap','tsne']){
