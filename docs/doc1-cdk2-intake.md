@@ -18,17 +18,17 @@ It remains in the extraction manifest and has an explicit frozen exclusion in
 the target configuration. No other model was silently dropped, and no accepted
 model duplicates another native byte hash within its target.
 
-The accepted private roster SHA-256 values on Mimas are
+The accepted private roster SHA-256 values on the HPC cluster are
 `18115945560c439cecba3c58bc317a3ac5137594746fbaeb9e9d65d963be1bbc`
 for DOC1R and
 `80ad44512e91a49bf52996ef4b00c46e73ce080f9353741904ca6b9ae3330682`
 for DOC1. Every accepted file has exactly one model, complete A/B/C chain
 numbering, the target's frozen chain sequence hashes, and finite Cα coordinates.
-Private full sequences and original coordinates remain on Mimas.
+Private full sequences and original coordinates remain on the HPC cluster.
 
 The approved full-construct Cα geometry plan
 (`4a414103f270b2cef731294fc20206e64a3623baebe81adceeb661de53d23764`)
-has finished on Mimas. DOC1R has 150,975 pair distances per accepted model;
+has finished on the HPC cluster. DOC1R has 150,975 pair distances per accepted model;
 its validated receipt SHA-256 is
 `3d6f284bee585eed54d8fda8cfc3d08b0be76556213db3004b36e495f733b140`,
 and the complete distance matrix SHA-256 is
@@ -67,7 +67,7 @@ passed. This validates sampled fidelity only.
 
 The full-cohort geometry clustering plan
 (`76024b0e0cff251ca7b6cc2dfb309e26fa1d92192d860df2dcc7eb33ff99bc6c`)
-was explicitly approved and completed on Mimas as monitored Slurm array 26011.
+was explicitly approved and completed on the HPC cluster as monitored Slurm array 26011.
 It ran one target at a time, fitting a 2-D UMAP KNN partition and 10-D
 HDBSCAN leaf/EOM partitions at seeds 42, 7, and 123 from the validated
 4,096-dimensional all-pair sketch. It excludes ProteinEBM energies. Each task

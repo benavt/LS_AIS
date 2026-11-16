@@ -312,7 +312,7 @@ def delivery(plan,np,rows):
     require(sum(r['bytes'] for r in files.values())<=20*2**30,'Delivery storage budget exceeded')
     save(output/'delivery-manifest.json',{'status':'accepted_private_scientific_delivery','models':4006,'residues':234,
          'files':files,'private_source_evidence_sha256':source_hashes,'publication_held':True,
-         'scope':'Accepted scientific supplements only;Pax atlas assembly/browser review and Zenodo package remain pending'})
+         'scope':'Accepted scientific supplements only;workstation atlas assembly/browser review and Zenodo package remain pending'})
     save(root/'X0-acceptance.json',{'status':'validated','manifest_sha256':sha(output/'delivery-manifest.json'),
          'files':len(files),'bytes':sum(r['bytes'] for r in files.values()),'publication_held':True})
 

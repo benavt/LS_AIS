@@ -179,7 +179,7 @@
   ],
   "publication_held": true,
   "checked_at_UTC": "2026-11-10T22:54:59.045320+00:00",
-  "submissions": "config/mimas-submissions.json",
+  "submissions": "config/hpc-submissions.json",
   "current_stage": "Complete private atlas reviewed",
   "GPU_tasks_submitted": 41,
   "GPU_task_allocations_completed": 41,

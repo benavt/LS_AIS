@@ -1,6 +1,6 @@
 """Hash-bound, one-model-per-target ProteinEBM Model 6 compatibility pilot.
 
-The full construct sequence and coordinate files remain on Mimas. This runner
+The full construct sequence and coordinate files remain on the HPC cluster. This runner
 does not publish, rank, or cluster the cohort; it measures finite native scores,
 GPU memory, and wall time before production resources are selected.
 """

@@ -1,7 +1,7 @@
 """Score accepted DOC1/CDK2 three-chain cohorts with frozen ProteinEBM Model 6.
 
 Each Slurm array task owns one disjoint source-roster interval. Native coordinates
-and complete construct sequences stay on Mimas. The output is a hash-joined
+and complete construct sequences stay on the HPC cluster. The output is a hash-joined
 scientific score grid, not an atlas export or publication.
 """
 

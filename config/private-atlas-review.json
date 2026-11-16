@@ -48,7 +48,7 @@
   },
   "limitations": [
     "Fixed-budget sampling diagnostics do not establish convergence.",
-    "Preview requires existing authorized Tailscale access and an online host; expiry is recorded locally.",
+    "Preview requires existing authorized VPN access and an online host; expiry is recorded locally.",
     "Public publication and data license remain separate."
   ],
   "prior_export_manifest_sha256": "4fa7140a78fa5227af37f476152b62a188d95543b9f1072789dc65c4bba462c9",
