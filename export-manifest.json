@@ -172,6 +172,41 @@
       "sha256": "e3daba4922cbed6963c9160276c03bbb2bcc08eda2bdacddd01ab56c422f4cab"
     },
     {
+      "path": "CDK2_DOC1/core-combined-comparison.json",
+      "bytes": 3006,
+      "sha256": "9a24c4200f582cc9381da381166a505e5661dc8f8e9ec456d1a1abb9a03e20ce"
+    },
+    {
+      "path": "CDK2_DOC1/core-combined-density.json",
+      "bytes": 2788842,
+      "sha256": "7f1bfc093f4b0302a88036625c55fa5ee8df4235b2ec2caac97ef33088685461"
+    },
+    {
+      "path": "CDK2_DOC1/core-combined-eom.json",
+      "bytes": 2788802,
+      "sha256": "141f05e5575b1abdda16b9f2790513ded2842e49f4e207c394e6e07c0b16e873"
+    },
+    {
+      "path": "CDK2_DOC1/core-combined-median.png",
+      "bytes": 236564,
+      "sha256": "f80d588b96493b9f297ca678e3d5ec209db4b6f5e659cac5b525981d1387f9cf"
+    },
+    {
+      "path": "CDK2_DOC1/core-combined-memberships.csv.gz",
+      "bytes": 321285,
+      "sha256": "56e5aef19e9c3253b5b6c1d2ea8d7804cbf5317e3dcc6357d6d0b30bb4c5fadc"
+    },
+    {
+      "path": "CDK2_DOC1/core-combined-primary.json",
+      "bytes": 2693356,
+      "sha256": "d8860942ffff099b956c3311f2181681980b5f15823e795fdb534a6386bcff12"
+    },
+    {
+      "path": "CDK2_DOC1/core-combined-variance.png",
+      "bytes": 125451,
+      "sha256": "02fa172d46f947929dfcd07a38967c9b7032d37b8f135f6a61d585c67805f3f8"
+    },
+    {
       "path": "CDK2_DOC1/core-joint-comparison.json",
       "bytes": 4196,
       "sha256": "b1453272ce866b268d705f0589ca487c832bdc0676130b0694a68a33f7286b62"
@@ -44608,8 +44643,8 @@
     },
     {
       "path": "app.js",
-      "bytes": 94736,
-      "sha256": "8b9108fad440a32c244a7133da985c85652038d9be435421c7c79d9e43abb17d"
+      "bytes": 94834,
+      "sha256": "a5912fd53e4f039f28ad1503fdfa59b9725a3f7df54f8a22a79f9a85ffc81c67"
     },
     {
       "path": "assets/3Dmol-min.js",
@@ -44638,13 +44673,13 @@
     },
     {
       "path": "clustering-residues.json",
-      "bytes": 383944,
-      "sha256": "5830c1f54a7307ea57310b986627f998e01636b00f0b65e32506e807ddb91391"
+      "bytes": 408319,
+      "sha256": "cb97f2ff352a9471f7ddb65a7ce8fbbe880e89314efcf0698a81c95bf223d593"
     },
     {
       "path": "cohort_menu.js",
-      "bytes": 4178,
-      "sha256": "1bd0bdcf589f89fae5cb7d9f7ce0897c94caf148b22a80cbca492b8bf68e19e0"
+      "bytes": 4325,
+      "sha256": "e979dac34d1424a821c111812b194bfe9031017eeb24591f21005d34b9e4bc5f"
     },
     {
       "path": "downloads/CDK2_DOC1-dockq-vs-0865.csv.gz",
@@ -44778,8 +44813,8 @@
     },
     {
       "path": "residue-ranges.json",
-      "bytes": 23723,
-      "sha256": "54aa8dd89cacdadc550efb1f90dbdcdd90bc7df82dc022f82f733cafc41a8ede"
+      "bytes": 25124,
+      "sha256": "148480ee0ee87bb6d788901e507a44a8f3d34b11a69fc08cf5c408f54f7528f3"
     },
     {
       "path": "responsive.js",
@@ -45015,6 +45050,14 @@
   "collaborator_release": {
     "baseline_commit": "97072d8beb77f8c9c9895372cd72cd21f9e8a6b2",
     "preview_manifest_sha256": "3e9c02017fd7eeb84da796a32b9912856e45533ddaf056515ee9973f14c16931",
+    "coordinates_in_new_assets": false
+  },
+  "combined_trimmed_release": {
+    "baseline_commit": "34d0c8c0adc7b95127411db692fda3411a6e6e94",
+    "models": 5910,
+    "residue_scope": "A1-298+B60-115",
+    "fit_plan_sha256": "f4e92c26f948c6cf4cde17a2e05a89576c436813def14cce60ff518adb09cb6a",
+    "fit_receipt_sha256": "b342e7723340172bc52aa55966281da711880ad7d730021c70202b14cc84b1df",
     "coordinates_in_new_assets": false
   }
 }

@@ -533,7 +533,7 @@ function choosePrivateMetadata(label,modelIndex=null){
    const xy=current.projections[method]?.xy?.[index];
    if(Array.isArray(xy)&&xy.every(Number.isFinite))AtlasResponsive.relayout($(method),{annotations:[{x:xy[0],y:xy[1],text:name,showarrow:true,arrowhead:2,ax:25,ay:-30,font:{size:11,color:'#153f4d'},bgcolor:'#ffffffdd'}]});
   }
- }else $('modelInfo').textContent='No assigned representative; collaborator coordinates are private.';
+ }else $('modelInfo').textContent=current.representative_kind==='cluster_summary'?'Select a plotted model to inspect its metadata.':'No assigned representative; collaborator coordinates are private.';
 }
 async function choose(label,modelIndex=null){
  const current=data;

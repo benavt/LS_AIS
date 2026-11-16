@@ -735,6 +735,43 @@
               "asset_root": ""
             }
           ]
+        },
+        {
+          "id": "core-combined",
+          "name": "Trimmed · A1–298 + B60–115",
+          "available": true,
+          "data": "CDK2_DOC1/core-combined-density.json",
+          "default_view": "density",
+          "asset_root": "",
+          "views": [
+            {
+              "id": "primary",
+              "name": "UMAP KNN",
+              "available": true,
+              "data": "CDK2_DOC1/core-combined-primary.json",
+              "source_view_id": "primary",
+              "asset_root": "",
+              "source_data_sha256": "d8860942ffff099b956c3311f2181681980b5f15823e795fdb534a6386bcff12"
+            },
+            {
+              "id": "density",
+              "name": "HDBSCAN leaf",
+              "available": true,
+              "data": "CDK2_DOC1/core-combined-density.json",
+              "source_view_id": "density",
+              "asset_root": "",
+              "source_data_sha256": "7f1bfc093f4b0302a88036625c55fa5ee8df4235b2ec2caac97ef33088685461"
+            },
+            {
+              "id": "eom",
+              "name": "HDBSCAN EOM · diagnostic",
+              "available": true,
+              "data": "CDK2_DOC1/core-combined-eom.json",
+              "source_view_id": "eom",
+              "asset_root": "",
+              "source_data_sha256": "141f05e5575b1abdda16b9f2790513ded2842e49f4e207c394e6e07c0b16e873"
+            }
+          ]
         }
       ]
     },

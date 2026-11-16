@@ -3,11 +3,11 @@
                     'CDK2_DOC1t': 'CDK2–DOC1t monomer',
                     'CDK2_DOC1R': 'CDK2–DOC1R monomer',
                     'CDK2_MONOMER': 'CDK2 monomer'};
-  const cohort = range => ['collaborator', 'combined'].includes(range) ? range :
+  const cohort = range => ['combined', 'core-combined'].includes(range) ? 'combined' : range === 'collaborator' ? range :
     ['joint', 'core-joint'].includes(range) ? 'joint' : 'afsample3';
   const single = {CDK2_DOC1R: 'Collaborator AF3 · 3,435 models', CDK2_MONOMER: 'Collaborator AF3 · 284 models'};
-  const trimmed = range => ['core-afsample3', 'core-joint'].includes(range);
-  const full = range => ['all', 'joint'].includes(range);
+  const trimmed = range => ['core-afsample3', 'core-joint', 'core-combined'].includes(range);
+  const full = range => ['all', 'joint', 'combined', 'collaborator'].includes(range);
   function menu() {
     let label = document.getElementById('cohortViewLabel');
     if (label) return label;
@@ -71,7 +71,7 @@
       document.getElementById('residueRangeNote').after(note);
     }
     note.replaceChildren();
-    note.hidden = target !== 'CDK2_DOC1' || !!current.coordinates_private;
+    note.hidden = target !== 'CDK2_DOC1' || (!!current.coordinates_private && !current.core_results && currentRange.id !== 'combined');
     if (!note.hidden && current.core_results) {
       const a = document.createElement('a');
       a.href = current.core_results.comparison;

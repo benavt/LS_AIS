@@ -1,0 +1,109 @@
+{
+  "models": 5910,
+  "collaborator_models": 910,
+  "retained_residues": "CDK2 A1–298 + DOC1 B60–115",
+  "counts": {
+    "knn": {
+      "full": {
+        "assigned_clusters": 3,
+        "unassigned": 0
+      },
+      "trimmed": {
+        "assigned_clusters": 4,
+        "unassigned": 0
+      }
+    },
+    "leaf": {
+      "full": {
+        "assigned_clusters": 64,
+        "unassigned": 2988
+      },
+      "trimmed": {
+        "assigned_clusters": 64,
+        "unassigned": 2695
+      }
+    },
+    "eom": {
+      "full": {
+        "assigned_clusters": 24,
+        "unassigned": 709
+      },
+      "trimmed": {
+        "assigned_clusters": 41,
+        "unassigned": 1198
+      }
+    }
+  },
+  "fidelity": {
+    "comparison_pairs": 124750,
+    "relative_distance_error_median": 0.0046298790601614626,
+    "relative_distance_error_p95": 0.016824910900501863,
+    "neighbor_recall_at_15_mean": 0.9774666666666667,
+    "neighbor_recall_at_15_p10": 0.9333333333333333,
+    "passed": true
+  },
+  "full_vs_core": {
+    "knn": {
+      "ari_including_noise": 0.3549855694477037,
+      "jointly_assigned_models": 5910,
+      "ari_jointly_assigned": 0.3549855694477037,
+      "noise_status_agreement": 1.0,
+      "old_unassigned": 0,
+      "new_unassigned": 0
+    },
+    "leaf": {
+      "ari_including_noise": 0.029737341371104245,
+      "jointly_assigned_models": 1651,
+      "ari_jointly_assigned": 0.26664682826893044,
+      "noise_status_agreement": 0.5203045685279187,
+      "old_unassigned": 2988,
+      "new_unassigned": 2695
+    },
+    "eom": {
+      "ari_including_noise": 0.09494299532725692,
+      "jointly_assigned_models": 4020,
+      "ari_jointly_assigned": 0.07156453130353212,
+      "noise_status_agreement": 0.6830795262267344,
+      "old_unassigned": 709,
+      "new_unassigned": 1198
+    }
+  },
+  "seed_agreement": {
+    "leaf": {
+      "7": {
+        "ari_including_noise": 0.6379061394205822,
+        "jointly_assigned_models": 2801,
+        "ari_jointly_assigned": 0.9573077749335396,
+        "noise_status_agreement": 0.8582064297800338,
+        "old_unassigned": 2695,
+        "new_unassigned": 2685
+      },
+      "123": {
+        "ari_including_noise": 0.6364273818496297,
+        "jointly_assigned_models": 2823,
+        "ari_jointly_assigned": 0.9758219627624773,
+        "noise_status_agreement": 0.8575296108291032,
+        "old_unassigned": 2695,
+        "new_unassigned": 2637
+      }
+    },
+    "eom": {
+      "7": {
+        "ari_including_noise": 0.8368468847192246,
+        "jointly_assigned_models": 4476,
+        "ari_jointly_assigned": 0.9946699161939707,
+        "noise_status_agreement": 0.9357021996615905,
+        "old_unassigned": 1198,
+        "new_unassigned": 1290
+      },
+      "123": {
+        "ari_including_noise": 0.8200033048639818,
+        "jointly_assigned_models": 4527,
+        "ari_jointly_assigned": 0.9911426629954867,
+        "noise_status_agreement": 0.927072758037225,
+        "old_unassigned": 1198,
+        "new_unassigned": 1137
+      }
+    }
+  }
+}
