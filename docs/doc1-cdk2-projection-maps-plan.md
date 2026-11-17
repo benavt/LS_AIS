@@ -4,11 +4,11 @@ The private DOC1/CDK2 preview currently has accepted full-cohort UMAP and
 geometry-only cluster memberships. PCA, t-SNE, median Cα distance maps, and
 Cα distance variance maps are absent from the accepted run inventory.
 
-The frozen Mimas plan SHA-256 is
+The frozen HPC plan SHA-256 is
 `8f2b26e94195a55327cbd3d5d3d341352019eb5cdebe06f3172c6ad4fe78360d`.
 It is staged privately with exact input paths, receipt hashes, code hash,
 settings, output contract, and resource limits.
-The user approved this exact plan, and Mimas array job `26061` was submitted
+The user approved this exact plan, and HPC array job `26061` was submitted
 with one target running at a time. Acceptance requires a validated receipt for
 each target before any new plot or map is displayed.
 

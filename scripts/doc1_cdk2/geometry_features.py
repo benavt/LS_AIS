@@ -2,7 +2,7 @@
 
 The condensed pair ordering is scipy.spatial.distance.pdist order. All accepted
 models and all residues are retained; no terminal trim or feature subsample is
-applied. Original structures stay on Mimas.
+applied. Original structures stay on the HPC cluster.
 """
 
 import argparse

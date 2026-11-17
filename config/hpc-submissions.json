@@ -188,7 +188,7 @@
   "publication_held": true,
   "CPU_repairs": [
     "P2 job25679 stopped on an initial-versus-final receipt bug;job25683 reused frozen inputs and passed",
-    "R0 completes missing native Bonsai HDF/export dependencies offline at the accepted Pax versions,in a new runtime after E5",
+    "R0 completes missing native Bonsai HDF/export dependencies offline at the accepted workstation versions,in a new runtime after E5",
     "R0 dependency closure repaired and launcher helper restored;fresh 57-package runtime passed native fixtures and both finished resource checks as job25885;all scientific settings and 37 prior package pins retained",
     "Sampling50 serialization repaired using the unchanged pinned five-member helper in blocks;40,000 saved transitions and20 exact controls reused;remaining200,000 proposals retain original seeds",
     "X0 delivery now validates NumPy format and scans headers/string values with pinned privacy rules;numeric array bytes and all scientific outputs preserved"

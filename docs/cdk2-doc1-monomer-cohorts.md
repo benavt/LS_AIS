@@ -22,7 +22,7 @@ flagged frames as validated native structures.
 ## Joint 5,000-model successor
 
 The user selected AFsample2/3 + BioEMU2 after the inventory found no verified
-1:1 AFsample1 cohort. The joint fit is recorded under Mimas run
+1:1 AFsample1 cohort. The joint fit is recorded under HPC run
 `2026-11-13_cdk2-doc1-monomer-joint-full-clustering_001`, exact plan SHA-256
 `7b824af271fe9b31e4aa0cba4559e447d2f405a7b53e00096f49980f46b0377c`.
 Both targets have 5,000 unique models: 1,000 each from AFsample2 weights v1,
@@ -74,7 +74,7 @@ for `CDK2_DOC1t`: 240,000 proposals, 120 exact controls, and 600 saved
 coordinate instances across six conditions.
 
 The geometry, projection, UMAP KNN/HDBSCAN, Bonsai, and representative TM
-plans were approved and accepted on Mimas. The earlier private bundle has
+plans were approved and accepted on the HPC cluster. The earlier private bundle has
 manifest SHA-256 `06f87aeb65bb7b4c06b120fd7ff4b2cac374394182481815386fe4a0c5d167ba`
 and predates accepted DOC1t states and sampling. The complete successor shows
 PCA, UMAP and t-SNE, ProteinEBM color and downloads, separate
@@ -106,7 +106,7 @@ scientific input to the separate joint 5,000-model view; it is not an extra menu
 The privacy-checked static export at
 `local/previews/2026-11-13_joint_5000_private_006/site` has export-manifest
 SHA-256 `4dd3ee42c62b46f3416270af3d8a3012c1582fc8d794a802b94ebea2a797a487`.
-The live private Tailscale preview is available through 12:45 PM ET on
+The live private VPN preview is available through 12:45 PM ET on
 2026-11-13. Browser QA covered both direct target links, all three saved
 clustering views, the cohort dropdown, ProteinEBM and DockQ colors, supported
 state and MCMC50/DISCO50 controls, representative structure CPU/SVG rendering,

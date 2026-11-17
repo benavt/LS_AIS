@@ -61,16 +61,16 @@ Public GitHub Pages and Zenodo publication are held until the missing workflow
 is completed and its successor reviewed. There is no public dataset DOI or Pages
 deployment yet.
 
-## Mimas completion plan
+## HPC completion plan
 
 The publication cohort remains the current 4,006 models. The
-[submission plan](docs/mimas-completion-plan.md) specifies the missing energy,
+[submission plan](docs/hpc-completion-plan.md) specifies the missing energy,
 density and MCMC/DISCO stages, their dependencies and finite resource ceilings.
-The [machine-readable plan](config/mimas-completion-plan.json) is the approved
+The [machine-readable plan](config/hpc-completion-plan.json) is the approved
 planning snapshot. Its original administrator prerequisite is superseded by the
 [verified delegated repair](docs/completion-readiness.md). Readiness and CPU
 runtime preparation passed. The complete calculation graph is now submitted,
-with exact executable manifests in the [submission ledger](config/mimas-submissions.json).
+with exact executable manifests in the [submission ledger](config/hpc-submissions.json).
 This repair did not change generation jobs; BioEmu2 production was observed
 running separately and remains outside the frozen 4,006-model cohort.
 

@@ -51,7 +51,7 @@ DOC1 median/variance array SHA-256
 `272369b2ddd75cbf2fec9255a746c589021c2e0be8c29fc7bb4431c29415d471` /
 `551a3623e6b20aebdaf8af0ab63466a348c2e07aa18b959f8b5b0ec4af64ea03`.
 
-## Reclustering sequence on Mimas
+## Reclustering sequence on the HPC cluster
 
 1. Freeze a new hash-bound plan containing the two accepted roster hashes,
    full-distance-matrix hashes, exact one-based masks, code/dependency hashes,
