@@ -3,11 +3,11 @@
                     'CDK2_DOC1t': 'CDK2–DOC1t monomer',
                     'CDK2_DOC1R': 'CDK2–DOC1R monomer',
                     'CDK2_MONOMER': 'CDK2 monomer'};
-  const cohort = range => ['combined', 'core-combined'].includes(range) ? 'combined' : range === 'collaborator' ? range :
+  const cohort = range => ['downloads', 'core-downloads'].includes(range) ? 'downloads' : ['combined', 'core-combined'].includes(range) ? 'combined' : range === 'collaborator' ? range :
     ['joint', 'core-joint'].includes(range) ? 'joint' : 'afsample3';
   const single = {CDK2_DOC1R: 'Collaborator AF3 · 3,435 models', CDK2_MONOMER: 'Collaborator AF3 · 284 models'};
-  const trimmed = range => ['core-afsample3', 'core-joint', 'core-combined'].includes(range);
-  const full = range => ['all', 'joint', 'combined', 'collaborator'].includes(range);
+  const trimmed = range => ['core-afsample3', 'core-joint', 'core-combined', 'core-downloads'].includes(range);
+  const full = range => ['all', 'joint', 'combined', 'collaborator', 'downloads'].includes(range);
   function menu() {
     let label = document.getElementById('cohortViewLabel');
     if (label) return label;
@@ -48,7 +48,7 @@
     const choices = single[target] ? [['afsample3', single[target]]] :
       [['afsample3', 'AFSample3 · 1,000 models'], ['joint', 'Combined methods · 5,000 models']];
     if (target === 'CDK2_DOC1') choices.push(['collaborator', 'Collaborator AF3 · 910 models'],
-      ['combined', 'Existing and collaborator models · 5,910 models']);
+      ['combined', 'Existing and collaborator models · 5,910 models'], ['downloads', 'Collaborator AF3 · 14,420 models']);
     select.replaceChildren(...choices.map(([id, text]) => {
       const option = new Option(text + (available.has(id) ? '' : ' — unavailable'), id);
       option.disabled = !available.has(id);
@@ -72,7 +72,7 @@
     }
     note.replaceChildren();
     note.hidden = target !== 'CDK2_DOC1' || (!!current.coordinates_private && !current.core_results && currentRange.id !== 'combined');
-    if (!note.hidden && current.core_results) {
+    if (!note.hidden && current.cohort_note) { note.textContent=current.cohort_note; } else if (!note.hidden && current.core_results) {
       const a = document.createElement('a');
       a.href = current.core_results.comparison;
       a.download = '';
