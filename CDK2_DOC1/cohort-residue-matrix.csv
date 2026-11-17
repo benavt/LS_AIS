@@ -1,0 +1,6 @@
+Model cohort,Models,Full: CDK2 1-298 + DOC1 1-115 (413),Trimmed: CDK2 1-298 + DOC1 60-115 (354)
+AFSample3,1000,Available: 2 variants,Available: 3 variants
+AIS combined methods,5000,Available: 3 variants,Available: 3 variants
+Legacy collaborator AF3,910,Available: 3 variants,Missing separate analysis
+AIS + legacy collaborator,5910,Available: 3 variants,Available: 3 variants
+Downloaded collaborator AF3,14420,Available: 3 variants,Available: 3 variants
