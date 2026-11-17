@@ -509,6 +509,7 @@ async function savedCoordinate(descriptor){
  }
  const text=new TextDecoder().decode(bytes);descriptor.coordinate_text=text;return text;
 }
+function foxsModelMetadata(current,model){const s=current.schemes.find(s=>s.key==='foxs_chi_square');if(!s)return '';const value=s.values[current.models.indexOf(model)];return ' · FoXS χ²: '+(Number.isFinite(value)?value.toFixed(4)+' (full construct)':'unavailable');}
 function privatePointMeta(current,index){
  if(!current.coordinates_private&&!current.model_release)return '';
  const fields=[];
@@ -534,7 +535,7 @@ function choosePrivateMetadata(label,modelIndex=null){
   const energy=Number.isFinite(score)?' · ProteinEBM t=0.10: '+score.toFixed(3):'';
   const physicality=current.native_physicality_status?.[index];
   $('modelTitle').textContent=(exact?name:label+' representative · '+name)+' · coordinates private';
-  $('modelInfo').textContent=current.methods[index]+' · '+label+energy+(physicality?' · '+physicality:'');
+  $('modelInfo').textContent=current.methods[index]+' · '+label+energy+(physicality?' · '+physicality:'');$('modelInfo').textContent+=foxsModelMetadata(current,current.models[index]);
   for(const method of ['pca','umap','tsne']){
    const xy=current.projections[method]?.xy?.[index];
    if(Array.isArray(xy)&&xy.every(Number.isFinite))AtlasResponsive.relayout($(method),{annotations:[{x:xy[0],y:xy[1],text:name,showarrow:true,arrowhead:2,ax:25,ay:-30,font:{size:11,color:'#153f4d'},bgcolor:'#ffffffdd'}]});
@@ -568,7 +569,7 @@ async function choose(label,modelIndex=null){
  alignStructureToSetView();styleSavedStructure(viewer,cluster.color,ensemble ? .62 : 1);frameSelectedStructure();viewer.spin(spinning);configureEnsembleDownloads(cluster);
  notifyInspectedStructure();
  $('modelTitle').textContent=exact?cluster.model+' · exact selected model':label+' · '+(ensemble?(data.ensemble_kind||'comparison ensemble'):(current.representative_kind||'structural representative'));
- $('modelInfo').textContent=`${cluster.model} · ${cluster.method} · ${label} · ${cluster.count.toLocaleString()} ${cluster.count===1?'model':'models'} in cluster (${population(cluster.count)})${Number.isFinite(referenceSimilarity(cluster))?' · TM (5–95): '+referenceSimilarity(cluster).toFixed(3):''}`;if(current.model_release){const i=current.models.indexOf(cluster.model);const status=current.native_physicality_status?.[i];if(status&&status!=='not_assessed')$('modelInfo').textContent+=' · Native physicality: '+status;}
+ $('modelInfo').textContent=`${cluster.model} · ${cluster.method} · ${label} · ${cluster.count.toLocaleString()} ${cluster.count===1?'model':'models'} in cluster (${population(cluster.count)})${Number.isFinite(referenceSimilarity(cluster))?' · TM (5–95): '+referenceSimilarity(cluster).toFixed(3):''}`;if(current.model_release){const i=current.models.indexOf(cluster.model);const status=current.native_physicality_status?.[i];if(status&&status!=='not_assessed')$('modelInfo').textContent+=' · Native physicality: '+status;}$('modelInfo').textContent+=foxsModelMetadata(current,cluster.model);
  if(modelDownloadURL)URL.revokeObjectURL(modelDownloadURL);modelDownloadURL=URL.createObjectURL(new Blob([coordinate],{type:'text/plain'}));$('structure').hidden=false;$('structure').href=current.model_release?modelDownloadURL:cluster.file;$('structure').download=current.model_release?(cluster.model+'.'+cluster.format):cluster.file.split('/').pop();
  if(ensembleDownloadURL)URL.revokeObjectURL(ensembleDownloadURL);$('ensemblePdb').hidden=!cluster.ensemble_file;if(cluster.ensemble_file)$('ensemblePdb').href=cluster.ensemble_file;$('ensemblePse').hidden=!cluster.ensemble_pse;
  if(cluster.ensemble_text){ensembleDownloadURL=URL.createObjectURL(new Blob([cluster.ensemble_text],{type:'text/plain'}));$('ensemblePdb').href=cluster.ensemble_file;$('ensemblePdb').download=cluster.ensemble_file.split('/').pop()}if(cluster.ensemble_pse)$('ensemblePse').href=cluster.ensemble_pse;
