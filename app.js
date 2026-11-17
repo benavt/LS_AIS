@@ -415,6 +415,8 @@ async function drawProjections(){
  const key=data.target+'|'+(data.range_id||'all')+'|'+(data.view_id||'whole')+'|'+scheme().key;
  if(projectionLegendKey!==key){projectionLegendKey=key;hiddenProjectionCategories.clear()}
  const legend=$('projectionLegend');
+ const legendRenderer=data.models.length>10000?'html':'plotly';
+ if(legend.dataset.renderer!==legendRenderer){if(legend.data)Plotly.purge(legend);legend.replaceChildren();legend.dataset.renderer=legendRenderer}
  if(data.models.length>10000){
   const s=scheme(),panel=$('legendPanel');panel.open=true;
   $('legendSummary').textContent='Shared color legend · '+(s.short_name||s.name);
@@ -422,7 +424,7 @@ async function drawProjections(){
   if(s.type==='continuous'){
    const finite=s.values.filter(Number.isFinite),range=s.range||[Math.min(...finite),Math.max(...finite)];
    const note=document.createElement('p');note.textContent=finite.length.toLocaleString()+'/'+data.models.length.toLocaleString()+' models scored · '+s.name;
-   const bar=document.createElement('div');bar.setAttribute('role','img');bar.setAttribute('aria-label','Continuous ProteinEBM energy scale from '+range[0].toFixed(1)+' to '+range[1].toFixed(1));bar.style.cssText='height:14px;max-width:560px;border-radius:3px;background:linear-gradient(90deg,#440154,#414487,#2a788e,#22a884,#7ad151,#fde725)';
+   const bar=document.createElement('div');bar.setAttribute('role','img');bar.setAttribute('aria-label','Continuous '+(s.short_name||s.name)+' scale from '+range[0].toFixed(1)+' to '+range[1].toFixed(1));bar.style.cssText='height:14px;max-width:560px;border-radius:3px;background:linear-gradient(90deg,#440154,#414487,#2a788e,#22a884,#7ad151,#fde725)';
    const ticks=document.createElement('div');ticks.style.cssText='display:flex;justify-content:space-between;width:560px;max-width:100%;font-size:11px';const low=document.createElement('span'),high=document.createElement('span');low.textContent=range[0].toFixed(1);high.textContent=range[1].toFixed(1);ticks.append(low,high);
    legend.append(note,bar,ticks);
   }else{
