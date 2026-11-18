@@ -1,0 +1,65 @@
+{
+  "schema": "cdk2-public-static-export-v1",
+  "title": "CDK2 activation classifier metrics",
+  "population": 176712,
+  "files": {
+    "data/classification.csv.gz": {
+      "sha256": "1ff65dec9bd352de7d4d127eeda35fdf3da5088eca467b4fa9ea8ba7972bc9a4",
+      "bytes": 21449168
+    },
+    "data/cohort-0.json": {
+      "sha256": "6bcd61858d5e9e7dfd1886f5bd8c9c55a7d9d422bd21d1540007c5d8c68433a1",
+      "bytes": 19922213
+    },
+    "data/cohort-1.json": {
+      "sha256": "250fea37e41a3ea37474b10cd66cf06717d4cc2e856b5c8ab427525859592fa7",
+      "bytes": 15081482
+    },
+    "data/cohort-2.json": {
+      "sha256": "04609763ce64c217eb398aead890ff6301965eb2cf0481ebaa78ed2d6ab27b8d",
+      "bytes": 1321992
+    },
+    "data/cohort-3.json": {
+      "sha256": "5a6ceffaea8bef5be0a572afc9bc52976d98e241a0d13c30f2192e609afff8f5",
+      "bytes": 1328054
+    },
+    "data/cohort-4.json": {
+      "sha256": "f971b012f1eb1b2759b0a75bc121e2f17cb28c92de12fe78deb47985d15a5142",
+      "bytes": 261694
+    },
+    "data/cohort-5.json": {
+      "sha256": "3e63c89c44c1d705247aa3196a73baba016bcd70333797a10234695b954ce4d7",
+      "bytes": 987838
+    },
+    "data/cohort-6.json": {
+      "sha256": "a79e11fa92ab7b84d49dfbfe1df1bb6b3acefb7342b71da0c4824248937efeab",
+      "bytes": 79699
+    },
+    "data/cohort-7.json": {
+      "sha256": "cd310978b2771d86f23454b3d39bee7041599ec0fbc5a814b24d7f0631fc5441",
+      "bytes": 5097777
+    },
+    "data/cohort-8.json": {
+      "sha256": "3b7235baa1f974069e9e3750120c373bb757471e561a1aef237c5f2432dd39da",
+      "bytes": 4438167
+    },
+    "data/provenance.json": {
+      "sha256": "2f0e98e5a8ce5d2d1ccdee043f0c007ce9a437d6182ef5524309c37810142d47",
+      "bytes": 9010
+    },
+    "data/report.js": {
+      "sha256": "969ec805d953def161fd0c32afd3c7b7f565e0d7ae2756389c53128d265b6b0e",
+      "bytes": 4395
+    },
+    "data/summary.json": {
+      "sha256": "7cd412cfa741a7d3c5aab30d7914a88c8f8c40d9341a16ef02838378f3dafaf2",
+      "bytes": 12402
+    },
+    "index.html": {
+      "sha256": "d603ca54e8b751e62a9c847f8ac03748794380316c73f618a397bf4dbd3cebd3",
+      "bytes": 6334
+    }
+  },
+  "source_report_sha256": "ba7a9c947a8afcce173dbfb951abe38d48b3be46b60cfe4c10259237e1a0b302",
+  "source_summary_sha256": "7cd412cfa741a7d3c5aab30d7914a88c8f8c40d9341a16ef02838378f3dafaf2"
+}

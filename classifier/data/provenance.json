@@ -1,0 +1,267 @@
+{
+  "schema": "cdk2-public-classifier-provenance-v1",
+  "state": "accepted",
+  "accepted_at_utc": "2026-11-18T19:39:54.091758+00:00",
+  "method_version": "cdk2-roi-rmse-firstpass-v1",
+  "method_settings": {
+    "ROI_ranges": {
+      "PSTAIRE": [
+        [
+          45,
+          56
+        ]
+      ],
+      "T_loop": [
+        [
+          146,
+          166
+        ]
+      ]
+    },
+    "alignment_ranges": [
+      [
+        1,
+        44
+      ],
+      [
+        57,
+        145
+      ],
+      [
+        167,
+        298
+      ]
+    ],
+    "atoms": "CA",
+    "chain_policy": "Declared native chain or exact complete298AA CDK2 sequence; full model/chain provenance; missing or ambiguous CA indeterminate",
+    "index": "100*d001/(d001+d072)",
+    "label_rule": "both nearer072 active-like; both nearer001 inactive-like; disagreement mixed; missing/tie indeterminate",
+    "no_ROI_refit": true,
+    "overall": "equal mean of two ROI indices",
+    "tie_epsilon_angstrom": 1e-10
+  },
+  "interpretation": "Reference-relative geometry to user anchors 001/072; not biochemical activity probability",
+  "source_rows": 176712,
+  "unique_native_model_chains": 176712,
+  "label_counts": {
+    "inactive-like": 141392,
+    "active-like": 32310,
+    "mixed": 3010
+  },
+  "cohort_counts": {
+    "DOC1dimer_CDK2_JL_native": {
+      "inactive-like": 62174,
+      "active-like": 12539,
+      "mixed": 1087
+    },
+    "DOC1Rdimer_CDK2_JL_native": {
+      "inactive-like": 44485,
+      "active-like": 11796,
+      "mixed": 1182
+    },
+    "CDK2_DOC1_AIS_joint5000": {
+      "active-like": 3593,
+      "mixed": 373,
+      "inactive-like": 1034
+    },
+    "CDK2_DOC1t_AIS_joint5000": {
+      "active-like": 3837,
+      "mixed": 157,
+      "inactive-like": 1006
+    },
+    "cdk2_doc1_complex_collaborator_legacy": {
+      "inactive-like": 894,
+      "active-like": 15,
+      "mixed": 1
+    },
+    "cdk2_doc1r_complex_collaborator_legacy": {
+      "inactive-like": 3426,
+      "mixed": 7,
+      "active-like": 2
+    },
+    "cdk2_monomer_collaborator_legacy": {
+      "active-like": 29,
+      "inactive-like": 255
+    },
+    "cdk2_doc1_downloads_20261116": {
+      "inactive-like": 14028,
+      "mixed": 103,
+      "active-like": 289
+    },
+    "cdk2_doc1r_downloads_20261116": {
+      "active-like": 210,
+      "inactive-like": 14090,
+      "mixed": 100
+    }
+  },
+  "exclusions": [
+    {
+      "cohort": "DOC1Rdimer_CDK2_JL_native",
+      "models": 1,
+      "reason": "Previously rejected zero-byte source; use57463-row accepted roster, not57464-file input directory"
+    },
+    {
+      "cohort": "AIS_AFsample3",
+      "models": 2,
+      "reason": "Top-ranked root CIFs are summary representations outside the exact1000 seed/sample subset for each target; do not add them as models."
+    }
+  ],
+  "verification": {
+    "all_frozen_payload_and_roster_hashes": true,
+    "all_output_hashes": true,
+    "source_membership_identity_and_coverage": true,
+    "native_file_hashes_verified_inline_by_frozen_worker": 176712,
+    "all_ROI_ratios_and_labels_recomputed_from_saved_RMSE": 176712,
+    "complete_injective_298_residue_maps": true,
+    "pilot_parity_models": 284,
+    "CSV_rows": 176712,
+    "zero_exit_and_containment": true
+  },
+  "classifier_core_sha256": "62dc72fecdea19f8620871be9efcf4103a47ea334c609f6e6fe1fc1a9a1cc865",
+  "original_execution_plan_sha256": "fa1d63fe2d36b1f3e9586e0c6fd4a3da351c753211743bbadf2340a9fab926ec",
+  "original_result_receipt_sha256": "cc086e4e19f4ee46761da0d97eff8062231b6c8c5958a100080c6b139ffe14de",
+  "original_acceptance_sha256": "7e375e7b4eba2cbd9720861fa5b5833c48cc2a5539c13169f19fad7a8244eb5f",
+  "original_classification_csv_gz_sha256": "f49b335016627d91103e05233f8ac751fd6b71715185a8df722668da5477e6a6",
+  "original_pilot_receipt_sha256": "d3b6320ff2ac33eb22c8be30eff439ed1de98463d1f349c130efeba3aab73fae",
+  "sequence_sha256": "fe22d91e18cd544a85d7c768cd864172200252df906b774d890dc103224f7c8d",
+  "anchors": {
+    "active": {
+      "file_chain_id": "A",
+      "file_sha256": "9f8aebbfa5859a06b7e512547e0da72d67dd124f727164064feefbc7ebfc3923",
+      "method": "afsample2",
+      "model_number": 1,
+      "native_chain_id": "B",
+      "native_source_sha256": "5b6a5469ef788a87e9eaa2538c5d8344be3462771135cd4cb464cfdcb6867fdb",
+      "numbering": "canonical_identity_1_298",
+      "provider": "AIS",
+      "row_id": "anchor::072",
+      "source_cohort": "AIS",
+      "source_model_id": "CDK2_DOC1__afsample2__v2__model3__pred009",
+      "user_defined_anchor_index": 100
+    },
+    "inactive": {
+      "file_chain_id": "A",
+      "file_sha256": "3b05f1276118ed6a6bbe6af140097d19af6493c19d26558155d833664b1e24a0",
+      "method": "dhr_multimer_af3",
+      "model_number": 1,
+      "native_chain_id": "B",
+      "native_source_sha256": "8a90850a75117675fdb3aaa47cd7e633c6687458e5af27cf616dfa8c1c23c6ab",
+      "numbering": "canonical_identity_1_298",
+      "provider": "collaborator",
+      "row_id": "anchor::001",
+      "source_cohort": "collaborator_downloads",
+      "source_model_id": "collaborator::dhr_multimer_af3/seed-175885398/seed-175885398_sample-3/dhr_multimer_af3_seed-175885398_sample-3_model",
+      "user_defined_anchor_index": 0
+    }
+  },
+  "source_rosters": [
+    {
+      "source_cohort": "DOC1dimer_CDK2_JL_native",
+      "rows": 75800,
+      "roster_sha256": "1d3d11bb015bf4e765d07610bb4d7c8304ec38e216260b69e11fc73a0a028e0a",
+      "original_source_manifest_sha256": "80ad44512e91a49bf52996ef4b00c46e73ce080f9353741904ca6b9ae3330682",
+      "formats": {
+        ".pdb": 75800
+      }
+    },
+    {
+      "source_cohort": "DOC1Rdimer_CDK2_JL_native",
+      "rows": 57463,
+      "roster_sha256": "dfe6442db049c25e62d86aa117003a898e083c17101f280c6d49d1cf8e10dadd",
+      "original_source_manifest_sha256": "18115945560c439cecba3c58bc317a3ac5137594746fbaeb9e9d65d963be1bbc",
+      "formats": {
+        ".pdb": 57463
+      }
+    },
+    {
+      "source_cohort": "CDK2_DOC1_AIS_joint5000",
+      "rows": 5000,
+      "roster_sha256": "e381747c18ff41d582dab5bb814b10e6553414779d4b02892131bd6af26347c8",
+      "original_source_manifest_sha256": "ea353183a47584a2c17bdd76d4fe59650f34b140892ca1c6448ab87ede84ddb1",
+      "formats": {
+        ".cif": 1000,
+        ".pdb": 4000
+      }
+    },
+    {
+      "source_cohort": "CDK2_DOC1t_AIS_joint5000",
+      "rows": 5000,
+      "roster_sha256": "2b8e8192cb954f2fbc8ba06a75f15d8c1fee9509b1a57df2efcbf1410dcdea9f",
+      "original_source_manifest_sha256": "36994b4a084ecd8d530013bf9d44753f757c0f579870eae1cbcb2a7e070c19f2",
+      "formats": {
+        ".cif": 1000,
+        ".pdb": 4000
+      }
+    },
+    {
+      "source_cohort": "cdk2_doc1_complex_collaborator_legacy",
+      "rows": 910,
+      "roster_sha256": "b2caeb4b915c303ad3c668e0ff01c2f0b906047c640e137d7b79c5ec79edfc8a",
+      "original_source_manifest_sha256": "b033bd364d9cfac7fb39bf3cf1d8c8c29a92d663c4b3071a7fa1983a972652c1",
+      "formats": {
+        ".pdb": 910
+      }
+    },
+    {
+      "source_cohort": "cdk2_doc1r_complex_collaborator_legacy",
+      "rows": 3435,
+      "roster_sha256": "b1d3e92200b7f768ef08b15efd18181d98054cf6c903359c210ed2dc8c3b9e08",
+      "original_source_manifest_sha256": "b033bd364d9cfac7fb39bf3cf1d8c8c29a92d663c4b3071a7fa1983a972652c1",
+      "formats": {
+        ".pdb": 3435
+      }
+    },
+    {
+      "source_cohort": "cdk2_monomer_collaborator_legacy",
+      "rows": 284,
+      "roster_sha256": "77317c342b416b81f56a2668daca54267c66dfd94b00e4bb8772cabf12b869d3",
+      "original_source_manifest_sha256": "b033bd364d9cfac7fb39bf3cf1d8c8c29a92d663c4b3071a7fa1983a972652c1",
+      "formats": {
+        ".pdb": 284
+      }
+    },
+    {
+      "source_cohort": "cdk2_doc1_downloads_20261116",
+      "rows": 14420,
+      "roster_sha256": "c9f5995a92b4cab34acdf6de100b90d3bb5f354635453818aa0a9c1b34815ff2",
+      "original_source_manifest_sha256": "9d5595212d9d3844b4c894b64a84b4003176bf2d32e80707946432d9e413cb99",
+      "formats": {
+        ".cif": 14420
+      }
+    },
+    {
+      "source_cohort": "cdk2_doc1r_downloads_20261116",
+      "rows": 14400,
+      "roster_sha256": "2c9dee7f4f15069c70de47fc455ff928f52c1435e0dd636db70c57a1c975cb02",
+      "original_source_manifest_sha256": "c05623f545941b425de98a6cfc65208e4b1e42e5c38a79880f76ed6d6ef9fb08",
+      "formats": {
+        ".cif": 14400
+      }
+    }
+  ],
+  "public_export": {
+    "description": "Saved accepted metrics with private filesystem locations and operational records removed. No coordinates are included. No science was recalculated.",
+    "CSV_columns": [
+      "source_cohort",
+      "provider",
+      "source_model_id",
+      "method",
+      "file_sha256",
+      "native_chain_id",
+      "model_number",
+      "status",
+      "label",
+      "overall_index",
+      "residue_map_sha256",
+      "PSTAIRE_d_inactive_angstrom",
+      "PSTAIRE_d_active_angstrom",
+      "PSTAIRE_index",
+      "PSTAIRE_closer_anchor",
+      "T_loop_d_inactive_angstrom",
+      "T_loop_d_active_angstrom",
+      "T_loop_index",
+      "T_loop_closer_anchor"
+    ],
+    "CSV_rows": 176712
+  }
+}
