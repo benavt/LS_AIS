@@ -1,0 +1,43 @@
+/* Pinned compact-driver layout. Shared profile values own presentation. */
+html[data-atlas-profile]{scroll-snap-type:none!important}
+html[data-atlas-profile] body{margin:0;background:var(--atlas-background);color:var(--atlas-text);font:inherit;font-size:var(--atlas-font-body);line-height:var(--atlas-line-height)}
+html[data-atlas-profile] main{max-width:var(--atlas-max-width);margin:auto;padding:var(--atlas-space-lg) var(--atlas-page-padding)}
+html[data-atlas-profile] :is(header,section){padding:var(--atlas-frame-padding);background:var(--atlas-paper);border:1px solid var(--atlas-line);border-radius:var(--atlas-radius);margin-bottom:var(--atlas-space-lg);min-width:0}
+html[data-atlas-profile] :is(h1,h2,h3,label,strong,th){font-weight:var(--atlas-font-semibold);color:var(--atlas-text)}
+html[data-atlas-profile] h1{font-size:var(--atlas-font-title)}
+html[data-atlas-profile] h2{font-size:var(--atlas-font-section)}
+html[data-atlas-profile] :is(p,.detail){font-size:var(--atlas-font-paragraph);color:var(--atlas-muted)}
+html[data-atlas-profile] :is(button,select){font-family:inherit;font-size:var(--atlas-font-control);min-height:var(--atlas-control-height);color:var(--atlas-text);background:var(--atlas-paper);border-color:var(--atlas-line);border-radius:var(--atlas-radius-control);max-width:100%}
+html[data-atlas-profile] :is(button,select,a,summary):focus-visible{outline:3px solid var(--atlas-chrome-accent);outline-offset:3px}
+html[data-atlas-profile] a{color:var(--atlas-chrome-accent)}
+html[data-atlas-profile] .controls{gap:var(--atlas-space);flex-wrap:wrap}
+html[data-atlas-profile] label{font-size:var(--atlas-font-label);min-width:0;overflow-wrap:anywhere}
+html[data-atlas-profile] .atlas-compact-heading{display:flex;justify-content:space-between;align-items:center;gap:var(--atlas-space);flex-wrap:wrap}
+html[data-atlas-profile] .atlas-compact-heading h2{margin:0}
+html[data-atlas-profile] #atlasCompactAdvanced{padding:var(--atlas-space-sm) 0;margin:0}
+html[data-atlas-profile] #atlasCompactAdvanced>summary{cursor:pointer;overflow-wrap:anywhere}
+html[data-atlas-profile] #atlasCompactActive{font-size:var(--atlas-font-small);color:var(--atlas-muted)}
+html[data-atlas-profile] #atlasCompactAdvanced .selection-controls{background:var(--atlas-background);padding:var(--atlas-space);gap:var(--atlas-space);border-radius:var(--atlas-radius-control)}
+html[data-atlas-profile] .explorer{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:var(--atlas-space-lg);align-items:start}
+html[data-atlas-profile] .atlas-compact-plot-frame{grid-column:1;grid-row:1;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden}
+html[data-atlas-profile] #plot{min-height:var(--atlas-plot-compact-height);max-width:none}
+html[data-atlas-profile] #atlasCompactLegendPanel{grid-column:1;grid-row:2;min-width:0;max-width:100%;padding:0;border:0;margin:0}
+html[data-atlas-profile] #projectionLegend{max-height:var(--atlas-legend-max-height);min-height:0;overflow:auto;overscroll-behavior:contain}
+html[data-atlas-profile] #atlasCompactLegendPanel[data-show-all=true] #projectionLegend{max-height:none}
+html[data-atlas-profile] #atlasCompactLegendToggle{margin:var(--atlas-space-sm) 0}
+html[data-atlas-profile] .structure{grid-column:2;grid-row:1/3;border-left:1px solid var(--atlas-line);border-top:0;padding:0 0 0 var(--atlas-frame-padding);min-width:0}
+html[data-atlas-profile] #viewer{height:var(--atlas-molecule-height);min-height:var(--atlas-molecule-min-height)}
+html[data-atlas-profile] .table-scroll{overflow:auto;max-width:100%}
+html[data-atlas-profile] table{font-size:var(--atlas-font-table);min-width:var(--atlas-table-min-width)}
+html[data-atlas-profile] #atlasCompactExplorer[data-layout=narrow] .explorer{grid-template-columns:minmax(0,1fr)}
+html[data-atlas-profile] #atlasCompactExplorer[data-layout=narrow] :is(.atlas-compact-plot-frame,#atlasCompactLegendPanel,.structure){grid-column:1;grid-row:auto}
+html[data-atlas-profile] #atlasCompactExplorer[data-layout=narrow] .structure{border-left:0;border-top:1px solid var(--atlas-line);padding:var(--atlas-space) 0 0}
+html[data-atlas-profile] #atlasCompactExplorer[data-layout=narrow] :is(button,select){min-height:var(--atlas-control-height-narrow)}
+html[data-atlas-profile] #atlasCompactExplorer[data-layout=narrow] .controls>label{flex:1 1 100%}
+html[data-atlas-profile] #atlasCompactExplorer.is-expanded{position:fixed;inset:var(--atlas-space);z-index:1000;overflow:auto;background:var(--atlas-background);padding:var(--atlas-space);box-shadow:0 0 0 100vmax #0005}
+html[data-atlas-profile] body.atlas-compact-expanded{overflow:hidden}
+html[data-atlas-profile] .atlas-preview-navigation{max-width:var(--atlas-max-width);margin:auto;padding:var(--atlas-space) var(--atlas-page-padding);font:inherit;display:flex;align-items:center;flex-wrap:wrap;gap:var(--atlas-space)}
+html[data-atlas-profile] .atlas-preview-navigation strong{font-weight:var(--atlas-font-semibold)}
+html[data-atlas-profile] .jernigan-target-nav{font-family:inherit;font-size:var(--atlas-font-body);color:var(--atlas-text)}
+html[data-atlas-profile] .jernigan-target-nav :is(p,a){font-family:inherit;font-size:var(--atlas-font-paragraph);font-weight:400}
+html[data-atlas-profile] .jernigan-target-nav :is(strong,b,a[aria-current=page]){font-weight:var(--atlas-font-semibold)}

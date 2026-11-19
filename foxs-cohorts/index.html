@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structure Atlas</title><link rel="icon" href="data:,"><link rel="stylesheet" href="style.css">
+<script src="assets/plotly.min.js" defer></script><script src="assets/3Dmol-min.js" defer></script><script src="bonsai.js" defer></script><script src="cohort_model.js" defer></script><script src="atlas_profile.js" defer></script>
+<script src="atlas_ui_layout.js" defer></script>
+<script src="atlas_compact_profile.js" defer></script>
+<script src="atlas_manual_models.js" defer></script>
+<script src="cohort_geometry.js" defer></script>
+<script src="cohort_inspection.js" defer></script>
+<script src="cohort_controller.js" defer></script>
+<script src="tm_states.js" defer></script>
+<script src="atlas_distance_maps.js" defer></script>
+<script src="atlas_maps_catalog.js" defer></script>
+<script src="atlas_maps_bridge.js" defer></script>
+
+<!-- atlas-ui-profile-v1:compact-cohort -->
+<link rel="stylesheet" href="atlas_profile.css">
+<link rel="stylesheet" href="atlas_compact_profile.css">
+<link rel="stylesheet" href="atlas_distance_maps.css">
+<link rel="stylesheet" href="cohort_inspection.css">
+</head>
+<body><main><nav aria-label="Atlas navigation"><a href="../#CDK2_DOC1">DOC1 atlas and existing cohorts</a> · <a href="../#CDK2_DOC1R">DOC1R atlas and existing cohorts</a> · <a href="../classifier/">CDK2 classifier</a></nav>
+<header><span class="badge" id="cohort-badge">Saved model cohort</span><h1 id="title">Structure Atlas</h1><p id="summary" aria-live="polite">Loading accepted results…</p>
+<div class="controls" id="dataset-controls"><label id="target-label">Target <select id="target"></select></label><label id="cohort-label">Model cohort <select id="cohort"></select></label><label id="range-label">Residues <select id="range"></select></label></div></header>
+<p id="error" role="alert" hidden></p>
+<section aria-labelledby="explore"><h2 id="explore">Explore</h2>
+<div class="controls"><label>Clustering <select id="view"></select></label><label>Projection <select id="projection"><option value="umap">UMAP</option><option value="pca">PCA</option><option value="tsne">t-SNE</option></select></label><label>Color by <select id="color"><option value="cluster">Cluster</option><option value="method">Sampling method</option><option value="energy">ProteinEBM energy</option><option value="state">State</option></select></label></div>
+<p class="detail" id="scope"></p>
+<div class="selection-controls"><label>Highlight panel <select id="highlight"><option value="none">Off</option><option value="mcmc">MCMC</option><option value="disco">DISCO</option><option value="both">MCMC + DISCO</option></select></label><label>State <select id="state"></select></label><label id="origin-label">Panel cohort <select id="origin"><option value="current">Current cohort</option><option value="interim">Earlier comparison</option></select></label><button id="clear-highlight" type="button">Clear highlights</button></div>
+<p class="detail" id="selection-note" aria-live="polite"></p>
+<div class="explorer"><div id="plot" aria-label="Model projection"></div><div class="structure"><label>Cluster representative <select id="cluster"></select></label>
+<div class="viewer-controls"><label>Structure color <select id="structure-color"><option value="uniform">Uniform</option><option value="cluster">Cluster</option><option value="chain">Chain</option><option value="rainbow">Sequence N→C</option><option value="confidence">pLDDT</option></select></label><button id="reset-camera" type="button">Reset view</button></div>
+<p class="detail" id="structure-color-note"></p><div id="viewer" aria-label="Structure viewer"></div><p id="structure-status" class="detail" aria-live="polite"></p><div class="downloads"><a id="coordinate" download hidden>Download coordinates</a><a id="ensemble" download hidden>Cluster ensemble</a></div></div></div>
+</section>
+<section aria-labelledby="tm-heading"><h2 id="tm-heading">Representatives: TM similarity</h2><div id="tm"></div><p class="detail" id="tm-note"></p></section>
+<section aria-labelledby="tree-heading"><h2 id="tree-heading">Bonsai</h2><label>Tree <select id="tree"></select></label><div id="bonsai"></div><p class="detail" id="tree-note"></p></section>
+<section aria-labelledby="states-heading"><h2 id="states-heading">States and panels</h2><p id="coverage"></p><div class="table-scroll"><table><thead><tr><th scope="col">State</th><th scope="col">Clustering</th><th scope="col">Method</th><th scope="col">Models</th><th scope="col">Inspect</th><th scope="col">Ensemble</th></tr></thead><tbody id="panels"></tbody></table></div><details id="interim-details"><summary>Earlier-cohort comparisons</summary><p class="detail">Saved earlier panels are shown separately from current-cohort selections.</p><ul id="interim"></ul></details></section>
+<section aria-labelledby="scope-heading"><h2 id="scope-heading">Scope and downloads</h2><p id="scope-description"></p><p class="detail" id="energy-description"></p><p class="detail">Display controls preserve the saved fit, memberships and coordinate downloads. A point click inspects that exact native model. Ctrl/Command-click toggles its comparison membership. Outlined circles mark MCMC members; outlined diamonds mark DISCO members.</p><h3>Reports</h3><ul id="reports"></ul><a id="data-download" download>Download saved memberships, index and scores</a></section>
+<section><h2>FoXS selection and downloads</h2><p>183 DOC1–CDK2 and 172 DOC1R–CDK2 models. Inactive-like classifier assignment and at least one profile with inclusive χ² 0.75–1.20 and c2 ≤4.0. Both scores retain full native two-chain scattering scope in every residue view. All selected native models are included. Bonsai uses the accepted 11-model comparison panel per view.</p><p><a href="cohort-metrics.csv" download>All cohort metrics CSV</a> · <a href="provenance.json">Methods and provenance</a> · <a href="manifest.json">File checksums</a></p><p><a href="foxs-selected/source-quality.json" download>Source quality annotations</a> · <a href="foxs-selected/source-confidence.json" download>Source confidence coverage</a></p></section></main></body></html>

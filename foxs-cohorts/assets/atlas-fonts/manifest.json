@@ -1,0 +1,51 @@
+{
+  "schema_version": "atlas-fonts-v1",
+  "source_revision": "ffebf8c1ee449e544955a7e813c54f9b73848eac",
+  "files": [
+    {
+      "path": "NotoSans-Regular.ttf",
+      "bytes": 569208,
+      "sha256": "b85c38ecea8a7cfb39c24e395a4007474fa5a4fc864f6ee33309eb4948d232d5",
+      "family": "NotoSans",
+      "weight": 400,
+      "version": "Version 2.008; ttfautohint (v1.8) -l 8 -r 50 -G 200 -x 14 -D latn -f none -a qsq -X \"\"",
+      "source_revision": "ffebf8c1ee449e544955a7e813c54f9b73848eac",
+      "source_url": "https://raw.githubusercontent.com/notofonts/noto-fonts/ffebf8c1ee449e544955a7e813c54f9b73848eac/hinted/ttf/NotoSans/NotoSans-Regular.ttf"
+    },
+    {
+      "path": "NotoSans-SemiBold.ttf",
+      "bytes": 572924,
+      "sha256": "87a8b90ece1e89746b544e4e086f85a3710e41485a8078f9be874837dfad45d5",
+      "family": "NotoSans",
+      "weight": 600,
+      "version": "Version 2.008; ttfautohint (v1.8) -l 8 -r 50 -G 200 -x 14 -D latn -f none -a qsq -X \"\"",
+      "source_revision": "ffebf8c1ee449e544955a7e813c54f9b73848eac",
+      "source_url": "https://raw.githubusercontent.com/notofonts/noto-fonts/ffebf8c1ee449e544955a7e813c54f9b73848eac/hinted/ttf/NotoSans/NotoSans-SemiBold.ttf"
+    },
+    {
+      "path": "NotoSansMath-Regular.ttf",
+      "bytes": 590904,
+      "sha256": "80b61fd613d3519197e64fff6f7e71fdc7f3e6526440ea4115b554ef7fd59af7",
+      "family": "NotoSansMath",
+      "weight": 400,
+      "version": "Version 2.001; ttfautohint (v1.8) -l 8 -r 50 -G 200 -x 14 -D latn -f none -a qsq -X \"\"",
+      "source_revision": "ffebf8c1ee449e544955a7e813c54f9b73848eac",
+      "source_url": "https://raw.githubusercontent.com/notofonts/noto-fonts/ffebf8c1ee449e544955a7e813c54f9b73848eac/hinted/ttf/NotoSansMath/NotoSansMath-Regular.ttf"
+    }
+  ],
+  "licenses": [
+    {
+      "path": "OFL-NotoSans.txt",
+      "bytes": 4377,
+      "sha256": "0dab92d0544f7b233403f14b84a663bdbfa746982eda629e7f4f9ffe1b036feb",
+      "source_url": "https://raw.githubusercontent.com/notofonts/noto-fonts/ffebf8c1ee449e544955a7e813c54f9b73848eac/LICENSE"
+    },
+    {
+      "path": "OFL-NotoSansMath.txt",
+      "bytes": 4377,
+      "sha256": "0dab92d0544f7b233403f14b84a663bdbfa746982eda629e7f4f9ffe1b036feb",
+      "source_url": "https://raw.githubusercontent.com/notofonts/noto-fonts/ffebf8c1ee449e544955a7e813c54f9b73848eac/LICENSE"
+    }
+  ],
+  "repertoire": "Full upstream static fonts; no subsetting or modification."
+}

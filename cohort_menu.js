@@ -61,6 +61,12 @@
     select.setAttribute('aria-label', 'Model cohort');
     select.addEventListener('change', () => {
       const range = document.getElementById('residueRange');
+      if (select.value === 'inactive-foxs') {
+        const scope = range.value.startsWith('core') ? 'core' : 'full';
+        const id = optionTarget === 'CDK2_DOC1R' ? 'inactive-foxs-doc1r' : 'inactive-foxs-doc1';
+        window.location.href = 'foxs-cohorts/#dataset='+id+'__'+scope+'&view=knn&color=foxs_chi_square_q0p20';
+        return;
+      }
       const candidates = completeOptions.filter(
         item => cohort(item.value) === select.value && !item.disabled);
       const option = candidates.find(item => trimmed(item.value) === trimmed(range.value))
@@ -90,12 +96,17 @@
       [['afsample3', 'AFSample3 · 1,000 models'], ['joint', 'Combined methods · 5,000 models']];
     if (target === 'CDK2_DOC1') choices.push(['collaborator', 'Collaborator AF3 · 910 models'],
       ['combined', 'Existing and collaborator models · 5,910 models'], ['downloads', 'Collaborator AF3 · 14,420 models']);
+    const foxsTarget = target === 'CDK2_DOC1' || target === 'CDK2_DOC1R';
+    if (foxsTarget) {
+      available.add('inactive-foxs');
+      choices.push(['inactive-foxs', 'Inactive CDK2 · FoXS χ² 0.75–1.20 · '+(target === 'CDK2_DOC1' ? '183' : '172')+' models']);
+    }
     select.replaceChildren(...choices.map(([id, text]) => {
       const option = new Option(text + (available.has(id) ? '' : ' — unavailable'), id);
       option.disabled = !available.has(id);
       return option;
     }));
-    select.disabled = !!single[target];
+    select.disabled = !!single[target] && !foxsTarget;
     select.value = cohort(currentRange.id);
     label.hidden = !monomer;
     if (target === 'CDK2_DOC1') {
