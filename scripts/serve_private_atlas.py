@@ -1,4 +1,4 @@
-"""Serve only a verified atlas manifest on loopback or an approved private Tailscale address."""
+"""Serve only a verified atlas manifest on loopback or an approved private VPN address."""
 import argparse
 import datetime
 import hashlib
@@ -29,7 +29,7 @@ def main():
     args = parser.parse_args()
     address = ipaddress.ip_address(args.bind)
     if not (address.is_loopback or address in ipaddress.ip_network('100.64.0.0/10')) or not 1 <= args.duration <= 43200:
-        parser.error('Select loopback or a private Tailscale address and a bounded preview lifetime')
+        parser.error('Select loopback or a private VPN address and a bounded preview lifetime')
     from src.analysis.atlas_presentation import handler_for
     site = args.site.resolve()
     manifest = site / 'export-manifest.json'
@@ -58,7 +58,7 @@ def main():
     result = dict(status='serving', project='LS_AIS', private=True,
         url=f'http://{args.bind}:{args.port}/LS_AIS/', started_at_UTC=now.isoformat(),
         expires_at_UTC=(now + datetime.timedelta(seconds=args.duration)).isoformat(),
-        manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest(), access=('Local machine only' if address.is_loopback else 'Existing private Tailscale access; host must remain online'))
+        manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest(), access=('Local machine only' if address.is_loopback else 'Existing private VPN access; host must remain online'))
     with ThreadingHTTPServer((args.bind, args.port), Handler) as server:
         (site.parent / ('local-preview-receipt.json' if address.is_loopback else 'private-preview-receipt.json')).write_text(json.dumps(result, indent=2) + '\n')
         print(json.dumps(result), flush=True)

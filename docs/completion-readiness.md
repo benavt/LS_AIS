@@ -1,6 +1,6 @@
 # Completion execution repair
 
-The user approved the current 4,006-model Mimas plan with SHA-256
+The user approved the current 4,006-model HPC plan with SHA-256
 b887c9c362f8dad0cc6211f83d0a33208cd69e8d05faf23594b86cfa58a067b6,
 then explicitly requested rechecking, repair and resubmission. The original
 administrator-dependency conclusion was incorrect. The account already has
@@ -11,6 +11,12 @@ The approved planning snapshot is preserved byte-for-byte, including its now
 superseded admission assumption. This execution record and
 [execution status](../config/completion-execution-status.json) correct that
 assumption and retain all failed attempts.
+
+The public copy of that snapshot, `config/hpc-completion-plan.json`, was
+edited on 2026-11-16 only to change its file name, plan id and host labels to
+role names (`hpc`, `workstation`), so its bytes no longer hash to the approved
+SHA-256 above. That value still identifies the approved plan and is the
+`approved_plan_sha256` the execution scripts check.
 
 | Job | Stage | Observed result |
 | --- | --- | --- |
@@ -49,7 +55,7 @@ P1 verified exact installed versions, pinned library/density/Bonsai imports,
 32-point synthetic UMAP, two-group synthetic HDBSCAN, finite-pool prior and
 fixed-cardinality subset fixtures, and the pinned USalign help. The executable
 retains its original relative RPATH and uses hash-bound copies of its matching
-Pax C++ libraries; system libraries were unchanged. These checks establish
+Workstation C++ libraries; system libraries were unchanged. These checks establish
 preparation readiness and do not constitute target scientific acceptance.
 
 P2 subsequently passed as job25683,and the complete remaining calculation graph

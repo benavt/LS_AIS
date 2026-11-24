@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "id": "2026-11-09_mimas-current4006-complete_001",
+  "id": "2026-11-09_hpc-current4006-complete_001",
   "status": "reviewable_submission_plan_not_executable",
   "target": "HSPH1_12757_homodimer",
   "cohort": {
@@ -428,7 +428,7 @@
       "maximum_active_tasks": 1,
       "process_limit": 64,
       "swap_bytes": 0,
-      "operation": "Delivery-manifest and privacy/capacity audit;allowlist selected accepted results for verified collection to Pax"
+      "operation": "Delivery-manifest and privacy/capacity audit;allowlist selected accepted results for verified collection to the workstation"
     }
   ],
   "bounds": {
@@ -502,7 +502,7 @@
     "Explicit approval of the resulting exact executable plan;current request authorizes planning only"
   ],
   "publication": {
-    "private_successor": "After accepted scientific outputs,collect selected files with hashes and build fresh private atlas on Pax",
+    "private_successor": "After accepted scientific outputs,collect selected files with hashes and build fresh private atlas on the workstation",
     "checks": [
       "4006 finite points and native energies in both views",
       "own partition structures,ensembles,TM grids and native Bonsai",
@@ -514,7 +514,7 @@
     "gzip": "Use supported shared transport for new derived ensemble assets;link medoids to existing native models;never omit cohort points to meet size budget",
     "zenodo": "Fresh four-file package;reuse exact native models.tar.gz;update scores and scholarly README,resolve license,verify exact final files and metadata",
     "gate": "Review exact complete successor before public deployment/Zenodo publication;current publication hold stays set",
-    "Pax_delivery_resources": {
+    "workstation_delivery_resources": {
       "cpus": 2,
       "memory_gib": 4,
       "wall_hours_cap": 2,
@@ -526,7 +526,7 @@
   },
   "cost": {
     "paid_external_APIs_usd": 0,
-    "Mimas_allocation_charge": "Not priced;quote bounded core/GPU requests,not a claim of free compute",
+    "hpc_allocation_charge": "Not priced;quote bounded core/GPU requests,not a claim of free compute",
     "calendar_ETA": "Estimate after canary/pilots and live queue;no calendar promise from wall limits"
   },
   "environment": {
@@ -546,7 +546,7 @@
       "ruamel.yaml": "0.18.15",
       "psutil": "7.0.0"
     },
-    "version_source": "Read-only metadata of the accepted Pax runtime;proposed for Mimas compatibility validation",
+    "version_source": "Read-only metadata of the accepted workstation runtime;proposed for HPC compatibility validation",
     "lock_status": "Not yet resolved to a platform-specific artifact/build hash lock",
     "bootstrap": "Pinned binary packages only,no unreviewed source builds or automatic dependency fallbacks",
     "Bonsai_dependency_installer": false,

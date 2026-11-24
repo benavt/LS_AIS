@@ -1,6 +1,6 @@
 """Audit full three-chain PDB cohorts before any scientific calculation.
 
-The private run retains complete sequences on Mimas. Standard output contains
+The private run retains complete sequences on the HPC cluster. Standard output contains
 only aggregate counts and hashes; source configuration contains sequence hashes.
 """
 

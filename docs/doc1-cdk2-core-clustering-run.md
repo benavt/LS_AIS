@@ -7,7 +7,7 @@ new fit rosters. ProteinEBM values are separate and are not fit features.
 
 The user approved the exact pilot plan SHA-256
 `e896b769379bee8264df6d0d1909faedb96e6f3e3615a141ad1ba9fd7eb545e7`.
-Mimas array `26075` finished both tasks with validated receipts, zero-exit
+HPC array `26075` finished both tasks with validated receipts, zero-exit
 completion events, and finished whole-job CPU resource logs. The pilot tested
 three symmetric A/B starts per target on the accepted fixed 5,000-model
 samples and measured 256 exact-model comparisons, with C kept complete.
@@ -33,7 +33,7 @@ full-cohort clusters.
 
 The user approved the full-cohort fit plan SHA-256
 `dcec61046f7b836a4ee86e56263ab2d8c2994554cab7edac693c021202222145`.
-Mimas array `26077` was submitted with two serial 8-core CPU tasks,
+HPC array `26077` was submitted with two serial 8-core CPU tasks,
 256 GiB and 36 hours maximum per task, zero GPUs, and zero paid external
 calls. Its frozen code must reproduce the primary pilot sketch on the exact
 5,000 sampled rows before UMAP or HDBSCAN fits. The accepted full-construct

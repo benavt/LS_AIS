@@ -1,4 +1,4 @@
-# Mimas plan for the complete current HSPH1 atlas
+# HPC plan for the complete current HSPH1 atlas
 
 Complete the full atlas workflow for **4,006 currently accepted models** of
 HSPH1 construct 12757, with both complete 117-residue chains and the supplied tag.
@@ -7,7 +7,7 @@ The user selected this publication cohort on November 9, 2026. The remaining
 remain intact. No jobs were submitted while preparing this plan.
 
 This is a reviewable submission design, **not an executable approval manifest**.
-Its [machine-readable specification](../config/mimas-completion-plan.json) binds
+Its [machine-readable specification](../config/hpc-completion-plan.json) binds
 the cohort, proposed scientific settings, dependency graph and resource ceilings.
 Private native-input and saved-artifact inventories bind original paths and
 hashes. Exact new worker commits, platform-specific environment locks, batch
@@ -15,7 +15,7 @@ bodies and successful containment evidence must be added before submission.
 
 ## Admission comes first
 
-The read-only Mimas audit found the two HSPH1 production arrays still held,
+The read-only HPC audit found the two HSPH1 production arrays still held,
 final acceptance dependency-blocked, and no HSPH1 ProteinEBM job. Slurm reports
 `SelectTypeParameters=CR_CORE`, unlimited default/max node memory, and disabled
 accounting. These configuration observations alone do not certify allocation
@@ -35,7 +35,7 @@ child; otherwise require administrator evidence, never stress the node.
 
 The existing ProteinEBM interpreter lacks scikit-learn, UMAP and Numba. P1
 therefore provisions a separate project-local CPU analysis environment from a
-resolved hash lock, starting with the accepted Pax version constraints in the
+resolved hash lock, starting with the accepted workstation version constraints in the
 JSON plan. It stages the exact library, density helper, Bonsai and USalign.
 Do not mutate the working ProteinEBM environment or run Bonsai's dependency
 installer. Do not install packages until the exact bootstrap is reviewed and
@@ -73,14 +73,14 @@ workload, validation and cleanup; they are ceilings, not duration predictions.
 | S1 | S0 | 1 | 4 | 16 | 0 | 720 min | New positional complex candidate grid,geometry-only state discovery and all4006-member state scores;maximum three states |
 | S2 | S1 | 1 | 2 | 8 | 0 | 60 min | Saved-energy MCMC50 and DISCO50 for Primary and HDBSCAN priors;exact controls,diagnostics and selected aligned native-coordinate exports |
 | S3 | S2 | 1 | 2 | 8 | 0 | 30 min | Scientific/hash acceptance for all required views and sampling;verify finalizer finished telemetry separately in X0 |
-| X0 | S3 | 1 | 2 | 8 | 0 | 30 min | Delivery-manifest and privacy/capacity audit;allowlist selected accepted results for verified collection to Pax |
+| X0 | S3 | 1 | 2 | 8 | 0 | 30 min | Delivery-manifest and privacy/capacity audit;allowlist selected accepted results for verified collection to the workstation |
 
 This is **18 scheduler submissions and 69 tasks: 28 CPU tasks and 41 GPU tasks**.
 GPU requests total at most **410 GPU-minutes (6 hours 50 minutes)**. The complete
 request envelope totals 287.7 core-hours if every task consumes its full
 wall allowance. These are conservative request ceilings; actual runtimes must
 be measured. Paid external API calls and API spend are zero. No monetary rate
-for Mimas allocation time has been established.
+for HPC allocation time has been established.
 
 ## Frozen scientific scope
 
@@ -194,11 +194,11 @@ The conservative new native limits are:
 Actual counts must be emitted before each dependent native stage and may be
 lower through exact same-protocol caching. Never exceed the bounds, retry
 uncertain calls automatically or reuse mismatched protocols. Run paths and
-outputs are new and immutable. Plan storage is at most 30 GiB added on Mimas:
+outputs are new and immutable. Plan storage is at most 30 GiB added on the HPC cluster:
 8 GiB environment, 2 GiB selected input staging and 20 GiB scientific/delivery
 outputs. Require quota and storage preflight with 50 GiB free reserve. The saved
 input inventory selects 4,022 metadata/feature files totaling 242,161,620 bytes;
-original native coordinates already remain on Mimas. No bulk retirement,
+original native coordinates already remain on the HPC cluster. No bulk retirement,
 whole-folder synchronization or source cleanup is part of this plan.
 
 ## Submission and acceptance procedure
@@ -227,7 +227,7 @@ whole-folder synchronization or source cleanup is part of this plan.
 
 ## Complete private successor, then publication
 
-Collect only allowlisted accepted results to a fresh ignored successor on Pax.
+Collect only allowlisted accepted results to a fresh ignored successor on the workstation.
 Build from saved outputs under a two-CPU/four-GiB/two-hour envelope, with at most
 2 GiB added local disk and a 50 GiB reserve. Serve a fresh private preview for
 up to two hours; the earlier preview's availability does not carry over.

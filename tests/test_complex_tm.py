@@ -3,8 +3,10 @@ import hashlib,importlib.util,json,sys,tempfile,types,unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts/completion'))
 # Pure pinned parsing/cache code, without running the native executable.
-LIB=ROOT/'local/execution/2026-11-09_mimas-current4006-complete_002/P1-stage_003/source/library'
-sys.path.insert(0,str(LIB))
+# Prefer the pinned library from the ignored private execution directory when present;
+# otherwise the same module is imported from scripts/completion.
+for LIB in sorted((ROOT/'local/execution').glob('2026-11-09_*-current4006-complete_002/P1-stage_003/source/library'))[:1]:
+    sys.path.insert(0,str(LIB))
 from complex_tm import make_scorer,ARGUMENTS,VERSION
 from execution_utils import sha
 class ComplexProtocol(unittest.TestCase):
